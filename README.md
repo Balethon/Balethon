@@ -1,7 +1,7 @@
-# BaleThon
+# Balethon
 
 <img align="center" src="IMG_20230706_161132.jpg" alt="PROFILE">
 
-<h3 align="center">BaleThon a library python for create bot's API in Bale</h3>
+<h3 align="center">Balethon a python library for createing bots in Bale</h3>
 
 > ## example:
