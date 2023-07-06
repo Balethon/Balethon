@@ -61,43 +61,43 @@ class Client:
     # attachments
     async def send_photo(self, chat_id, photo, caption=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "photo": photo, "caption": caption, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendPhoto", json=json) as response:
+        async with self.session.post(f"{self.url}/sendPhoto", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_audio(self, chat_id, audio, caption=0, duration=0, title=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "audio": audio, "caption": caption, "duration": duration, "title": title, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendAudio", json=json) as response:
+        async with self.session.post(f"{self.url}/sendAudio", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_document(self, chat_id, document, caption=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "document": document, "caption": caption, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendDocument", json=json) as response:
+        async with self.session.post(f"{self.url}/sendDocument", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_video(self, chat_id, video, duration=0, width=0, height=0, caption=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "video": video, "duration": duration, "width": width, "height": height, "caption": caption, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendVideo", json=json) as response:
+        async with self.session.post(f"{self.url}/sendVideo", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_voice(self, chat_id, voice, caption=0, duration=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "voice": voice, "caption": caption, "duration": duration, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendVoice", json=json) as response:
+        async with self.session.post(f"{self.url}/sendVoice", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_location(self, chat_id, latitude, longitude, reply_to_message_id=0):
         json = {"chat_id": chat_id, "latitude": latitude, "longitude": longitude, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendLocation", json=json) as response:
+        async with self.session.post(f"{self.url}/sendLocation", json=json) as response:
             return await response.json()
 
     # attachments
     async def send_contact(self, chat_id, phone_number, first_name, last_name=0, reply_to_message_id=0):
         json = {"chat_id": chat_id, "phone_number": phone_number, "first_name": first_name, "last_name": last_name, "reply_to_message_id": reply_to_message_id}
-        async with self.session.get(f"{self.url}/sendContact", json=json) as response:
+        async with self.session.post(f"{self.url}/sendContact", json=json) as response:
             return await response.json()
 
     # attachments
