@@ -1,5 +1,4 @@
-<h3 align="center"> <b>Balethon</b> </h3>
-
+# Balethon
 <p align="center">
    <img align="center" src="Balethon.png" alt="PROFILE" width="150">
 </p>
