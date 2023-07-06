@@ -15,7 +15,7 @@ class Client:
         self.session = ClientSession()
 
     async def disconnect(self):
-        self.session.close()
+        await self.session.close()
         self.session = None
 
     # messages
@@ -135,3 +135,17 @@ class Client:
         json = {"chat_id": chat_id, "title": title, "description": description, "provider_token": provider_token, "prices": prices}
         async with self.session.get(f"{self.url}/sendInvoice", json=json) as response:
             return await response.json()
+
+    async def polling(self, callback):
+        seen = [u["message"]["message_id"] for u in (await self.get_updates())["result"] if u.get("message")]
+        while True:
+            updates = (await self.get_updates())["result"]
+            print(updates)
+            for update in updates:
+                if "message" not in update.keys():
+                    continue
+                message = update["message"]
+                if message["message_id"] in seen:
+                    continue
+                seen.append(message["message_id"])
+                await callback(self, message)
