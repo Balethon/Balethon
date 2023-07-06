@@ -1,4 +1,5 @@
-# Balethon
+<p align="center"># Balethon</p>
+
 <p align="center">
    <img align="center" src="Balethon.png" alt="PROFILE" width="150">
 </p>
