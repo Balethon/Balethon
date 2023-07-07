@@ -33,13 +33,13 @@ class Connection:
             ) as response:
 
                 if not response.ok:
-                    return "Not Found Token"
+                    raise Exception("Not Found Token")
                 response = await response.json()
                 if response.get("result") is None:
                     return f"Bad Request: \n {response}"
                 return response
 
         except ServerTimeoutError:
-            return "Time Out"
+            raise Exception("time out")
         except ClientConnectionError:
-            return "Connection Error"
+            raise Exception("Connection Error")
