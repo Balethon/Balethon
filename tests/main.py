@@ -2,8 +2,7 @@ from asyncio import run
 
 from balethon import Client
 from balethon.handlers import MessageHandler, CallbackQueryHandler
-
-TOKEN = "1076444825:MjwvICnWd7GPiMsJVe63F4cXDtU3sW2z4PcBrlHr"
+from config import TOKEN
 
 
 async def answer_message(bot, message):
