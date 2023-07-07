@@ -1,5 +1,5 @@
-from network import Connection
-from dispatcher import Dispatcher
+from .network import Connection
+from .dispatcher import Dispatcher
 
 
 class Client:
@@ -16,6 +16,22 @@ class Client:
     async def disconnect(self):
         await self.connection.stop()
         self.connection = None
+
+    def add_handler(self, handler):
+        self.dispatcher.add_handler(handler)
+
+    def remove_handler(self, handler):
+        self.dispatcher.remove_handler(handler)
+
+    async def polling(self):
+        seen = [u["update_id"] for u in (await self.get_updates())["result"]]
+        while True:
+            updates = (await self.get_updates())["result"]
+            for update in updates:
+                if update["update_id"] in seen:
+                    continue
+                seen.append(update["update_id"])
+                await self.dispatcher.dispatch(self, update)
 
     # messages
     async def send_message(self, chat_id, text, reply_markup=None, reply_to_message_id=None):
@@ -114,9 +130,3 @@ class Client:
     async def send_invoice(self, chat_id, title, description, provider_token, prices):
         json = {"chat_id": chat_id, "title": title, "description": description, "provider_token": provider_token, "prices": prices}
         return await self.connection.execute("post", "sendInvoice", json)
-
-    async def polling(self):
-        while True:
-            updates = (await self.get_updates())["result"]
-            for update in updates:
-                self.dispatcher.dispatch(update)

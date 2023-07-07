@@ -1,4 +1,4 @@
-from handler import Handler
+from .handler import Handler
 
 
 class CallbackQueryHandler(Handler):
