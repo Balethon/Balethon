@@ -36,7 +36,7 @@ class Connection:
                     raise Exception("Not Found Token")
                 response = await response.json()
                 if response.get("result") is None:
-                    return f"Bad Request: \n {response}"
+                    raise Exception(f"Bad Request: \n {response}")
                 return response
 
         except ServerTimeoutError:
