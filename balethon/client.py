@@ -9,10 +9,6 @@ class Client:
         self.connection = None
         self.dispatcher = Dispatcher()
 
-    @property
-    def url(self):
-        return f"https://tapi.bale.ai/bot{self.token}"
-
     async def connect(self):
         self.connection = Connection(self.token)
         await self.connection.start()
