@@ -32,7 +32,7 @@ class Connection:
                 timeout=self.time_out
             ) as response:
 
-                # await self.disconnect()
+                # await self.stop()
                 if not response.ok:
                     return "Not Found Token"
                 response = await response.json()
