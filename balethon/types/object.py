@@ -1,16 +1,22 @@
+from json import dumps
+
+
 class Object:
 
     def __init__(self):
         pass
 
     def to_dict(self):
-        return {}
+        return self.__dict__
+
+    def to_json(self):
+        return dumps(self.to_dict(), ensure_ascii=False, indent=4)
 
     def __str__(self):
-        return ""
+        return self.to_json()
 
     def __repr__(self):
-        return ""
+        return self.to_json()
 
-    def __iter__(self):
-        return iter([])
+    def __getitem__(self, item):
+        return getattr(self, item)
