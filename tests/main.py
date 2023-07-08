@@ -6,7 +6,6 @@ from config import TOKEN
 
 
 async def answer_message(bot, message):
-    print(message)
     print(f"{message.from_user['first_name']}: {message.text}")
     reply_markup = {
         "inline_keyboard": [
