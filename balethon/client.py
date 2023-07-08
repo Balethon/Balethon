@@ -1,5 +1,6 @@
 from .network import Connection
 from .dispatcher import Dispatcher
+from .handlers import MessageHandler, CallbackQueryHandler
 
 
 class Client:
