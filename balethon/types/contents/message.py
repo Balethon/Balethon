@@ -1,5 +1,6 @@
 from ..object import Object
-
+from ..chats.user import User
+from ..chats.chat import Chat
 
 class Message(Object):
 
@@ -13,14 +14,14 @@ class Message(Object):
 
     def __init__(
             self,
-            id_=None,
-            from_user=None,
-            date=None,
-            chat=None,
-            forward_from=None,
-            forward_from_chat=None,
-            forward_from_message_id=None,
-            forward_date=None,
+            id_: int = None,
+            from_user: User = None,
+            date: int = None,
+            chat: Chat = None,
+            forward_from: User = None,
+            forward_from_chat: Chat = None,
+            forward_from_message_id: int = None,
+            forward_date: int = None,
             reply_to_message=None,
             edit_date=None,
             text=None,

@@ -7,7 +7,7 @@ from config import TOKEN
 
 async def answer_message(bot, message):
     print(message)
-    print(f"{message.from_user['first_name']}: {message.text}")
+    print(f"{message.from_user.first_name}: {message.text}")
     reply_markup = {
         "inline_keyboard": [
             [
@@ -16,7 +16,7 @@ async def answer_message(bot, message):
             ]
         ]
     }
-    await bot.send_message(message.chat["id"], "Hello from Balethon!", reply_markup, message.id)
+    await bot.send_message(message.chat.id, "Hello from Balethon!", reply_markup, message.id)
 
 
 async def answer_callback_query(bot, callback_query):
