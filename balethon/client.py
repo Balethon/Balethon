@@ -23,6 +23,18 @@ class Client:
     def remove_handler(self, handler):
         self.dispatcher.remove_handler(handler)
 
+    def on_message(self, filters=None,):
+        def inner(func):
+            self.add_handler(MessageHandler(func))
+            return func
+        return inner
+        
+    def on_callback_query(self, filters=None,):
+        def inner(func):
+            self.add_handler(CallbackQueryHandler(func))
+            return func
+        return inner
+
     async def polling(self):
         seen = [u["update_id"] for u in (await self.get_updates())["result"]]
         while True:
