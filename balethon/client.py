@@ -25,16 +25,16 @@ class Client:
         self.dispatcher.remove_handler(handler)
 
     def on_message(self, filters=None):
-        def inner(func):
+        def decorator(func):
             self.add_handler(MessageHandler(func))
             return func
-        return inner
+        return decorator
 
     def on_callback_query(self, filters=None):
-        def inner(func):
+        def decorator(func):
             self.add_handler(CallbackQueryHandler(func))
             return func
-        return inner
+        return decorator
 
     async def polling(self):
         seen = [u["update_id"] for u in (await self.get_updates())["result"]]
@@ -44,7 +44,7 @@ class Client:
                 if update["update_id"] in seen:
                     continue
                 seen.append(update["update_id"])
-                await self.dispatcher.dispatch(self, update)
+                await self.dispatcher(self, update)
 
     # messages
     async def send_message(self, chat_id, text, reply_markup=None, reply_to_message_id=None):

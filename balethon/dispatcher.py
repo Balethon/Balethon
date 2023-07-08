@@ -13,7 +13,7 @@ class Dispatcher:
     def remove_handler(self, handler):
         self.handlers.remove(handler)
 
-    async def dispatch(self, client, update):
+    async def __call__(self, client, update):
         for handler in self.handlers:
             if update.get("message") and isinstance(handler, MessageHandler):
                 message = Message.from_dict(client, update["message"])
