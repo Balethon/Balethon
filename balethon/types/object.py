@@ -3,14 +3,16 @@ from json import dumps
 
 class Object:
 
-    def __init__(self):
-        pass
+    def __init__(self, client=None):
+        self.client = client
 
     def to_dict(self):
-        return self.__dict__
+        return self.__dict__.copy()
 
     def to_json(self):
-        return dumps(self.to_dict(), ensure_ascii=False, indent=4)
+        obj = self.to_dict()
+        del obj["client"]
+        return dumps(obj, ensure_ascii=False, indent=4)
 
     def __str__(self):
         return self.to_json()

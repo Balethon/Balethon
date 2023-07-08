@@ -16,12 +16,12 @@ async def answer_message(bot, message):
             ]
         ]
     }
-    await bot.send_message(message.chat["id"], "Hello from Balethon!", reply_markup, message.id)
+    await message.reply("Hello from Balethon!", reply_markup)
 
 
 async def answer_callback_query(bot, callback_query):
-    print(f"{callback_query['from']['first_name']}: [{callback_query['data']}]")
-    await bot.send_message(callback_query['from']["id"], f"Thank you for clicking on Button {callback_query['data']}!")
+    print(f"{callback_query.from_user['first_name']}: [{callback_query.data}]")
+    await callback_query.answer(f"Thank you for clicking on Button {callback_query.data}!")
 
 
 async def main():

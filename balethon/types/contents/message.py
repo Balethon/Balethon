@@ -4,16 +4,15 @@ from ..object import Object
 class Message(Object):
 
     @classmethod
-    def from_dict(cls, message_dict):
-        if message_dict.get("message_id"):
-            message_dict["id_"] = message_dict.pop("message_id")
+    def from_dict(cls, client, message_dict):
         if message_dict.get("from"):
             message_dict["from_user"] = message_dict.pop("from")
+        message_dict["client"] = client
         return cls(**message_dict)
 
     def __init__(
             self,
-            id_=None,
+            message_id=None,
             from_user=None,
             date=None,
             chat=None,
@@ -44,10 +43,12 @@ class Message(Object):
             channel_chat_created=None,
             pinned_message=None,
             invoice=None,
-            successful_payment=None
+            successful_payment=None,
+            client=None,
+            **kwargs
     ):
-        super().__init__()
-        self.id = id_
+        super().__init__(client)
+        self.id = message_id
         self.from_user = from_user
         self.date = date
         self.chat = chat
@@ -79,3 +80,8 @@ class Message(Object):
         self.pinned_message = pinned_message
         self.invoice = invoice
         self.successful_payment = successful_payment
+
+    async def reply(self, text, reply_markup=None, reply_to_message_id=None):
+        if reply_to_message_id is None:
+            reply_to_message_id = self.id
+        await self.client.send_message(self.chat["id"], text, reply_markup, reply_to_message_id)

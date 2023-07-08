@@ -1,4 +1,4 @@
-from .types import Message
+from .types import Message, CallbackQuery
 from .handlers import MessageHandler, CallbackQueryHandler
 
 
@@ -16,8 +16,8 @@ class Dispatcher:
     async def dispatch(self, client, update):
         for handler in self.handlers:
             if update.get("message") and isinstance(handler, MessageHandler):
-                message = Message.from_dict(update["message"])
+                message = Message.from_dict(client, update["message"])
                 await handler.callback(client, message)
             elif update.get("callback_query") and isinstance(handler, CallbackQueryHandler):
-                callback_query = update["callback_query"]
+                callback_query = CallbackQuery.from_dict(client, update["callback_query"])
                 await handler.callback(client, callback_query)
