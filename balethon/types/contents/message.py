@@ -85,3 +85,9 @@ class Message(Object):
         if reply_to_message_id is None:
             reply_to_message_id = self.id
         await self.client.send_message(self.chat["id"], text, reply_markup, reply_to_message_id)
+
+    async def edit_text(self, text, reply_markup=None):
+        await self.client.edit_message_text(self.chat["id"], self.id, text, reply_markup)
+
+    async def delete(self):
+        await self.client.delete_message(self.chat["id"], self.id)
