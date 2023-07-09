@@ -4,12 +4,12 @@ from ..object import Object
 class Photo(Object):
 
     def __init__(
-                self,
-                file_id=None,
-                width=None,
-                height=None,
-                file_size=None,
-                **kwargs
+            self,
+            file_id=None,
+            width=None,
+            height=None,
+            file_size=None,
+            **kwargs
     ):
         super().__init__()
         self.file_id = file_id
