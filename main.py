@@ -1,4 +1,4 @@
-from asyncio import run
+from asyncio import get_event_loop
 
 from balethon import Client
 from balethon.handlers import MessageHandler, CallbackQueryHandler
@@ -7,7 +7,7 @@ from config import TOKEN
 
 async def answer_message(bot, message):
     print(message)
-    print(f"{message.from_user['first_name']}: {message.text}")
+    print(f"{message.from_user.id}: {message.text}")
     reply_markup = {
         "inline_keyboard": [
             [
@@ -16,7 +16,7 @@ async def answer_message(bot, message):
             ]
         ]
     }
-    await bot.send_message(message.chat["id"], "Hello from Balethon!", reply_markup, message.id)
+    await bot.send_message(message.chat.id, "Hello from Balethon!", reply_markup, message.id)
 
 
 async def answer_callback_query(bot, callback_query):
@@ -33,4 +33,5 @@ async def main():
 
 
 if __name__ == "__main__":
-    run(main())
+    loop = get_event_loop()
+    loop.run_until_complete(main())
