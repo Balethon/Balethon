@@ -47,7 +47,6 @@ class Message(Object):
             client=None,
             **kwargs
     ):
-        super().__init__(client)
         self.id = message_id
         self.from_user = from_user
         self.date = date
@@ -80,6 +79,7 @@ class Message(Object):
         self.pinned_message = pinned_message
         self.invoice = invoice
         self.successful_payment = successful_payment
+        super().__init__(client)
 
     async def reply(self, text, reply_markup=None, reply_to_message_id=None):
         if reply_to_message_id is None:
