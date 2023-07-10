@@ -2,7 +2,13 @@ from asyncio import run
 
 from balethon import Client
 from balethon.handlers import MessageHandler, CallbackQueryHandler
+from balethon.conditions import Condition
 from config import TOKEN
+
+
+@Condition
+async def my_condition(condition, client, message):
+    return message.text == "salam"
 
 
 async def answer_message(bot, message):
@@ -25,7 +31,7 @@ async def answer_callback_query(bot, callback_query):
 
 async def main():
     bot = Client(TOKEN)
-    bot.add_handler(MessageHandler(answer_message))
+    bot.add_handler(MessageHandler(answer_message, my_condition))
     bot.add_handler(CallbackQueryHandler(answer_callback_query))
     await bot.connect()
     await bot.polling()
