@@ -15,9 +15,9 @@ class Dispatcher:
 
     async def __call__(self, client, update):
         for handler in self.handlers:
-            if update.get("message") and isinstance(handler, MessageHandler):
+            if update.get("message") and isinstance(handler, MessageHandler) and await handler.condition(client, update):
                 message = Message.from_dict(client, update["message"])
                 await handler.callback(client, message)
-            elif update.get("callback_query") and isinstance(handler, CallbackQueryHandler):
+            elif update.get("callback_query") and isinstance(handler, CallbackQueryHandler) and await handler.condition(client, update):
                 callback_query = CallbackQuery.from_dict(client, update["callback_query"])
                 await handler.callback(client, callback_query)

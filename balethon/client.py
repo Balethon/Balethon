@@ -24,16 +24,16 @@ class Client:
     def remove_handler(self, handler):
         self.dispatcher.remove_handler(handler)
 
-    def on_message(self, filters=None):
-        def decorator(func):
-            self.add_handler(MessageHandler(func))
-            return func
+    def on_message(self, condition=None):
+        def decorator(callback):
+            self.add_handler(MessageHandler(callback, condition))
+            return callback
         return decorator
 
-    def on_callback_query(self, filters=None):
-        def decorator(func):
-            self.add_handler(CallbackQueryHandler(func))
-            return func
+    def on_callback_query(self, condition=None):
+        def decorator(callback):
+            self.add_handler(CallbackQueryHandler(callback, condition))
+            return callback
         return decorator
 
     async def polling(self):
