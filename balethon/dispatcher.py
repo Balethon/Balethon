@@ -18,8 +18,8 @@ class Dispatcher:
             if update.get("message") and isinstance(handler, MessageHandler):
                 message = Message.from_dict(client, update["message"])
                 if await handler.check(client, message):
-                    await handler.callback(client, message)
+                    await handler(client, message)
             elif update.get("callback_query") and isinstance(handler, CallbackQueryHandler):
                 callback_query = CallbackQuery.from_dict(client, update["callback_query"])
                 if await handler.check(client, callback_query):
-                    await handler.callback(client, callback_query)
+                    await handler(client, callback_query)

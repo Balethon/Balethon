@@ -8,7 +8,7 @@ from config import TOKEN
 
 @Condition
 async def my_condition(condition, client, message):
-    return message.text == "salam"
+    return message.text.isnumeric()
 
 
 async def answer_message(bot, message):
