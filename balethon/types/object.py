@@ -4,6 +4,10 @@ from json import dumps
 class Object:
     subsets = {}
 
+    @classmethod
+    def from_dict(cls, client, object_dict):
+        raise NotImplementedError
+
     def convert_subsets(self):
         for attribute_name, type in self.subsets.items():
             attribute = getattr(self, attribute_name)
