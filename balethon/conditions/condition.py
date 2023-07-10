@@ -15,6 +15,11 @@ class Condition:
     def __invert__(self):
         return NotCondition(self)
 
+    def __repr__(self):
+        if hasattr(self, "function") and callable(self.function):
+            return self.function.__name__
+        return type(self).__name__
+
 
 class AllCondition(Condition):
 
@@ -27,6 +32,10 @@ class AllCondition(Condition):
             if not await condition(client, update):
                 return False
         return True
+
+    def __repr__(self):
+        conditions_string = ", ".join(map(str, self.conditions))
+        return f"All({conditions_string})"
 
 
 class AnyCondition(Condition):
@@ -41,6 +50,10 @@ class AnyCondition(Condition):
                 return True
         return False
 
+    def __repr__(self):
+        conditions_string = ", ".join(map(str, self.conditions))
+        return f"Any({conditions_string})"
+
 
 class NotCondition(Condition):
 
@@ -50,3 +63,6 @@ class NotCondition(Condition):
 
     async def __call__(self, client, update):
         return not await self.condition(client, update)
+
+    def __repr__(self):
+        return f"Not({self.condition})"

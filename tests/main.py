@@ -11,6 +11,11 @@ async def my_condition(condition, client, message):
     return message.text.isnumeric()
 
 
+@Condition
+async def my_condition2(condition, client, message):
+    return message.text == "salam"
+
+
 async def answer_message(bot, message):
     print(f"{message.from_user['first_name']}: {message.text}")
     reply_markup = {
@@ -31,7 +36,7 @@ async def answer_callback_query(bot, callback_query):
 
 async def main():
     bot = Client(TOKEN)
-    bot.add_handler(MessageHandler(answer_message, my_condition))
+    bot.add_handler(MessageHandler(answer_message, my_condition | my_condition2))
     bot.add_handler(CallbackQueryHandler(answer_callback_query))
     await bot.connect()
     await bot.polling()
