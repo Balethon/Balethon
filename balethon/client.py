@@ -1,3 +1,5 @@
+from asyncio import get_event_loop
+
 from .network import Connection
 from .dispatcher import Dispatcher
 from .event_handlers import MessageEventHandler, CallbackQueryEventHandler
@@ -41,19 +43,24 @@ class Client:
             return callback
         return decorator
 
-    async def polling(self):
-        await self.connect()
-        seen = [u["update_id"] for u in (await self.get_updates())["result"]]
-        try:
-            while True:
-                updates = (await self.get_updates())["result"]
-                for update in updates:
-                    if update["update_id"] in seen:
-                        continue
-                    seen.append(update["update_id"])
-                    await self.dispatcher(self, update)
-        except KeyboardInterrupt:
-            return
+    def polling(self):
+        loop = get_event_loop()
+        loop.run_until_complete(self.connect())
+
+        async def run():
+            seen = [u["update_id"] for u in (await self.get_updates())["result"]]
+            try:
+                while True:
+                    updates = (await self.get_updates())["result"]
+                    for update in updates:
+                        if update["update_id"] in seen:
+                            continue
+                        seen.append(update["update_id"])
+                        await self.dispatcher(self, update)
+            except KeyboardInterrupt:
+                return
+
+        loop.run_until_complete(run())
 
     # messages
     async def send_message(self, chat_id, text, reply_markup=None, reply_to_message_id=None):
