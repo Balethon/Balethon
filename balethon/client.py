@@ -10,20 +10,13 @@ class Client:
     def __init__(self, token, time_out=20):
         self.token = token
         self.connection = Connection(token, time_out)
-        self.is_connected = False
         self.dispatcher = Dispatcher()
 
     async def connect(self):
-        if self.is_connected:
-            raise ConnectionError("Client is already connected")
         await self.connection.start()
-        self.is_connected = True
 
     async def disconnect(self):
-        if not self.is_connected:
-            raise ConnectionError("Client is already disconnected")
         await self.connection.stop()
-        self.is_connected = False
 
     def add_event_handler(self, event_handler):
         self.dispatcher.add_event_handler(event_handler)
