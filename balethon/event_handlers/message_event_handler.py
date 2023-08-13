@@ -1,7 +1,7 @@
-from .handler import Handler
+from .event_handler import EventHandler
 
 
-class MessageHandler(Handler):
+class MessageEventHandler(EventHandler):
 
     def __init__(self, callback, condition=None):
         super().__init__(callback, condition)

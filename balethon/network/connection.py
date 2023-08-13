@@ -7,7 +7,7 @@ from aiohttp import (
 
 class Connection:
 
-    def __init__(self, token, time_out=20):
+    def __init__(self, token, time_out):
         self.token = token
         self.time_out = time_out
         self.client_session = None
@@ -32,11 +32,9 @@ class Connection:
                 timeout=self.time_out
             ) as response:
 
-                if not response.ok:
-                    raise Exception("Not Found Token")
                 response = await response.json()
-                if response.get("result") is None:
-                    raise Exception(f"Bad Request: \n {response}")
+                if not response["ok"]:
+                    raise Exception(str(response))
                 return response
 
         except ServerTimeoutError:

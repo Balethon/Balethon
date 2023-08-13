@@ -1,4 +1,4 @@
-class Handler:
+class EventHandler:
 
     def __init__(self, callback, condition=None):
         self.callback = callback

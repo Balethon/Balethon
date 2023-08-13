@@ -1,7 +1,7 @@
-from .handler import Handler
+from .event_handler import EventHandler
 
 
-class CallbackQueryHandler(Handler):
+class CallbackQueryEventHandler(EventHandler):
 
     def __init__(self, callback, condition=None):
         super().__init__(callback, condition)

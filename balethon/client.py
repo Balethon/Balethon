@@ -1,50 +1,59 @@
 from .network import Connection
 from .dispatcher import Dispatcher
-from .handlers import MessageHandler, CallbackQueryHandler
+from .event_handlers import MessageEventHandler, CallbackQueryEventHandler
 
 
 class Client:
 
-    def __init__(self, token):
+    def __init__(self, token, time_out=20):
         self.token = token
-        self.connection = None
+        self.connection = Connection(token, time_out)
+        self.is_connected = False
         self.dispatcher = Dispatcher()
 
     async def connect(self):
-        self.connection = Connection(self.token)
+        if self.is_connected:
+            raise ConnectionError("Client is already connected")
         await self.connection.start()
+        self.is_connected = True
 
     async def disconnect(self):
+        if not self.is_connected:
+            raise ConnectionError("Client is already disconnected")
         await self.connection.stop()
-        self.connection = None
+        self.is_connected = False
 
-    def add_handler(self, handler):
-        self.dispatcher.add_handler(handler)
+    def add_event_handler(self, event_handler):
+        self.dispatcher.add_event_handler(event_handler)
 
-    def remove_handler(self, handler):
-        self.dispatcher.remove_handler(handler)
+    def remove_event_handler(self, event_handler):
+        self.dispatcher.remove_event_handler(event_handler)
 
     def on_message(self, condition=None):
         def decorator(callback):
-            self.add_handler(MessageHandler(callback, condition))
+            self.add_event_handler(MessageEventHandler(callback, condition))
             return callback
         return decorator
 
     def on_callback_query(self, condition=None):
         def decorator(callback):
-            self.add_handler(CallbackQueryHandler(callback, condition))
+            self.add_event_handler(CallbackQueryEventHandler(callback, condition))
             return callback
         return decorator
 
     async def polling(self):
+        await self.connect()
         seen = [u["update_id"] for u in (await self.get_updates())["result"]]
-        while True:
-            updates = (await self.get_updates())["result"]
-            for update in updates:
-                if update["update_id"] in seen:
-                    continue
-                seen.append(update["update_id"])
-                await self.dispatcher(self, update)
+        try:
+            while True:
+                updates = (await self.get_updates())["result"]
+                for update in updates:
+                    if update["update_id"] in seen:
+                        continue
+                    seen.append(update["update_id"])
+                    await self.dispatcher(self, update)
+        except KeyboardInterrupt:
+            return
 
     # messages
     async def send_message(self, chat_id, text, reply_markup=None, reply_to_message_id=None):
@@ -62,7 +71,7 @@ class Client:
         return await self.connection.execute("get", "deleteMessage", json)
 
     # updates
-    async def get_updates(self, offset=0, limit=0):
+    async def get_updates(self, offset=None, limit=None):
         json = {"offset": offset, "limit": limit}
         return await self.connection.execute("post", "getUpdates", json)
 
@@ -80,37 +89,37 @@ class Client:
         return await self.connection.execute("get", "getMe")
 
     # attachments
-    async def send_photo(self, chat_id, photo, caption=0, reply_to_message_id=0):
+    async def send_photo(self, chat_id, photo, caption=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "photo": photo, "caption": caption, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendPhoto", json)
 
     # attachments
-    async def send_audio(self, chat_id, audio, caption=0, duration=0, title=0, reply_to_message_id=0):
+    async def send_audio(self, chat_id, audio, caption=None, duration=None, title=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "audio": audio, "caption": caption, "duration": duration, "title": title, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendAudio", json)
 
     # attachments
-    async def send_document(self, chat_id, document, caption=0, reply_to_message_id=0):
+    async def send_document(self, chat_id, document, caption=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "document": document, "caption": caption, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendDocument", json)
 
     # attachments
-    async def send_video(self, chat_id, video, duration=0, width=0, height=0, caption=0, reply_to_message_id=0):
+    async def send_video(self, chat_id, video, duration=None, width=None, height=None, caption=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "video": video, "duration": duration, "width": width, "height": height, "caption": caption, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendVideo", json)
 
     # attachments
-    async def send_voice(self, chat_id, voice, caption=0, duration=0, reply_to_message_id=0):
+    async def send_voice(self, chat_id, voice, caption=None, duration=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "voice": voice, "caption": caption, "duration": duration, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendVoice", json)
 
     # attachments
-    async def send_location(self, chat_id, latitude, longitude, reply_to_message_id=0):
+    async def send_location(self, chat_id, latitude, longitude, reply_to_message_id=None):
         json = {"chat_id": chat_id, "latitude": latitude, "longitude": longitude, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendLocation", json)
 
     # attachments
-    async def send_contact(self, chat_id, phone_number, first_name, last_name=0, reply_to_message_id=0):
+    async def send_contact(self, chat_id, phone_number, first_name, last_name=None, reply_to_message_id=None):
         json = {"chat_id": chat_id, "phone_number": phone_number, "first_name": first_name, "last_name": last_name, "reply_to_message_id": reply_to_message_id}
         return await self.connection.execute("post", "sendContact", json)
 

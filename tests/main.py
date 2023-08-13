@@ -1,23 +1,12 @@
 from asyncio import run
 
 from balethon import Client
-from balethon.handlers import MessageHandler, CallbackQueryHandler
-from balethon.conditions import Condition
+from balethon.event_handlers import MessageEventHandler, CallbackQueryEventHandler
 from config import TOKEN
 
 
-@Condition
-async def my_condition(condition, client, message):
-    return message.text.isnumeric()
-
-
-@Condition
-async def my_condition2(condition, client, message):
-    return message.text == "salam"
-
-
 async def answer_message(bot, message):
-    print(f"{message.from_user['first_name']}: {message.text}")
+    print(f"{message['from']['first_name']}: {message['text']}")
     reply_markup = {
         "inline_keyboard": [
             [
@@ -26,19 +15,18 @@ async def answer_message(bot, message):
             ]
         ]
     }
-    await message.reply("Hello from Balethon!", reply_markup)
+    await bot.send_message(message["chat"]["id"], "Hello from Balethon!", reply_markup, message["message_id"])
 
 
 async def answer_callback_query(bot, callback_query):
-    print(f"{callback_query.from_user['first_name']}: [{callback_query.data}]")
-    await callback_query.answer(f"Thank you for clicking on Button {callback_query.data}!")
+    print(f"{callback_query['from']['first_name']}: [{callback_query['data']}]")
+    await bot.send_message(callback_query["from"]["id"], f"Thank you for clicking on Button {callback_query['data']}!")
 
 
 async def main():
     bot = Client(TOKEN)
-    bot.add_handler(MessageHandler(answer_message, my_condition | my_condition2))
-    bot.add_handler(CallbackQueryHandler(answer_callback_query))
-    await bot.connect()
+    bot.add_event_handler(MessageEventHandler(answer_message))
+    bot.add_event_handler(CallbackQueryEventHandler(answer_callback_query))
     await bot.polling()
 
 
