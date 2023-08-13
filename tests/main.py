@@ -1,21 +1,28 @@
+from asyncio import sleep
+
 from balethon import Client
 from config import TOKEN
 
 bot = Client(TOKEN)
 
+reply_markup = {
+    "inline_keyboard": [
+        [
+            {"text": "Button 1", "callback_data": "1"},
+            {"text": "Button 2", "callback_data": "2"}
+        ]
+    ]
+}
+
 
 @bot.on_message()
 async def answer_message(client, message):
     print(f"{message['from']['first_name']}: {message['text']}")
-    reply_markup = {
-        "inline_keyboard": [
-            [
-                {"text": "Button 1", "callback_data": "1"},
-                {"text": "Button 2", "callback_data": "2"}
-            ]
-        ]
-    }
-    await client.send_message(message["chat"]["id"], "Hello from Balethon!", reply_markup, message["message_id"])
+    msg = await client.send_message(message["chat"]["id"], "(:", reply_markup, message["message_id"])
+    await sleep(1)
+    await client.edit_message_text(msg["chat"]["id"], msg["message_id"], "Hello from Balethon!", reply_markup)
+    await sleep(1)
+    print(await client.get_me())
 
 
 @bot.on_callback_query()

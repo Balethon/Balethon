@@ -35,7 +35,7 @@ class Connection:
                 response = await response.json()
                 if not response["ok"]:
                     raise Exception(str(response))
-                return response
+                return response["result"]
 
         except ServerTimeoutError:
             raise Exception("time out")

@@ -48,10 +48,10 @@ class Client:
         loop.run_until_complete(self.connect())
 
         async def run():
-            seen = [u["update_id"] for u in (await self.get_updates())["result"]]
+            seen = [u["update_id"] for u in (await self.get_updates())]
             try:
                 while True:
-                    updates = (await self.get_updates())["result"]
+                    updates = (await self.get_updates())
                     for update in updates:
                         if update["update_id"] in seen:
                             continue
