@@ -1,19 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "Balethon"
-version = "0.0.1"
-authors = [
-  { name="Sajjad", email="sajjadalipour2006@gmail.com" },
-    {name="Abolfazl Amiri", email=""}
-]
+version = "0.0.2"
 description = "A library for creating bots in Bale"
 readme = "README.md"
 requires-python = ">=3.7"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Sajjad", email = "sajjadalipour2006@gmail.com"},
+  {name = "Abolfazl Amiri", email = "soltshen@gmail.com"}
+]
+keywords = ["bale", "messanger", "bot", "api", "client"]
 classifiers = [
     "Framework :: aiohttp",
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License"
 ]
+dependencies = ["aiohttp==3.8.4"]
 
 [project.urls]
 "Homepage" = "https://github.com/SajjadAlipour2006/Balethon"
