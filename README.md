@@ -1,37 +1,8 @@
-<p align="center">
-     <a href="https://ble.ir/balethon">
-         <img src="https://s8.uupload.ir/files/_balethon__ar04.png" alt="Balethon" width="400">
-     </a>
-     <br>
-     <b>our community</b>
-     <br>
-     <a href="https://ble.ir/join/MGUxMTU5Yz">
-         Bale
-     </a>
-     •
-     <a href="balethon.github.io">
-         Documentation
-     </a>
-     •
-     <a href="https://t.me/balethon_GP">
-         Telegram
-     </a>
- </p>
+## Balethon
 
+Asynchronous library for creating bots in the [Bale](https://www.bale.ai/) messanger
 
-<h3 align="center">A python library for creating bots in Bale</h3>
-
-> **What is Bale?**
-
-- > **[Bale](https://www.bale.ai/)** is a messenger with various features and the possibility of doing banking
-
-
-> **How To Create Bot?**
-
-
-- > you must get bot token from `@botfather` in the **Bale** and enter token in `Client()`
-
-## Example:
+### Usage Example
 
 ```python
 from balethon import Client
@@ -46,18 +17,17 @@ if __name__ == "__main__":
     bot.polling()
 ```
 
+> You must replace "TOKEN" with the token which `@botfather` gives you in the [Bale](https://www.bale.ai/) messanger
 
-> **Key Features**
+### Installing
 
-- [x] **fast** TEXT
-- [x] **easy** TEXT
-- [x] **async** TEXT
-- [x] **full documentation** TEXT
-
-## installing:
-```python
-pip3 install balethon
+```bash
+pip install balethon
 ```
 
-## News About Balethon
-- **you can find out about Balethon news and updates in [Telegram](https://t.me/balethon_py) or [Bale](https://ble.ir/balethon)**
+### Links
+
+- Our [news channel](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messanger
+- Our [community chat group](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messanger
+- Our [news channel](https://t.me/balethon_py) in the [Telegram](https://telegram.org) messanger
+- Our [community chat group](https://t.me/balethon_group) in the [Telegram](https://telegram.org) messanger

@@ -4,10 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Balethon"
-version = "0.0.2"
-description = "A library for creating bots in Bale"
+version = "1.0.0"
+description = "Asynchronous library for creating bots in the Bale messanger"
 readme = "README.md"
-requires-python = ">=3.7"
 license = {file = "LICENSE"}
 authors = [
   {name = "Sajjad", email = "sajjadalipour2006@gmail.com"},
@@ -23,4 +22,4 @@ dependencies = ["aiohttp==3.8.4"]
 [project.urls]
 "Homepage" = "https://github.com/SajjadAlipour2006/Balethon"
 "Tracker" = "https://github.com/SajjadAlipour2006/Balethon/issues"
-"Community" = "ble.ir/join/MTlhN2Q2Mz"
+"Community" = "https://t.me/balethon_group"
