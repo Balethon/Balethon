@@ -9,10 +9,12 @@ from balethon import Client
 
 bot = Client("TOKEN")
 
+
 @bot.on_message()
 async def greet(client, message):
     await client.send_message(message["from"]["id"], "Hello")
 
+    
 if __name__ == "__main__":
     bot.polling()
 ```
