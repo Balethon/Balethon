@@ -16,11 +16,13 @@ class Connection:
     async def start(self):
         if self.is_started:
             raise ConnectionError("Client is already connected")
+        self.is_started = True
         self.client_session = ClientSession()
 
     async def stop(self):
         if not self.is_started:
             raise ConnectionError("Client is already disconnected")
+        self.is_started = False
         await self.client_session.close()
         self.client_session = None
 

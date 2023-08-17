@@ -1,6 +1,6 @@
 class Condition:
 
-    def __init__(self, function):
+    def __init__(self, function=None):
         self.function = function
 
     async def __call__(self, client, update):
@@ -24,7 +24,7 @@ class Condition:
 class AllCondition(Condition):
 
     def __init__(self, *conditions):
-        super().__init__(None)
+        super().__init__()
         self.conditions = conditions
 
     async def __call__(self, client, update):
@@ -41,7 +41,7 @@ class AllCondition(Condition):
 class AnyCondition(Condition):
 
     def __init__(self, *conditions):
-        super().__init__(None)
+        super().__init__()
         self.conditions = conditions
 
     async def __call__(self, client, update):
@@ -58,7 +58,7 @@ class AnyCondition(Condition):
 class NotCondition(Condition):
 
     def __init__(self, condition):
-        super().__init__(None)
+        super().__init__()
         self.condition = condition
 
     async def __call__(self, client, update):
