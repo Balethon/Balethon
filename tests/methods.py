@@ -80,7 +80,7 @@ async def test_methods_chats(client):
 
 
 async def test_methods_payments(client):
-    response = await client.send_invoice(CHAT_ID, "Test", "Test", "Test", "1")
+    response = await client.send_invoice(CHAT_ID, "Test", "Test", "Test", "0")
     print(f"send_invoice: {response}")
 
 
