@@ -18,6 +18,16 @@ class Client:
     async def disconnect(self):
         await self.connection.stop()
 
+    async def __aenter__(self):
+        await self.connect()
+        return self
+
+    async def __aexit__(self, *args):
+        try:
+            await self.disconnect()
+        except ConnectionError:
+            return
+
     def add_event_handler(self, event_handler):
         self.dispatcher.add_event_handler(event_handler)
 

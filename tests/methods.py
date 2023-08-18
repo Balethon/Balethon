@@ -86,14 +86,13 @@ async def test_methods_payments(client):
 
 async def main():
     bot = Client(TOKEN)
-    await bot.connect()
-    await test_methods_messages(bot)
-    await test_methods_updates(bot)
-    await test_methods_users(bot)
-    await test_methods_attachments(bot)
-    await test_methods_chats(bot)
-    await test_methods_payments(bot)
-    await bot.disconnect()
+    async with bot:
+        await test_methods_messages(bot)
+        await test_methods_updates(bot)
+        await test_methods_users(bot)
+        await test_methods_attachments(bot)
+        await test_methods_chats(bot)
+        await test_methods_payments(bot)
 
 
 if __name__ == "__main__":

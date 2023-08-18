@@ -1,8 +1,6 @@
-from aiohttp import (
-    ClientSession,
-    ServerTimeoutError,
-    ClientConnectionError
-)
+from aiohttp import ClientSession
+
+from ..errors import RPCError
 
 
 class Connection:
@@ -31,20 +29,13 @@ class Connection:
         return f"https://tapi.bale.ai/bot{self.token}"
 
     async def execute(self, request_type, method, json=None):
-        try:
-            async with self.client_session.request(
-                method=request_type,
-                url=f"{self.url}/{method}",
-                json=json,
-                timeout=self.time_out
-            ) as response:
-
-                response = await response.json()
-                if not response["ok"]:
-                    raise Exception(str(response))
-                return response["result"]
-
-        except ServerTimeoutError:
-            raise Exception("time out")
-        except ClientConnectionError:
-            raise Exception("Connection Error")
+        async with self.client_session.request(
+            method=request_type,
+            url=f"{self.url}/{method}",
+            json=json,
+            timeout=self.time_out
+        ) as response:
+            response = await response.json()
+            if not response["ok"]:
+                raise RPCError.create(response.get("error_code"), response.get("description"))
+            return response["result"]
