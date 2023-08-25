@@ -10,4 +10,4 @@ async def echo(client, message):
 
 
 if __name__ == "__main__":
-    bot.polling()
+    bot.run_polling()

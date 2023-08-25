@@ -8,7 +8,7 @@ PHOTO_URL = "https://www.bale.ai/img/bale-main.png"
 VIDEO_URL = "https://dev.bale.ai/sites/default/files/1398-03/final_5ce505a96467ba00144535c8_377089.mp4"
 
 
-async def test_methods_messages(client):
+async def test_message_methods(client):
     message = await client.send_message(CHAT_ID, "send_message")
     print(f"send_message: {message}")
 
@@ -23,7 +23,7 @@ async def test_methods_messages(client):
     print(f"delete_message: {response}")
 
 
-async def test_methods_updates(client):
+async def test_update_methods(client):
     response = await client.get_updates()
     print(f"get_updates: {response}")
 
@@ -34,12 +34,12 @@ async def test_methods_updates(client):
     print(f"delete_webhook: {response}")
 
 
-async def test_methods_users(client):
+async def test_user_methods(client):
     response = await client.get_me()
     print(f"get_me: {response}")
 
 
-async def test_methods_attachments(client):
+async def test_attachment_methods(client):
     response = await client.send_photo(CHAT_ID, PHOTO_URL)
     print(f"send_photo: {response}")
 
@@ -65,7 +65,7 @@ async def test_methods_attachments(client):
     print(f"get_file: {response}")
 
 
-async def test_methods_chats(client):
+async def test_chat_methods(client):
     response = await client.get_chat(CHAT_ID)
     print(f"get_chat: {response}")
 
@@ -79,7 +79,7 @@ async def test_methods_chats(client):
     print(f"get_chat_member: {response}")
 
 
-async def test_methods_payments(client):
+async def test_payment_methods(client):
     response = await client.send_invoice(CHAT_ID, "Test", "Test", "Test", "0")
     print(f"send_invoice: {response}")
 
@@ -87,12 +87,12 @@ async def test_methods_payments(client):
 async def main():
     bot = Client(TOKEN)
     async with bot:
-        await test_methods_messages(bot)
-        await test_methods_updates(bot)
-        await test_methods_users(bot)
-        await test_methods_attachments(bot)
-        await test_methods_chats(bot)
-        await test_methods_payments(bot)
+        await test_message_methods(bot)
+        await test_update_methods(bot)
+        await test_user_methods(bot)
+        await test_attachment_methods(bot)
+        await test_chat_methods(bot)
+        await test_payment_methods(bot)
 
 
 if __name__ == "__main__":

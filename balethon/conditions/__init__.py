@@ -25,5 +25,6 @@ from .condition import (
     channel_chat_created,
     pinned_message,
     invoice,
-    media
+    media,
+    Command
 )

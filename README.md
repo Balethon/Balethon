@@ -14,9 +14,9 @@ bot = Client("TOKEN")
 async def greet(client, message):
     await client.send_message(message["from"]["id"], "Hello")
 
-    
+
 if __name__ == "__main__":
-    bot.polling()
+    bot.run_polling()
 ```
 
 > You must replace "TOKEN" with the token which `@botfather` gives you in the [Bale](https://www.bale.ai/) messanger

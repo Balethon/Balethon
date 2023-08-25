@@ -1,4 +1,4 @@
-from .event_handlers import MessageEventHandler, CallbackQueryEventHandler
+from .event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler
 
 
 class Dispatcher:
@@ -14,11 +14,11 @@ class Dispatcher:
 
     async def __call__(self, client, update):
         for event_handler in self.event_handlers:
-            if update.get("message") and isinstance(event_handler, MessageEventHandler):
+            if update.get("message") and isinstance(event_handler, (MessageHandler, CommandHandler)):
                 message = update["message"]
                 if await event_handler.check(client, message):
                     await event_handler(client, message)
-            elif update.get("callback_query") and isinstance(event_handler, CallbackQueryEventHandler):
+            elif update.get("callback_query") and isinstance(event_handler, CallbackQueryHandler):
                 callback_query = update["callback_query"]
                 if await event_handler.check(client, callback_query):
                     await event_handler(client, callback_query)

@@ -2,7 +2,7 @@ from asyncio import get_event_loop
 
 from .network import Connection
 from .dispatcher import Dispatcher
-from .event_handlers import MessageEventHandler, CallbackQueryEventHandler
+from .event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler
 
 
 class Client:
@@ -36,34 +36,44 @@ class Client:
 
     def on_message(self, condition=None):
         def decorator(callback):
-            self.add_event_handler(MessageEventHandler(callback, condition))
+            self.add_event_handler(MessageHandler(callback, condition))
             return callback
         return decorator
 
     def on_callback_query(self, condition=None):
         def decorator(callback):
-            self.add_event_handler(CallbackQueryEventHandler(callback, condition))
+            self.add_event_handler(CallbackQueryHandler(callback, condition))
             return callback
         return decorator
 
-    def polling(self):
+    def on_command(self, condition=None, name=None):
+        def decorator(callback):
+            self.add_event_handler(CommandHandler(callback, condition, name))
+            return callback
+        return decorator
+
+    async def start_polling(self):
+        seen = [u["update_id"] for u in (await self.get_updates())]
+        while True:
+            updates = await self.get_updates()
+            for update in updates:
+                if update["update_id"] in seen:
+                    continue
+                seen.append(update["update_id"])
+                await self.dispatcher(self, update)
+
+    def run(self, func):
         loop = get_event_loop()
-        loop.run_until_complete(self.connect())
+        try:
+            loop.run_until_complete(self.connect())
+            loop.run_until_complete(func)
+        except KeyboardInterrupt:
+            return
+        finally:
+            loop.run_until_complete(self.disconnect())
 
-        async def run():
-            seen = [u["update_id"] for u in (await self.get_updates())]
-            try:
-                while True:
-                    updates = (await self.get_updates())
-                    for update in updates:
-                        if update["update_id"] in seen:
-                            continue
-                        seen.append(update["update_id"])
-                        await self.dispatcher(self, update)
-            except KeyboardInterrupt:
-                return
-
-        loop.run_until_complete(run())
+    def run_polling(self):
+        self.run(self.start_polling())
 
     # messages
     async def send_message(self, chat_id, text, reply_markup=None, reply_to_message_id=None):

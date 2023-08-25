@@ -1,5 +1,5 @@
 class RPCError(Exception):
-    name = "RPC"
+    name = "RPC Error"
     code = None
 
     @classmethod
