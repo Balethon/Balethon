@@ -52,3 +52,7 @@ class Message(Object):
     async def edit_text(self,  text, reply_markup=None, client=None):
         client = client or self.client
         return await client.edit_message_text(self.chat.id, self.id, text, reply_markup)
+
+    async def delete(self, client=None):
+        client = client or self.client
+        return await client.delete_message(self.chat.id, self.id)
