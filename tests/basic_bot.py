@@ -18,8 +18,8 @@ reply_markup = {
 
 @bot.on_message()
 async def answer_message(client, message):
-    print(f"{message['from']['first_name']}: {message.get('text')}")
-    if message.get("text") != "test":
+    print(f"{message['from']['first_name']}: {message['text']}")
+    if message["text"] != "test":
         return
     msg = await client.send_message(message["chat"]["id"], "(:", reply_markup, message["message_id"])
     await sleep(1)
