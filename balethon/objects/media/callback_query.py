@@ -1,10 +1,10 @@
 from ..object import Object
-from .. import User
+from ..user import User
 from .message import Message
 
 
 class CallbackQuery(Object):
-    id: int
+    id: str
     author: User
     message: Message
     inline_message_id: str
@@ -16,3 +16,7 @@ class CallbackQuery(Object):
         if kwargs.get("from"):
             kwargs["author"] = kwargs.pop("from")
         super().__init__(**kwargs)
+
+    async def answer(self, text, reply_markup=None, client=None):
+        client = client or self.client
+        return await client.send_message(self.message.chat.id, text, reply_markup)

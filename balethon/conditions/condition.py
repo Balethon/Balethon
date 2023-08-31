@@ -75,116 +75,116 @@ async def all(condition, client, message):
 
 @Condition
 async def forward(condition, client, message):
-    bool(message.get("forward_from") or message.get("forward_from_chat"))
+    bool(message.forward_from or message.forward_from_chat)
 
 
 @Condition
 async def reply(condition, client, message):
-    return bool(message.get("reply_to_message"))
+    return bool(message.reply_to_message)
 
 
 @Condition
 async def text(condition, client, message):
-    return bool(message.get("text"))
+    return bool(message.text)
 
 
 @Condition
 async def entities(condition, client, message):
-    return bool(message.get("entities") or message.get("caption_entities"))
+    return bool(message.entities or message.caption_entities)
 
 
 @Condition
 async def document(condition, client, message):
-    return bool(message.get("document"))
+    return bool(message.document)
 
 
 @Condition
 async def photo(condition, client, message):
-    return bool(message.get("photo"))
+    return bool(message.photo)
 
 
 @Condition
 async def video(condition, client, message):
-    return bool(message.get("video"))
+    return bool(message.video)
 
 
 @Condition
 async def voice(condition, client, message):
-    return bool(message.get("voice"))
+    return bool(message.voice)
 
 
 @Condition
 async def caption(condition, client, message):
-    return bool(message.get("caption"))
+    return bool(message.caption)
 
 
 @Condition
 async def contact(condition, client, message):
-    return bool(message.get("contact"))
+    return bool(message.contact)
 
 
 @Condition
 async def location(condition, client, message):
-    return bool(message.get("location"))
+    return bool(message.location)
 
 
 @Condition
 async def new_chat_members(condition, client, message):
-    return bool(message.get("new_chat_members"))
+    return bool(message.new_chat_members)
 
 
 @Condition
 async def left_chat_member(condition, client, message):
-    return bool(message.get("left_chat_member"))
+    return bool(message.left_chat_member)
 
 
 @Condition
 async def new_chat_title(condition, client, message):
-    return bool(message.get("new_chat_title"))
+    return bool(message.new_chat_title)
 
 
 @Condition
 async def new_chat_photo(condition, client, message):
-    return bool(message.get("new_chat_photo"))
+    return bool(message.new_chat_photo)
 
 
 @Condition
 async def delete_chat_photo(condition, client, message):
-    return bool(message.get("delete_chat_photo"))
+    return bool(message.delete_chat_photo)
 
 
 @Condition
 async def group_chat_created(condition, client, message):
-    return bool(message.get("group_chat_created"))
+    return bool(message.group_chat_created)
 
 
 @Condition
 async def supergroup_chat_created(condition, client, message):
-    return bool(message.get("supergroup_chat_created"))
+    return bool(message.supergroup_chat_created)
 
 
 @Condition
 async def channel_chat_created(condition, client, message):
-    return bool(message.get("channel_chat_created"))
+    return bool(message.channel_chat_created)
 
 
 @Condition
 async def pinned_message(condition, client, message):
-    return bool(message.get("pinned_message"))
+    return bool(message.pinned_message)
 
 
 @Condition
 async def invoice(condition, client, message):
-    return bool(message.get("invoice"))
+    return bool(message.invoice)
 
 
 @Condition
 async def media(condition, client, message):
     return bool(
-        message.get("photo") or
-        message.get("video") or
-        message.get("voice") or
-        message.get("document")
+        message.photo or
+        message.video or
+        message.voice or
+        message.document
     )
 
 
@@ -195,8 +195,8 @@ class Command(Condition):
         self.name = name
 
     async def __call__(self, client, message):
-        if not message["text"].startswith("/"):
+        if not message.text.startswith("/"):
             return False
-        if not message["text"][1:].startswith(self.name):
+        if not message.text[1:].startswith(self.name):
             return False
         return True

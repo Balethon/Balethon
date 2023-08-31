@@ -12,7 +12,7 @@ bot = Client("TOKEN")
 
 @bot.on_message()
 async def greet(client, message):
-    await client.send_message(message["from"]["id"], "Hello")
+    await message.reply("Hello")
 
 
 if __name__ == "__main__":

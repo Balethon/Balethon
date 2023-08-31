@@ -8,7 +8,7 @@ bot = Client(TOKEN)
 
 @bot.on_message()
 async def main(_, message):
-    print(f"{message['from']['first_name']}: {message.get('text')}")
+    print(f"{message.author.full_name}: {message.text}")
 
 
 @bot.on_message(all)

@@ -4,4 +4,6 @@ from .object import Object
 
 
 class Date(Object, datetime):
-    pass
+
+    def __new__(cls, timestamp):\
+        return datetime.fromtimestamp(timestamp)

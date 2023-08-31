@@ -1,15 +1,16 @@
 from ..object import Object
-from .. import User
+from ..user import User
 from ..date import Date
+from ..chat import Chat
 
 
 class Message(Object):
     id: int
     author: User
     date: Date
-    chat: None
-    forward_from: User
-    forward_from_chat: None
+    chat: Chat
+    forward_from: None
+    forward_from_chat: Chat
     forward_from_message_id: int
     forward_date: Date
     reply_to_message: None
@@ -43,3 +44,7 @@ class Message(Object):
         if kwargs.get("from"):
             kwargs["author"] = kwargs.pop("from")
         super().__init__(**kwargs)
+
+    async def reply(self, text, reply_markup=None, client=None):
+        client = client or self.client
+        return await client.send_message(self.chat.id, text, reply_markup, self.id)

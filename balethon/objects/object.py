@@ -13,7 +13,10 @@ class Object:
                 continue
             if isinstance(value, types[key]):
                 continue
-            self[key] = types[key](value)
+            if issubclass(types[key], Object) and isinstance(value, dict):
+                self[key] = types[key](**value)
+            else:
+                self[key] = types[key](value)
 
     def add_defaults(self):
         for key, value in type(self).__annotations__.items():

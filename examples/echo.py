@@ -6,7 +6,7 @@ bot = Client("TOKEN")
 
 @bot.on_message(text)
 async def echo(client, message):
-    await client.send_message(message["from"]["id"], message["text"], reply_to_message_id=message["message_id"])
+    await message.reply(message.text)
 
 
 if __name__ == "__main__":
