@@ -90,17 +90,17 @@ class Client:
         json = {"chat_id": chat_id, "message_id": message_id}
         return await self.connection.execute("get", "deleteMessage", json)
 
-    # updates
+    # media
     async def get_updates(self, offset=None, limit=None):
         json = {"offset": offset, "limit": limit}
         return await self.connection.execute("post", "getUpdates", json)
 
-    # updates
+    # media
     async def set_webhook(self, url):
         json = {"url": url}
         return await self.connection.execute("post", "setWebhook", json)
 
-    # updates
+    # media
     async def delete_webhook(self):
         return await self.connection.execute("get", "deleteWebhook")
 

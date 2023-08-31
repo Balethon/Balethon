@@ -17,6 +17,7 @@ class Dispatcher:
             update = Message(**update["message"])
         elif update.get("callback_query"):
             update = CallbackQuery(**update["callback_query"])
+        update.bind(client)
         for event_handler in self.event_handlers:
             if not isinstance(update, event_handler.can_handle):
                 continue
