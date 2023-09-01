@@ -1,4 +1,4 @@
-from .object import Object
+from . import Object
 
 
 class Chat(Object):

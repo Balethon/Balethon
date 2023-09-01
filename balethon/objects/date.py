@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from .object import Object
+from . import Object
 
 
 class Date(Object, datetime):

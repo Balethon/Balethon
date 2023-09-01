@@ -1,6 +1,6 @@
-from ..object import Object
-from ..user import User
-from .message import Message
+from .. import Object
+from .. import User
+from . import Message
 
 
 class CallbackQuery(Object):

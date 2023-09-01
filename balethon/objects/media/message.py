@@ -1,7 +1,7 @@
-from ..object import Object
-from ..user import User
-from ..date import Date
-from ..chat import Chat
+from .. import Object
+from .. import User
+from .. import Date
+from .. import Chat
 
 
 class Message(Object):
