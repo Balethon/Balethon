@@ -49,10 +49,6 @@ class Message(Object):
         client = client or self.client
         return await client.send_message(self.chat.id, text, reply_markup, self.id)
 
-    async def reply_photo(self, photo, caption=None, client=None):
-        client = client or self.client
-        return await client.send_photo(self.chat.id, photo, caption, self.id)
-
     async def edit_text(self,  text, reply_markup=None, client=None):
         client = client or self.client
         return await client.edit_message_text(self.chat.id, self.id, text, reply_markup)
