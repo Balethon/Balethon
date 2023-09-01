@@ -56,5 +56,3 @@ class Message(Object):
     async def delete(self, client=None):
         client = client or self.client
         return await client.delete_message(self.chat.id, self.id)
-
-    

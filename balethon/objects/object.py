@@ -24,7 +24,7 @@ class Object:
                 continue
             self[key] = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         self.client = None
         for key, value in kwargs.items():
             self[key] = value

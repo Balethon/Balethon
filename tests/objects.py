@@ -1,12 +1,8 @@
-from balethon.objects import Message, CallbackQuery
+from balethon.objects import Message, CallbackQuery, Date
 
 
 def main():
-    message = Message(message_id=234, text=23)
-    print(message.__dict__)
-
-    callback_query = CallbackQuery(id=2345)
-    print(callback_query)
+    print(Date(1675334324))
 
 
 if __name__ == "__main__":
