@@ -10,6 +10,7 @@ class Connection:
         self.time_out = time_out
         self.client_session = None
         self.is_started = False
+        self.base_url = "https://tapi.bale.ai/bot"
 
     async def start(self):
         if self.is_started:
@@ -26,7 +27,7 @@ class Connection:
 
     @property
     def url(self):
-        return f"https://tapi.bale.ai/bot{self.token}"
+        return f"{self.base_url}{self.token}"
 
     async def execute(self, request_type, method, json=None):
         async with self.client_session.request(
@@ -37,5 +38,5 @@ class Connection:
         ) as response:
             response = await response.json()
             if not response["ok"]:
-                raise RPCError.create(response.get("error_code"), response.get("description"))
+                raise RPCError.create(response.get("error_code"), response.get("description"), method)
             return response["result"]
