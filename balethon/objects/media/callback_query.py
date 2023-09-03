@@ -33,5 +33,4 @@ class CallbackQuery(Object):
 
     async def answer(self, text, reply_markup=None, client=None):
         client = client or self.client
-        print(self.message)
         return await client.send_message(self.message.chat.id, text, reply_markup)
