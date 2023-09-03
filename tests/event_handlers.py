@@ -1,6 +1,6 @@
 from balethon import Client
 
-from config import TOKEN
+from . import TOKEN
 
 bot = Client(TOKEN)
 

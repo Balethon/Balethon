@@ -3,7 +3,7 @@ from asyncio import sleep
 from balethon import Client
 from balethon.objects import Message, CallbackQuery
 
-from config import TOKEN
+from . import TOKEN
 
 bot = Client(TOKEN)
 

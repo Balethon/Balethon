@@ -2,7 +2,7 @@ from asyncio import run, sleep
 
 from balethon import Client
 
-from config import TOKEN, CHAT_ID, USER_ID
+from . import TOKEN, CHAT_ID, USER_ID
 
 PHOTO_URL = "https://www.bale.ai/img/bale-main.png"
 VIDEO_URL = "https://dev.bale.ai/sites/default/files/1398-03/final_5ce505a96467ba00144535c8_377089.mp4"
