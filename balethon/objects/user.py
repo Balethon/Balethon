@@ -1,11 +1,12 @@
 from . import Object
+import balethon
 
 
 class User(Object):
 
     def __init__(
             self,
-            client=None,
+            client: "balethon.Client" = None,
             id: int = None,
             username: str = None,
             first_name: str = None,

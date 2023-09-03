@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from . import Object
+import balethon
 
 
 class Date(Object, datetime):
@@ -12,7 +13,7 @@ class Date(Object, datetime):
 
     def __new__(
             cls,
-            client=None,
+            client: "balethon.Client" = None,
             *args,
             **kwargs
     ):
@@ -20,7 +21,7 @@ class Date(Object, datetime):
 
     def __init__(
             self,
-            client=None,
+            client: "balethon.Client" = None,
             *args,
             **kwargs
     ):

@@ -1,3 +1,6 @@
+import balethon
+
+
 class Object:
 
     @classmethod
@@ -37,10 +40,10 @@ class Object:
 
     def __init__(
             self,
-            client: str = None,
+            client: "balethon.Client" = None,
             **kwargs
     ):
-        self.client: str = client
+        self.client: "balethon.Client" = client
         for key, value in kwargs.items():
             self[key] = value
         if client is not None:

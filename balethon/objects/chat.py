@@ -1,11 +1,12 @@
 from . import Object
+import balethon
 
 
 class Chat(Object):
 
     def __init__(
             self,
-            client=None,
+            client: "balethon.Client" = None,
             id: int = None,
             type: str = None,
             title: str = None,
@@ -15,7 +16,7 @@ class Chat(Object):
             all_members_are_administrators: bool = None,
             description: str = None,
             invite_link: str = None,
-            pinned_message: None = None,
+            pinned_message: "balethon.objects.Message" = None,
             sticker_set_name: str = None,
             can_set_sticker_set: bool = None,
             **kwargs
@@ -30,7 +31,7 @@ class Chat(Object):
         self.all_members_are_administrators: bool = all_members_are_administrators
         self.description: str = description
         self.invite_link: str = invite_link
-        self.pinned_message: None = pinned_message
+        self.pinned_message: "balethon.objects.Message" = pinned_message
         self.sticker_set_name: str = sticker_set_name
         self.can_set_sticker_set: bool = can_set_sticker_set
 

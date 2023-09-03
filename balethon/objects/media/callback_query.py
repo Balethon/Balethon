@@ -1,16 +1,15 @@
 from .. import Object
-from .. import User
-from . import Message
+import balethon
 
 
 class CallbackQuery(Object):
 
     def __init__(
             self,
-            client=None,
+            client: "balethon.Client" = None,
             id: str = None,
-            author: User = None,
-            message: Message = None,
+            author: "balethon.objects.User" = None,
+            message: "balethon.objects.Message" = None,
             inline_message_id: str = None,
             chat_instance: str = None,
             data: str = None,
@@ -19,8 +18,8 @@ class CallbackQuery(Object):
     ):
         super().__init__(client, **kwargs)
         self.id: str = id
-        self.author: User = author
-        self.message: Message = message
+        self.author: "balethon.objects.User" = author
+        self.message: "balethon.objects.Message" = message
         self.inline_message_id: str = inline_message_id
         self.chat_instance: str = chat_instance
         self.data: str = data
