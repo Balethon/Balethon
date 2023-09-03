@@ -17,6 +17,10 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         self.connection = Connection(token, time_out)
         self.dispatcher = Dispatcher()
 
+    def __repr__(self):
+        name = type(self).__name__
+        return f"{name}({self.connection.token})"
+
     async def connect(self):
         await self.connection.start()
 
@@ -62,6 +66,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         while True:
             updates = await self.get_updates()
             for update in updates:
+                print(list(update.keys()))
                 if update["update_id"] in seen:
                     continue
                 seen.append(update["update_id"])
