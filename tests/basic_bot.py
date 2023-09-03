@@ -24,7 +24,7 @@ async def answer_message(client: Client, message: Message):
         return
     msg = await message.reply("(:", reply_markup)
     await sleep(1)
-    await client.edit_message_text(msg["chat"]["id"], msg["message_id"], "Hello from Balethon!", reply_markup)
+    await msg.edit_text("Hello from Balethon!", reply_markup, client)
     await sleep(1)
 
 

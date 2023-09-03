@@ -62,13 +62,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         return decorator
 
     async def start_polling(self):
-        seen = [u["update_id"] for u in (await self.get_updates())]
+        seen = [u.id for u in (await self.get_updates())]
         while True:
             updates = await self.get_updates()
             for update in updates:
-                if update["update_id"] in seen:
+                if update.id in seen:
                     continue
-                seen.append(update["update_id"])
+                seen.append(update.id)
                 await self.dispatcher(self, update)
 
     def run(self, func):
