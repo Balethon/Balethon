@@ -14,6 +14,10 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
+            if isinstance(expected_type, str):
+                if not expected_type.startswith("balethon.objects"):
+                    continue
+                expected_type = getattr(balethon.objects, expected_type.split(".")[-1])
             if not issubclass(expected_type, Object):
                 continue
             if isinstance(value, expected_type):
