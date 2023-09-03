@@ -14,9 +14,9 @@ class Dispatcher:
 
     async def __call__(self, client, update):
         if update.get("message"):
-            update = Message(**update["message"])
+            update = Message.wrap(update["message"])
         elif update.get("callback_query"):
-            update = CallbackQuery(**update["callback_query"])
+            update = CallbackQuery.wrap(update["callback_query"])
         update.bind(client)
         for event_handler in self.event_handlers:
             if not isinstance(update, event_handler.can_handle):
