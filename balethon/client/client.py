@@ -66,7 +66,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         while True:
             updates = await self.get_updates()
             for update in updates:
-                print(list(update.keys()))
                 if update["update_id"] in seen:
                     continue
                 seen.append(update["update_id"])
