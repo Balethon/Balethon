@@ -29,7 +29,7 @@ class Message(Object):
             caption: str = None,
             contact: None = None,
             location: None = None,
-            new_chat_members: list["objects.User"] = None,
+            new_chat_members: list["objects.User"] = None,  # TODO: adding support for List in Object.validate_types()
             left_chat_member: "objects.User" = None,
             new_chat_title: str = None,
             new_chat_photo: None = None,

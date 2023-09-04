@@ -9,3 +9,5 @@ from .message import Message
 from .callback_query import CallbackQuery
 from .inline_keyboard_button import InlineKeyboardButton
 from .inline_keyboard import InlineKeyboard
+from .keyboard_button import KeyboardButton
+from .keyboard import Keyboard
