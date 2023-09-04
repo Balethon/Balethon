@@ -1,5 +1,6 @@
 from . import Object
 import balethon
+from balethon import objects
 
 
 class Message(Object):
@@ -8,15 +9,15 @@ class Message(Object):
             self,
             client: "balethon.Client" = None,
             id: int = None,
-            author: "balethon.objects.User" = None,
-            date: "balethon.objects.Date" = None,
-            chat: "balethon.objects.Chat" = None,
-            forward_from: "balethon.objects.User" = None,
-            forward_from_chat: "balethon.objects.Chat" = None,
+            author: "objects.User" = None,
+            date: "objects.Date" = None,
+            chat: "objects.Chat" = None,
+            forward_from: "objects.User" = None,
+            forward_from_chat: "objects.Chat" = None,
             forward_from_message_id: int = None,
-            forward_date: "balethon.objects.Date" = None,
-            reply_to_message: "balethon.objects.Message" = None,
-            edit_date: "balethon.objects.Date" = None,
+            forward_date: "objects.Date" = None,
+            reply_to_message: "objects.Message" = None,
+            edit_date: "objects.Date" = None,
             text: str = None,
             entities: None = None,
             caption_entities: None = None,
@@ -28,8 +29,8 @@ class Message(Object):
             caption: str = None,
             contact: None = None,
             location: None = None,
-            new_chat_members: list["balethon.objects.User"] = None,
-            left_chat_member: "balethon.objects.User" = None,
+            new_chat_members: list["objects.User"] = None,
+            left_chat_member: "objects.User" = None,
             new_chat_title: str = None,
             new_chat_photo: None = None,
             delete_chat_photo: bool = None,
@@ -43,15 +44,15 @@ class Message(Object):
     ):
         super().__init__(client, **kwargs)
         self.id: int = id
-        self.author: "balethon.objects.User" = author
-        self.date: "balethon.objects.Date" = date
-        self.chat: "balethon.objects.Chat" = chat
+        self.author: "objects.User" = author
+        self.date: "objects.Date" = date
+        self.chat: "objects.Chat" = chat
         self.forward_from: None = forward_from
-        self.forward_from_chat: "balethon.objects.Chat" = forward_from_chat
+        self.forward_from_chat: "objects.Chat" = forward_from_chat
         self.forward_from_message_id: int = forward_from_message_id
-        self.forward_date: "balethon.objects.Date" = forward_date
-        self.reply_to_message: "balethon.objects.Message" = reply_to_message
-        self.edit_date: "balethon.objects.Date" = edit_date
+        self.forward_date: "objects.Date" = forward_date
+        self.reply_to_message: "objects.Message" = reply_to_message
+        self.edit_date: "objects.Date" = edit_date
         self.text: str = text
         self.entities: None = entities
         self.caption_entities: None = caption_entities
@@ -63,8 +64,8 @@ class Message(Object):
         self.caption: str = caption
         self.contact: None = contact
         self.location: None = location
-        self.new_chat_members: list["balethon.objects.User"] = new_chat_members
-        self.left_chat_member: "balethon.objects.User" = left_chat_member
+        self.new_chat_members: list["objects.User"] = new_chat_members
+        self.left_chat_member: "objects.User" = left_chat_member
         self.new_chat_title: str = new_chat_title
         self.new_chat_photo: None = new_chat_photo
         self.delete_chat_photo: bool = delete_chat_photo

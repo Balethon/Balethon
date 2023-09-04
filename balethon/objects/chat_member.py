@@ -1,5 +1,6 @@
 from . import Object
 import balethon
+from balethon import objects
 
 
 class ChatMember(Object):
@@ -7,9 +8,9 @@ class ChatMember(Object):
     def __init__(
             self,
             client: "balethon.Client" = None,
-            user: "balethon.objects.User" = None,
+            user: "objects.User" = None,
             status: str = None,
-            until_date: "balethon.objects.Date" = None,
+            until_date: "objects.Date" = None,
             can_be_edited: bool = None,
             can_change_info: bool = None,
             can_post_messages: bool = None,
@@ -26,9 +27,9 @@ class ChatMember(Object):
             **kwargs
     ):
         super().__init__(client, **kwargs)
-        self.user: "balethon.objects.User" = user
+        self.user: "objects.User" = user
         self.status: str = status
-        self.until_date: "balethon.objects.Date" = until_date
+        self.until_date: "objects.Date" = until_date
         self.can_be_edited: bool = can_be_edited
         self.can_change_info: bool = can_change_info
         self.can_post_messages: bool = can_post_messages

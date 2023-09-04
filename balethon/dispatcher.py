@@ -10,7 +10,7 @@ class Dispatcher:
         self.event_handlers.remove(event_handler)
 
     async def __call__(self, client, update):
-        update = update.get_update()
+        update = update.available_update
         update.bind(client)
         for event_handler in self.event_handlers:
             if not isinstance(update, event_handler.can_handle):

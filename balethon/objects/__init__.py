@@ -7,3 +7,5 @@ from .file import File
 from .chat_member import ChatMember
 from .message import Message
 from .callback_query import CallbackQuery
+from .inline_keyboard_button import InlineKeyboardButton
+from .inline_keyboard import InlineKeyboard
