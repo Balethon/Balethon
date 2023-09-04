@@ -1,6 +1,3 @@
-from .objects import Message, CallbackQuery
-
-
 class Dispatcher:
 
     def __init__(self):

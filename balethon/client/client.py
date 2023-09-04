@@ -11,6 +11,7 @@ from ..dispatcher import Dispatcher
 from ..event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler
 
 
+# TODO: adding a decorator for creating methods
 class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
     def __init__(self, token, time_out=20):

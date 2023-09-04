@@ -1,8 +1,5 @@
-from .condition import (
-    Condition,
-    AllCondition,
-    AnyCondition,
-    NotCondition,
+from .condition import Condition, AllCondition, AnyCondition, NotCondition
+from conditions import (
     all,
     forward,
     reply,

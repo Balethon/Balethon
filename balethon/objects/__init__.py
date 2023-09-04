@@ -5,4 +5,5 @@ from .chat import Chat
 from .update import Update
 from .file import File
 from .chat_member import ChatMember
-from .media import Message, CallbackQuery
+from .message import Message
+from .callback_query import CallbackQuery
