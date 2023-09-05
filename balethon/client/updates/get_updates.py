@@ -7,7 +7,7 @@ class GetUpdates:
         json = locals()
         del json["self"]
         result = await self.connection.execute("post", "getUpdates", json)
+        result = [Update.wrap(update) for update in result]
         for update in result:
-            update = Update.wrap(update)
             update.bind(self)
         return result

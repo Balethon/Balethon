@@ -19,6 +19,8 @@ reply_markup = {
 
 @bot.on_message()
 async def answer_message(client: Client, message: Message):
+    print(message)
+    print(message.unwrap())
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
         return
