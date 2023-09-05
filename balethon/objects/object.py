@@ -52,6 +52,9 @@ class Object:
             self.bind(client)
 
     def unwrap(self):
+        for key, value in self.__dict__:
+            if isinstance(value, Object):
+                self[key] = value.unwrap()
         return self.__dict__
 
     def __repr__(self):

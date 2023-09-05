@@ -5,6 +5,12 @@ from balethon import objects
 
 class CallbackQuery(Object):
 
+    @classmethod
+    def wrap(cls, raw_object):
+        if raw_object.get("from"):
+            raw_object["author"] = raw_object.pop("from")
+        return super().wrap(raw_object)
+
     def __init__(
             self,
             client: "balethon.Client" = None,
@@ -25,12 +31,6 @@ class CallbackQuery(Object):
         self.chat_instance: str = chat_instance
         self.data: str = data
         self.game_short_name: str = game_short_name
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("from"):
-            raw_object["author"] = raw_object.pop("from")
-        return super().wrap(raw_object)
 
     async def answer(self, text, reply_markup=None, client=None):
         client = client or self.client

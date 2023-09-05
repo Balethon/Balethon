@@ -5,6 +5,14 @@ from balethon import objects
 
 class Message(Object):
 
+    @classmethod
+    def wrap(cls, raw_object):
+        if raw_object.get("message_id"):
+            raw_object["id"] = raw_object.pop("message_id")
+        if raw_object.get("from"):
+            raw_object["author"] = raw_object.pop("from")
+        return super().wrap(raw_object)
+
     def __init__(
             self,
             client: "balethon.Client" = None,
@@ -75,14 +83,6 @@ class Message(Object):
         self.pinned_message: None = pinned_message
         self.invoice: None = invoice
         self.successful_payment: None = successful_payment
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("message_id"):
-            raw_object["id"] = raw_object.pop("message_id")
-        if raw_object.get("from"):
-            raw_object["author"] = raw_object.pop("from")
-        return super().wrap(raw_object)
 
     async def reply(self, text, reply_markup=None, client=None):
         client = client or self.client

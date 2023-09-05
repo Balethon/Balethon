@@ -5,4 +5,6 @@ class GetMe:
 
     async def get_me(self):
         result = await self.connection.execute("get", "getMe")
-        return User.wrap(result)
+        result = User.wrap(result)
+        result.bind(self)
+        return result

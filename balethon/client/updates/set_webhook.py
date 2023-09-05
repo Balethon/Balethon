@@ -1,5 +1,6 @@
 class SetWebhook:
 
     async def set_webhook(self, url):
-        json = {"url": url}
+        json = locals()
+        del json["self"]
         return await self.connection.execute("post", "setWebhook", json)
