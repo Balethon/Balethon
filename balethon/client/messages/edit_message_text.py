@@ -1,5 +1,6 @@
 import balethon
 from ...objects import Message
+from balethon import objects
 
 
 class EditMessageText:
@@ -9,7 +10,7 @@ class EditMessageText:
             chat_id: int,
             message_id: int,
             text: str,
-            reply_markup=None
+            reply_markup: "objects.ReplyMarkup" = None
     ):
         json = locals()
         del json["self"]

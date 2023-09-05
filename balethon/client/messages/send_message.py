@@ -1,5 +1,6 @@
 import balethon
 from ...objects import Message
+from balethon import objects
 
 
 class SendMessage:
@@ -8,7 +9,7 @@ class SendMessage:
             self: "balethon.Client",
             chat_id: int,
             text: str,
-            reply_markup=None,
+            reply_markup: "objects.ReplyMarkup" = None,
             reply_to_message_id: int = None
     ):
         json = locals()
