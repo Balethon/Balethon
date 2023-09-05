@@ -4,12 +4,9 @@ from balethon import objects
 
 
 class Update(Object):
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("update_id"):
-            raw_object["id"] = raw_object.pop("update_id")
-        return super().wrap(raw_object)
+    attribute_names = [
+        ("id", "update_id")
+    ]
 
     def __init__(
             self,

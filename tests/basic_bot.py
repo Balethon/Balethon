@@ -19,15 +19,12 @@ reply_markup = {
 
 @bot.on_message()
 async def answer_message(client: Client, message: Message):
-    print(message)
-    print(message.unwrap())
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
         return
     msg = await message.reply("(:", reply_markup)
     await sleep(1)
     await msg.edit_text("Hello from Balethon!", reply_markup, client)
-    await sleep(1)
 
 
 @bot.on_callback_query()

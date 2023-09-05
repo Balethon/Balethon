@@ -4,12 +4,9 @@ from balethon import objects
 
 
 class CallbackQuery(Object):
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("from"):
-            raw_object["author"] = raw_object.pop("from")
-        return super().wrap(raw_object)
+    attribute_names = [
+        ("author", "from")
+    ]
 
     def __init__(
             self,

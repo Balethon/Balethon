@@ -3,16 +3,11 @@ import balethon
 
 
 class File(Object):
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("file_id"):
-            raw_object["id"] = raw_object.pop("file_id")
-        if raw_object.get("file_size"):
-            raw_object["size"] = raw_object.pop("file_size")
-        if raw_object.get("file_path"):
-            raw_object["path"] = raw_object.pop("file_path")
-        return super().wrap(raw_object)
+    attribute_names = [
+        ("id", "file_id"),
+        ("size", "file_size"),
+        ("path", "file_path")
+    ]
 
     def __init__(
             self,

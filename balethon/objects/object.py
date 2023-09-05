@@ -4,6 +4,7 @@ import balethon
 
 
 class Object:
+    attribute_names = []
 
     @classmethod
     def expected_types(cls):
@@ -25,6 +26,9 @@ class Object:
 
     @classmethod
     def wrap(cls, raw_object):
+        for attribute_name, key_name in cls.attribute_names:
+            if raw_object.get(key_name):
+                raw_object[attribute_name] = raw_object.pop(key_name)
         raw_object = cls.validate_types(raw_object)
         return cls(**raw_object)
 
@@ -55,6 +59,9 @@ class Object:
         for key, value in self.__dict__.items():
             if isinstance(value, Object):
                 self[key] = value.unwrap()
+            for attribute_name, key_name in self.attribute_names:
+                if self.__dict__.get(key_name):
+                    self.__dict__[attribute_name] = self.__dict__.pop(key_name)
         return self.__dict__
 
     def __repr__(self):

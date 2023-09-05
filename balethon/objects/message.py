@@ -4,14 +4,10 @@ from balethon import objects
 
 
 class Message(Object):
-
-    @classmethod
-    def wrap(cls, raw_object):
-        if raw_object.get("message_id"):
-            raw_object["id"] = raw_object.pop("message_id")
-        if raw_object.get("from"):
-            raw_object["author"] = raw_object.pop("from")
-        return super().wrap(raw_object)
+    attribute_names = [
+        ("id", "message_id"),
+        ("author", "from")
+    ]
 
     def __init__(
             self,
