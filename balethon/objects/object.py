@@ -1,3 +1,5 @@
+from typing import get_type_hints
+
 import balethon
 
 
@@ -5,7 +7,7 @@ class Object:
 
     @classmethod
     def expected_types(cls):
-        return cls.__init__.__annotations__
+        return get_type_hints(cls.__init__)
 
     @classmethod
     def validate_types(cls, raw_object):
@@ -14,10 +16,6 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
-            if isinstance(expected_type, str):
-                if not expected_type.startswith("objects"):
-                    continue
-                expected_type = getattr(balethon.objects, expected_type.split(".")[-1])
             if not issubclass(expected_type, Object):
                 continue
             if isinstance(value, expected_type):
