@@ -1,6 +1,13 @@
+import balethon
+
+
 class DeleteMessage:
 
-    async def delete_message(self, chat_id, message_id):
+    async def delete_message(
+            self: "balethon.Client",
+            chat_id: int,
+            message_id: int
+    ):
         json = locals()
         del json["self"]
         return await self.connection.execute("get", "deleteMessage", json)

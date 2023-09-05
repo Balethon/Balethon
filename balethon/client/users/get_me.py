@@ -1,9 +1,12 @@
+import balethon
 from ...objects import User
 
 
 class GetMe:
 
-    async def get_me(self):
+    async def get_me(
+            self: "balethon.Client"
+    ):
         result = await self.connection.execute("get", "getMe")
         result = User.wrap(result)
         result.bind(self)

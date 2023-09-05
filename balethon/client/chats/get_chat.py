@@ -1,9 +1,13 @@
+import balethon
 from ...objects import Chat
 
 
 class GetChat:
 
-    async def get_chat(self, chat_id):
+    async def get_chat(
+            self: "balethon.Client",
+            chat_id: int
+    ):
         json = locals()
         del json["self"]
         result = await self.connection.execute("get", "getChat", json)
