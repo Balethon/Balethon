@@ -14,3 +14,13 @@ class InlineKeyboard(ReplyMarkup):
             **kwargs
     ):
         super().__init__(client, *rows, **kwargs)
+
+    def unwrap(self):
+        super().unwrap()
+        for row in self:
+            print(row)
+            for i, button in enumerate(row):
+                print(button)
+                self = button.unwrap()
+                print(button.__dict__)
+        return {"inline_keyboard": list(self)}

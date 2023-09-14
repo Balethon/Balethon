@@ -1,24 +1,28 @@
 from asyncio import sleep
 
 from balethon import Client
-from balethon.objects import Message, CallbackQuery
+from balethon.objects import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboard
 
 from config import TOKEN
 
 bot = Client(TOKEN)
 
-reply_markup = {
-    "inline_keyboard": [
-        [
-            {"text": "Button 1", "callback_data": "1"},
-            {"text": "Button 2", "callback_data": "2"}
-        ]
-    ]
+reply_markup = {"reply_markup": {
+"inline_keyboard": [
+[
+{
+"text": "babat",
+"callback_data": "babat"
+}
+]
+]
+}
 }
 
 
 @bot.on_message()
 async def answer_message(client: Client, message: Message):
+    raise ValueError("fuck")
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
         return
@@ -31,6 +35,11 @@ async def answer_message(client: Client, message: Message):
 async def answer_callback_query(client, callback_query: CallbackQuery):
     print(f"{callback_query.author.full_name}: [{callback_query.data}]")
     await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!")
+
+
+@bot.on_error()
+async def show_error(client, error):
+    print(error)
 
 
 if __name__ == "__main__":

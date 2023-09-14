@@ -56,6 +56,7 @@ class Object:
             self.bind(client)
 
     def unwrap(self):
+        del self.client
         for key, value in self.__dict__.items():
             if isinstance(value, Object):
                 self[key] = value.unwrap()

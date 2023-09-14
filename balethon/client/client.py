@@ -8,7 +8,7 @@ from .chats import Chats
 from .payments import Payments
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler
+from ..event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler, ErrorHandler
 
 
 # TODO: adding a decorator for creating methods
@@ -62,6 +62,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
             return callback
         return decorator
 
+    def on_error(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(ErrorHandler(callback, condition))
+            return callback
+        return decorator
+
     async def start_polling(self):
         seen = [u.id for u in (await self.get_updates())]
         while True:
@@ -70,6 +76,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
                 if update.id in seen:
                     continue
                 seen.append(update.id)
+                update = update.available_update
                 await self.dispatcher(self, update)
 
     def run(self, func):
