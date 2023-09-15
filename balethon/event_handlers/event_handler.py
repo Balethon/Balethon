@@ -1,14 +1,8 @@
 class EventHandler:
-    can_handle = None
+    can_handle = object
 
-    def __init__(self, callback, condition=None):
+    def __init__(self, callback):
         self.callback = callback
-        self.condition = condition
 
     async def __call__(self, *args, **kwargs):
         return await self.callback(*args, **kwargs)
-
-    async def check(self, client, update):
-        if callable(self.condition):
-            return await self.condition(client, update)
-        return True

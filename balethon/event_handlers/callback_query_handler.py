@@ -1,8 +1,8 @@
-from .event_handler import EventHandler
+from .update_handler import UpdateHandler
 from ..objects import CallbackQuery
 
 
-class CallbackQueryHandler(EventHandler):
+class CallbackQueryHandler(UpdateHandler):
     can_handle = CallbackQuery
 
     def __init__(self, callback, condition=None):

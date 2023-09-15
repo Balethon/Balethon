@@ -1,9 +1,9 @@
-from .event_handler import EventHandler
+from .message_handler import MessageHandler
 from ..conditions import Command
 from ..objects import Message
 
 
-class CommandHandler(EventHandler):
+class CommandHandler(MessageHandler):
     can_handle = Message
 
     def __init__(self, callback, condition=None, name=None):
