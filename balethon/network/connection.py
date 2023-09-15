@@ -1,7 +1,6 @@
 from aiohttp import ClientSession
 
 from ..errors import RPCError
-from ..objects import Error
 
 
 class Connection:
@@ -39,6 +38,5 @@ class Connection:
         ) as response:
             response_json = await response.json()
             if not response.ok:
-                error = Error.wrap(response_json)
-                raise RPCError.create(error.code, error.description, service)
+                raise RPCError.create(response_json.get("error_code"), response_json.get("description"), service)
             return response_json["result"]

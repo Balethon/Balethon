@@ -13,4 +13,3 @@ from .inline_keyboard import InlineKeyboard
 from .keyboard_button import KeyboardButton
 from .keyboard import Keyboard
 from .entity import Entity
-from .error import Error
