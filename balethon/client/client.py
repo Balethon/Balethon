@@ -8,7 +8,14 @@ from .chats import Chats
 from .payments import Payments
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import MessageHandler, CallbackQueryHandler, CommandHandler, ErrorHandler
+from ..event_handlers import (
+    EventHandler,
+    UpdateHandler,
+    ErrorHandler,
+    MessageHandler,
+    CallbackQueryHandler,
+    CommandHandler
+)
 
 
 # TODO: adding a decorator for creating methods
@@ -44,6 +51,24 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def remove_event_handler(self, event_handler):
         self.dispatcher.remove_event_handler(event_handler)
 
+    def on_event(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(EventHandler(callback, condition))
+            return callback
+        return decorator
+
+    def on_error(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(ErrorHandler(callback, condition))
+            return callback
+        return decorator
+
+    def on_update(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(UpdateHandler(callback, condition))
+            return callback
+        return decorator
+
     def on_message(self, condition=None):
         def decorator(callback):
             self.add_event_handler(MessageHandler(callback, condition))
@@ -59,12 +84,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def on_command(self, condition=None, name=None):
         def decorator(callback):
             self.add_event_handler(CommandHandler(callback, condition, name))
-            return callback
-        return decorator
-
-    def on_error(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(ErrorHandler(callback, condition))
             return callback
         return decorator
 
