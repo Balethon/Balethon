@@ -55,7 +55,7 @@ class Object:
         if client is not None:
             self.bind(client)
 
-    def unwrap(self):
+    def unwrap(self):  # TODO: fixing unwrap for all Objects
         del self.client
         for key, value in self.__dict__.items():
             if isinstance(value, Object):

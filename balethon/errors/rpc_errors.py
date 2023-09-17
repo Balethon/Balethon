@@ -1,4 +1,4 @@
-class RPCError(Exception):
+class RPCError(Exception):  # TODO: separating RPCErrors
     name = "RPC Error"
     code = None
 

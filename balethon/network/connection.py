@@ -30,7 +30,7 @@ class Connection:
         return f"{self.base_url}{self.token}"
 
     async def execute(self, method, service, json=None):
-        async with self.client_session.request(
+        async with self.client_session.request(  # TODO: retry on failing
                 method,
                 f"{self.url}/{service}",
                 json=json,

@@ -28,11 +28,6 @@ async def answer_callback_query(client, callback_query: CallbackQuery):
     await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!")
 
 
-@bot.on_error()
-async def show_error(client, error):
-    print(error)
-
-
 @bot.on_update()
 async def show_update(c, u):
     print(u)

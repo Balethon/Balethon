@@ -88,9 +88,18 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         return decorator
 
     async def start_polling(self):
-        seen = [u.id for u in (await self.get_updates())]
+        seen_old_messages = False
+        seen = []
         while True:
-            updates = await self.get_updates()
+            try:
+                updates = await self.get_updates()
+            except Exception as error:
+                await self.dispatcher(self, error)
+                continue
+            if not seen_old_messages:
+                seen.extend(u.id for u in updates)
+                seen_old_messages = True
+                continue
             for update in updates:
                 if update.id in seen:
                     continue

@@ -1,7 +1,15 @@
+from .event_handlers import ErrorHandler
+
+
+async def show_error(client, error):
+    print(error)
+
+
 class Dispatcher:
 
     def __init__(self):
         self.event_handlers = []
+        self.add_event_handler(ErrorHandler(show_error))
 
     def add_event_handler(self, event_handler):
         self.event_handlers.append(event_handler)
