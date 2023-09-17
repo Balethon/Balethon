@@ -29,7 +29,7 @@ async def answer_callback_query(client, callback_query: CallbackQuery):
 
 
 @bot.on_update()
-async def show_update(c, u):
+def show_update(c, u):
     print(u)
 
 

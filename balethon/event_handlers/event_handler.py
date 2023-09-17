@@ -1,3 +1,6 @@
+from inspect import iscoroutinefunction
+
+
 class EventHandler:
     can_handle = object
 
@@ -6,9 +9,11 @@ class EventHandler:
         self.condition = condition
 
     async def __call__(self, *args, **kwargs):
-        return await self.callback(*args, **kwargs)
+        if iscoroutinefunction(self.callback):
+            return await self.callback(*args, **kwargs)
+        return self.callback(*args, **kwargs)
 
     async def check(self, client, update):
-        if callable(self.condition):
-            return await self.condition(client, update)
-        return True
+        if self.condition is None:
+            return True
+        return await self.condition(client, update)

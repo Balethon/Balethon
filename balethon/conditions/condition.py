@@ -1,3 +1,6 @@
+from inspect import iscoroutinefunction
+
+
 # TODO: adding a decorator for creating Conditions
 class Condition:
 
@@ -5,7 +8,9 @@ class Condition:
         self.function = function
 
     async def __call__(self, client, update):
-        return await self.function(self, client, update)
+        if iscoroutinefunction(self.function):
+            return await self.function(self, client, update)
+        return self.function(self, client, update)
 
     def __and__(self, other):
         return AllCondition(self, other)

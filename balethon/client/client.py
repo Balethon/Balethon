@@ -1,4 +1,5 @@
 from asyncio import get_event_loop
+from inspect import iscoroutine
 
 from .messages import Messages
 from .updates import Updates
@@ -107,11 +108,14 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
                 update = update.available_update
                 await self.dispatcher(self, update)
 
-    def run(self, func):
+    def run(self, function):
         loop = get_event_loop()
         try:
             loop.run_until_complete(self.connect())
-            loop.run_until_complete(func)
+            if iscoroutine(function):
+                loop.run_until_complete(function)
+            else:
+                function()
         except KeyboardInterrupt:
             return
         finally:
