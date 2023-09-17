@@ -1,8 +1,11 @@
 from inspect import iscoroutinefunction
 
 
-# TODO: adding a decorator for creating Conditions
 class Condition:
+
+    @classmethod
+    def create(cls, function):
+        return cls(function)
 
     def __init__(self, function=None):
         self.function = function
@@ -75,117 +78,117 @@ class NotCondition(Condition):
 
 
 # TODO: separating the Conditions
-@Condition
+@Condition.create
 async def all(condition, client, message):
     return True
 
 
-@Condition
+@Condition.create
 async def forward(condition, client, message):
     bool(message.forward_from or message.forward_from_chat)
 
 
-@Condition
+@Condition.create
 async def reply(condition, client, message):
     return bool(message.reply_to_message)
 
 
-@Condition
+@Condition.create
 async def text(condition, client, message):
     return bool(message.text)
 
 
-@Condition
+@Condition.create
 async def entities(condition, client, message):
     return bool(message.entities or message.caption_entities)
 
 
-@Condition
+@Condition.create
 async def document(condition, client, message):
     return bool(message.document)
 
 
-@Condition
+@Condition.create
 async def photo(condition, client, message):
     return bool(message.photo)
 
 
-@Condition
+@Condition.create
 async def video(condition, client, message):
     return bool(message.video)
 
 
-@Condition
+@Condition.create
 async def voice(condition, client, message):
     return bool(message.voice)
 
 
-@Condition
+@Condition.create
 async def caption(condition, client, message):
     return bool(message.caption)
 
 
-@Condition
+@Condition.create
 async def contact(condition, client, message):
     return bool(message.contact)
 
 
-@Condition
+@Condition.create
 async def location(condition, client, message):
     return bool(message.location)
 
 
-@Condition
+@Condition.create
 async def new_chat_members(condition, client, message):
     return bool(message.new_chat_members)
 
 
-@Condition
+@Condition.create
 async def left_chat_member(condition, client, message):
     return bool(message.left_chat_member)
 
 
-@Condition
+@Condition.create
 async def new_chat_title(condition, client, message):
     return bool(message.new_chat_title)
 
 
-@Condition
+@Condition.create
 async def new_chat_photo(condition, client, message):
     return bool(message.new_chat_photo)
 
 
-@Condition
+@Condition.create
 async def delete_chat_photo(condition, client, message):
     return bool(message.delete_chat_photo)
 
 
-@Condition
+@Condition.create
 async def group_chat_created(condition, client, message):
     return bool(message.group_chat_created)
 
 
-@Condition
+@Condition.create
 async def supergroup_chat_created(condition, client, message):
     return bool(message.supergroup_chat_created)
 
 
-@Condition
+@Condition.create
 async def channel_chat_created(condition, client, message):
     return bool(message.channel_chat_created)
 
 
-@Condition
+@Condition.create
 async def pinned_message(condition, client, message):
     return bool(message.pinned_message)
 
 
-@Condition
+@Condition.create
 async def invoice(condition, client, message):
     return bool(message.invoice)
 
 
-@Condition
+@Condition.create
 async def media(condition, client, message):
     return bool(
         message.photo or
