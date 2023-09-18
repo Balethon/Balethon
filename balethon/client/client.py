@@ -11,6 +11,8 @@ from ..network import Connection
 from ..dispatcher import Dispatcher
 from ..event_handlers import (
     EventHandler,
+    ConnectHandler,
+    DisconnectHandler,
     UpdateHandler,
     ErrorHandler,
     MessageHandler,
@@ -32,9 +34,11 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
     async def connect(self):
         await self.connection.start()
+        await self.dispatcher(self, ConnectHandler)
 
     async def disconnect(self):
         await self.connection.stop()
+        await self.dispatcher(self, DisconnectHandler)
 
     async def __aenter__(self):
         await self.connect()
@@ -55,6 +59,18 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def on_event(self, condition=None):
         def decorator(callback):
             self.add_event_handler(EventHandler(callback, condition))
+            return callback
+        return decorator
+
+    def on_connect(self):
+        def decorator(callback):
+            self.add_event_handler(ConnectHandler(callback))
+            return callback
+        return decorator
+
+    def on_disconnect(self):
+        def decorator(callback):
+            self.add_event_handler(DisconnectHandler(callback))
             return callback
         return decorator
 

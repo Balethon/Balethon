@@ -1,4 +1,6 @@
 from .event_handler import EventHandler
+from .connect_handler import ConnectHandler
+from .disconnect_handler import DisconnectHandler
 from .error_handler import ErrorHandler
 from .update_handler import UpdateHandler
 from .message_handler import MessageHandler

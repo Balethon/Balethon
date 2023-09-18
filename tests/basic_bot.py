@@ -12,6 +12,11 @@ reply_markup = {
 }
 
 
+@bot.on_connect()
+async def ready(client):
+    print("bot is ready!")
+
+
 @bot.on_message()
 async def answer_message(client: Client, message: Message):
     print(f"{message.author.full_name}: {message.text}")
@@ -31,6 +36,11 @@ async def answer_callback_query(client, callback_query: CallbackQuery):
 @bot.on_update()
 def show_update(c, u):
     print(u)
+
+
+@bot.on_disconnect()
+def bye(client):
+    print("bye!")
 
 
 if __name__ == "__main__":

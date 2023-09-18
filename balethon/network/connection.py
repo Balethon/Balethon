@@ -39,4 +39,4 @@ class Connection:
             response_json = await response.json()
             if not response.ok:
                 raise RPCError.create(response_json.get("error_code"), response_json.get("description"), service)
-            return response_json["result"]
+            return response_json.get("result")
