@@ -1,3 +1,5 @@
+from typing import List
+
 from . import Object
 import balethon
 from balethon import objects
@@ -23,8 +25,8 @@ class Message(Object):
             reply_to_message: "objects.Message" = None,
             edit_date: "objects.Date" = None,
             text: str = None,
-            entities: list["objects.Entity"] = None,
-            caption_entities: list["objects.Entity"] = None,
+            entities: List["objects.Entity"] = None,
+            caption_entities: List["objects.Entity"] = None,
             audio: None = None,
             document: None = None,
             photo: None = None,
@@ -33,7 +35,7 @@ class Message(Object):
             caption: str = None,
             contact: None = None,
             location: None = None,
-            new_chat_members: list["objects.User"] = None,  # TODO: adding support for List in Object.validate_types()
+            new_chat_members: List["objects.User"] = None,  # TODO: adding support for List in Object.validate_types()
             left_chat_member: "objects.User" = None,
             new_chat_title: str = None,
             new_chat_photo: None = None,
@@ -68,7 +70,7 @@ class Message(Object):
         self.caption: str = caption
         self.contact: None = contact
         self.location: None = location
-        self.new_chat_members: list["objects.User"] = new_chat_members
+        self.new_chat_members: List["objects.User"] = new_chat_members
         self.left_chat_member: "objects.User" = left_chat_member
         self.new_chat_title: str = new_chat_title
         self.new_chat_photo: None = new_chat_photo
