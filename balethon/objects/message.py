@@ -25,8 +25,8 @@ class Message(Object):
             reply_to_message: "objects.Message" = None,
             edit_date: "objects.Date" = None,
             text: str = None,
-            entities: List["objects.Entity"] = None,
-            caption_entities: List["objects.Entity"] = None,
+            entities: None = None,
+            caption_entities: None = None,
             audio: None = None,
             document: None = None,
             photo: None = None,
@@ -35,7 +35,7 @@ class Message(Object):
             caption: str = None,
             contact: None = None,
             location: None = None,
-            new_chat_members: List["objects.User"] = None,  # TODO: adding support for List in Object.validate_types()
+            new_chat_members: None = None,  # TODO: adding support for List in Object.validate_types()
             left_chat_member: "objects.User" = None,
             new_chat_title: str = None,
             new_chat_photo: None = None,
