@@ -9,5 +9,4 @@ async def echo(client, message):
     await message.reply(message.text)
 
 
-if __name__ == "__main__":
-    bot.run_polling()
+bot.run_polling()
