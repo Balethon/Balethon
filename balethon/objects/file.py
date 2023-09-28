@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 
 
 class File(Object):
@@ -11,13 +10,12 @@ class File(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: str = None,
             size: int = None,
             path: str = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: str = id
         self.size: int = size
         self.path: str = path

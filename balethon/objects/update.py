@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 from balethon import objects
 
 
@@ -10,7 +9,6 @@ class Update(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: int = None,
             message: "objects.Message" = None,
             edited_message: "objects.Message" = None,
@@ -21,7 +19,7 @@ class Update(Object):
             pre_checkout_query: None = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: int = id
         self.message: "objects.Message" = message
         self.edited_message: "objects.Message" = edited_message

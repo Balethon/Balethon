@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 from balethon import objects
 
 
@@ -7,7 +6,6 @@ class Chat(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: int = None,
             type: str = None,
             title: str = None,
@@ -22,7 +20,7 @@ class Chat(Object):
             can_set_sticker_set: bool = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: int = id
         self.type: str = type
         self.title: str = title

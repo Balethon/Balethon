@@ -1,7 +1,6 @@
 from typing import List
 
 from . import Object
-import balethon
 from balethon import objects
 
 
@@ -13,7 +12,6 @@ class Message(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: int = None,
             author: "objects.User" = None,
             date: "objects.Date" = None,
@@ -48,7 +46,7 @@ class Message(Object):
             successful_payment: None = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: int = id
         self.author: "objects.User" = author
         self.date: "objects.Date" = date

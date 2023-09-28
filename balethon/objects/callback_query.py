@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 from balethon import objects
 
 
@@ -10,7 +9,6 @@ class CallbackQuery(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: str = None,
             author: "objects.User" = None,
             message: "objects.Message" = None,
@@ -20,7 +18,7 @@ class CallbackQuery(Object):
             game_short_name: str = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: str = id
         self.author: "objects.User" = author
         self.message: "objects.Message" = message

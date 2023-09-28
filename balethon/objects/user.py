@@ -1,12 +1,10 @@
 from . import Object
-import balethon
 
 
 class User(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             id: int = None,
             username: str = None,
             first_name: str = None,
@@ -15,7 +13,7 @@ class User(Object):
             is_bot: bool = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.id: int = id
         self.username: str = username
         self.first_name: str = first_name

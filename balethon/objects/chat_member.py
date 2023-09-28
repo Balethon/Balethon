@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 from balethon import objects
 
 
@@ -7,7 +6,6 @@ class ChatMember(Object):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             user: "objects.User" = None,
             status: str = None,
             until_date: "objects.Date" = None,
@@ -26,7 +24,7 @@ class ChatMember(Object):
             can_add_web_page_previews: bool = None,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         self.user: "objects.User" = user
         self.status: str = status
         self.until_date: "objects.Date" = until_date

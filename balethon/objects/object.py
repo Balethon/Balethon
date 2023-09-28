@@ -1,4 +1,4 @@
-from typing import get_type_hints, get_args
+from typing import get_type_hints, get_args, Optional
 
 import balethon
 
@@ -48,14 +48,11 @@ class Object:
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             **kwargs
     ):
-        self.client: "balethon.Client" = client
+        self.client: Optional["balethon.Client"] = None
         for key, value in kwargs.items():
             self[key] = value
-        if client is not None:
-            self.bind(client)
 
     def unwrap(self):  # TODO: fixing unwrap for all Objects
         del self.client

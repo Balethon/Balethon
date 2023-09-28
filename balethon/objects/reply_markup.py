@@ -1,5 +1,4 @@
 from . import Object
-import balethon
 
 
 class ReplyMarkup(Object, list):
@@ -10,11 +9,10 @@ class ReplyMarkup(Object, list):
 
     def __init__(
             self,
-            client: "balethon.Client" = None,
             *rows,
             **kwargs
     ):
-        super().__init__(client, **kwargs)
+        super().__init__(**kwargs)
         list.__init__(self, rows)
 
     def __repr__(self):
