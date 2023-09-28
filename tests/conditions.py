@@ -126,5 +126,10 @@ async def test_media(_, __):
     print("This message falls under the condition of MEDIA")
 
 
+@bot.on_message(private)
+async def test_private(_, __):
+    print("This message falls under the condition of PRIVATE")
+
+
 if __name__ == "__main__":
     bot.run_polling()

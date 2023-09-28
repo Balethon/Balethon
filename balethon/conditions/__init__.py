@@ -23,3 +23,4 @@ from .pinned_message_condition import pinned_message
 from .invoice_condition import invoice
 from .media_condition import media
 from .command_condition import Command
+from .private_condition import private
