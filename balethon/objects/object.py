@@ -1,4 +1,4 @@
-from typing import get_type_hints
+from typing import get_type_hints, get_args
 
 import balethon
 
@@ -17,6 +17,8 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
+            if not isinstance(expected_type, type):
+                expected_type = get_args(expected_type)[0]
             if not issubclass(expected_type, Object):
                 continue
             if isinstance(value, expected_type):
