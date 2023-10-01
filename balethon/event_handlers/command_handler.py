@@ -1,5 +1,5 @@
 from .message_handler import MessageHandler
-from ..conditions import Command
+from ..conditions import text, Command
 from ..objects import Message
 
 
@@ -11,7 +11,7 @@ class CommandHandler(MessageHandler):
             name = callback.__name__
         command_condition = Command(name)
         if condition is None:
-            condition = command_condition
+            condition = text & command_condition
         else:
-            condition = command_condition & condition
+            condition = text & command_condition & condition
         super().__init__(callback, condition)
