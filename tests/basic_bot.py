@@ -22,7 +22,7 @@ async def answer_message(client: Client, message: Message):
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
         return
-    msg = await message.reply("(:", reply_markup)
+    msg = await message.reply("(:")
     await sleep(1)
     await msg.edit_text("Hello from Balethon!", reply_markup, client)
 

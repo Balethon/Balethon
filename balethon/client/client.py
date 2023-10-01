@@ -56,6 +56,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def remove_event_handler(self, event_handler):
         self.dispatcher.remove_event_handler(event_handler)
 
+    def add(self, event_handler_type, *args, **kwargs):
+        def decorator(callback):
+            self.add_event_handler(event_handler_type(callback, *args, **kwargs))
+            return callback
+        return decorator
+
     def on_event(self, condition=None):
         def decorator(callback):
             self.add_event_handler(EventHandler(callback, condition))
