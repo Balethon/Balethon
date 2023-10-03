@@ -131,5 +131,10 @@ async def test_private(_, __):
     print("This message falls under the condition of PRIVATE")
 
 
+@bot.on_message(Regex("test"))
+async def test_private(_, __):
+    print("This message falls under the condition of REGEX")
+
+
 if __name__ == "__main__":
     bot.run_polling()

@@ -26,6 +26,6 @@ class Dispatcher:
 
     async def __call__(self, client, event):
         for event_handler in self.event_handlers:
-            if not isinstance(event, event_handler.can_handle) and event != event_handler.can_handle:
+            if not isinstance(event, event_handler.can_handle):
                 continue
             await self.dispatch(client, event, event_handler)

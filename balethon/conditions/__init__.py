@@ -24,3 +24,4 @@ from .invoice_condition import invoice
 from .media_condition import media
 from .command_condition import Command
 from .private_condition import private
+from .regex_condition import Regex
