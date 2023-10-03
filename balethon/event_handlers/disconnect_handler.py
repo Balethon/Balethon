@@ -10,4 +10,7 @@ class DisconnectHandler(EventHandler):
         await super().__call__(client)
 
     async def check(self, client, update):
-        return isinstance(self, update)
+        try:
+            return isinstance(self, update)
+        except TypeError:
+            return False
