@@ -1,8 +1,10 @@
+from traceback import print_exception
+
 from .event_handlers import ErrorHandler
 
 
 async def show_error(client, error):
-    print(error)
+    print_exception(error)
 
 
 class Dispatcher:
