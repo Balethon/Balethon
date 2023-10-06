@@ -1,24 +1,29 @@
 from typing import List
 
-from . import ReplyMarkup
+from . import ReplyMarkup, InlineKeyboardButton
 from balethon import objects
 
 
 class InlineKeyboard(ReplyMarkup):
 
+    @classmethod
+    def wrap(cls, raw_object):
+        for i, row in enumerate(raw_object["inline_keyboard"]):
+            for j, button in enumerate(row):
+                raw_object["inline_keyboard"][i][j] = InlineKeyboardButton.wrap(button)
+        return cls(**raw_object)
+
     def __init__(
             self,
-            *rows: List["objects.InlineKeyboardButton"],
+            inline_keyboard: List[List["objects.InlineKeyboardButton"]] = None,
             **kwargs
     ):
-        super().__init__(*rows, **kwargs)
+        super().__init__(**kwargs)
+        self.inline_keyboard: List[List["objects.InlineKeyboardButton"]] = inline_keyboard
 
     def unwrap(self):
-        super().unwrap()
-        for row in self:
-            print(row)
-            for i, button in enumerate(row):
-                print(button)
-                self = button.unwrap()
-                print(button.__dict__)
-        return {"inline_keyboard": list(self)}
+        result = super().unwrap()
+        for i, row in enumerate(result["inline_keyboard"]):
+            for j, button in enumerate(row):
+                result["inline_keyboard"][i][j] = button.unwrap()
+        return result

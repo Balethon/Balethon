@@ -1,15 +1,13 @@
 from asyncio import sleep
 
 from balethon import Client
-from balethon.objects import Message, CallbackQuery
+from balethon.objects import Message, CallbackQuery, InlineKeyboard, InlineKeyboardButton, ReplyMarkup
 
 from config import TOKEN
 
 bot = Client(TOKEN)
 
-reply_markup = {
-    "inline_keyboard": [[{"text": "Button 1", "callback_data": "1"}, {"text": "Button 2", "callback_data": "2"}]]
-}
+reply_markup = InlineKeyboard([[InlineKeyboardButton("Button 1", "1"), InlineKeyboardButton("Button 2", "2")]])
 
 
 @bot.on_connect()

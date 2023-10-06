@@ -1,4 +1,5 @@
 from typing import get_type_hints, get_args, Optional
+from copy import copy
 
 import balethon
 
@@ -55,16 +56,19 @@ class Object:
             self[key] = value
 
     def unwrap(self):  # TODO: fixing unwrap for all Objects
-        del self.client
-        for key, value in self.__dict__.items():
+        result = copy(self)
+        del result.client
+        for key, value in result.__dict__.copy().items():
             if isinstance(value, Object):
-                self[key] = value.unwrap()
-            for attribute_name, key_name in self.attribute_names:
-                if self.__dict__.get(key_name):
-                    self.__dict__[attribute_name] = self.__dict__.pop(key_name)
-        return self.__dict__
+                result[key] = value.unwrap()
+            if value is None:
+                delattr(result, key)
+        for attribute_name, key_name in result.attribute_names:
+            if result.__dict__.get(key_name):
+                result[attribute_name] = result.__dict__.pop(key_name)
+        return result.__dict__
 
     def __repr__(self):
         name = type(self).__name__
-        attributes = ", ".join(f"{key}={repr(value)}" for key, value in self.__dict__.items())
+        attributes = ", ".join(f"{key}={repr(value)}" for key, value in self.unwrap().items())
         return f"{name}({attributes})"

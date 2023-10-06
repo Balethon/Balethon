@@ -1,6 +1,6 @@
 from typing import List
 
-from . import ReplyMarkup
+from . import ReplyMarkup, KeyboardButton
 from balethon import objects
 
 
@@ -10,23 +10,30 @@ class Keyboard(ReplyMarkup):
         ("one_time", "one_time_keyboard")
     ]
 
+    @classmethod
+    def wrap(cls, raw_object):
+        for i, row in enumerate(raw_object["keyboard"]):
+            for j, button in enumerate(row):
+                raw_object["keyboard"][i][j] = KeyboardButton.wrap(button)
+        return cls(**raw_object)
+
     def __init__(
             self,
-            *rows: List["objects.KeyboardButton"],
+            keyboard: List[List["objects.KeyboardButton"]] = None,
             resize: bool = None,
             one_time: bool = None,
             selective: bool = None,
             **kwargs
     ):
-        super().__init__(*rows, **kwargs)
+        super().__init__(**kwargs)
+        self.keyboard: List[List["objects.KeyboardButton"]] = keyboard
         self.resize: bool = resize
         self.one_time: bool = one_time
         self.selective: bool = selective
 
     def unwrap(self):
-        for row in self:
-            for button in row:
-                button.unwrap()
-        super().unwrap()
-        self.__dict__["keyboard"] = self
-        return self.__dict__
+        result = super().unwrap()
+        for i, row in enumerate(result["keyboard"]):
+            for j, button in enumerate(row):
+                result["keyboard"][i][j] = button.unwrap()
+        return result
