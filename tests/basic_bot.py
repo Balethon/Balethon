@@ -1,7 +1,7 @@
 from asyncio import sleep
 
 from balethon import Client
-from balethon.objects import Message, CallbackQuery, InlineKeyboard, InlineKeyboardButton, ReplyMarkup
+from balethon.objects import Message, CallbackQuery, InlineKeyboard, InlineKeyboardButton
 
 from config import TOKEN
 

@@ -1,4 +1,5 @@
 from typing import List
+from copy import deepcopy
 
 from . import ReplyMarkup, InlineKeyboardButton
 from balethon import objects
@@ -23,6 +24,7 @@ class InlineKeyboard(ReplyMarkup):
 
     def unwrap(self):
         result = super().unwrap()
+        result = deepcopy(result)
         for i, row in enumerate(result["inline_keyboard"]):
             for j, button in enumerate(row):
                 result["inline_keyboard"][i][j] = button.unwrap()
