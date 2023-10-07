@@ -13,3 +13,7 @@ from .inline_keyboard import InlineKeyboard
 from .keyboard_button import KeyboardButton
 from .keyboard import Keyboard
 from .entity import Entity
+from .shipping_query import ShippingQuery
+from .shipping_address import ShippingAddress
+from .pre_checkout_query import PreCheckoutQuery
+from .order_info import OrderInfo
