@@ -23,7 +23,7 @@ bot.run_polling()
 ### Installing
 
 ```bash
-pip install balethon
+pip install Balethon
 ```
 
 ### Links
