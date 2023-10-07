@@ -1,3 +1,3 @@
-- **Client.send_message**
+ **Client.send_message**
 
-chat_id <kbd>str, int</kbd>
+- chat_id <kbd>str | int</kbd>
