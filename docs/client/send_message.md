@@ -1,18 +1,26 @@
- **Client.send_message**
+## Client.*send_message()*
+**فرستادن پیام متنی**
 
-- chat_id <kbd>str | int</kbd>
-    > **چت آیدی مورد نظر که میخواهید پیام به اون چت ارسال بشه**
+### پارامترها
 
-- text <kbd>str</kbd>
-    > **پیامی که میخواید به چت مورد نظر ارسال بشه**
+- **chat_id** (`str` | `int`)
+    > آیدی چتی که پیام به آن فرستاده میشود
 
-- reply_markup <kbd>optional(InlineKeyboard | ReplyKeyboard)</kbd>
-    > **حالا صبر کن**
+- **text** (`str`)
+    > متن پیام
 
-- reply_to_message_id <kbd>str | int</kbd>
-    > **اگر میخواهید پیام شما به پیامی ریپلای شود، مسیج آیدی آن پیام را در این قسمت قرار دهید**
+- **reply_markup** (`ReplyMarkup`)
+    > یک کیبورد که همراه با پیام به کاربر فرستاده میشود (اختیاری)
 
+- **reply_to_message_id** (`str` | `int`)
+    > آیدی یک پیام که این پیام به آن ریپلای شود (اختیاری)
+
+### مقدار بازگشتی
+
+> `Message`
+
+### مثال
 
 ```python
-await bot.send_message(123456, "Hello balethon !")
+await bot.send_message(1234567890, "Hello!")
 ```
