@@ -29,6 +29,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def __init__(self, token, time_out=20):
         self.connection = Connection(token, time_out)
         self.dispatcher = Dispatcher()
+        self.user = None
 
     def __repr__(self):
         name = type(self).__name__
@@ -36,6 +37,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
     async def connect(self):
         await self.connection.start()
+        self.user = await self.get_me()
         await self.dispatcher(self, ConnectHandler)
 
     async def disconnect(self):
