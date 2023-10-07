@@ -17,3 +17,4 @@ from .shipping_query import ShippingQuery
 from .shipping_address import ShippingAddress
 from .pre_checkout_query import PreCheckoutQuery
 from .order_info import OrderInfo
+from .labeled_price import LabeledPrice
