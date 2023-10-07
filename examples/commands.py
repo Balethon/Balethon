@@ -23,9 +23,11 @@ async def say_hello(client, message):
 
 @bot.on_command(private)
 async def count_to_ten(client, message):
-    msg = await message.reply("I will now start to count to ten")
+    counting_message = await message.reply(
+        "I will start to count to ten now"
+    )
     for i in range(1, 11):
-        await msg.edit_text(str(i))
+        await counting_message.edit_text(str(i))
 
 
 bot.run_polling()
