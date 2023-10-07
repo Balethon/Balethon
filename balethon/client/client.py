@@ -17,7 +17,9 @@ from ..event_handlers import (
     ErrorHandler,
     MessageHandler,
     CallbackQueryHandler,
-    CommandHandler
+    CommandHandler,
+    ShippingQueryHandler,
+    PreCheckoutQueryHandler
 )
 
 
@@ -107,6 +109,18 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
     def on_command(self, condition=None, name=None):
         def decorator(callback):
             self.add_event_handler(CommandHandler(callback, condition, name))
+            return callback
+        return decorator
+
+    def on_shipping_query(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(ShippingQueryHandler(callback, condition))
+            return callback
+        return decorator
+
+    def on_pre_checkout_query(self, condition=None):
+        def decorator(callback):
+            self.add_event_handler(PreCheckoutQueryHandler(callback, condition))
             return callback
         return decorator
 

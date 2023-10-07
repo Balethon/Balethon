@@ -1,5 +1,6 @@
 import balethon
-from ...objects import Message, ReplyMarkup
+from ...objects import Message
+from balethon import objects
 
 
 class SendInvoice:
@@ -23,7 +24,7 @@ class SendInvoice:
             is_flexible: bool = None,
             disable_notification: bool = None,
             reply_to_message_id: int = None,
-            reply_markup: ReplyMarkup = None
+            reply_markup: "objects.ReplyMarkup" = None
     ):
         json = locals()
         del json["self"]

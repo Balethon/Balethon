@@ -15,8 +15,8 @@ class Update(Object):
             channel_post: "objects.Message" = None,
             edited_channel_post: "objects.Message" = None,
             callback_query: "objects.CallbackQuery" = None,
-            shipping_query: None = None,
-            pre_checkout_query: None = None,
+            shipping_query: "objects.ShippingQuery" = None,
+            pre_checkout_query: "objects.PreCheckoutQuery" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -26,8 +26,8 @@ class Update(Object):
         self.channel_post: "objects.Message" = channel_post
         self.edited_channel_post: "objects.Message" = edited_channel_post
         self.callback_query: "objects.CallbackQuery" = callback_query
-        self.shipping_query: None = shipping_query
-        self.pre_checkout_query: None = pre_checkout_query
+        self.shipping_query: "objects.ShippingQuery" = shipping_query
+        self.pre_checkout_query: "objects.PreCheckoutQuery" = pre_checkout_query
 
     @property
     def available_update(self):
