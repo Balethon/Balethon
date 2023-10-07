@@ -15,5 +15,4 @@
 
 ```python
 await bot.send_message(123456, "Hello balethon !")
-
 ```
