@@ -1,4 +1,4 @@
- **Client.send_message**
+### **Client.send_message**
 
 - chat_id <kbd>str | int</kbd>
     > **چت آیدی مورد نظر که میخواهید پیام به اون چت ارسال بشه**
@@ -13,6 +13,7 @@
     > **اگر میخواهید پیام شما به پیامی ریپلای شود، مسیج آیدی آن پیام را در این قسمت قرار دهید**
 
 
+### Example
 ```python
 await bot.send_message(123456, "Hello balethon !")
 
