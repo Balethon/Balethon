@@ -6,7 +6,7 @@
 - text <kbd>str</kbd>
     > **پیامی که میخواید به چت مورد نظر ارسال بشه**
 
-- reply_markup <kbd>InlineKeyboard | ReplyKeyboard = None</kbd>
+- reply_markup <kbd>optional(InlineKeyboard | ReplyKeyboard)</kbd>
     > **حالا صبر کن**
 
 - reply_to_message_id <kbd>str | int</kbd>
@@ -14,7 +14,6 @@
 
 
 ```python
-#مثال
 await bot.send_message(123456, "Hello balethon !")
 
 ```
