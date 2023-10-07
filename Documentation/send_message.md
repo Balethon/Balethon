@@ -5,3 +5,16 @@
 
 - text <kbd>str</kbd>
     > **پیامی که میخواید به چت مورد نظر ارسال بشه**
+
+- reply_markup <kbd>InlineKeyboard | ReplyKeyboard = None</kbd>
+    > **حالا صبر کن**
+
+- reply_to_message_id <kbd>str | int</kbd>
+    > **اگر میخواهید پیام شما به پیامی ریپلای شود، مسیج آیدی آن پیام را در این قسمت قرار دهید**
+
+
+```python
+#مثال
+await bot.send_message(123456, "Hello balethon !")
+
+```
