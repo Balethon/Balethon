@@ -66,10 +66,10 @@
 
 ```python
 await bot.send_invoice(
-        chat_id=1234567890,
-        title="Some title",
-        description="Some description",
-        provider_token="6037************",
-        prices=LabeledPrice(label="Some label", amount=1000000)
+        1234567890,
+        "Some title",
+        "Some description",
+        "6037************",
+        LabeledPrice(label="Some label", amount=1000000)
     )
 ```
