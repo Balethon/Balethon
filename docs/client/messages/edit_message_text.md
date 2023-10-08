@@ -1,5 +1,6 @@
 ## Client.*edit_message_text()*
-**ویرایش پیام متنی**
+
+**ویرایش متن پیام**
 
 ### پارامترها
 
@@ -22,5 +23,5 @@
 ### مثال
 
 ```python
-await bot.edit_message_text(1234567890, 12, "Edited !")
+await bot.edit_message_text(1234567890, 12, "Edited!")
 ```
