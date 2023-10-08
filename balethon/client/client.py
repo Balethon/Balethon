@@ -127,24 +127,19 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         return decorator
 
     async def start_polling(self):
-        seen_old_messages = False
-        seen = []
+        last_update_id = None
         while True:
             try:
-                updates = await self.get_updates()
+                if last_update_id is None:
+                    updates = await self.get_updates()
+                else:
+                    updates = await self.get_updates(last_update_id + 1)
             except Exception as error:
                 await self.dispatcher(self, error)
                 continue
-            if not seen_old_messages:
-                seen.extend(u.id for u in updates)
-                seen_old_messages = True
-                continue
             for update in updates:
-                if update.id in seen:
-                    continue
-                seen.append(update.id)
-                update = update.available_update
-                await self.dispatcher(self, update)
+                last_update_id = update.id
+                await self.dispatcher(self, update.available_update)
 
     def run(self, function):
         loop = get_event_loop()
