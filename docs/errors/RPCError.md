@@ -1,4 +1,4 @@
-## class balethon.event_handlers.*RPCError*
+## class balethon.errors.*RPCError*
 
 **کلاس بیس همه ارورها با کمک این کلاس میتوان به همه انواع ارورها رسیدگی کرد**
 
