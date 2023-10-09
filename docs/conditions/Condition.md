@@ -1,0 +1,1 @@
+## class balethon.conditions.*Condition*

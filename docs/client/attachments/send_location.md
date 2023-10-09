@@ -1,15 +1,16 @@
 ## Client.*send_location()*
-**فرستادن پیامی حاوی موقعیت مکانی*
+
+**فرستادن پیامی حاوی موقعیت مکانی**
 
 ### پارامترها
 
 - **chat_id** (`str` | `int`)
     > آیدی چتی که پیام به آن فرستاده میشود
 
-- **latitude** (`int`)
+- **latitude** (`float`)
     > عرض جغرافیایی
     
-- **longitude** (`int`)
+- **longitude** (`float`)
     > طول جغرافیایی
 
 - **reply_to_message_id** (`str` | `int`)

@@ -1,4 +1,5 @@
 ## Client.*send_contact()*
+
 **فرستادن پیامی حاوی اطلاعات مخاطب**
 
 ### پارامترها
@@ -25,5 +26,5 @@
 ### مثال
 
 ```python
-await bot.send_contact(1234567890, "989390000000", "Ali", "Naseri")
+await bot.send_contact(1234567890, "989*********", "Ali", "Naseri")
 ```
