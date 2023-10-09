@@ -18,3 +18,9 @@ from .shipping_address import ShippingAddress
 from .pre_checkout_query import PreCheckoutQuery
 from .order_info import OrderInfo
 from .labeled_price import LabeledPrice
+from .audio import Audio
+from .contact import Contact
+from .document import Document
+from .location import Location
+from .video import Video
+from .voice import Voice
