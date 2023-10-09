@@ -18,7 +18,7 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
-            if not isinstance(expected_type, type):
+            if isinstance(expected_type, type(Optional)):
                 expected_type = get_args(expected_type)[0]
             if not issubclass(expected_type, Object):
                 continue

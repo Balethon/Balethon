@@ -132,8 +132,10 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
             try:
                 if last_update_id is None:
                     updates = await self.get_updates()
-                else:
-                    updates = await self.get_updates(last_update_id + 1)
+                    if updates:
+                        last_update_id = updates[-1].id
+                    continue
+                updates = await self.get_updates(last_update_id + 1)
             except Exception as error:
                 await self.dispatcher(self, error)
                 continue
