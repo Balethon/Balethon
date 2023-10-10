@@ -26,6 +26,40 @@ bot.run_polling()
 pip install Balethon
 ```
 
+### Documentation
+
+* Attachments:
+   - [get_file](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/get_file.md#clientget_file)
+   - [send_audio](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_audio.md#clientsend_audio)
+   - [send_contact](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_contact.md#clientsend_contact)
+   - [send_document](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_document.md#clientsend_document)
+   - [send_location](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_location.md#clientsend_location)
+   - [send_photo](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_photo.md#clientsend_photo)
+   - [send_video](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_video.md#clientsend_video)
+   - [send_voice](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/attachments/send_voice.md#clientsend_voice)
+
+* Chats:
+   -  [get_chat](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/chats/get_chat.md#clientget_chat)
+   -  [get_chat_administrators](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/chats/get_chat_administrators.md#clientget_chat_administrators)
+   -  [get_chat_member](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/chats/get_chat_member.md#clientget_chat_member)
+   -  [get_chat_members_count](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/chats/get_chat_members_count.md#clientget_chat_members_count)
+
+* Messages:
+   -  [delete_message](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/messages/delete_message.md#clientdelete_message)
+   -  [edit_message_text](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/messages/edit_message_text.md#clientedit_message_text)
+   -  [send_message](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/messages/send_message.md#clientsend_message)
+
+* Payments:
+   - [send_invoice](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/payments/send_invoice.md#clientsend_invoice)
+
+* Updates:
+   - [delete_webhook](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/updates/delete_webhook.md#clientdelete_webhook)
+   - [set_webhook](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/updates/set_webhook.md#clientset_webhook)
+   - [get_updates](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/updates/get_updates.md#clientget_updates)
+
+* Users:
+   - [get_me](https://github.com/SajjadAlipour2006/Balethon/blob/docs/docs/client/users/get_me.md#clientget_me)
+
 ### Links
 
 - Our [news channel](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messenger
