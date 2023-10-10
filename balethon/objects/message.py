@@ -62,7 +62,7 @@ class Message(Object):
         self.caption_entities: List["objects.Entity"] = caption_entities
         self.audio: "objects.Audio" = audio
         self.document: "objects.Document" = document
-        self.photo: None = photo
+        self.photo: List["objects.Photo"] = photo
         self.video: "objects.Video" = video
         self.voice: "objects.Voice" = voice
         self.caption: str = caption
@@ -71,7 +71,7 @@ class Message(Object):
         self.new_chat_members: List["objects.User"] = new_chat_members
         self.left_chat_member: "objects.User" = left_chat_member
         self.new_chat_title: str = new_chat_title
-        self.new_chat_photo: None = new_chat_photo
+        self.new_chat_photo: List["objects.Photo"] = new_chat_photo
         self.delete_chat_photo: bool = delete_chat_photo
         self.group_chat_created: bool = group_chat_created
         self.supergroup_chat_created: bool = supergroup_chat_created

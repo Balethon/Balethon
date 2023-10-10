@@ -22,5 +22,6 @@ from .audio import Audio
 from .contact import Contact
 from .document import Document
 from .location import Location
+from .photo import Photo
 from .video import Video
 from .voice import Voice

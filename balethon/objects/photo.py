@@ -1,10 +1,7 @@
-from typing import List
-
 from . import Object
-from balethon import objects
 
 
-class Video(Object):
+class Photo(Object):
     attribute_names = [
         ("id", "file_id"),
         ("size", "file_size")
@@ -15,9 +12,6 @@ class Video(Object):
             id: str = None,
             width: int = None,
             height: int = None,
-            duration: int = None,
-            thumb: None = None,
-            mime_type: str = None,
             size: int = None,
             **kwargs
     ):
@@ -25,7 +19,4 @@ class Video(Object):
         self.id: str = id
         self.width: int = width
         self.height: int = height
-        self.duration: int = duration
-        self.thumb: List["objects.Photo"] = thumb
-        self.mime_type: str = mime_type
         self.size: int = size
