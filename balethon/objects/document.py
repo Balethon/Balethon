@@ -1,4 +1,5 @@
 from . import Object
+from balethon import objects
 
 
 class Document(Object):
@@ -10,7 +11,7 @@ class Document(Object):
     def __init__(
             self,
             id: str = None,
-            thumb: None = None,
+            thumb: "objects.Photo" = None,
             file_name: str = None,
             mime_type: str = None,
             size: int = None,

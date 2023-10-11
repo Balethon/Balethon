@@ -42,8 +42,8 @@ class Message(Object):
             supergroup_chat_created: bool = None,
             channel_chat_created: bool = None,
             pinned_message: None = None,
-            invoice: None = None,
-            successful_payment: None = None,
+            invoice: "objects.Invoice" = None,
+            successful_payment: "objects.SuccessfulPayment" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -77,8 +77,8 @@ class Message(Object):
         self.supergroup_chat_created: bool = supergroup_chat_created
         self.channel_chat_created: bool = channel_chat_created
         self.pinned_message: None = pinned_message
-        self.invoice: None = invoice
-        self.successful_payment: None = successful_payment
+        self.invoice: "objects.Invoice" = invoice
+        self.successful_payment: "objects.SuccessfulPayment" = successful_payment
 
     async def reply(self, text, reply_markup=None, client=None):
         client = client or self.client

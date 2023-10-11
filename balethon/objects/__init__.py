@@ -25,3 +25,6 @@ from .location import Location
 from .photo import Photo
 from .video import Video
 from .voice import Voice
+from .invoice import Invoice
+from .successful_payment import SuccessfulPayment
+from .successful_payment import SuccessfulPayment
