@@ -1,4 +1,5 @@
 from traceback import print_exception
+from asyncio import create_task
 
 from .event_handlers import ErrorHandler
 
@@ -11,6 +12,7 @@ class Dispatcher:
 
     def __init__(self):
         self.event_handlers = []
+        self.tasks = []
         self.add_event_handler(ErrorHandler(show_error))
 
     def add_event_handler(self, event_handler):
@@ -30,4 +32,6 @@ class Dispatcher:
         for event_handler in self.event_handlers:
             if not isinstance(event, event_handler.can_handle):
                 continue
-            await self.dispatch(client, event, event_handler)
+            task = create_task(self.dispatch(client, event, event_handler))
+            self.tasks.append(task)
+        print("f!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")

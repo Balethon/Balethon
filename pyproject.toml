@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "Balethon"
 version = "0.0.1"
-description = "Asynchronous library for creating bots in the Bale messanger"
+description = "Asynchronous library for creating bots in the Bale messenger"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
   {name = "Sajjad", email = "sajjadalipour2006@gmail.com"},
   {name = "Abolfazl Amiri", email = "soltshen@gmail.com"}
 ]
-keywords = ["bale", "messanger", "bot", "api", "client"]
+keywords = ["bale", "messenger", "bot", "api", "client"]
 classifiers = [
     "Framework :: aiohttp",
     "License :: OSI Approved :: MIT License"
