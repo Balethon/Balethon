@@ -1,5 +1,6 @@
 from typing import get_type_hints, get_args, Optional
 from copy import copy
+from json import dumps
 
 import balethon
 
@@ -68,7 +69,10 @@ class Object:
                 result[attribute_name] = result.__dict__.pop(key_name)
         return result.__dict__
 
+    def to_json(self):
+        json = {"_": type(self).__name__}
+        json.update(self.unwrap())
+        return dumps(json, ensure_ascii=False, indent=4)
+
     def __repr__(self):
-        name = type(self).__name__
-        attributes = ", ".join(f"{key}={repr(value)}" for key, value in self.unwrap().items())
-        return f"{name}({attributes})"
+        return self.to_json()
