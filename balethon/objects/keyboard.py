@@ -31,11 +31,3 @@ class Keyboard(ReplyMarkup):
         self.resize: bool = resize
         self.one_time: bool = one_time
         self.selective: bool = selective
-
-    def unwrap(self):
-        result = super().unwrap()
-        result = deepcopy(result)
-        for i, row in enumerate(result["keyboard"]):
-            for j, button in enumerate(row):
-                result["keyboard"][i][j] = button.unwrap()
-        return result

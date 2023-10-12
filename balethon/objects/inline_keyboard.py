@@ -21,11 +21,3 @@ class InlineKeyboard(ReplyMarkup):
     ):
         super().__init__(**kwargs)
         self.inline_keyboard: List[List["objects.InlineKeyboardButton"]] = inline_keyboard
-
-    def unwrap(self):
-        result = super().unwrap()
-        result = deepcopy(result)
-        for i, row in enumerate(result["inline_keyboard"]):
-            for j, button in enumerate(row):
-                result["inline_keyboard"][i][j] = button.unwrap()
-        return result

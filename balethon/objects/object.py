@@ -56,10 +56,22 @@ class Object:
         for key, value in kwargs.items():
             self[key] = value
 
+    @staticmethod
+    def unwrap_list(lst):
+        lst = copy(lst)
+        for i, element in enumerate(lst):
+            if isinstance(element, list):
+                lst[i] = Object.unwrap_list(element)
+            if isinstance(element, Object):
+                lst[i] = element.unwrap()
+        return lst
+
     def unwrap(self):  # TODO: fixing unwrap for all Objects
         result = copy(self)
         del result.client
         for key, value in result.__dict__.copy().items():
+            if isinstance(value, list):
+                result[key] = self.unwrap_list(value)
             if isinstance(value, Object):
                 result[key] = value.unwrap()
             if value is None:
@@ -70,9 +82,7 @@ class Object:
         return result.__dict__
 
     def to_json(self):
-        json = {"_": type(self).__name__}
-        json.update(self.unwrap())
-        return dumps(json, ensure_ascii=False, indent=4)
+        return dumps(self.unwrap(), ensure_ascii=False, indent=4)
 
     def __repr__(self):
         return self.to_json()
