@@ -1,7 +1,6 @@
 from typing import List
-from copy import deepcopy
 
-from . import ReplyMarkup, KeyboardButton
+from . import ReplyMarkup
 from balethon import objects
 
 
@@ -10,13 +9,6 @@ class Keyboard(ReplyMarkup):
         ("resize", "resize_keyboard"),
         ("one_time", "one_time_keyboard")
     ]
-
-    @classmethod
-    def wrap(cls, raw_object):
-        for i, row in enumerate(raw_object["keyboard"]):
-            for j, button in enumerate(row):
-                raw_object["keyboard"][i][j] = KeyboardButton.wrap(button)
-        return cls(**raw_object)
 
     def __init__(
             self,

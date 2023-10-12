@@ -1,4 +1,4 @@
-from typing import get_type_hints, get_args, Optional
+from typing import get_type_hints, get_args, Union, List
 from copy import copy
 from json import dumps
 
@@ -12,6 +12,20 @@ class Object:
     def expected_types(cls):
         return get_type_hints(cls.__init__)
 
+    @staticmethod
+    def wrap_list(expected_type, lst):
+        lst = copy(lst)
+        for i, element in enumerate(lst):
+            if isinstance(expected_type, type(List)) and isinstance(element, list):
+                lst[i] = Object.wrap_list(get_args(expected_type)[0], lst)
+                continue
+            if not issubclass(expected_type, Object):
+                continue
+            if isinstance(element, expected_type):
+                continue
+            lst[i] = expected_type.wrap(element)
+        return lst
+
     @classmethod
     def validate_types(cls, raw_object):
         expected_types = cls.expected_types()
@@ -19,8 +33,11 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
-            if isinstance(expected_type, type(Optional)):
+            if isinstance(expected_type, type(Union)):
                 expected_type = get_args(expected_type)[0]
+            if isinstance(expected_type, type(List)) and isinstance(value, list):
+                raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
+                continue
             if not issubclass(expected_type, Object):
                 continue
             if isinstance(value, expected_type):
@@ -62,11 +79,11 @@ class Object:
         for i, element in enumerate(lst):
             if isinstance(element, list):
                 lst[i] = Object.unwrap_list(element)
-            if isinstance(element, Object):
+            elif isinstance(element, Object):
                 lst[i] = element.unwrap()
         return lst
 
-    def unwrap(self):  # TODO: fixing unwrap for all Objects
+    def unwrap(self):
         result = copy(self)
         del result.client
         for key, value in result.__dict__.copy().items():
