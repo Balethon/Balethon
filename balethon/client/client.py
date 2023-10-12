@@ -128,20 +128,24 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
     async def start_polling(self):
         last_update_id = None
+        first_time = True
         while True:
             try:
                 if last_update_id is None:
                     updates = await self.get_updates()
-                    if updates:
-                        last_update_id = updates[-1].id
-                    continue
-                updates = await self.get_updates(last_update_id + 1)
+                    if first_time:
+                        if updates:
+                            last_update_id = updates[-1].id
+                        first_time = False
+                        continue
+                else:
+                    updates = await self.get_updates(last_update_id + 1)
             except Exception as error:
                 await self.dispatcher(self, error)
-                continue
-            for update in updates:
-                last_update_id = update.id
-                await self.dispatcher(self, update.available_update)
+            else:
+                for update in updates:
+                    last_update_id = update.id
+                    await self.dispatcher(self, update.available_update)
 
     def run(self, function):
         loop = get_event_loop()
