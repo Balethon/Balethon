@@ -9,7 +9,7 @@
 
 ### مقدار بازگشتی
 
-> `list[ChatMember]`
+> `list`[`ChatMember`]
 
 ### مثال
 
