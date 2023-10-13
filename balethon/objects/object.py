@@ -16,8 +16,9 @@ class Object:
     def wrap_list(expected_type, lst):
         lst = copy(lst)
         for i, element in enumerate(lst):
-            if isinstance(expected_type, type(List)) and isinstance(element, list):
-                lst[i] = Object.wrap_list(get_args(expected_type)[0], lst)
+            if isinstance(expected_type, (type(List), type(List[str]))):
+                if isinstance(element, list):
+                    lst[i] = Object.wrap_list(get_args(expected_type)[0], element)
                 continue
             if not issubclass(expected_type, Object):
                 continue
@@ -35,8 +36,9 @@ class Object:
             expected_type = expected_types[key]
             if isinstance(expected_type, type(Union)):
                 expected_type = get_args(expected_type)[0]
-            if isinstance(expected_type, type(List)) and isinstance(value, list):
-                raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
+            if isinstance(expected_type, (type(List), type(List[str]))):
+                if isinstance(value, list):
+                    raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
                 continue
             if not issubclass(expected_type, Object):
                 continue
