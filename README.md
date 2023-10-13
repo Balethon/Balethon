@@ -28,7 +28,7 @@ pip install Balethon
 
 ## Links
 
-- Balethon's [documentation](https://github.com/SajjadAlipour2006/Balethon/blob/main/docs/contents.md)
+- Balethon's [documentation](https://sajjadalipour2006.github.io/Balethon/)
 - Our [news channel](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messenger
 - Our [community chat group](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messenger
 - Our [news channel](https://t.me/balethon_py) in the [Telegram](https://telegram.org) messenger
