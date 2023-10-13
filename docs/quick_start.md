@@ -6,4 +6,5 @@ layout: default
 
 _شروع سریع_
 
-[back](./client/attachments/send_audio.md)
+[قبلی](./)
+[بعدی](./client/Client.html)
