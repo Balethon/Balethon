@@ -1,8 +1,8 @@
-from balethon.objects import Object, Message, CallbackQuery, Date, InlineKeyboardButton, InlineKeyboard
+from balethon.objects import InlineKeyboardButton, InlineKeyboard
 
 
 def main():
-    print(InlineKeyboard(12, [InlineKeyboardButton()], [InlineKeyboardButton()]))
+    print(InlineKeyboard([[InlineKeyboardButton()], [InlineKeyboardButton()]]))
 
 
 if __name__ == "__main__":
