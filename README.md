@@ -2,7 +2,7 @@
 
 Asynchronous library for creating bots in the [Bale](https://www.bale.ai/) messenger
 
-### Usage Example
+## Usage Example
 
 ```python
 from balethon import Client
@@ -20,13 +20,13 @@ bot.run_polling()
 
 > You must replace "TOKEN" with the token which `@botfather` gives you in the [Bale](https://www.bale.ai/) messenger
 
-### Installing
+## Installing
 
 ```bash
 pip install Balethon
 ```
 
-### Links
+## Links
 
 - Balethon's [documentation](https://github.com/SajjadAlipour2006/Balethon/blob/main/docs/contents.md)
 - Our [news channel](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messenger
