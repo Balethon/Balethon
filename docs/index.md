@@ -51,3 +51,7 @@ layout: default
 
   * [users](./client/users/)
      * [get_me](./client/users/get_me)
+
+* [event_handlers](./event_handlers)
+
+  * [EventHandler](./event_handlers/EventHandler)
