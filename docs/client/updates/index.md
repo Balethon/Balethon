@@ -1,3 +1,3 @@
-* [delete_webhook](./client/updates/delete_webhook)
-* [get_updates](./client/updates/get_updates)
-* [set_webhook](./client/updates/set_webhook)
+* [delete_webhook](./delete_webhook)
+* [get_updates](./get_updates)
+* [set_webhook](./set_webhook)

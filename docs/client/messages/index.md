@@ -1,3 +1,3 @@
-*  [delete_message](./client/messages/delete_message)
-*  [edit_message_text](./client/messages/edit_message_text)
-*  [send_message](./client/messages/send_message)
+*  [delete_message](./delete_message)
+*  [edit_message_text](./edit_message_text)
+*  [send_message](./send_message)
