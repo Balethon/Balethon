@@ -55,3 +55,13 @@ layout: default
 * [event_handlers](./event_handlers)
 
   * [EventHandler](./event_handlers/EventHandler)
+
+* [errors](./errors)
+
+  * [RPCError](./errors/RPCError)
+  * [BadRequestError](./errors/BadRequestError)
+  * [FloodError](./errors/FloodError)
+  * [ForbiddenError](./errors/ForbiddenError)
+  * [InternalError](./errors/InternalError)
+  * [NotFoundError](./errors/NotFoundError)
+  * [UnauthorizedError](./errors/UnauthorizedError)
