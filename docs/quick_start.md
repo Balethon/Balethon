@@ -27,4 +27,4 @@ pip install Balethon
 ```
 
 [قبلی](./)
-[بعدی](./client/Client)
+[بعدی](./client/index)

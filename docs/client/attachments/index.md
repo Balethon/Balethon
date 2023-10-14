@@ -1,0 +1,8 @@
+* [get_file](./client/attachments/get_file)
+* [send_audio](./client/attachments/send_audio)
+* [send_contact](./client/attachments/send_contact)
+* [send_document](./client/attachments/send_document)
+* [send_location](./client/attachments/send_location)
+* [send_photo](./client/attachments/send_photo)
+* [send_video](./client/attachments/send_video)
+* [send_voice](./client/attachments/send_voice)
