@@ -6,7 +6,17 @@ layout: default
 
 یک کتابخانه ناهمزمان برای ساختن بات در پیامرسان [بله](https://www.bale.ai/)
 
+* [نصب کردن](./installing)
+
 * [شروع سریع](./quick_start)
+
+* [نمونه ها](./examples)
+
+  * [بات اکو](./examples/echo_bot)
+  * [بات خوش آمد گویی](./examples/welcome_bot)
+  * [کامندها](./examples/commands)
+  * [اینلاین کیبوردها](./examples/inline_keyboards)
+  * [پرداخت ها](./examples/payment_bot)
 
 * [client](./client/)
 

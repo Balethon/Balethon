@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## مثال استفاده
+## نمونه استفاده
 
 ```python
 from balethon import Client
@@ -19,12 +19,3 @@ bot.run_polling()
 ```
 
 > باید توکن را با توکنی که بات فادر در پیامرسان [بله](https://www.bale.ai/) به شما میدهد عوض کنید
-
-## نصب کردن
-
-```bash
-pip install Balethon
-```
-
-[قبلی](./)
-[بعدی](./client/index)
