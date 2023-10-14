@@ -78,3 +78,7 @@ layout: default
   * [InternalError](./errors/InternalError)
   * [NotFoundError](./errors/NotFoundError)
   * [UnauthorizedError](./errors/UnauthorizedError)
+
+* [حمایت از ما](./support_us)
+
+* [لینک ها](./links)
