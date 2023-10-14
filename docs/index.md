@@ -65,6 +65,10 @@ layout: default
   * [ChatMember](./objects/ChatMember)
   * [File](./objects/File)
 
+* [conditions](./conditions)
+
+  * [Condition](./conditions/Condition)
+
 * [errors](./errors)
 
   * [RPCError](./errors/RPCError)
