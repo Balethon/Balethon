@@ -56,6 +56,15 @@ layout: default
 
   * [EventHandler](./event_handlers/EventHandler)
 
+* [objects](./objects)
+
+  * [Message](./objects/Message)
+  * [CallbackQuery](./objects/CallbackQuery)
+  * [User](./objects/User)
+  * [Chat](./objects/Chat)
+  * [ChatMember](./objects/ChatMember)
+  * [File](./objects/File)
+
 * [errors](./errors)
 
   * [RPCError](./errors/RPCError)
