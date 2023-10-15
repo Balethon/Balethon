@@ -1,4 +1,4 @@
-from typing import get_type_hints, get_args, Union, List
+from typing import get_type_hints, get_args, get_origin, Union, List, Optional
 from copy import copy
 from json import dumps
 
@@ -16,7 +16,7 @@ class Object:
     def wrap_list(expected_type, lst):
         lst = copy(lst)
         for i, element in enumerate(lst):
-            if isinstance(expected_type, (type(List), type(List[str]))):
+            if isinstance(expected_type, (type(List), type(List[str]))) and isinstance(get_origin(expected_type), list):
                 if isinstance(element, list):
                     lst[i] = Object.wrap_list(get_args(expected_type)[0], element)
                 continue
@@ -34,9 +34,9 @@ class Object:
             if not expected_types.get(key):
                 continue
             expected_type = expected_types[key]
-            if isinstance(expected_type, type(Union)):
+            if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
                 expected_type = get_args(expected_type)[0]
-            if isinstance(expected_type, (type(List), type(List[str]))):
+            if isinstance(expected_type, (type(List), type(List[str]))) and isinstance(get_origin(expected_type), list):
                 if isinstance(value, list):
                     raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
                 continue
