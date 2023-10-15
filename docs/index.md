@@ -54,7 +54,16 @@ layout: default
 
 * [event_handlers](./event_handlers)
 
-  * [EventHandler](./event_handlers/EventHandler)
+  * [EventHandler](./event_handlers/ErrorHandler)
+  * [ConnectHandler](./event_handlers/ConnectHandler)
+  * [UpdateHandler](./event_handlers/UpdateHandler)
+  * [MessageHandler](./event_handlers/MessageHandler)
+  * [CallbackQueryHandler](./event_handlers/CallbackQueryHandler)
+  * [PreCheckoutQueryHandler](./event_handlers/PreCheckoutQueryHandler)
+  * [ShippingQueryHandler](./event_handlers/ShippingQueryHandler)
+  * [CommandHandler](./event_handlers/CommandHandler)
+  * [ErrorHandler](./event_handlers/ErrorHandler)
+  * [DisconnectHandler](./event_handlers/DisconnectHandler)
 
 * [objects](./objects)
 
