@@ -5,7 +5,10 @@ from .event_handlers import ErrorHandler
 
 
 async def show_error(client, error):
-    print_exception(error)
+    try:
+        print_exception(error)
+    except TypeError:
+        print(error)
 
 
 class Dispatcher:

@@ -22,7 +22,7 @@ async def answer_message(client: Client, message: Message):
         return
     msg = await message.reply("(:")
     await sleep(1)
-    await msg.edit_text("Hello from Balethon!", reply_markup, client)
+    await msg.edit_text("Hello from Balethon!", reply_markup)
 
 
 @bot.on_callback_query()
