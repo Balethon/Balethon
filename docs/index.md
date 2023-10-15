@@ -54,7 +54,7 @@ layout: default
 
 * [event_handlers](./event_handlers)
 
-  * [EventHandler](./event_handlers/ErrorHandler)
+  * [EventHandler](./event_handlers/EventHandler)
   * [ConnectHandler](./event_handlers/ConnectHandler)
   * [UpdateHandler](./event_handlers/UpdateHandler)
   * [MessageHandler](./event_handlers/MessageHandler)
