@@ -162,3 +162,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
     def run_polling(self):
         self.run(self.start_polling())
+
+    async def download(self, file_id):
+        return await self.connection.download_file(file_id)

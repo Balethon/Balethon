@@ -7,7 +7,7 @@ class Connection:
 
     def __init__(self, token, time_out):
         self.client_session = None
-        self.base_url = "https://tapi.bale.ai/bot"
+        self.base_url = "https://tapi.bale.ai"
         self.token = token
         self.time_out = time_out
         self.is_started = False
@@ -25,18 +25,28 @@ class Connection:
         await self.client_session.close()
         self.client_session = None
 
-    @property
-    def url(self):
-        return f"{self.base_url}{self.token}"
+    def bot_url(self):
+        return f"{self.base_url}/bot{self.token}"
+
+    def file_url(self, file_id):
+        return f"{self.base_url}/file/bot{self.token}/{file_id}"
 
     async def execute(self, method, service, json=None):
         async with self.client_session.request(
                 method,
-                f"{self.url}/{service}",
+                f"{self.bot_url()}/{service}",
                 json=json,
                 timeout=self.time_out
         ) as response:
             response_json = await response.json()
             if not response.ok:
-                raise RPCError.create(response_json.get("error_code"), response_json.get("description"), service)
+                code = response.status or response_json.get("error_code")
+                raise RPCError.create(code, response_json.get("description"), service)
             return response_json.get("result")
+
+    async def download_file(self, file_id):
+        async with self.client_session.get(self.file_url(file_id)) as response:
+            if not response.ok:
+                response_json = await response.json()
+                raise RPCError.create(response.status, response_json.get("description"), "downloadFile")
+            return await response.read()

@@ -26,3 +26,6 @@ class Date(Object, datetime):
 
     def __repr__(self):
         return str(self)
+
+    def unwrap(self):
+        return int(super().timestamp())

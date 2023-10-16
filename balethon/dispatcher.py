@@ -1,17 +1,14 @@
-from traceback import print_exception
-from logging import getLogger
+from traceback import print_exception, format_exception
 from asyncio import create_task
 
 from .event_handlers import ErrorHandler
-
-logger = getLogger(__name__)
 
 
 async def show_error(client, error):
     try:
         print_exception(error)
     except TypeError:
-        logger.exception(error)
+        print("".join(format_exception(None, error, error.__traceback__)))
 
 
 class Dispatcher:

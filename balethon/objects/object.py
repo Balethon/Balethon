@@ -36,7 +36,7 @@ class Object:
             expected_type = expected_types[key]
             if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
                 expected_type = get_args(expected_type)[0]
-            if isinstance(expected_type, (type(List), type(List[str]))) and isinstance(get_origin(expected_type), list):
+            if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
                 if isinstance(value, list):
                     raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
                 continue
