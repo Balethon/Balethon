@@ -54,17 +54,16 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
         except ConnectionError:
             return
 
-    def add_event_handler(self, event_handler):
+    def add_event_handler(self, event_handler, *args, **kwargs):
+        if isinstance(event_handler, type):
+            def decorator(callback):
+                self.add_event_handler(event_handler(callback, *args, **kwargs))
+                return callback
+            return decorator
         self.dispatcher.add_event_handler(event_handler)
 
     def remove_event_handler(self, event_handler):
         self.dispatcher.remove_event_handler(event_handler)
-
-    def add(self, event_handler_type, *args, **kwargs):
-        def decorator(callback):
-            self.add_event_handler(event_handler_type(callback, *args, **kwargs))
-            return callback
-        return decorator
 
     def on_event(self, condition=None):
         def decorator(callback):
