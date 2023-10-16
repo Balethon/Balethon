@@ -1,5 +1,8 @@
 ## پرداخت ها
 
+**به این بات یک پیام بدهید تا یک پیام دارای صورتحساب به شما بفرستد\
+سپس میتوانید مبلغی را توسط آن پرداخت کنید**
+
 ```python
 from balethon import Client
 from balethon.conditions import private

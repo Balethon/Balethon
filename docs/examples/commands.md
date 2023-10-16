@@ -1,5 +1,12 @@
 ## کامندها
 
+**این بات 4 دستور دارد\
+/start\
+/help\
+/say_hello\
+/count_to_ten\
+آن ها را تست کنید**
+
 ```python
 from balethon import Client
 from balethon.conditions import private

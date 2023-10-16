@@ -1,5 +1,8 @@
 ## اینلاین کیبوردها
 
+**به این بات یک پیام بدهید تا یک پیام دارای دکمه به شما بفرستد\
+سپس روی دکمه ها کلیک کنید**
+
 ```python
 from balethon import Client
 from balethon.conditions import private

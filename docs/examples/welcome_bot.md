@@ -1,5 +1,7 @@
 ## بات خوش آمد گویی
 
+**این بات را در یک گروه عضو کنید تا به اعضای جدید پیام خوش آمد گویی ارسال کند**
+
 ```python
 from balethon import Client
 from balethon.conditions import new_chat_members
