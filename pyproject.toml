@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Balethon"
-version = "0.1.2"
+version = "0.2.0"
 description = "Asynchronous library for creating bots in the Bale messenger"
 readme = "README.md"
 license = {file = "LICENSE"}
