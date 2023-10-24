@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Balethon"
-version = "0.2.0"
+version = "0.2.1"
 description = "Asynchronous library for creating bots in the Bale messenger"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -21,5 +21,7 @@ dependencies = ["aiohttp==3.8.4"]
 
 [project.urls]
 "Homepage" = "https://github.com/SajjadAlipour2006/Balethon"
+"Download" = "https://github.com/SajjadAlipour2006/Balethon/releases/latest"
+"Documentation" = "https://sajjadalipour2006.github.io/Balethon/"
 "Tracker" = "https://github.com/SajjadAlipour2006/Balethon/issues"
-"Community" = "https://t.me/balethon_group"
+"Community" = "https://ble.ir/join/MTlhN2Q2Mz"
