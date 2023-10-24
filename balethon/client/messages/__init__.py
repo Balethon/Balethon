@@ -4,5 +4,5 @@ from .forward_message import ForwardMessage
 from .delete_message import DeleteMessage
 
 
-class Messages(SendMessage, EditMessageText, ForwardMessage, SendMediaGroup, DeleteMessage):
+class Messages(SendMessage, EditMessageText, ForwardMessage, DeleteMessage):
     pass
