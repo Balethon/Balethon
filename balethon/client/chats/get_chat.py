@@ -10,7 +10,7 @@ class GetChat:
     ):
         json = locals()
         del json["self"]
-        result = await self.connection.execute("get", "getChat", json)
+        result = await self.execute("get", "getChat", json)
         result = Chat.wrap(result)
         result.bind(self)
         return result

@@ -21,7 +21,7 @@ class SendVoice:
         del voice_file
         json = locals()
         del json["self"]
-        result = await self.connection.execute("post", "sendVoice", json)
+        result = await self.execute("post", "sendVoice", json)
         result = Message.wrap(result)
         result.bind(self)
         return result

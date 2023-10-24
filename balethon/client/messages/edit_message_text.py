@@ -17,7 +17,7 @@ class EditMessageText:
         for key, value in json.copy().items():
             if isinstance(value, Object):
                 json[key] = value.unwrap()
-        result = await self.connection.execute("post", "editMessageText", json)
+        result = await self.execute("post", "editMessageText", json)
         result = Message.wrap(result)
         result.bind(self)
         return result

@@ -6,4 +6,4 @@ class DeleteWebhook:
     async def delete_webhook(
             self: "balethon.Client"
     ):
-        return await self.connection.execute("get", "deleteWebhook")
+        return await self.execute("get", "deleteWebhook")

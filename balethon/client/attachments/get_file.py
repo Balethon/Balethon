@@ -10,7 +10,7 @@ class GetFile:
     ):
         json = locals()
         del json["self"]
-        result = await self.connection.execute("get", "getFile", json)
+        result = await self.execute("get", "getFile", json)
         result = File.wrap(result)
         result.bind(self)
         return result

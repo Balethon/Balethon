@@ -9,4 +9,4 @@ class SetWebhook:
     ):
         json = locals()
         del json["self"]
-        return await self.connection.execute("post", "setWebhook", json)
+        return await self.execute("post", "setWebhook", json)

@@ -10,4 +10,4 @@ class DeleteMessage:
     ):
         json = locals()
         del json["self"]
-        return await self.connection.execute("get", "deleteMessage", json)
+        return await self.execute("get", "deleteMessage", json)

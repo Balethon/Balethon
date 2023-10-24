@@ -6,13 +6,15 @@ from ..errors import RPCError
 
 
 class Connection:
+    TIMEOUT = 20
+    BASE_URL = "https://tapi.bale.ai"
 
-    def __init__(self, token, time_out):
-        self.client_session = None
-        self.base_url = "https://tapi.bale.ai"
+    def __init__(self, token, time_out=None, base_url=None):
         self.token = token
-        self.time_out = time_out
+        self.client_session = None
         self.is_started = False
+        self.time_out = time_out or self.TIMEOUT
+        self.base_url = base_url or self.BASE_URL
 
     async def start(self):
         if self.is_started:
@@ -33,7 +35,7 @@ class Connection:
     def file_url(self, file_id):
         return f"{self.base_url}/file/bot{self.token}/{file_id}"
 
-    async def execute(self, method, service, data=None):
+    async def request(self, method, service, data=None):
         if data is not None:
             data = {k: v for k, v in data.items() if v is not None}
             form_data = FormData()

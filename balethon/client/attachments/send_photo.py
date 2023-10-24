@@ -20,7 +20,7 @@ class SendPhoto:
         del photo_file
         json = locals()
         del json["self"]
-        result = await self.connection.execute("post", "sendPhoto", json)
+        result = await self.execute("post", "sendPhoto", json)
         result = Message.wrap(result)
         result.bind(self)
         return result

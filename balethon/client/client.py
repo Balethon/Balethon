@@ -26,8 +26,8 @@ from ..event_handlers import (
 # TODO: adding a decorator for creating methods
 class Client(Messages, Updates, Users, Attachments, Chats, Payments):
 
-    def __init__(self, token, time_out=20):
-        self.connection = Connection(token, time_out)
+    def __init__(self, token, time_out=None, base_url=None):
+        self.connection = Connection(token, time_out, base_url)
         self.dispatcher = Dispatcher()
         self.user = None
 
@@ -53,6 +53,9 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments):
             await self.disconnect()
         except ConnectionError:
             return
+
+    async def execute(self, method, service, data=None):
+        return await self.connection.request(method, service, data)
 
     def add_event_handler(self, event_handler, *args, **kwargs):
         if isinstance(event_handler, type):

@@ -9,4 +9,4 @@ class GetChatMembersCount:
     ):
         json = locals()
         del json["self"]
-        return await self.connection.execute("get", "getChatMembersCount", json)
+        return await self.execute("get", "getChatMembersCount", json)

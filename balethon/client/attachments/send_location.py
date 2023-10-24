@@ -13,7 +13,7 @@ class SendLocation:
     ):
         json = locals()
         del json["self"]
-        result = await self.connection.execute("post", "sendLocation", json)
+        result = await self.execute("post", "sendLocation", json)
         result = Message.wrap(result)
         result.bind(self)
         return result

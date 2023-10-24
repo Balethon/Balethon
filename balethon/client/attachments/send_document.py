@@ -20,7 +20,7 @@ class SendDocument:
         del document_file
         json = locals()
         del json["self"]
-        result = await self.connection.execute("post", "sendDocument", json)
+        result = await self.execute("post", "sendDocument", json)
         result = Message.wrap(result)
         result.bind(self)
         return result

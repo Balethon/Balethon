@@ -10,7 +10,7 @@ class GetChatAdministrators:
     ):
         json = locals()
         del json["self"]
-        result = await self.connection.execute("get", "getChatAdministrators", json)
+        result = await self.execute("get", "getChatAdministrators", json)
         result = [ChatMember.wrap(chat_administrator) for chat_administrator in result]
         for chat_administrator in result:
             chat_administrator.bind(self)

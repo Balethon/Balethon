@@ -11,7 +11,7 @@ class GetChatMember:
     ):
         json = locals()
         del json["self"]
-        result = await self.connection.execute("get", "getChatMember", json)
+        result = await self.execute("get", "getChatMember", json)
         result = ChatMember.wrap(result)
         result.bind(self)
         return result
