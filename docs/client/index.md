@@ -10,6 +10,10 @@
 - **time_out** (`int`)
     >  مهلت ارسال درخواست ها تا قبل از لغو شدن و پرتاب ارور (اختیاری)
 
+- **base_url** (`str`)
+    >  آدرس پایه که درخواست ها به آن فرستاده میشوند (اختیاری)
+
+
 * [attachments](./attachments/)
    * [get_file](./attachments/get_file)
    * [send_audio](./attachments/send_audio)
@@ -21,14 +25,18 @@
    * [send_voice](./attachments/send_voice)
 
 * [chats](./chats/)
+   *  [ban_chat_member](./chats/ban_chat_member)
    *  [get_chat](./chats/get_chat)
    *  [get_chat_administrators](./chats/get_chat_administrators)
    *  [get_chat_member](./chats/get_chat_member)
    *  [get_chat_members_count](./chats/get_chat_members_count)
+   *  [invite_user](./chats/invite_user)
+   *  [leave_chat](./chats/leave_chat)
 
 * [messages](./messages/)
    *  [delete_message](./messages/delete_message)
    *  [edit_message_text](./messages/edit_message_text)
+   *  [forward_message](./messages/forward_message)
    *  [send_message](./messages/send_message)
 
 * [payments](./payments/)

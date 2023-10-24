@@ -31,14 +31,18 @@ layout: default
      * [send_voice](./client/attachments/send_voice)
 
   * [chats](./client/chats/)
+     *  [ban_chat_member](./client/chats/ban_chat_member)
      *  [get_chat](./client/chats/get_chat)
      *  [get_chat_administrators](./client/chats/get_chat_administrators)
      *  [get_chat_member](./client/chats/get_chat_member)
      *  [get_chat_members_count](./client/chats/get_chat_members_count)
+     *  [invite_user](./client/chats/invite_user)
+     *  [leave_chat](./client/chats/leave_chat)
 
   * [messages](./client/messages/)
      *  [delete_message](./client/messages/delete_message)
      *  [edit_message_text](./client/messages/edit_message_text)
+     *  [forward_message](./client/messages/forward_message)
      *  [send_message](./client/messages/send_message)
 
   * [payments](./client/payments/)

@@ -1,4 +1,7 @@
+*  [ban_chat_member](./ban_chat_member)
 *  [get_chat](./get_chat)
 *  [get_chat_administrators](./get_chat_administrators)
 *  [get_chat_member](./get_chat_member)
 *  [get_chat_members_count](./get_chat_members_count)
+*  [invite_user](./invite_user)
+*  [leave_chat](./leave_chat)
