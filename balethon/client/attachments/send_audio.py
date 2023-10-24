@@ -19,7 +19,7 @@ class SendAudio:
         if isfile(audio):
             with open(audio, "rb") as audio_file:
                 audio = audio_file.read()
-        del audio_file
+                del audio_file
         json = locals()
         del json["self"]
         result = await self.execute("post", "sendAudio", json)

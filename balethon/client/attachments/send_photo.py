@@ -17,7 +17,7 @@ class SendPhoto:
         if isfile(photo):
             with open(photo, "rb") as photo_file:
                 photo = photo_file.read()
-        del photo_file
+                del photo_file
         json = locals()
         del json["self"]
         result = await self.execute("post", "sendPhoto", json)

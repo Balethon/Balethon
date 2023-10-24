@@ -17,7 +17,7 @@ class SendDocument:
         if isfile(document):
             with open(document, "rb") as document_file:
                 document = document_file.read()
-        del document_file
+                del document_file
         json = locals()
         del json["self"]
         result = await self.execute("post", "sendDocument", json)
