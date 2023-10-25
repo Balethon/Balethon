@@ -1,5 +1,5 @@
 import balethon
-from ...objects import Object, Message
+from balethon.objects import Object, Message
 from balethon import objects
 
 
