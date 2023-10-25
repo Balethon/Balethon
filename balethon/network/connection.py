@@ -41,7 +41,7 @@ class Connection:
             form_data = FormData()
             for key, value in data.items():
                 if isinstance(value, bytes):
-                    form_data.add_field(key, value)
+                    form_data.add_field(key, value, content_type="multipart/form-data")
                 elif isinstance(value, str):
                     form_data.add_field(key, value, content_type="application/json")
                 else:
