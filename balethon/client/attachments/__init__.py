@@ -5,7 +5,7 @@ from .send_video import SendVideo
 from .send_voice import SendVoice
 from .send_location import SendLocation
 from .send_contact import SendContact
-from send_media_group import SendMediaGroup
+from .send_media_group import SendMediaGroup
 from .get_file import GetFile
 
 
