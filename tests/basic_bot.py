@@ -3,9 +3,9 @@ from asyncio import sleep
 from balethon import Client
 from balethon.objects import Message, CallbackQuery, InlineKeyboard, InlineKeyboardButton
 
-from config import TOKEN
+import config
 
-bot = Client(TOKEN)
+bot = Client(config.TOKEN)
 
 reply_markup = InlineKeyboard([[InlineKeyboardButton("Button 1", "1"), InlineKeyboardButton("Button 2", "2")]])
 

@@ -7,6 +7,7 @@ from .users import Users
 from .attachments import Attachments
 from .chats import Chats
 from .payments import Payments
+from .stickers import Stickers
 from ..network import Connection
 from ..dispatcher import Dispatcher
 from ..event_handlers import (
@@ -24,7 +25,7 @@ from ..event_handlers import (
 
 
 # TODO: adding a decorator for creating methods
-class Client(Messages, Updates, Users, Attachments, Chats, Payments):
+class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
 
     def __init__(self, token, time_out=None, base_url=None):
         self.connection = Connection(token, time_out, base_url)
