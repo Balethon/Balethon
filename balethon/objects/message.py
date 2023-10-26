@@ -91,3 +91,7 @@ class Message(Object):
     async def delete(self, client=None):
         client = client or self.client
         return await client.delete_message(self.chat.id, self.id)
+
+    async def forward(self, chat_id, client=None):
+        client = client or self.client
+        return await client.forward_message(chat_id, self.chat.id, self.id)
