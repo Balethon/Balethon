@@ -28,3 +28,5 @@ from .voice import Voice
 from .invoice import Invoice
 from .successful_payment import SuccessfulPayment
 from .successful_payment import SuccessfulPayment
+from .sticker import Sticker
+from .sticker_set import StickerSet
