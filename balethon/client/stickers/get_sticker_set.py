@@ -11,7 +11,6 @@ class GetStickerSet:
         json = locals()
         del json["self"]
         result = await self.execute("get", "getStickerSet", json)
-        print(result)
         result = StickerSet.wrap(result)
         result.bind(self)
         return result

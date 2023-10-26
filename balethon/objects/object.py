@@ -38,7 +38,6 @@ class Object:
             if value is None:
                 continue
             expected_type = expected_types[key]
-            print(key, expected_type)
             if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
                 expected_type = get_args(expected_type)[0]
             if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
