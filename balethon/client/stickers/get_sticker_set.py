@@ -1,4 +1,5 @@
 import balethon
+from ...objects import StickerSet
 
 
 class GetStickerSet:
@@ -9,4 +10,8 @@ class GetStickerSet:
     ):
         json = locals()
         del json["self"]
-        return await self.execute("get", "getStickerSet", json)
+        result = await self.execute("get", "getStickerSet", json)
+        print(result)
+        result = StickerSet.wrap(result)
+        result.bind(self)
+        return result
