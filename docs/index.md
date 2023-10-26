@@ -56,6 +56,9 @@ layout: default
   * [users](./client/users/)
      * [get_me](./client/users/get_me)
 
+  * [stickers](./client/stickers/)
+     * [get_sticker_set](./client/stickers/get_sticker_set)
+
 * [event_handlers](./event_handlers)
 
   * [EventHandler](./event_handlers/EventHandler)

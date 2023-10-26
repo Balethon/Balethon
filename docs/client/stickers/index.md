@@ -1,0 +1,1 @@
+* [get_sticker_set](./get_sticker_set)
