@@ -16,6 +16,8 @@ class Object:
     def wrap_list(expected_type, lst):
         lst = copy(lst)
         for i, element in enumerate(lst):
+            if element is None:
+                continue
             if isinstance(expected_type, (type(List), type(List[str]))) and isinstance(get_origin(expected_type), list):
                 if isinstance(element, list):
                     lst[i] = Object.wrap_list(get_args(expected_type)[0], element)
@@ -33,7 +35,10 @@ class Object:
         for key, value in raw_object.items():
             if not expected_types.get(key):
                 continue
+            if value is None:
+                continue
             expected_type = expected_types[key]
+            print(key, expected_type)
             if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
                 expected_type = get_args(expected_type)[0]
             if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
