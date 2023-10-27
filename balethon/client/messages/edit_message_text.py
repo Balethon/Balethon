@@ -12,12 +12,12 @@ class EditMessageText:
             text: str,
             reply_markup: "objects.ReplyMarkup" = None
     ):
-        json = locals()
-        del json["self"]
-        for key, value in json.copy().items():
+        data = locals()
+        del data["self"]
+        for key, value in data.copy().items():
             if isinstance(value, Object):
-                json[key] = value.unwrap()
-        result = await self.execute("post", "editMessageText", json)
+                data[key] = value.unwrap()
+        result = await self.execute("post", "editMessageText", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

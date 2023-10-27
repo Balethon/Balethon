@@ -9,9 +9,9 @@ class GetChatMember:
             chat_id: int,
             user_id: int
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("get", "getChatMember", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("get", "getChatMember", **data)
         result = ChatMember.wrap(result)
         result.bind(self)
         return result

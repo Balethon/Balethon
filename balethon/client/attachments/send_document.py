@@ -18,9 +18,9 @@ class SendDocument:
             with open(document, "rb") as document_file:
                 document = document_file.read()
                 del document_file
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "sendDocument", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "sendDocument", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

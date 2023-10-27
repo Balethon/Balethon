@@ -26,9 +26,9 @@ class SendInvoice:
             reply_to_message_id: int = None,
             reply_markup: "objects.ReplyMarkup" = None
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "sendInvoice", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "sendInvoice", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

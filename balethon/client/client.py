@@ -55,8 +55,8 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
         except ConnectionError:
             return
 
-    async def execute(self, method, service, data=None):
-        return await self.connection.request(method, service, data)
+    async def execute(self, method, service, **data):
+        return await self.connection.request(method, service, **data)
 
     def add_event_handler(self, event_handler, *args, **kwargs):
         if isinstance(event_handler, type):

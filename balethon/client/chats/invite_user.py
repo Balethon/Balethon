@@ -8,6 +8,6 @@ class InviteUser:
             chat_id: int,
             user_id: int
     ):
-        json = locals()
-        del json["self"]
-        return await self.execute("post", "inviteUser", json)
+        data = locals()
+        del data["self"]
+        return await self.execute("post", "inviteUser", **data)

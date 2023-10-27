@@ -8,9 +8,9 @@ class GetStickerSet:
             self: "balethon.Client",
             name: str
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("get", "getStickerSet", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("get", "getStickerSet", **data)
         result = StickerSet.wrap(result)
         result.bind(self)
         return result

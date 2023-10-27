@@ -10,6 +10,6 @@ class CreateNewStickerSet:
             title: str,
             stickers: list
     ):
-        json = locals()
-        del json["self"]
-        return await self.execute("get", "createNewStickerSet", json)
+        data = locals()
+        del data["self"]
+        return await self.execute("get", "createNewStickerSet", **data)

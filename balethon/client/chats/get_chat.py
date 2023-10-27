@@ -8,9 +8,9 @@ class GetChat:
             self: "balethon.Client",
             chat_id: int
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("get", "getChat", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("get", "getChat", **data)
         result = Chat.wrap(result)
         result.bind(self)
         return result

@@ -7,6 +7,6 @@ class GetChatMembersCount:
             self: "balethon.Client",
             chat_id: int
     ):
-        json = locals()
-        del json["self"]
-        return await self.execute("get", "getChatMembersCount", json)
+        data = locals()
+        del data["self"]
+        return await self.execute("get", "getChatMembersCount", **data)

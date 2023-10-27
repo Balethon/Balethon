@@ -8,9 +8,9 @@ class GetChatAdministrators:
             self: "balethon.Client",
             chat_id: int
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("get", "getChatAdministrators", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("get", "getChatAdministrators", **data)
         result = [ChatMember.wrap(chat_administrator) for chat_administrator in result]
         for chat_administrator in result:
             chat_administrator.bind(self)

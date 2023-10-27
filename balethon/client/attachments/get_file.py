@@ -8,9 +8,9 @@ class GetFile:
             self: "balethon.Client",
             file_id: str
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("get", "getFile", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("get", "getFile", **data)
         result = File.wrap(result)
         result.bind(self)
         return result

@@ -8,6 +8,6 @@ class DeleteMessage:
             chat_id: int,
             message_id: int
     ):
-        json = locals()
-        del json["self"]
-        return await self.execute("get", "deleteMessage", json)
+        data = locals()
+        del data["self"]
+        return await self.execute("get", "deleteMessage", **data)

@@ -21,9 +21,9 @@ class SendVideo:
             with open(video, "rb") as video_file:
                 video = video_file.read()
                 del video_file
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "sendVideo", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "sendVideo", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

@@ -35,19 +35,16 @@ class Connection:
     def file_url(self, file_id):
         return f"{self.base_url}/file/bot{self.token}/{file_id}"
 
-    async def request(self, method, service, data=None):
-        if data is not None:
-            data = {k: v for k, v in data.items() if v is not None}
-            form_data = FormData()
-            for key, value in data.items():
-                if isinstance(value, bytes):
-                    form_data.add_field(key, value, content_type="multipart/form-data")
-                elif isinstance(value, str):
-                    form_data.add_field(key, value, content_type="application/json")
-                else:
-                    form_data.add_field(key, dumps(value), content_type="application/json")
-        else:
-            form_data = None
+    async def request(self, method, service, **data):
+        data = {k: v for k, v in data.items() if v is not None}
+        form_data = FormData()
+        for key, value in data.items():
+            if isinstance(value, bytes):
+                form_data.add_field(key, value, content_type="multipart/form-data")
+            elif isinstance(value, str):
+                form_data.add_field(key, value, content_type="application/json")
+            else:
+                form_data.add_field(key, dumps(value), content_type="application/json")
         async with self.client_session.request(
                 method,
                 f"{self.bot_url()}/{service}",

@@ -12,9 +12,9 @@ class SendContact:
             last_name: str = None,
             reply_to_message_id: int = None
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "sendContact", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "sendContact", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

@@ -9,9 +9,9 @@ class GetUpdates:
             offset: int = None,
             limit: int = None
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "getUpdates", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "getUpdates", **data)
         result = [Update.wrap(update) for update in result]
         for update in result:
             update.bind(self)

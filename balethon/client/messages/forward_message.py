@@ -10,9 +10,9 @@ class ForwardMessage:
             from_chat_id: int,
             message_id: int
     ):
-        json = locals()
-        del json["self"]
-        result = await self.execute("post", "forwardMessage", json)
+        data = locals()
+        del data["self"]
+        result = await self.execute("post", "forwardMessage", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result
