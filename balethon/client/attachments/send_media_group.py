@@ -17,7 +17,9 @@ class SendMediaGroup:
         del data["self"]
         for i, m in enumerate(data["media"]):
             data["media"][i] = m.unwrap()
-            data[m] = open(m, "rb")
+            if not m.is_json_serializable:
+                data[f"media{i}"] = m.media
+                data["media"][i]["media"] = f"media{i}"
         data["media"] = dumps(data["media"])
         result = await self.execute("post", "sendMediaGroup", json=False, **data)
         result = Message.wrap(result)

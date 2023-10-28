@@ -24,3 +24,7 @@ class InputMedia(Object):
             pass
         self.media: Union[str, bytes, BinaryIO] = media
         self.caption: str = caption
+
+    @property
+    def is_json_serializable(self):
+        return isinstance(self.media, str)
