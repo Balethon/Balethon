@@ -1,8 +1,8 @@
 from typing import Union
-from os.path import isfile
+from io import BufferedReader
 
 import balethon
-from ...objects import Message
+from ...objects import InputMediaDocument, Message
 
 
 class SendDocument:
@@ -10,14 +10,11 @@ class SendDocument:
     async def send_document(
             self: "balethon.Client",
             chat_id: int,
-            document: Union[str, bytes],
+            document: Union[str, bytes, BufferedReader],
             caption: str = None,
             reply_to_message_id: int = None
     ):
-        if isfile(document):
-            with open(document, "rb") as document_file:
-                document = document_file.read()
-                del document_file
+        document = InputMediaDocument(document).media
         data = locals()
         del data["self"]
         result = await self.execute("post", "sendDocument", **data)

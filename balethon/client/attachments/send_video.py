@@ -1,8 +1,8 @@
 from typing import Union
-from os.path import isfile
+from io import BufferedReader
 
 import balethon
-from ...objects import Message
+from ...objects import InputMediaVideo, Message
 
 
 class SendVideo:
@@ -10,17 +10,14 @@ class SendVideo:
     async def send_video(
             self: "balethon.Client",
             chat_id: int,
-            video: Union[str, bytes],
+            video: Union[str, bytes, BufferedReader],
             duration: int = None,
             width: int = None,
             height: int = None,
             caption: str = None,
             reply_to_message_id: int = None
     ):
-        if isfile(video):
-            with open(video, "rb") as video_file:
-                video = video_file.read()
-                del video_file
+        video = InputMediaVideo(video).media
         data = locals()
         del data["self"]
         result = await self.execute("post", "sendVideo", **data)

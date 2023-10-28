@@ -1,8 +1,8 @@
 from typing import Union
-from os.path import isfile
+from io import BufferedReader
 
 import balethon
-from ...objects import Message
+from ...objects import InputMediaAudio, Message
 
 
 class SendVoice:
@@ -10,15 +10,12 @@ class SendVoice:
     async def send_voice(
             self: "balethon.Client",
             chat_id: int,
-            voice: Union[str, bytes],
+            voice: Union[str, bytes, BufferedReader],
             caption: str = None,
             duration: int = None,
             reply_to_message_id: int = None
     ):
-        if isfile(voice):
-            with open(voice, "rb") as voice_file:
-                voice = voice_file.read()
-                del voice_file
+        voice = InputMediaAudio(voice).media
         data = locals()
         del data["self"]
         result = await self.execute("post", "sendVoice", **data)
