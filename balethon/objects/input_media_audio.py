@@ -1,5 +1,5 @@
 from typing import Union
-from io import BufferedReader
+from typing import BinaryIO
 
 from . import InputMedia
 
@@ -8,7 +8,7 @@ class InputMediaAudio(InputMedia):
 
     def __init__(
             self,
-            media: Union[str, bytes, BufferedReader] = None,
+            media: Union[str, bytes, BinaryIO] = None,
             caption: str = None,
             **kwargs
     ):
