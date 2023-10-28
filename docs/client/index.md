@@ -20,6 +20,7 @@
    * [send_contact](./attachments/send_contact)
    * [send_document](./attachments/send_document)
    * [send_location](./attachments/send_location)
+   * [send_media_group](./attachments/send_media_group)
    * [send_photo](./attachments/send_photo)
    * [send_video](./attachments/send_video)
    * [send_voice](./attachments/send_voice)

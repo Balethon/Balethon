@@ -3,6 +3,7 @@
 * [send_contact](./send_contact)
 * [send_document](./send_document)
 * [send_location](./send_location)
+* [send_media_group](./send_media_group)
 * [send_photo](./send_photo)
 * [send_video](./send_video)
 * [send_voice](./send_voice)

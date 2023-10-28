@@ -8,7 +8,7 @@
     > آیدی چتی که پیام به آن فرستاده میشود
 
 - **media** (`list`[`InputMedia` | `InputMediaPhoto` | `InputMediaVideo`])
-    > رسانه هایی که فرستاده می شوند، باید یک لیست باشد که آبجکت ها InputMedia و InputMediaPhoto و InputMediaVideo میتوانند در آن فرار بگیرند
+    > رسانه هایی که فرستاده می شوند، باید یک لیست باشد که آبجکت های اینپوت مدیا میتوانند در آن فرار بگیرند
 
 ### مقدار بازگشتی
 
@@ -17,5 +17,5 @@
 ### مثال
 
 ```python
-await bot.send_media_group(1234567890, ["photo.jpg", "Hello"])
+await bot.send_media_group(1234567890, [InputMediaPhoto("photo.jpg"), InputMediaVideo("video.mp4")])
 ```
