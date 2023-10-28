@@ -1,7 +1,9 @@
 from json import dumps
+from typing import List
 
 import balethon
-from balethon.objects import Message
+from ...objects import Message
+from balethon import objects
 
 
 class SendMediaGroup:
@@ -9,7 +11,7 @@ class SendMediaGroup:
     async def send_media_group(
             self: "balethon.Client",
             chat_id: int,
-            media: list
+            media: List["objects.InputMedia"]
     ):
         data = locals()
         del data["self"]
