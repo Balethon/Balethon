@@ -1,5 +1,6 @@
 from asyncio import get_event_loop
 from inspect import iscoroutine
+from io import BufferedReader
 
 from .messages import Messages
 from .updates import Updates
@@ -55,8 +56,16 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
         except ConnectionError:
             return
 
-    async def execute(self, method, service, **data):
-        return await self.connection.request(method, service, **data)
+    async def execute(self, method, service, json=True, **data):
+        data = {k: v for k, v in data.items() if v is not None}
+        files = {}
+        for key, value in data.copy().items():
+            if isinstance(value, (bytes, BufferedReader)):
+                files[key] = value
+                del data[key]
+        if json:
+            return await self.connection.request(method, service, json=data, files=files)
+        return await self.connection.request(method, service, data=data, files=files)
 
     def add_event_handler(self, event_handler, *args, **kwargs):
         if isinstance(event_handler, type):

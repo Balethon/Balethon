@@ -1,6 +1,7 @@
+from json import dumps
+
 import balethon
-from balethon.objects import Object, Message
-from balethon import objects
+from balethon.objects import Message
 
 
 class SendMediaGroup:
@@ -12,10 +13,11 @@ class SendMediaGroup:
     ):
         data = locals()
         del data["self"]
-        for key, value in data.copy().items():
-            if isinstance(value, Object):
-                data[key] = value.unwrap()
-        result = await self.execute("post", "sendMediaGroup", **data)
+        for i, m in enumerate(data["media"]):
+            data[m] = open(m, "rb")
+            data["media"][i] = {"type": "photo", "media": f"attach://{m}"}
+        data["media"] = dumps(data["media"])
+        result = await self.execute("post", "sendMediaGroup", json=False, **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

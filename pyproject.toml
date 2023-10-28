@@ -17,7 +17,7 @@ classifiers = [
     "Framework :: aiohttp",
     "License :: OSI Approved :: MIT License"
 ]
-dependencies = ["aiohttp==3.8.4"]
+dependencies = ["httpx"]
 
 [project.urls]
 "Homepage" = "https://github.com/SajjadAlipour2006/Balethon"
