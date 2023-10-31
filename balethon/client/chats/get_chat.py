@@ -11,7 +11,6 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ):
-        chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
         if isinstance(chat_id, str) and chat_id.startswith("@"):
