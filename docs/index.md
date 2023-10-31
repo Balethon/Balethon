@@ -16,6 +16,7 @@ layout: default
   * [بات خوش آمد گویی](./examples/welcome_bot)
   * [کامندها](./examples/commands)
   * [اینلاین کیبوردها](./examples/inline_keyboards)
+  * [بات دانلودر](./examples/downloader_bot)
   * [پرداخت ها](./examples/payment_bot)
 
 * [client](./client/)

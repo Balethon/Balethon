@@ -5,4 +5,5 @@
 * [بات خوش آمد گویی](./welcome_bot)
 * [کامندها](./commands)
 * [اینلاین کیبوردها](./inline_keyboards)
+* [بات دانلودر](./downloader_bot)
 * [پرداخت ها](./payment_bot)
