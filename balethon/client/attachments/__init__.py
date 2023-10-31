@@ -1,4 +1,5 @@
 from .send_photo import SendPhoto
+from .send_animation import SendAnimation
 from .send_audio import SendAudio
 from .send_document import SendDocument
 from .send_video import SendVideo
@@ -11,6 +12,7 @@ from .get_file import GetFile
 
 class Attachments(
     SendPhoto,
+    SendAnimation,
     SendAudio,
     SendDocument,
     SendVideo,
