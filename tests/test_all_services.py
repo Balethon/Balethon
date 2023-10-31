@@ -1,4 +1,5 @@
-from aiohttp import ContentTypeError
+from json import JSONDecodeError
+
 from balethon import Client
 
 import config
@@ -128,8 +129,8 @@ async def main(client):
     for i, s in enumerate(services, start=1):
         try:
             await client.execute("get", s)
-        except ContentTypeError:
-            print(f"{i}-{s}: ❌")
+        except JSONDecodeError:
+            pass
         except:
             print(f"{i}-{s}: ✅")
 
