@@ -1,3 +1,4 @@
+from typing import Union
 from json import dumps
 from typing import List
 
@@ -10,9 +11,10 @@ class SendMediaGroup:
 
     async def send_media_group(
             self: "balethon.Client",
-            chat_id: int,
+            chat_id: Union[int, str],
             media: List["objects.InputMedia"]
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
         for i, m in enumerate(data["media"]):

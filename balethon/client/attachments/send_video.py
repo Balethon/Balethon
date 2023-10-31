@@ -9,7 +9,7 @@ class SendVideo:
 
     async def send_video(
             self: "balethon.Client",
-            chat_id: int,
+            chat_id: Union[int, str],
             video: Union[str, bytes, BinaryIO, InputMedia],
             duration: int = None,
             width: int = None,
@@ -17,6 +17,7 @@ class SendVideo:
             caption: str = None,
             reply_to_message_id: int = None
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         if not isinstance(video, InputMedia):
             video = InputMedia(media=video)
         video = video.media

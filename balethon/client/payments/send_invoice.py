@@ -1,3 +1,5 @@
+from typing import Union
+
 import balethon
 from ...objects import Message
 from balethon import objects
@@ -7,7 +9,7 @@ class SendInvoice:
 
     async def send_invoice(
             self: "balethon.Client",
-            chat_id: int,
+            chat_id: Union[int, str],
             title: str,
             description: str,
             provider_token: str,
@@ -26,6 +28,7 @@ class SendInvoice:
             reply_to_message_id: int = None,
             reply_markup: "objects.ReplyMarkup" = None
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
         result = await self.execute("post", "sendInvoice", **data)

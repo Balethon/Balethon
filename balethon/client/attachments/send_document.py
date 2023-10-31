@@ -9,11 +9,12 @@ class SendDocument:
 
     async def send_document(
             self: "balethon.Client",
-            chat_id: int,
+            chat_id: Union[int, str],
             document: Union[str, bytes, BinaryIO, InputMedia],
             caption: str = None,
             reply_to_message_id: int = None
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         if not isinstance(document, InputMedia):
             document = InputMedia(media=document)
         document = document.media

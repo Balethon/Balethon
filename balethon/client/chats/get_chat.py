@@ -1,3 +1,5 @@
+from typing import Union
+
 import balethon
 from ...objects import Chat
 from ...errors import RPCError
@@ -7,8 +9,9 @@ class GetChat:
 
     async def get_chat(
             self: "balethon.Client",
-            chat_id: int
+            chat_id: Union[int, str]
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
         if isinstance(chat_id, str) and chat_id.startswith("@"):

@@ -9,7 +9,7 @@ class SendAnimation:
 
     async def send_animation(
             self: "balethon.Client",
-            chat_id: int,
+            chat_id: Union[int, str],
             animation: Union[str, bytes, BinaryIO, InputMedia],
             duration: int = None,
             width: int = None,
@@ -17,6 +17,7 @@ class SendAnimation:
             caption: str = None,
             reply_to_message_id: int = None
     ):
+        chat_id = await self.resolve_peer_id(chat_id)
         if not isinstance(animation, InputMedia):
             animation = InputMedia(media=animation)
         animation = animation.media
