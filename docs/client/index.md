@@ -16,6 +16,7 @@
 
 * [attachments](./attachments/)
    * [get_file](./attachments/get_file)
+   * [send_animation](./attachments/send_animation)
    * [send_audio](./attachments/send_audio)
    * [send_contact](./attachments/send_contact)
    * [send_document](./attachments/send_document)

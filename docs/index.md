@@ -22,6 +22,7 @@ layout: default
 
   * [attachments](./client/attachments/)
      * [get_file](./client/attachments/get_file)
+     * [send_animation](./client/attachments/send_animation)
      * [send_audio](./client/attachments/send_audio)
      * [send_contact](./client/attachments/send_contact)
      * [send_document](./client/attachments/send_document)

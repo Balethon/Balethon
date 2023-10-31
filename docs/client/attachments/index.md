@@ -1,4 +1,5 @@
 * [get_file](./get_file)
+* [send_animation](./send_animation)
 * [send_audio](./send_audio)
 * [send_contact](./send_contact)
 * [send_document](./send_document)
