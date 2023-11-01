@@ -1,7 +1,7 @@
 from json import loads
+from re import search
 
 from httpx import AsyncClient
-from bs4 import BeautifulSoup
 
 from ..errors import RPCError
 
@@ -40,8 +40,7 @@ class Connection:
 
     async def get_info_by_username(self, username):
         response = await self.client.get(f"{self.short_url}/{username}")
-        soup = BeautifulSoup(response.text, "html.parser")
-        json_info = soup.html.body.script.contents[0]
+        json_info = search(r"({.*})", response.text)[0]
         return loads(json_info)
 
     async def request(self, method, service, data=None, files=None, json=None):
