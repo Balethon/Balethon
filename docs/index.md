@@ -83,6 +83,11 @@ layout: default
   * [Chat](./objects/Chat)
   * [ChatMember](./objects/ChatMember)
   * [File](./objects/File)
+  * [Audio](./objects/Audio)
+  * [Location](./objects/Location)
+  * [Photo](./objects/Photo)
+  * [Voice](./objects/Voice)
+  * [Invoice](./objects/Invoice)
 
 * [conditions](./conditions)
 

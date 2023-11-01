@@ -8,3 +8,8 @@
 * [Chat](./Chat)
 * [ChatMember](./ChatMember)
 * [File](./File)
+* [Audio](./Audio)
+* [Location](./Location)
+* [Photo](./Photo)
+* [Voice](./Voice)
+* [Invoice](./Invoice)
