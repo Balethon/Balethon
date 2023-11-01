@@ -28,8 +28,8 @@ from ..event_handlers import (
 # TODO: adding a decorator for creating methods
 class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
 
-    def __init__(self, token, time_out=None, base_url=None):
-        self.connection = Connection(token, time_out, base_url)
+    def __init__(self, token, time_out=None, base_url=None, short_url=None):
+        self.connection = Connection(token, time_out, base_url, short_url)
         self.dispatcher = Dispatcher()
         self.user = None
 
