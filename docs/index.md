@@ -107,6 +107,15 @@ layout: default
   * [text](./conditions/text_condition.md)
   * [video](./conditions/video_condition.md)
   * [voice](./conditions/voice_condition.md)
+  * [channel_chat_created](./conditions/channel_chat_created_condition)
+  * [delete_chat_photo](./conditions/delete_chat_photo_condition)
+  * [group_chat_created](./conditions/group_chat_created_condition)
+  * [left_chat_member](./conditions/left_chat_member_condition)
+  * [new_chat_members](./conditions/new_chat_members_condition)
+  * [new_chat_photo](./conditions/new_chat_photo_condition)
+  * [new_chat_title](./conditions/new_chat_title_condition)
+  * [pinned_message](./conditions/pinned_message_condition)
+  * [supergroup_chat_created](./conditions/supergroup_chat_created_condition)
 
 * [errors](./errors)
 
