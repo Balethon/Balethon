@@ -108,4 +108,16 @@ class Object:
         return dumps(self.unwrap(), ensure_ascii=False, indent=4)
 
     def __repr__(self):
-        return self.to_json()
+        attributes = {}
+        for key, value in self.__dict__.items():
+            if key == "client":
+                continue
+            if value is None:
+                continue
+            attributes[key] = value
+        attributes = [f"{key}={repr(value)}" for key, value in attributes.items()]
+        attributes = "\n".join(attributes)
+        if attributes:
+            attributes = "\n".join(f"\t{line}" for line in attributes.splitlines())
+            attributes = f"\n{attributes}\n"
+        return f"{type(self).__name__}({attributes})"
