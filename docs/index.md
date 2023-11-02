@@ -129,6 +129,7 @@ layout: default
 
 * [مقاله ها](./articles)
   * [بلتون برای پاسخ های غیر منتظره از سرور بله آمادگی دارد](./articles/balethon_is_prepared)
+  * [تبدیل بلتون به کتابخانه تلگرام](./articles/balethon_for_telegram)
 
 * [حمایت از ما](./support_us)
 
