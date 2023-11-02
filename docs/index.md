@@ -128,6 +128,7 @@ layout: default
   * [UnauthorizedError](./errors/UnauthorizedError)
 
 * [مقاله ها](./articles)
+  * [بلتون برای پاسخ های غیر منتظره از سرور بله آمادگی دارد](./balethon_is_prepared)
 
 * [حمایت از ما](./support_us)
 
