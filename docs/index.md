@@ -127,6 +127,8 @@ layout: default
   * [NotFoundError](./errors/NotFoundError)
   * [UnauthorizedError](./errors/UnauthorizedError)
 
+* [مقاله ها](./articles)
+
 * [حمایت از ما](./support_us)
 
 * [لینک ها](./links)
