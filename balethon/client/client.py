@@ -79,64 +79,34 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
         self.dispatcher.remove_event_handler(event_handler)
 
     def on_event(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(EventHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(EventHandler, condition)
 
     def on_connect(self):
-        def decorator(callback):
-            self.add_event_handler(ConnectHandler(callback))
-            return callback
-        return decorator
+        return self.add_event_handler(ConnectHandler)
 
     def on_disconnect(self):
-        def decorator(callback):
-            self.add_event_handler(DisconnectHandler(callback))
-            return callback
-        return decorator
+        return self.add_event_handler(DisconnectHandler)
 
     def on_error(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(ErrorHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(ErrorHandler, condition)
 
     def on_update(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(UpdateHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(UpdateHandler, condition)
 
     def on_message(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(MessageHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(MessageHandler, condition)
 
     def on_callback_query(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(CallbackQueryHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(CallbackQueryHandler, condition)
 
     def on_command(self, condition=None, name=None):
-        def decorator(callback):
-            self.add_event_handler(CommandHandler(callback, condition, name))
-            return callback
-        return decorator
+        return self.add_event_handler(CommandHandler, condition, name)
 
     def on_shipping_query(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(ShippingQueryHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(ShippingQueryHandler, condition)
 
     def on_pre_checkout_query(self, condition=None):
-        def decorator(callback):
-            self.add_event_handler(PreCheckoutQueryHandler(callback, condition))
-            return callback
-        return decorator
+        return self.add_event_handler(PreCheckoutQueryHandler, condition)
 
     async def start_polling(self):
         await self.delete_webhook()
