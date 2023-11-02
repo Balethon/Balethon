@@ -118,6 +118,6 @@ class Object:
         attributes = [f"{key}={repr(value)}" for key, value in attributes.items()]
         attributes = "\n".join(attributes)
         if attributes:
-            attributes = "\n".join(f"\t{line}" for line in attributes.splitlines())
+            attributes = "\n".join(f"    {line}" for line in attributes.splitlines())
             attributes = f"\n{attributes}\n"
         return f"{type(self).__name__}({attributes})"
