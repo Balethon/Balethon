@@ -139,6 +139,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
         return decorator
 
     async def start_polling(self):
+        await self.delete_webhook()
         last_update_id = None
         first_time = True
         while True:
