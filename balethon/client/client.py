@@ -183,3 +183,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
             peer = await self.get_chat(chat_id)
             return peer.id
         return chat_id
+
+    def create_deep_link(self, referral_parameter):
+        return f"{self.connection.short_url}/{self.user.username}?{referral_parameter}"
