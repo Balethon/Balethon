@@ -1,0 +1,2 @@
+class BreakDispatching(Exception):
+    pass

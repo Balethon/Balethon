@@ -1,0 +1,2 @@
+class ContinueDispatching(Exception):
+    pass
