@@ -9,24 +9,14 @@ from .attachments import Attachments
 from .chats import Chats
 from .payments import Payments
 from .stickers import Stickers
+from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import (
-    EventHandler,
-    ConnectHandler,
-    DisconnectHandler,
-    UpdateHandler,
-    ErrorHandler,
-    MessageHandler,
-    CallbackQueryHandler,
-    CommandHandler,
-    ShippingQueryHandler,
-    PreCheckoutQueryHandler
-)
+from ..event_handlers import ConnectHandler, DisconnectHandler
 
 
 # TODO: adding a decorator for creating methods
-class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
+class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, EventHandlers):
 
     def __init__(self, token, time_out=None, base_url=None, short_url=None):
         self.connection = Connection(token, time_out, base_url, short_url)
@@ -66,47 +56,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
         if json:
             return await self.connection.request(method, service, json=data, files=files)
         return await self.connection.request(method, service, data=data, files=files)
-
-    def add_event_handler(self, event_handler, *args, **kwargs):
-        if isinstance(event_handler, type):
-            def decorator(callback):
-                self.add_event_handler(event_handler(callback, *args, **kwargs))
-                return callback
-            return decorator
-        self.dispatcher.add_event_handler(event_handler)
-
-    def remove_event_handler(self, event_handler):
-        self.dispatcher.remove_event_handler(event_handler)
-
-    def on_event(self, condition=None):
-        return self.add_event_handler(EventHandler, condition)
-
-    def on_connect(self):
-        return self.add_event_handler(ConnectHandler)
-
-    def on_disconnect(self):
-        return self.add_event_handler(DisconnectHandler)
-
-    def on_error(self, condition=None):
-        return self.add_event_handler(ErrorHandler, condition)
-
-    def on_update(self, condition=None):
-        return self.add_event_handler(UpdateHandler, condition)
-
-    def on_message(self, condition=None):
-        return self.add_event_handler(MessageHandler, condition)
-
-    def on_callback_query(self, condition=None):
-        return self.add_event_handler(CallbackQueryHandler, condition)
-
-    def on_command(self, condition=None, name=None):
-        return self.add_event_handler(CommandHandler, condition, name)
-
-    def on_shipping_query(self, condition=None):
-        return self.add_event_handler(ShippingQueryHandler, condition)
-
-    def on_pre_checkout_query(self, condition=None):
-        return self.add_event_handler(PreCheckoutQueryHandler, condition)
 
     async def start_polling(self):
         await self.delete_webhook()
