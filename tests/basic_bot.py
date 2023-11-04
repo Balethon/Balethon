@@ -31,11 +31,6 @@ async def answer_callback_query(client, callback_query: CallbackQuery):
     await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!")
 
 
-@bot.on_update()
-def show_update(c, u):
-    print(u)
-
-
 @bot.on_disconnect()
 def bye(client):
     print("bye!")

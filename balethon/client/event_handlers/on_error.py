@@ -6,6 +6,7 @@ class OnError:
 
     def on_error(
             self: "balethon.Client",
-            condition=None
+            condition=None,
+            chain="default"
     ):
-        return self.add_event_handler(ErrorHandler, condition)
+        return self.add_event_handler(ErrorHandler, chain, condition)

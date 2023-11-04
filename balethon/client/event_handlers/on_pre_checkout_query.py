@@ -6,6 +6,7 @@ class OnPreCheckoutQuery:
 
     def on_pre_checkout_query(
             self: "balethon.Client",
-            condition=None
+            condition=None,
+            chain="default"
     ):
-        return self.add_event_handler(PreCheckoutQueryHandler, condition)
+        return self.add_event_handler(PreCheckoutQueryHandler, chain, condition)

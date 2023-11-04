@@ -6,6 +6,7 @@ class OnEvent:
 
     def on_event(
             self: "balethon.Client",
-            condition=None
+            condition=None,
+            chain="default"
     ):
-        return self.add_event_handler(EventHandler, condition)
+        return self.add_event_handler(EventHandler, chain, condition)

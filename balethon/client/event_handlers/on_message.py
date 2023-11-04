@@ -6,6 +6,7 @@ class OnMessage:
 
     def on_message(
             self: "balethon.Client",
-            condition=None
+            condition=None,
+            chain="default"
     ):
-        return self.add_event_handler(MessageHandler, condition)
+        return self.add_event_handler(MessageHandler, chain, condition)

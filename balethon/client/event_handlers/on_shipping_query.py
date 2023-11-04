@@ -6,6 +6,7 @@ class OnShippingQuery:
 
     def on_shipping_query(
             self: "balethon.Client",
-            condition=None
+            condition=None,
+            chain="default"
     ):
-        return self.add_event_handler(ShippingQueryHandler, condition)
+        return self.add_event_handler(ShippingQueryHandler, chain, condition)
