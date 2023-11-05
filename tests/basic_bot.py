@@ -11,7 +11,7 @@ reply_markup = InlineKeyboard([[InlineKeyboardButton("Button 1", "1"), InlineKey
 
 
 @bot.on_connect()
-async def ready(client):
+async def ready(client: Client):
     print("bot is ready!")
 
 
@@ -26,13 +26,13 @@ async def answer_message(client: Client, message: Message):
 
 
 @bot.on_callback_query()
-async def answer_callback_query(client, callback_query: CallbackQuery):
+async def answer_callback_query(client: Client, callback_query: CallbackQuery):
     print(f"{callback_query.author.full_name}: [{callback_query.data}]")
     await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!")
 
 
 @bot.on_disconnect()
-def bye(client):
+def bye(client: Client):
     print("bye!")
 
 
