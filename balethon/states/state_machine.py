@@ -15,11 +15,11 @@ class StateMachine:
 
     def go_to_next_state(self, user_id):
         current_state = self.get_state(user_id)
-        self.set_state(user_id, self.state_group.get_next_state(current_state))
+        self.set_state(user_id, current_state.next)
 
     def go_to_previous_state(self, user_id):
         current_state = self.get_state(user_id)
-        self.set_state(user_id, self.state_group.get_previous_state(current_state))
+        self.set_state(user_id, current_state.previous)
 
     def on(self, state):
         async def condition(client, update):
