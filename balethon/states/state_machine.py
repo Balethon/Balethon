@@ -26,6 +26,6 @@ class StateMachine:
 
     def at(self, state):
         @Condition.create
-        async def condition(client, update):
+        async def at_state(client, update):
             return self.get_state(update.author.id) == state
-        return condition
+        return at_state
