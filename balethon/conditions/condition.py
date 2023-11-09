@@ -5,7 +5,7 @@ class Condition:
 
     @classmethod
     def create(cls, function):
-        return cls(function)
+        return type(function.__name__ or "CustomCondition", (cls,), {})(function)
 
     def __init__(self, function=None):
         self.function = function
@@ -25,8 +25,6 @@ class Condition:
         return NotCondition(self)
 
     def __repr__(self):
-        if hasattr(self, "function") and callable(self.function):
-            return self.function.__name__
         return type(self).__name__
 
 
