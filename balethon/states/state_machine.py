@@ -1,3 +1,6 @@
+from ..conditions import Condition
+
+
 class StateMachine:
 
     def __init__(self, state_group):
@@ -21,7 +24,8 @@ class StateMachine:
         current_state = self.get_state(user_id)
         self.set_state(user_id, current_state.previous)
 
-    def on(self, state):
+    def at(self, state):
+        @Condition.create
         async def condition(client, update):
             return self.get_state(update.author.id) == state
         return condition
