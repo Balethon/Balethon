@@ -22,7 +22,7 @@ async def greet(client, message):
 bot.run_polling()
 ```
 
-> You must replace "TOKEN" with the token which [@botfather](https://ble.ir/botfather) gives you in the [Bale](https://www.bale.ai) messenger
+> You must replace `TOKEN` with the token which [@botfather](https://ble.ir/botfather) gives you in the [Bale](https://www.bale.ai) messenger
 
 ## Key Features
 
@@ -31,8 +31,8 @@ bot.run_polling()
 - **Documented**: Learn Balethon in depth with the documentation at https://sajjadalipour2006.github.io/Balethon
 - **Community**: Active and friendly community at https://ble.ir/join/MTlhN2Q2Mz, you are sure to find answers to your questions
 - **Design**: Support for functional and object-oriented designs
-- **powerful**: Covers the bale messenger's api and has powerful tools to make your job easier
-- **Flexible**: Unable to deprecate and ready for unexpected responses from the Bale messenger's api
+- **powerful**: Covers the [Bale](https://www.bale.ai) messenger's api and has powerful tools to make your job easier
+- **Flexible**: Unable to deprecate and ready for unexpected responses from the [Bale](https://www.bale.ai) messenger's api
 - **Intuitive**: Type-hinted and has great editor support
 
 ## Installing
