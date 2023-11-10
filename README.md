@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" width="200" alt="Balethon">
+</p>
+
 ## Balethon
 
 Asynchronous library for creating bots in the [Bale](https://www.bale.ai/) messenger
