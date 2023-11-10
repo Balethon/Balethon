@@ -4,7 +4,7 @@
 
 ## Balethon
 
-Asynchronous library for creating bots in the [Bale](https://www.bale.ai) messenger
+A library for creating bots in the [Bale](https://www.bale.ai) messenger
 
 ## Usage Example
 
