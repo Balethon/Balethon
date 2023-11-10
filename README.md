@@ -19,7 +19,7 @@ async def greet(client, message):
     await message.reply("Hello")
 
 
-bot.run_polling()
+bot.run()
 ```
 
 > You must replace `TOKEN` with the token which [@botfather](https://ble.ir/botfather) gives you in the [Bale](https://www.bale.ai) messenger

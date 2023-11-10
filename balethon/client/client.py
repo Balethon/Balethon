@@ -79,11 +79,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                     last_update_id = update.id
                     await self.dispatcher(self, update.available_update)
 
-    def run(self, function):
+    def run(self, function=None):
         loop = get_event_loop()
         try:
             loop.run_until_complete(self.connect())
-            if iscoroutine(function):
+            if function is None:
+                loop.run_until_complete(self.start_polling())
+            elif iscoroutine(function):
                 loop.run_until_complete(function)
             else:
                 function()
@@ -91,9 +93,6 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             return
         finally:
             loop.run_until_complete(self.disconnect())
-
-    def run_polling(self):
-        self.run(self.start_polling())
 
     async def download(self, file_id):
         return await self.connection.download_file(file_id)

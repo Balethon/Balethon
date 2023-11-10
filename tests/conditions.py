@@ -142,4 +142,4 @@ async def test_private(_, __):
 
 
 if __name__ == "__main__":
-    bot.run_polling()
+    bot.run()

@@ -31,5 +31,5 @@ async def answer_callback_query(client, callback_query):
     )
 
 
-bot.run_polling()
+bot.run()
 ```

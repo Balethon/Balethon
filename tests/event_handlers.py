@@ -56,4 +56,4 @@ async def disconnection(client):
 
 
 if __name__ == "__main__":
-    bot.run_polling()
+    bot.run()

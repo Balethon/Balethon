@@ -15,7 +15,7 @@ async def greet(client, message):
     await message.reply("Hello")
 
 
-bot.run_polling()
+bot.run()
 ```
 
 > باید توکن را با توکنی که بات فادر در پیامرسان [بله](https://www.bale.ai/) به شما میدهد عوض کنید

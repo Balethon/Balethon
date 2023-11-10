@@ -14,5 +14,5 @@ async def echo(client, message):
     await message.reply(message.text)
 
 
-bot.run_polling()
+bot.run()
 ```

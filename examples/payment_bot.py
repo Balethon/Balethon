@@ -25,4 +25,4 @@ async def show_pre_checkout_query(client, pre_checkout_query):
     print(f"{user} paid {payload}")
 
 
-bot.run_polling()
+bot.run()

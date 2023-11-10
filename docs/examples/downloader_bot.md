@@ -24,5 +24,5 @@ async def download_document(client, message):
     await downloading.edit_text("دانلود شد")
 
 
-bot.run_polling()
+bot.run()
 ```

@@ -17,5 +17,5 @@ async def welcome_new_chat_members(client, message):
     )
 
 
-bot.run_polling()
+bot.run()
 ```

@@ -30,4 +30,4 @@ async def count_to_ten(client, message):
         await counting_message.edit_text(str(i))
 
 
-bot.run_polling()
+bot.run()
