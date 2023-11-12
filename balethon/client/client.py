@@ -29,8 +29,8 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
 
     async def connect(self):
         await self.connection.start()
-        self.user = await self.get_me()
         await self.dispatcher(self, ConnectHandler)
+        self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
