@@ -1,9 +1,7 @@
 class State:
 
-    def __init__(self, name=None, *, previous=None, next=None, group=None):
+    def __init__(self, name=None, group=None):
         self.name = name
-        self.previous = previous
-        self.next = next
         self.group = group
 
     def __str__(self):
