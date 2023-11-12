@@ -6,7 +6,7 @@
 
 A library for creating bots in the [Bale](https://www.bale.ai) messenger
 
-## Usage Example
+## Quick Example
 
 ```python
 from balethon import Client
