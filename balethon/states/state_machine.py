@@ -1,4 +1,4 @@
-from ..conditions import Condition
+from ..conditions import AtState
 
 
 class StateMachine:
@@ -19,7 +19,4 @@ class StateMachine:
         del self.states[user_id]
 
     def at(self, state):
-        @Condition.create
-        async def at_state(client, update):
-            return self[update.author.id] == state
-        return at_state
+        return AtState(state, self)
