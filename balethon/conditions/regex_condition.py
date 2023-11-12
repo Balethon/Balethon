@@ -1,7 +1,6 @@
 from re import compile
 
 from .condition import Condition
-from ..objects import Message, CallbackQuery
 
 
 class Regex(Condition):
@@ -11,6 +10,7 @@ class Regex(Condition):
         self.pattern = compile(pattern, flags)
 
     async def __call__(self, client, update):
+        from ..objects import Message, CallbackQuery
         if isinstance(update, Message):
             update = update.text or update.caption
         elif isinstance(update, CallbackQuery):
