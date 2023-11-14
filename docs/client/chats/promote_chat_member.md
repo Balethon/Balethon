@@ -80,5 +80,5 @@
 ### مثال
 
 ```python
-await bot.promote_chat_member(1234567890, 123456789)
+await bot.promote_chat_member(1234567890, 123456789, can_promote_members=True, can_pin_messages=True)
 ```
