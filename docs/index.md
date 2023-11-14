@@ -165,13 +165,13 @@ pip install Balethon
 
 * [errors](./errors)
 
-  * [RPCError](./errors/RPCError)
-  * [BadRequestError](./errors/BadRequestError)
-  * [FloodError](./errors/FloodError)
-  * [ForbiddenError](./errors/ForbiddenError)
-  * [InternalError](./errors/InternalError)
-  * [NotFoundError](./errors/NotFoundError)
-  * [UnauthorizedError](./errors/UnauthorizedError)
+  * [RPCError](errors/rpc_errors/RPCError.md)
+  * [BadRequestError](errors/rpc_errors/BadRequestError.md)
+  * [FloodError](errors/rpc_errors/FloodError.md)
+  * [ForbiddenError](errors/rpc_errors/ForbiddenError.md)
+  * [InternalError](errors/rpc_errors/InternalError.md)
+  * [NotFoundError](errors/rpc_errors/NotFoundError.md)
+  * [UnauthorizedError](errors/rpc_errors/UnauthorizedError.md)
 
 * [مقاله ها](./articles)
   * [بلتون برای پاسخ های غیر منتظره از سرور بله آمادگی دارد](./articles/balethon_is_prepared)
