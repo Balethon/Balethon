@@ -5,7 +5,17 @@ from .get_chat_members_count import GetChatMembersCount
 from .get_chat_member import GetChatMember
 from .invite_user import InviteUser
 from .leave_chat import LeaveChat
+from .promote_chat_member import PromoteChatMember
 
 
-class Chats(BanChatMember, GetChat, GetChatAdministrators, GetChatMembersCount, GetChatMember, InviteUser, LeaveChat):
+class Chats(
+    BanChatMember,
+    GetChat,
+    GetChatAdministrators,
+    GetChatMembersCount,
+    GetChatMember,
+    InviteUser,
+    LeaveChat,
+    PromoteChatMember
+):
     pass
