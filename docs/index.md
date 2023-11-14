@@ -87,6 +87,7 @@ pip install Balethon
      *  [get_chat_members_count](./client/chats/get_chat_members_count)
      *  [invite_user](./client/chats/invite_user)
      *  [leave_chat](./client/chats/leave_chat)
+     *  [promote_chat_member](./client/chats/promote_chat_member)
 
   * [messages](./client/messages/)
      *  [delete_message](./client/messages/delete_message)

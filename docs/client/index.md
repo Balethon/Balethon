@@ -34,6 +34,7 @@
    *  [get_chat_members_count](./chats/get_chat_members_count)
    *  [invite_user](./chats/invite_user)
    *  [leave_chat](./chats/leave_chat)
+   *  [promote_chat_member](./chats/promote_chat_member)
 
 * [messages](./messages/)
    *  [delete_message](./messages/delete_message)
