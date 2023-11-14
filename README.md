@@ -33,7 +33,6 @@ bot.run()
 - **Design**: Support for functional as well as object-oriented designs
 - **powerful**: Covers the [Bale](https://www.bale.ai) messenger's api and has useful tools to make your job easier
 - **Flexible**: Unable to get deprecated and ready for unexpected responses from the [Bale](https://www.bale.ai) messenger's api
-- **Extensible**: 
 - **Intuitive**: Type-hinted and has great editor support
 
 ## Installing
