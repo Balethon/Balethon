@@ -13,7 +13,6 @@ class Dispatcher:
 
     def __init__(self):
         self.event_handler_chains = {}
-        self.tasks = []
         self.add_event_handler(ErrorHandler(print_error), chain="print_error")
 
     def add_event_handler(self, event_handler, chain="default"):
@@ -37,8 +36,7 @@ class Dispatcher:
                     continue
                 try:
                     if await event_handler.check(client, event):
-                        task = create_task(event_handler(client, event))
-                        self.tasks.append(task)
+                        await create_task(event_handler(client, event))
                         break
                 except ContinueDispatching:
                     break
