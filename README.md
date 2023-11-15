@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" width="200" alt="Balethon">
+  <img src="https://sajjadalipour2006.github.io/Balethon/logo.png" width="200" alt="Balethon">
 </p>
 
 ## Balethon
