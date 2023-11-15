@@ -3,7 +3,7 @@ from ..states import StateMachine
 
 
 class User(Object):
-    state_machine = StateMachine()
+    state_machine = StateMachine(":memory:")
 
     def __init__(
             self,
