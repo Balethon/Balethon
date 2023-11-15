@@ -57,7 +57,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             return await self.connection.request(method, service, json=data, files=files)
         return await self.connection.request(method, service, data=data, files=files)
 
-    async def start_polling(self):
+    async def polling(self):
         await self.delete_webhook()
         last_update_id = None
         first_time = True
@@ -79,16 +79,21 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                     last_update_id = update.id
                     await self.dispatcher(self, update.available_update)
 
-    def run(self, function=None):
+    async def webhook(self, url):
+        await self.set_webhook(url)
+
+    def run(self, value=None):
         loop = get_event_loop()
         try:
             loop.run_until_complete(self.connect())
-            if function is None:
-                loop.run_until_complete(self.start_polling())
-            elif iscoroutine(function):
-                loop.run_until_complete(function)
+            if value is None:
+                loop.run_until_complete(self.polling())
+            elif isinstance(value, str):
+                loop.run_until_complete(self.webhook(value))
+            elif iscoroutine(value):
+                loop.run_until_complete(value)
             else:
-                function()
+                value()
         except KeyboardInterrupt:
             return
         finally:
