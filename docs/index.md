@@ -3,7 +3,7 @@ layout: default
 ---
 
 <p align="center">
-  <img src="../logo.png" width="200" alt="Balethon">
+  <img src="./logo.png" width="200" alt="Balethon">
 </p>
 
 ## بلتون
