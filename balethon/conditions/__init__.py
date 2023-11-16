@@ -26,3 +26,4 @@ from .command_condition import Command as command
 from .private_condition import private
 from .regex_condition import Regex as regex
 from .at_state import AtState as at_state
+from .is_instance import IsInstance as is_instance
