@@ -1,4 +1,4 @@
-## class balethon.objects.*Chat*
+## class balethon.objects.*User*
 
 **این کلاس به عنوان یک کاربر ایفای نقش میکند**
 
