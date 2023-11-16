@@ -79,21 +79,16 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                     last_update_id = update.id
                     await self.dispatcher(self, update.available_update)
 
-    async def start_webhook(self, url):
-        await self.set_webhook(url)
-
-    def run(self, value=None):
+    def run(self, function=None):
         loop = get_event_loop()
         try:
             loop.run_until_complete(self.connect())
-            if value is None:
+            if function is None:
                 loop.run_until_complete(self.start_polling())
-            elif isinstance(value, str):
-                loop.run_until_complete(self.start_webhook(value))
-            elif iscoroutine(value):
-                loop.run_until_complete(value)
+            elif iscoroutine(function):
+                loop.run_until_complete(function)
             else:
-                value()
+                function()
         except KeyboardInterrupt:
             return
         finally:
