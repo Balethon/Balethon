@@ -165,6 +165,11 @@ pip install Balethon
   * [pinned_message](./conditions/pinned_message_condition)
   * [supergroup_chat_created](./conditions/supergroup_chat_created_condition)
 
+* [states](./states)
+  * [State](./states/state)
+  * [StateGroup](./states/state_group)
+  * [StateMachine](./states/state_machine)
+
 * [errors](./errors)
 
   * [dispatching_errors](./errors/dispatching_errors)
