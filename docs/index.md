@@ -61,6 +61,7 @@ pip install Balethon
   * [بات اکو](./examples/echo_bot)
   * [بات خوش آمد گویی](./examples/welcome_bot)
   * [کامندها](./examples/commands)
+  * [بات گفتگو](./examples/conversation)
   * [اینلاین کیبوردها](./examples/inline_keyboards)
   * [بات دانلودر](./examples/downloader_bot)
   * [پرداخت ها](./examples/payment_bot)
