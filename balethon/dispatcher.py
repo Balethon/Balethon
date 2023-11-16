@@ -21,13 +21,16 @@ class Dispatcher:
         self.event_handler_chains[chain].append(event_handler)
 
     def remove_event_handler(self, event_handler):
-        for event_handler_chain in self.event_handler_chains:
+        for name, event_handler_chain in self.event_handler_chains.items():
             try:
                 event_handler_chain.remove(event_handler)
             except ValueError:
                 continue
             else:
-                break
+                if not event_handler_chain:
+                    del self.event_handler_chains[name]
+                return
+        raise ValueError(f"{event_handler} does not exist")
 
     async def __call__(self, client, event):
         for event_handler_chain in self.event_handler_chains.values():
