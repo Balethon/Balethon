@@ -126,7 +126,7 @@ async def test_media(_, __):
     print("This message falls under the condition of MEDIA")
 
 
-@bot.on_message(conditions.Command("command"), "Command")
+@bot.on_message(conditions.command("command"), "Command")
 async def test_command(_, __):
     print("This message falls under the condition of COMMAND")
 
@@ -136,7 +136,7 @@ async def test_private(_, __):
     print("This message falls under the condition of PRIVATE")
 
 
-@bot.on_message(conditions.Regex("test"), "Regex")
+@bot.on_message(conditions.regex("test"), "Regex")
 async def test_private(_, __):
     print("This message falls under the condition of REGEX")
 

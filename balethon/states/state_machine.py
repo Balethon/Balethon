@@ -1,7 +1,7 @@
 from sqlite3 import connect
 
 from .state import State
-from ..conditions import AtState
+from ..conditions import at_state
 
 
 class StateMachine:
@@ -64,4 +64,4 @@ class StateMachine:
         self.delete_user_state(user_id)
 
     def at(self, state):
-        return AtState(state, self)
+        return at_state(state, self)

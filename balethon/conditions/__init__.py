@@ -22,7 +22,7 @@ from .channel_chat_created_condition import channel_chat_created
 from .pinned_message_condition import pinned_message
 from .invoice_condition import invoice
 from .media_condition import media
-from .command_condition import Command
+from .command_condition import Command as command
 from .private_condition import private
-from .regex_condition import Regex
-from .at_state import AtState
+from .regex_condition import Regex as regex
+from .at_state import AtState as at_state
