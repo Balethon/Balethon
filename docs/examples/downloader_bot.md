@@ -12,7 +12,7 @@ bot = Client("TOKEN")
 
 @bot.on_message(document)
 async def download_document(client, message):
-    downloading = await message.reply("در حال دانلود...")
+    downloading = await message.reply("Downloading...")
 
     response = await client.download(message.document.id)
 
@@ -21,7 +21,7 @@ async def download_document(client, message):
     with open(f"downloaded file.{file_format}", "wb") as file:
         file.write(response)
 
-    await downloading.edit_text("دانلود شد")
+    await downloading.edit_text("Download completed")
 
 
 bot.run()
