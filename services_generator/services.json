@@ -1,0 +1,128 @@
+{
+    "attachments": {
+        "get_file": {
+            "arguments": {"file_id": {"type": "str"}},
+            "return_type": "balethon.objects.File"
+        },
+        "send_animation": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_audio": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_contact": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_document": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_location": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_media_group": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_photo": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_video": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_voice": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        }
+    },
+    "chats": {
+        "ban_chat_member": {
+            "arguments": {},
+            "return_type": "bool"
+        },
+        "get_chat": {
+            "arguments": {},
+            "return_type": "balethon.objects.Chat"
+        },
+        "get_chat_administrators": {
+            "arguments": {},
+            "return_type": "typing.List[balethon.objects.ChatMember]"
+        },
+        "get_chat_member": {
+            "arguments": {},
+            "return_type": "balethon.objects.ChatMember"
+        },
+        "get_chat_members_count": {
+            "arguments": {},
+            "return_type": "int"
+        },
+        "invite_user": {
+            "arguments": {},
+            "return_type": "bool"
+        },
+        "leave_chat": {
+            "arguments": {},
+            "return_type": "bool"
+        },
+        "promote_chat_member": {
+            "arguments": {},
+            "return_type": "bool"
+        }
+    },
+    "messages": {
+        "delete_message": {
+            "arguments": {},
+            "return_type": "bool"
+        },
+        "edit_message_text": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "forward_message": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        },
+        "send_message": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        }
+    },
+    "payments": {
+        "send_invoice": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        }
+    },
+    "stickers": {
+        "get_sticker_set": {
+            "arguments": {},
+            "return_type": "balethon.objects.StickerSet"
+        }
+    },
+    "updates": {
+        "delete_webhook": {
+            "arguments": {},
+            "return_type": "bool"
+        },
+        "get_updates": {
+            "arguments": {},
+            "return_type": "typing.List[balethon.objects.Update]"
+        },
+        "set_webhook": {
+            "arguments": {},
+            "return_type": "bool"
+        }
+    },
+    "users": {
+        "get_me": {
+            "arguments": {},
+            "return_type": "balethon.objects.Message"
+        }
+    }
+}
