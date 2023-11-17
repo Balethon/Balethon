@@ -1,43 +1,98 @@
 {
     "attachments": {
         "get_file": {
-            "arguments": {"file_id": {"type": "str"}},
+            "arguments": {
+                "file_id": {"types": ["str", "int"]}
+            },
             "return_type": "balethon.objects.File"
         },
         "send_animation": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "animation": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "duration": {"types": "int", "default": null},
+                "width": {"types": "int", "default": null},
+                "height": {"types": "int", "default": null},
+                "caption": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_audio": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "audio": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "caption": {"types": "str", "default": null},
+                "duration": {"types": "int", "default": null},
+                "title": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_contact": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "phone_number": {"types": "str"},
+                "first_name": {"types": "str"},
+                "last_name": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_document": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "document": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "caption": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_location": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "latitude": {"types": "int"},
+                "longitude": {"types": "int"},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_media_group": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "media": {"types": "typing.List[balethon.objects.InputMedia]"}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_photo": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "photo": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "caption": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_video": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "video": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "duration": {"types": "int", "default": null},
+                "width": {"types": "int", "default": null},
+                "height": {"types": "int", "default": null},
+                "caption": {"types": "str", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_voice": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "voice": {"types": ["str", "bytes", "typing.BinaryIO", "balethon.objects.InputMedia"]},
+                "caption": {"types": "str", "default": null},
+                "duration": {"types": "int", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         }
     },
