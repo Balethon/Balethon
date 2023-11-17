@@ -98,85 +98,168 @@
     },
     "chats": {
         "ban_chat_member": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "user_id": {"types": ["int", "str"]}
+            },
             "return_type": "bool"
         },
         "get_chat": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]}
+            },
             "return_type": "balethon.objects.Chat"
         },
         "get_chat_administrators": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]}
+            },
             "return_type": "typing.List[balethon.objects.ChatMember]"
         },
         "get_chat_member": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "user_id": {"types": ["int", "str"]}
+            },
             "return_type": "balethon.objects.ChatMember"
         },
         "get_chat_members_count": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]}
+            },
             "return_type": "int"
         },
         "invite_user": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "user_id": {"types": ["int", "str"]}
+            },
             "return_type": "bool"
         },
         "leave_chat": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]}
+            },
             "return_type": "bool"
         },
         "promote_chat_member": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "user_id": {"types": ["int", "str"]},
+                "can_edit_messages": {"types": "bool", "default": null},
+                "can_delete_messages": {"types": "bool", "default": null},
+                "can_manage_video_chats": {"types": "bool", "default": null},
+                "can_restrict_members": {"types": "bool", "default": null},
+                "can_promote_members": {"types": "bool", "default": null},
+                "can_change_info": {"types": "bool", "default": null},
+                "can_invite_users": {"types": "bool", "default": null},
+                "can_pin_messages": {"types": "bool", "default": null},
+                "can_send_messages": {"types": "bool", "default": null},
+                "can_send_media_messages": {"types": "bool", "default": null},
+                "can_send_media": {"types": "bool", "default": null},
+                "can_send_gif_stickers": {"types": "bool", "default": null},
+                "can_reply_to_story": {"types": "bool", "default": null},
+                "can_forward_message_from": {"types": "bool", "default": null},
+                "can_send_gift_packet": {"types": "bool", "default": null},
+                "can_start_call": {"types": "bool", "default": null},
+                "can_send_link_message": {"types": "bool", "default": null},
+                "can_send_forwarded_message": {"types": "bool", "default": null},
+                "can_kick_user": {"types": "bool", "default": null},
+                "can_send_message": {"types": "bool", "default": null},
+                "can_see_members": {"types": "bool", "default": null},
+                "can_add_story": {"types": "bool", "default": null}
+            },
             "return_type": "bool"
         }
     },
     "messages": {
         "delete_message": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "message_id": {"types": ["int", "str"]}
+            },
             "return_type": "bool"
         },
         "edit_message_text": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "message_id": {"types": ["int", "str"]},
+                "text": {"types": "str"},
+                "reply_markup": {"types": "balethon.objects.ReplyMarkup", "default": null}
+            },
             "return_type": "balethon.objects.Message"
         },
         "forward_message": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "from_chat_id": {"types": ["int", "str"]},
+                "message_id": {"types": ["int", "str"]}
+            },
             "return_type": "balethon.objects.Message"
         },
         "send_message": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "text": {"types": "str"},
+                "reply_markup": {"types": "balethon.objects.ReplyMarkup", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null}
+            },
             "return_type": "balethon.objects.Message"
         }
     },
     "payments": {
         "send_invoice": {
-            "arguments": {},
+            "arguments": {
+                "chat_id": {"types": ["int", "str"]},
+                "title": {"types": "str"},
+                "description": {"types": "str"},
+                "provider_token": {"types": "str"},
+                "prices": {"types": "typing.List[balethon.objects.LabeledPrice]"},
+                "provider_data": {"types": "str", "default": null},
+                "photo_url": {"types": "str", "default": null},
+                "photo_size": {"types": "int", "default": null},
+                "photo_width": {"types": "int", "default": null},
+                "photo_height": {"types": "int", "default": null},
+                "need_name": {"types": "bool", "default": null},
+                "need_phone_number": {"types": "bool", "default": null},
+                "need_email": {"types": "bool", "default": null},
+                "need_shipping_address": {"types": "bool", "default": null},
+                "is_flexible": {"types": "bool", "default": null},
+                "disable_notification": {"types": "bool", "default": null},
+                "reply_to_message_id": {"types": ["int", "str"], "default": null},
+                "reply_markup": {"types": "balethon.objects.ReplyMarkup", "default": null}
+            },
             "return_type": "balethon.objects.Message"
         }
     },
     "stickers": {
         "get_sticker_set": {
-            "arguments": {},
+            "arguments": {
+                "name": {"types": "str"}
+            },
             "return_type": "balethon.objects.StickerSet"
         }
     },
     "updates": {
         "delete_webhook": {
-            "arguments": {},
             "return_type": "bool"
         },
         "get_updates": {
-            "arguments": {},
+            "arguments": {
+                "offset": {"types": "int"},
+                "limit": {"types": "int"}
+            },
             "return_type": "typing.List[balethon.objects.Update]"
         },
         "set_webhook": {
-            "arguments": {},
+            "arguments": {
+                "url": {"types": "str"}
+            },
             "return_type": "bool"
         }
     },
     "users": {
         "get_me": {
-            "arguments": {},
             "return_type": "balethon.objects.Message"
         }
     }
