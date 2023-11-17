@@ -12,7 +12,7 @@ class StateMachine:
         cursor.execute(sql)
         self.connection.commit()
 
-    def __init__(self, database, state_group=None):
+    def __init__(self, database=":memory:", state_group=None):
         self.connection = connect(database)
         self.state_group = state_group
         self.create_table()
