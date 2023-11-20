@@ -4,6 +4,7 @@ from inspect import iscoroutinefunction
 from threading import current_thread, main_thread
 
 from .client import Client
+from balethon import objects
 
 
 def add_sync_support_to_function(coroutine_function):
@@ -43,4 +44,15 @@ def add_sync_support_to_object(obj):
         setattr(obj, name, dual_purpose_method)
 
 
-add_sync_support_to_object(Client)
+def add_sync_support():
+    add_sync_support_to_object(Client)
+
+    for name in dir(objects):
+        obj = getattr(objects, name)
+
+        if not isinstance(obj, type):
+            continue
+        if not issubclass(obj, objects.Object):
+            continue
+
+        add_sync_support_to_object(obj)
