@@ -46,6 +46,16 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         except ConnectionError:
             return
 
+    def __enter__(self):
+        self.connect()
+        return self
+
+    def __exit__(self, *args):
+        try:
+            self.disconnect()
+        except ConnectionError:
+            return
+
     async def execute(self, method, service, json=True, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
@@ -80,19 +90,19 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                     await self.dispatcher(self, update.available_update)
 
     def run(self, function=None):
-        loop = get_event_loop()
         try:
-            loop.run_until_complete(self.connect())
+            self.connect()
             if function is None:
-                loop.run_until_complete(self.start_polling())
+                self.start_polling()
             elif iscoroutine(function):
+                loop = get_event_loop()
                 loop.run_until_complete(function)
             else:
                 function()
         except KeyboardInterrupt:
             return
         finally:
-            loop.run_until_complete(self.disconnect())
+            self.disconnect()
 
     async def download(self, file_id):
         return await self.connection.download_file(file_id)
