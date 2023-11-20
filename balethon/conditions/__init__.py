@@ -25,5 +25,6 @@ from .media_condition import media
 from .command_condition import Command as command
 from .private_condition import private
 from .regex_condition import Regex as regex
-from .at_state import AtState as at_state
-from .is_instance import IsInstance as is_instance
+from .at_state_condition import AtState as at_state
+from .is_instance_condition import IsInstance as is_instance
+from .chat_condition import Chat as chat
