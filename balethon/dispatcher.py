@@ -1,5 +1,6 @@
+from asyncio import get_event_loop
+from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
-from asyncio import create_task
 
 from .event_handlers import ErrorHandler
 from .errors import ContinueDispatching, BreakDispatching
@@ -11,9 +12,11 @@ async def print_error(client, error):
 
 class Dispatcher:
 
-    def __init__(self):
+    def __init__(self, max_workers=None):
         self.event_handler_chains = {}
         self.add_event_handler(ErrorHandler(print_error), chain="print_error")
+        self.event_loop = get_event_loop()
+        self.thread_pool_executor = ThreadPoolExecutor(max_workers, "Event Handler")
 
     def add_event_handler(self, event_handler, chain="default"):
         if chain not in self.event_handler_chains:
@@ -39,7 +42,7 @@ class Dispatcher:
                     continue
                 try:
                     if await event_handler.check(client, event):
-                        await create_task(event_handler(client, event))
+                        await event_handler(client, event)
                         break
                 except ContinueDispatching:
                     break

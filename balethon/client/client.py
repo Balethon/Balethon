@@ -18,9 +18,9 @@ from ..event_handlers import ConnectHandler, DisconnectHandler
 # TODO: adding a decorator for creating methods
 class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, EventHandlers):
 
-    def __init__(self, token, time_out=None, base_url=None, short_url=None):
+    def __init__(self, token, max_workers=None, time_out=None, base_url=None, short_url=None):
+        self.dispatcher = Dispatcher(max_workers)
         self.connection = Connection(token, time_out, base_url, short_url)
-        self.dispatcher = Dispatcher()
         self.user = None
 
     def __repr__(self):
