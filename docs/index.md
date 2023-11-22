@@ -184,9 +184,9 @@ pip install Balethon
     * [UnauthorizedError](./errors/rpc_errors/UnauthorizedError)
 
 * [مقاله ها](./articles)
-  * [بلتون سریع است](./articles/balethon_is_fast)
   * [بلتون دو منظوره است](./articles/balethon_is_dual_purpose)
   * [مدیریت گفتگو با کاربران](./articles/managing_conversations)
+  * [بلتون سریع است](./articles/balethon_is_fast)
   * [بلتون برای پاسخ های غیر منتظره از سرور بله آمادگی دارد](./articles/balethon_is_prepared)
   * [تبدیل بلتون به کتابخانه تلگرام](./articles/balethon_for_telegram)
 
