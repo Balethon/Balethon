@@ -4,5 +4,6 @@
 
 * [مدیریت گفتگو با کاربران](./managing_conversations)
 * [بلتون دو منظوره است](./balethon_is_dual_purpose.md)
+* [بلتون سریع است](./balethon_is_fast)
 * [بلتون برای پاسخ های غیر منتظره از سرور بله آمادگی دارد](./balethon_is_prepared)
 * [تبدیل بلتون به کتابخانه تلگرام](./balethon_for_telegram)
