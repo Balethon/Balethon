@@ -3,13 +3,13 @@ class RPCError(Exception):
     code = None
 
     @classmethod
-    def create(cls, code=None, description=None, reason=None):
+    def create(cls, code: int = None, description: str = None, reason: str = None):
         for rpc_error in cls.__subclasses__():
             if code == rpc_error.code:
                 return rpc_error(code, description, reason)
         return cls(code, description, reason)
 
-    def __init__(self, code=None, description=None, reason=None):
+    def __init__(self, code: int = None, description: str = None, reason: str = None):
         self.code = code or self.code
         self.description = description
         self.reason = reason

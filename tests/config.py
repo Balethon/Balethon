@@ -1,3 +1,3 @@
-TOKEN = ""
+TOKEN = "228950522:6VGOBrrLyKqNkrmcBRhBh61I7nyu9gMfVpKnGevj"
 CHAT_ID = ""
-USER_ID = ""
+USER_ID = "450142930"

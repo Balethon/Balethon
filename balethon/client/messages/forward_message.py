@@ -11,7 +11,7 @@ class ForwardMessage:
             chat_id: Union[int, str],
             from_chat_id: int,
             message_id: int
-    ):
+    ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]

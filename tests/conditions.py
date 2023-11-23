@@ -1,9 +1,9 @@
 from balethon import Client
 from balethon import conditions
 
-from config import TOKEN
+import config
 
-bot = Client(TOKEN)
+bot = Client(config.TOKEN)
 
 
 @bot.on_message()
@@ -126,7 +126,7 @@ async def test_media(_, __):
     print("This message falls under the condition of MEDIA")
 
 
-@bot.on_message(conditions.command("command"), "Command")
+@bot.on_message(conditions.command("command"), "command")
 async def test_command(_, __):
     print("This message falls under the condition of COMMAND")
 
@@ -136,9 +136,14 @@ async def test_private(_, __):
     print("This message falls under the condition of PRIVATE")
 
 
-@bot.on_message(conditions.regex("test"), "Regex")
+@bot.on_message(conditions.regex("test"), "regex")
 async def test_private(_, __):
     print("This message falls under the condition of REGEX")
+
+
+@bot.on_message(conditions.chat(int(config.USER_ID)), "chat")
+async def test_chat(_, __):
+    print("This message falls under the condition of CHAT")
 
 
 if __name__ == "__main__":

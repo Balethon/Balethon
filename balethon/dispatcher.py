@@ -12,8 +12,8 @@ async def print_error(client, error):
 
 class Dispatcher:
 
-    def __init__(self, max_workers=None):
-        self.event_handler_chains = {}
+    def __init__(self, max_workers: int = None):
+        self.event_handler_chains: dict = {}
         self.add_event_handler(ErrorHandler(print_error), chain="print_error")
         self.event_loop = get_event_loop()
         self.thread_pool_executor = ThreadPoolExecutor(max_workers, "Event Handler")

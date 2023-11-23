@@ -12,7 +12,7 @@ class SendLocation:
             latitude: int,
             longitude: int,
             reply_to_message_id: int = None
-    ):
+    ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]

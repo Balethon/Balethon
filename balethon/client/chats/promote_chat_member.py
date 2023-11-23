@@ -31,7 +31,7 @@ class PromoteChatMember:
             can_send_message: bool = None,
             can_see_members: bool = None,
             can_add_story: bool = None
-    ):
+    ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
         user_id = await self.resolve_peer_id(user_id)
         data = locals()

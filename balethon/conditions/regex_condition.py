@@ -9,7 +9,7 @@ class Regex(Condition):
         super().__init__()
         self.pattern = compile(pattern, flags)
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         from ..objects import Message, CallbackQuery
         if isinstance(update, Message):
             update = update.text or update.caption

@@ -6,7 +6,7 @@ class Chat(Condition, set):
     def __init__(self, *chats):
         super().__init__(chats)
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         from ..objects import Message, CallbackQuery
         if isinstance(update, Message):
             update = update.chat.id

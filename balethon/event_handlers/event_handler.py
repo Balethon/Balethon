@@ -1,10 +1,12 @@
+from typing import Callable
+
 from inspect import iscoroutinefunction
 
 
 class EventHandler:
     can_handle = object
 
-    def __init__(self, callback, condition=None):
+    def __init__(self, callback: Callable, condition=None):
         self.callback = callback
         self.condition = condition
 

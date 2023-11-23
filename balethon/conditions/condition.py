@@ -10,7 +10,7 @@ class Condition:
     def __init__(self, function=None):
         self.function = function
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         if iscoroutinefunction(self.function):
             return await self.function(self, client, update)
         return self.function(self, client, update)
@@ -34,7 +34,7 @@ class AllCondition(Condition):
         super().__init__()
         self.conditions = conditions
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         for condition in self.conditions:
             if not await condition(client, update):
                 return False
@@ -51,7 +51,7 @@ class AnyCondition(Condition):
         super().__init__()
         self.conditions = conditions
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         for condition in self.conditions:
             if await condition(client, update):
                 return True
@@ -68,7 +68,7 @@ class NotCondition(Condition):
         super().__init__()
         self.condition = condition
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         return not await self.condition(client, update)
 
     def __repr__(self):

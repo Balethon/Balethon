@@ -18,7 +18,14 @@ from ..event_handlers import ConnectHandler, DisconnectHandler
 # TODO: adding a decorator for creating methods
 class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, EventHandlers):
 
-    def __init__(self, token, max_workers=None, time_out=None, base_url=None, short_url=None):
+    def __init__(
+            self,
+            token: str,
+            max_workers: int = None,
+            time_out: int = None,
+            base_url: str = None,
+            short_url: str = None
+    ):
         self.dispatcher = Dispatcher(max_workers)
         self.connection = Connection(token, time_out, base_url, short_url)
         self.user = None
@@ -56,7 +63,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         except ConnectionError:
             return
 
-    async def execute(self, method, service, json=True, **data):
+    async def execute(self, method: str, service: str, json: bool = True, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
         for key, value in data.copy().items():
@@ -104,7 +111,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         finally:
             self.disconnect()
 
-    async def download(self, file_id):
+    async def download(self, file_id: str) -> str:
         return await self.connection.download_file(file_id)
 
     async def resolve_peer_id(self, chat_id):
@@ -113,5 +120,5 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             return peer.id
         return chat_id
 
-    def create_deep_link(self, referral_parameter):
+    def create_deep_link(self, referral_parameter: str) -> str:
         return f"{self.connection.short_url}/{self.user.username}?{referral_parameter}"

@@ -13,7 +13,7 @@ class SendMediaGroup:
             self: "balethon.Client",
             chat_id: Union[int, str],
             media: List["objects.InputMedia"]
-    ):
+    ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]

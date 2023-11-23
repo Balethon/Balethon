@@ -10,7 +10,7 @@ class GetChat:
     async def get_chat(
             self: "balethon.Client",
             chat_id: Union[int, str]
-    ):
+    ) -> Chat:
         data = locals()
         del data["self"]
         if isinstance(chat_id, str) and chat_id.startswith("@"):

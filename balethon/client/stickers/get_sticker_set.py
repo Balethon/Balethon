@@ -7,7 +7,7 @@ class GetStickerSet:
     async def get_sticker_set(
             self: "balethon.Client",
             name: str
-    ):
+    ) -> StickerSet:
         data = locals()
         del data["self"]
         result = await self.execute("get", "getStickerSet", **data)

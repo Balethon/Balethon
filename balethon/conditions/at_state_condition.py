@@ -9,7 +9,7 @@ class AtState(Condition):
         self.state = state
         self.state_machine = state_machine
 
-    async def __call__(self, client, update):
+    async def __call__(self, client, update) -> bool:
         if isinstance(update, Object):
             user = update.author
         else:

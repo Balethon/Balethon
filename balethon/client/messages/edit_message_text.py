@@ -13,7 +13,7 @@ class EditMessageText:
             message_id: int,
             text: str,
             reply_markup: "objects.ReplyMarkup" = None
-    ):
+    ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
