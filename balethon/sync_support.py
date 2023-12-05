@@ -2,12 +2,13 @@ from functools import wraps
 from asyncio import get_event_loop, new_event_loop, set_event_loop, wrap_future, run_coroutine_threadsafe
 from inspect import iscoroutinefunction
 from threading import current_thread, main_thread
+from typing import Callable
 
 from .client import Client
 from balethon import objects
 
 
-def add_sync_support_to_function(coroutine_function):
+def add_sync_support_to_function(coroutine_function) -> Callable:
     main_loop = get_event_loop()
 
     @wraps(coroutine_function)
