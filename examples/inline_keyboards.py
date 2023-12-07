@@ -1,6 +1,6 @@
 from balethon import Client
 from balethon.conditions import private
-from balethon.objects import InlineKeyboard, InlineKeyboardButton
+from balethon.objects import InlineKeyboard
 
 bot = Client("TOKEN")
 
@@ -10,10 +10,8 @@ async def answer_message(client, message):
     await message.reply(
         "Click a button!",
         InlineKeyboard(
-            [
-                [InlineKeyboardButton("Button 1", "1")],
-                [InlineKeyboardButton("Button 2", "2")]
-            ]
+            [("Button 1", "1")],
+            [("Button 2", "2")]
         )
     )
 
