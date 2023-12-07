@@ -136,6 +136,11 @@ async def test_private(_, __):
     print("This message falls under the condition of PRIVATE")
 
 
+@bot.on_message(conditions.group, "group")
+async def test_group(_, __):
+    print("This message falls under the condition of GROUP")
+
+
 @bot.on_message(conditions.regex("test"), "regex")
 async def test_private(_, __):
     print("This message falls under the condition of REGEX")

@@ -24,6 +24,7 @@ from .invoice_condition import invoice
 from .media_condition import media
 from .command_condition import Command as command
 from .private_condition import private
+from .group_condition import group
 from .regex_condition import Regex as regex
 from .at_state_condition import AtState as at_state
 from .is_instance_condition import IsInstance as is_instance
