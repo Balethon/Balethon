@@ -1,4 +1,4 @@
-from asyncio import get_event_loop
+from asyncio import get_event_loop, new_event_loop
 from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
 
@@ -15,7 +15,10 @@ class Dispatcher:
     def __init__(self, max_workers: int = None):
         self.event_handler_chains: dict = {}
         self.add_event_handler(ErrorHandler(print_error), chain="print_error")
-        self.event_loop = get_event_loop()
+        try:
+            self.event_loop = get_event_loop()
+        except RuntimeError:
+            self.event_loop = new_event_loop()
         self.thread_pool_executor = ThreadPoolExecutor(max_workers, "Event Handler")
 
     def add_event_handler(self, event_handler, chain="default"):
