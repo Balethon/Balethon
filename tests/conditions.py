@@ -146,5 +146,10 @@ async def test_chat(_, __):
     print("This message falls under the condition of CHAT")
 
 
+@bot.on_message(conditions.is_joined(config.CHAT_ID), "is_joined")
+async def test_is_joined(_, __):
+    print("This message falls under the condition of IS JOINED")
+
+
 if __name__ == "__main__":
     bot.run()
