@@ -33,3 +33,4 @@ from .input_media_photo import InputMediaPhoto
 from .input_media_video import InputMediaVideo
 from .sticker import Sticker
 from .sticker_set import StickerSet
+from .keyboard_remove import KeyboardRemove
