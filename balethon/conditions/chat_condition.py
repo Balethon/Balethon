@@ -1,10 +1,11 @@
 from .condition import Condition
 
 
-class Chat(Condition, set):
+class Chat(Condition):
 
     def __init__(self, *chats):
-        super().__init__(chats)
+        super().__init__()
+        self.chats = chats
 
     async def __call__(self, client, update) -> bool:
         from ..objects import Message, CallbackQuery
@@ -12,4 +13,4 @@ class Chat(Condition, set):
             update = update.chat.id
         elif isinstance(update, CallbackQuery):
             update = update.message.chat.id
-        return update in self
+        return update in self.chats
