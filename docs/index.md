@@ -5,7 +5,7 @@ layout: default
 <p align="center">
   <img src="./logo.png" width="200" alt="Balethon">
 </p>
-<div dir="rtl">
+
 ## بلتون
 
 یک کتابخانه برای ساختن بات در پیامرسان [بله](https://www.bale.ai/)
@@ -191,4 +191,3 @@ pip install Balethon
   * [تبدیل بلتون به کتابخانه تلگرام](./articles/balethon_for_telegram)
 
 * [حمایت از ما](./support_us)
-</div>
