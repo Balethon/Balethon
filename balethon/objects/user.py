@@ -23,6 +23,9 @@ class User(Object):
         self.language_code: str = language_code
         self.is_bot: bool = is_bot
 
+    def __str__(self):
+        return f"[{self.full_name}](https://web.bale.ai/chat?uid={self.id})"
+
     @property
     def full_name(self):
         if self.first_name and self.last_name:
