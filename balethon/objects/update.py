@@ -34,3 +34,26 @@ class Update(Object):
         for value in self.__dict__.values():
             if isinstance(value, Object):
                 return value
+
+    @property
+    def available_update_event_handler_type(self):
+        from ..event_handlers import (
+            MessageHandler,
+            EditedMessageHandler,
+            CallbackQueryHandler,
+            ShippingQueryHandler,
+            PreCheckoutQueryHandler
+        )
+        for name, value in self.__dict__.items():
+            if not isinstance(value, Object):
+                continue
+            if name in ("message", "channel_post"):
+                return MessageHandler
+            elif name in ("edited_message", "edited_channel_post"):
+                return EditedMessageHandler
+            elif name == "callback_query":
+                return CallbackQueryHandler
+            elif name == "shipping_query":
+                return ShippingQueryHandler
+            elif name == "pre_checkout_query":
+                return PreCheckoutQueryHandler

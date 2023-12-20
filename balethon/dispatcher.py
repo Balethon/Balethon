@@ -38,9 +38,11 @@ class Dispatcher:
                 return
         raise ValueError(f"{event_handler} does not exist")
 
-    async def __call__(self, client, event):
+    async def __call__(self, client, event, event_handler_type=None):
         for event_handler_chain in self.event_handler_chains.values():
             for event_handler in event_handler_chain:
+                if event_handler_type is not None and not isinstance(event_handler, event_handler_type):
+                    continue
                 if not isinstance(event, event_handler.can_handle):
                     continue
                 try:
@@ -52,4 +54,4 @@ class Dispatcher:
                 except BreakDispatching:
                     return
                 except Exception as error:
-                    await self(client, error)
+                    await self(client, error, ErrorHandler)

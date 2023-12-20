@@ -8,9 +8,3 @@ class ConnectHandler(EventHandler):
 
     async def __call__(self, client, *args, **kwargs):
         await super().__call__(client)
-
-    async def check(self, client, update):
-        try:
-            return isinstance(self, update)
-        except TypeError:
-            return False

@@ -12,7 +12,7 @@ from .stickers import Stickers
 from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import ConnectHandler, DisconnectHandler
+from ..event_handlers import ConnectHandler, DisconnectHandler, ErrorHandler
 
 
 # TODO: adding a decorator for creating methods
@@ -36,12 +36,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
 
     async def connect(self):
         await self.connection.start()
-        await self.dispatcher(self, ConnectHandler)
+        await self.dispatcher(self, None, ConnectHandler)
         self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
-        await self.dispatcher(self, DisconnectHandler)
+        await self.dispatcher(self, None, DisconnectHandler)
 
     async def __aenter__(self):
         await self.connect()
@@ -86,13 +86,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                 else:
                     updates = await self.get_updates(last_update_id + 1)
             except Exception as error:
-                await self.dispatcher(self, error)
+                await self.dispatcher(self, error, ErrorHandler)
             else:
                 for update in updates:
                     if last_update_id is not None and last_update_id >= update.id:
                         continue
                     last_update_id = update.id
-                    await self.dispatcher(self, update.available_update)
+                    await self.dispatcher(self, update.available_update, update.available_update_event_handler_type)
 
     def run(self, function=None):
         try:

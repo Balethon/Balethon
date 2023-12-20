@@ -3,6 +3,7 @@ from .on_callback_query import OnCallbackQuery
 from .on_command import OnCommand
 from .on_connect import OnConnect
 from .on_disconnect import OnDisconnect
+from .on_edited_message import OnEditedMessage
 from .on_error import OnError
 from .on_event import OnEvent
 from .on_message import OnMessage
@@ -18,6 +19,7 @@ class EventHandlers(
     OnCommand,
     OnConnect,
     OnDisconnect,
+    OnEditedMessage,
     OnError,
     OnEvent,
     OnMessage,
