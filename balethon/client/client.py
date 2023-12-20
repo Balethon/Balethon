@@ -77,22 +77,20 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
     async def start_polling(self):
         await self.delete_webhook()
         last_update_id = None
-        first_time = True
         while True:
             try:
                 if last_update_id is None:
                     updates = await self.get_updates()
-                    if first_time:
-                        if updates:
-                            last_update_id = updates[-1].id
-                        first_time = False
-                        continue
+                    if updates:
+                        last_update_id = updates[-1].id
                 else:
                     updates = await self.get_updates(last_update_id + 1)
             except Exception as error:
                 await self.dispatcher(self, error)
             else:
                 for update in updates:
+                    if last_update_id is not None and last_update_id >= update.id:
+                        continue
                     last_update_id = update.id
                     await self.dispatcher(self, update.available_update)
 
