@@ -18,8 +18,7 @@ class InputMedia(Object):
         self.type: str = type
         try:
             if isfile(media):
-                with open(media, "rb") as media_file:
-                    media = media_file.read()
+                media = open(media, "rb")
         except TypeError:
             pass
         self.media: Union[str, bytes, BinaryIO] = media
