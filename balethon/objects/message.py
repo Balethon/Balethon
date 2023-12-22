@@ -1,6 +1,6 @@
 from typing import List
 
-from . import Object, InputMediaPhoto
+from . import Object
 from balethon import objects
 
 
@@ -105,6 +105,7 @@ class Message(Object):
         elif self.photo and len(self.photo) == 1:
             return await client.send_photo(chat_id, self.photo[0].id, caption=self.caption)
         elif self.photo:
+            from . import InputMediaPhoto
             return await client.send_media_group(chat_id, [InputMediaPhoto(photo.id) for photo in self.photo])
         elif self.audio:
             return await client.send_audio(chat_id, self.audio.id, caption=self.caption)
