@@ -1,6 +1,6 @@
 from typing import List
 
-from . import Object
+from . import Object, InputMediaPhoto
 from balethon import objects
 
 
@@ -23,6 +23,7 @@ class Message(Object):
             reply_to_message: "objects.Message" = None,
             edit_date: "objects.Date" = None,
             text: str = None,
+            animation: "objects.Animation" = None,
             entities: List["objects.Entity"] = None,
             caption_entities: List["objects.Entity"] = None,
             audio: "objects.Audio" = None,
@@ -58,6 +59,7 @@ class Message(Object):
         self.reply_to_message: "objects.Message" = reply_to_message
         self.edit_date: "objects.Date" = edit_date
         self.text: str = text
+        self.animation: "objects.Animation" = animation
         self.entities: List["objects.Entity"] = entities
         self.caption_entities: List["objects.Entity"] = caption_entities
         self.audio: "objects.Audio" = audio
@@ -95,3 +97,28 @@ class Message(Object):
     async def forward(self, chat_id, client=None):
         client = client or self.client
         return await client.forward_message(chat_id, self.chat.id, self.id)
+
+    async def copy(self, chat_id, client=None):
+        client = client or self.client
+        if self.text:
+            return await client.send_message(chat_id, self.text)
+        elif self.photo and len(self.photo) == 1:
+            return await client.send_photo(chat_id, self.photo[0].id, caption=self.caption)
+        elif self.photo:
+            return await client.send_media_group(chat_id, [InputMediaPhoto(photo.id) for photo in self.photo])
+        elif self.audio:
+            return await client.send_audio(chat_id, self.audio.id, caption=self.caption)
+        elif self.video:
+            return await client.send_video(chat_id, self.video.id, caption=self.caption)
+        elif self.animation:
+            return await client.send_animation(chat_id, self.animation.id, caption=self.caption)
+        elif self.contact:
+            return await client.send_contact(chat_id, self.contact.phone_number, self.contact.first_name, self.contact.last_name)
+        elif self.location:
+            return await client.send_location(chat_id, self.location.longitude, self.location.latitude)
+        elif self.voice:
+            return await client.send_voice(chat_id, self.voice.id, caption=self.caption)
+        elif self.document:
+            return await client.send_document(chat_id, self.document.id, caption=self.caption)
+        # elif self.invoice:
+        #     return await client.send_invoice(chat_id, self.invoice.title, self.invoice.description)
