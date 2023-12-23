@@ -98,28 +98,81 @@ class Message(Object):
         client = client or self.client
         return await client.forward_message(chat_id, self.chat.id, self.id)
 
-    async def copy(self, chat_id, client=None):
+    async def copy(self, chat_id, reply_to_message_id=None, client=None):
         client = client or self.client
         if self.text:
-            return await client.send_message(chat_id, self.text)
+            return await client.send_message(
+                chat_id,
+                self.text,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.photo and len(self.photo) == 1:
-            return await client.send_photo(chat_id, self.photo[0].id, caption=self.caption)
+            return await client.send_photo(
+                chat_id,
+                self.photo[0].id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.photo:
             from . import InputMediaPhoto
-            return await client.send_media_group(chat_id, [InputMediaPhoto(photo.id) for photo in self.photo])
+            return await client.send_media_group(
+                chat_id,
+                [InputMediaPhoto(photo.id) for photo in self.photo]
+            )
         elif self.audio:
-            return await client.send_audio(chat_id, self.audio.id, caption=self.caption)
+            return await client.send_audio(
+                chat_id,
+                self.audio.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.video:
-            return await client.send_video(chat_id, self.video.id, caption=self.caption)
+            return await client.send_video(
+                chat_id,
+                self.video.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.animation:
-            return await client.send_animation(chat_id, self.animation.id, caption=self.caption)
+            return await client.send_animation(
+                chat_id,
+                self.animation.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.contact:
-            return await client.send_contact(chat_id, self.contact.phone_number, self.contact.first_name, self.contact.last_name)
+            return await client.send_contact(
+                chat_id,
+                self.contact.phone_number,
+                self.contact.first_name,
+                self.contact.last_name,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.location:
-            return await client.send_location(chat_id, self.location.longitude, self.location.latitude)
+            return await client.send_location(
+                chat_id,
+                self.location.longitude,
+                self.location.latitude,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.voice:
-            return await client.send_voice(chat_id, self.voice.id, caption=self.caption)
+            return await client.send_voice(
+                chat_id,
+                self.voice.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.document:
-            return await client.send_document(chat_id, self.document.id, caption=self.caption)
+            return await client.send_document(
+                chat_id,
+                self.document.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         # elif self.invoice:
-        #     return await client.send_invoice(chat_id, self.invoice.title, self.invoice.description)
+        #     return await client.send_invoice(
+        #         chat_id,
+        #         self.invoice.title,
+        #         self.invoice.description,
+        #         reply_to_message_id=reply_to_message_id
+        #     )
