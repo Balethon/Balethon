@@ -5,7 +5,7 @@ def remove_unwanted_positional_parameters(function, *args):
     _, varargs, __, ___, ____, _____, ______ = getfullargspec(function)
 
     if varargs is not None:
-        return varargs
+        return args
 
     positional_arguments = []
 
