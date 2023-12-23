@@ -19,8 +19,8 @@ classifiers = [
 dependencies = ["httpx"]
 
 [project.urls]
-"Homepage" = "https://github.com/SajjadAlipour2006/Balethon"
-"Download" = "https://github.com/SajjadAlipour2006/Balethon/releases/latest"
+"Homepage" = "https://github.com/Balethon/Balethon"
+"Download" = "https://github.com/Balethon/Balethon/releases/latest"
 "Documentation" = "https://balethon.github.io/Balethon/"
-"Tracker" = "https://github.com/SajjadAlipour2006/Balethon/issues"
+"Tracker" = "https://github.com/Balethon/Balethon/issues"
 "Community" = "https://ble.ir/join/MTlhN2Q2Mz"
