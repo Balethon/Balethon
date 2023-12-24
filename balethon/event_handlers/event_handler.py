@@ -1,6 +1,7 @@
 from typing import Callable
-
 from inspect import iscoroutinefunction
+
+from ..smart_call import remove_unwanted_parameters
 
 
 class EventHandler:
@@ -10,18 +11,22 @@ class EventHandler:
         self.callback = callback
         self.condition = condition
 
-    async def __call__(self, client, *args, **kwargs):
+    async def __call__(self, client=None, event=None, *args, **kwargs):
+        if client is not None:
+            kwargs["client"] = client
+        if event is not None:
+            kwargs["event"] = event
+        args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)
         if iscoroutinefunction(self.callback):
-            return await self.callback(client, *args, **kwargs)
+            return await self.callback(*args, **kwargs)
         return client.dispatcher.event_loop.run_in_executor(
             client.dispatcher.thread_pool_executor,
             self.callback,
-            client,
             *args,
             **kwargs
         )
 
-    async def check(self, client, update):
+    async def check(self, client, event):
         if self.condition is None:
             return True
-        return await self.condition(client, update)
+        return await self.condition(client, event)

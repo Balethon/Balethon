@@ -11,12 +11,12 @@ reply_markup = InlineKeyboard([("Button 1", "1"), ("Button 2", "2")])
 
 
 @bot.on_connect()
-async def ready(client: Client):
-    print("bot is ready!")
+async def ready(time):
+    print(f"bot is ready! {time}")
 
 
 @bot.on_message()
-async def answer_message(client: Client, message: Message):
+async def answer_message(message: Message):
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
         return
@@ -26,7 +26,7 @@ async def answer_message(client: Client, message: Message):
 
 
 @bot.on_callback_query()
-async def answer_callback_query(client: Client, callback_query: CallbackQuery):
+async def answer_callback_query(callback_query: CallbackQuery):
     print(f"{callback_query.author.full_name}: [{callback_query.data}]")
     await callback_query.answer(
         f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!"
@@ -34,8 +34,8 @@ async def answer_callback_query(client: Client, callback_query: CallbackQuery):
 
 
 @bot.on_disconnect()
-def bye(client: Client):
-    print("bye!")
+def bye(time):
+    print(f"bye! {time}")
 
 
 if __name__ == "__main__":
