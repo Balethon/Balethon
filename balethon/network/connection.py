@@ -11,11 +11,12 @@ class Connection:
     BASE_URL = "https://tapi.bale.ai"
     SHORT_URL = "https://ble.ir"
 
-    def __init__(self, token: str, time_out: int = None, base_url: str = None, short_url: str = None):
+    def __init__(self, token: str, time_out: int = None, proxies=None, base_url: str = None, short_url: str = None):
         self.token: str = token
         self.client: AsyncClient = None
         self.is_started: bool = False
         self.time_out: int = time_out or self.TIMEOUT
+        self.proxies = proxies
         self.base_url: str = base_url or self.BASE_URL
         self.short_url: str = short_url or self.SHORT_URL
 
@@ -23,7 +24,7 @@ class Connection:
         if self.is_started:
             raise ConnectionError("Connection is already started")
         self.is_started = True
-        self.client = AsyncClient()
+        self.client = AsyncClient(proxies=self.proxies)
 
     async def stop(self):
         if not self.is_started:
