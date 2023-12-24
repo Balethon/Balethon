@@ -1,5 +1,6 @@
 from typing import Callable
 from inspect import iscoroutinefunction
+from functools import partial
 
 from ..smart_call import remove_unwanted_parameters
 
@@ -14,18 +15,15 @@ class EventHandler:
     async def __call__(self, client=None, event=None, /, *args, **kwargs):
         if client is not None:
             kwargs["client"] = client
+        client = kwargs["client"]
         if event is not None:
             kwargs["event"] = event
-        print([i for i in kwargs])
         args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)
-        print([i for i in kwargs])
         if iscoroutinefunction(self.callback):
             return await self.callback(*args, **kwargs)
         return client.dispatcher.event_loop.run_in_executor(
             client.dispatcher.thread_pool_executor,
-            self.callback,
-            *args,
-            **kwargs
+            partial(self.callback, *args, **kwargs)
         )
 
     async def check(self, client, event):

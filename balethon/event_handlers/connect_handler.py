@@ -11,4 +11,4 @@ class ConnectHandler(EventHandler):
     async def __call__(self, client=None, /, *args, **kwargs):
         if client is not None:
             kwargs["client"] = client
-        await super().__call__(time=datetime.now(), **kwargs)
+        await super().__call__(**kwargs, time=datetime.now())
