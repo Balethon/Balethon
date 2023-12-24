@@ -19,7 +19,7 @@ bot = Client("TOKEN")
 
 
 @bot.on_message()
-async def greet(client, message):
+async def greet(message):
     await message.reply("Hello")
 
 
