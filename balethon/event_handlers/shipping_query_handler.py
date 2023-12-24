@@ -8,5 +8,9 @@ class ShippingQueryHandler(UpdateHandler):
     def __init__(self, callback, condition=None):
         super().__init__(callback, condition)
 
-    def __call__(self, client=None, shipping_query=None, *args, **kwargs):
+    def __call__(self, client=None, shipping_query=None, /, *args, **kwargs):
+        if client is not None:
+            kwargs["client"] = client
+        if shipping_query is not None:
+            kwargs["shipping_query"] = shipping_query
         return super().__call__(*args, client=client, shipping_query=shipping_query, **kwargs)

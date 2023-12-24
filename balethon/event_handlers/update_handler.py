@@ -8,5 +8,9 @@ class UpdateHandler(EventHandler):
     def __init__(self, callback, condition=None):
         super().__init__(callback, condition)
 
-    def __call__(self, client=None, update=None, *args, **kwargs):
-        super().__call__(*args, client=client, update=update, **kwargs)
+    async def __call__(self, client=None, update=None, /, *args, **kwargs):
+        if client is not None:
+            kwargs["client"] = client
+        if update is not None:
+            kwargs["update"] = update
+        await super().__call__(*args, **kwargs)

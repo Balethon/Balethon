@@ -11,12 +11,14 @@ class EventHandler:
         self.callback = callback
         self.condition = condition
 
-    async def __call__(self, client=None, event=None, *args, **kwargs):
+    async def __call__(self, client=None, event=None, /, *args, **kwargs):
         if client is not None:
             kwargs["client"] = client
         if event is not None:
             kwargs["event"] = event
+        print([i for i in kwargs])
         args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)
+        print([i for i in kwargs])
         if iscoroutinefunction(self.callback):
             return await self.callback(*args, **kwargs)
         return client.dispatcher.event_loop.run_in_executor(
