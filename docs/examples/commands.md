@@ -15,24 +15,24 @@ bot = Client("TOKEN")
 
 
 @bot.on_command(private)
-async def start(client, message):
+async def start(message):
     await message.reply(
         "Hello, I'm the commands bot\nUse /help to see my commands"
     )
 
 
 @bot.on_command(private, name="help")
-async def help_command(client, message):
+async def help_command(message):
     await message.reply("/say_hello\n/count_to_ten")
 
 
 @bot.on_command(private)
-async def say_hello(client, message):
+async def say_hello(message):
     await message.reply("Hello my dear and precious user!")
 
 
 @bot.on_command(private)
-async def count_to_ten(client, message):
+async def count_to_ten(message):
     counting_message = await message.reply(
         "I will start to count to ten now"
     )

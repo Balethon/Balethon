@@ -6,7 +6,7 @@ from .event_handlers import ErrorHandler
 from .errors import ContinueDispatching, BreakDispatching
 
 
-async def print_error(client, error):
+async def print_error(error):
     print_exception(None, error, error.__traceback__)
 
 

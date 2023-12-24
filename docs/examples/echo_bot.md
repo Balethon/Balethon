@@ -10,7 +10,7 @@ bot = Client("TOKEN")
 
 
 @bot.on_message(private & text)
-async def echo(client, message):
+async def echo(message):
     await message.reply(message.text)
 
 

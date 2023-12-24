@@ -19,7 +19,7 @@ async def send_invoice(client, message):
 
 
 @bot.on_pre_checkout_query()
-async def show_pre_checkout_query(client, pre_checkout_query):
+async def show_pre_checkout_query(pre_checkout_query):
     user = pre_checkout_query.author.full_name
     payload = pre_checkout_query.invoice_payload
     print(f"{user} paid {payload}")

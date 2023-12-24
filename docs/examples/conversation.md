@@ -10,7 +10,7 @@ bot = Client("TOKEN")
 
 
 @bot.on_message(at_state(None))
-async def home_state(client, message):
+async def home_state(message):
     await message.reply(
         "Hello, I'm the conversation bot\nWhat is your name?"
     )
@@ -18,7 +18,7 @@ async def home_state(client, message):
 
 
 @bot.on_message(at_state("NAME"))
-async def name_state(client, message):
+async def name_state(message):
     name = message.text
     await message.reply(
         f"Nice to meet you, {name}!\nHow old are you?"
@@ -27,7 +27,7 @@ async def name_state(client, message):
 
 
 @bot.on_message(at_state("AGE"))
-async def age_state(client, message):
+async def age_state(message):
     age = message.text
     await message.reply(
         f"You are {age} years old, good for you!\nHave a nice day!"
