@@ -1,5 +1,5 @@
 from asyncio import get_event_loop
-from inspect import iscoroutine
+from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
 
 from .messages import Messages
@@ -13,6 +13,7 @@ from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
 from ..event_handlers import ConnectHandler, DisconnectHandler, ErrorHandler
+from ..smart_call import remove_unwanted_parameters
 
 
 # TODO: adding a decorator for creating methods
@@ -102,8 +103,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             elif iscoroutine(function):
                 loop = get_event_loop()
                 loop.run_until_complete(function)
+            elif iscoroutinefunction(function):
+                kwargs = remove_unwanted_parameters(function, client=self)
+                loop = get_event_loop()
+                loop.run_until_complete(function(**kwargs))
             else:
-                function()
+                kwargs = remove_unwanted_parameters(function, client=self)
+                function(**kwargs)
         except KeyboardInterrupt:
             return
         finally:
