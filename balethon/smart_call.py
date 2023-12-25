@@ -1,4 +1,4 @@
-from inspect import getfullargspec, signature, iscoroutinefunction
+from inspect import getfullargspec, signature
 
 
 def remove_unwanted_positional_parameters(function, *args):
@@ -42,12 +42,3 @@ def remove_unwanted_parameters(function, *args, **kwargs):
     kwargs = remove_unwanted_keyword_parameters(function, **kwargs)
 
     return args, kwargs
-
-
-async def smart_call(function, *args, **kwargs):
-    args, kwargs = remove_unwanted_parameters(function, *args, **kwargs)
-
-    if iscoroutinefunction(function):
-        return await function(*args, **kwargs)
-    else:
-        return function(*args, **kwargs)
