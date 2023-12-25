@@ -12,7 +12,7 @@ class EventHandler:
         self.callback = callback
         self.condition = condition
 
-    async def __call__(self, client=None, event=None, /, *args, **kwargs):
+    async def __call__(self, *args, client=None, event=None, **kwargs):
         if client is not None:
             kwargs["client"] = client
         client = kwargs["client"]

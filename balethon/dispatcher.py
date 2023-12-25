@@ -47,7 +47,7 @@ class Dispatcher:
                     continue
                 try:
                     if await event_handler.check(client, event):
-                        await event_handler(client, event)
+                        await event_handler(client=client, event=event)
                         break
                 except ContinueDispatching:
                     break
