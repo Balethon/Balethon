@@ -1,1 +1,0 @@
-* [send_invoice](./send_invoice)
