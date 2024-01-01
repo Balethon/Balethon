@@ -8,16 +8,28 @@ from ..objects import Message
 class CommandHandler(MessageHandler):
     can_handle = Message
 
-    def __init__(self, callback, condition=None, name=None, arguments=None):
+    @staticmethod
+    def get_min_arguments(callback):
+        args, _, __, defaults, ___, ____, _____ = getfullargspec(callback)
+        args_count = len(args)
+        defaults_count = 0 if defaults is None else len(defaults)
+        return args_count - defaults_count
+
+    @staticmethod
+    def get_max_arguments(callback):
+        args, varargs, _, __, ___, ____, _____ = getfullargspec(callback)
+        if varargs is not None:
+            return None
+        return len(args)
+
+    def __init__(self, callback, condition=None, name=None, min_arguments=None, max_arguments=None):
         if name is None:
             name = callback.__name__
-        if arguments is None:
-            args, varargs, __, ___, ____, _____, ______ = getfullargspec(callback)
-            if varargs is not None:
-                arguments = -1
-            else:
-                arguments = len(args)
-        command_condition = command(name, arguments)
+        if min_arguments is None:
+            min_arguments = self.get_min_arguments(callback)
+        if max_arguments is None:
+            max_arguments = self.get_max_arguments(callback)
+        command_condition = command(name, min_arguments, max_arguments)
         if condition is None:
             condition = text & command_condition
         else:
