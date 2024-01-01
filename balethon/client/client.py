@@ -81,7 +81,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         while True:
             try:
                 if last_update_id is None:
-                    updates = await self.get_updates()
+                    updates = await self.get_updates(-1)
                     if updates:
                         last_update_id = updates[-1].id
                 else:
