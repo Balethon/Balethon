@@ -39,8 +39,8 @@ class Connection:
     def file_url(self, file_id: str) -> str:
         return f"{self.base_url}/file/bot{self.token}/{file_id}"
 
-    async def get_info_by_username(self, username: str) -> str:
-        response = await self.client.get(f"{self.short_url}/{username}")
+    async def get_peer_info(self, query: str):
+        response = await self.client.get(f"{self.short_url}/{query}")
         json_info = search(r"({.*})", response.text)[0]
         return loads(json_info)
 

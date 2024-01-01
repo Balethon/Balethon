@@ -119,7 +119,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         return await self.connection.download_file(file_id)
 
     async def resolve_peer_id(self, chat_id):
-        if isinstance(chat_id, str) and chat_id.startswith("@"):
+        if isinstance(chat_id, str) and not chat_id.isnumeric():
             peer = await self.get_chat(chat_id)
             return peer.id
         return chat_id
