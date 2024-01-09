@@ -6,6 +6,7 @@ from ..conditions import at_state
 
 
 class StateMachine:
+    global_state_machine = None
 
     def create_table(self):
         sql = """CREATE TABLE IF NOT EXISTS user_states(user_id INTEGER PRIMARY KEY, user_state TEXT)"""
@@ -66,3 +67,11 @@ class StateMachine:
 
     def at(self, state: Union[State, str]):
         return at_state(state, self)
+
+    def change_database(self, database: str = ":memory:"):
+        now_connection = connect(database)
+        self.connection.backup(now_connection)
+        self.connection = now_connection
+
+
+StateMachine.global_state_machine = StateMachine()

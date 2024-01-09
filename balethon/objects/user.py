@@ -3,7 +3,6 @@ from ..states import StateMachine
 
 
 class User(Object):
-    state_machine = StateMachine()
 
     def __init__(
             self,
@@ -35,10 +34,10 @@ class User(Object):
         return ""
 
     def set_state(self, state):
-        self.state_machine[self.id] = state
+        StateMachine.global_state_machine[self.id] = state
 
     def get_state(self):
-        return self.state_machine[self.id]
+        return StateMachine.global_state_machine[self.id]
 
     def del_state(self):
-        del self.state_machine[self.id]
+        del StateMachine.global_state_machine[self.id]
