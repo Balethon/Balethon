@@ -24,11 +24,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             token: str,
             max_workers: int = None,
             time_out: int = None,
+            proxies=None,
             base_url: str = None,
             short_url: str = None
     ):
         self.dispatcher = Dispatcher(max_workers)
-        self.connection = Connection(token, time_out, base_url, short_url)
+        self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.user = None
 
     def __repr__(self):
