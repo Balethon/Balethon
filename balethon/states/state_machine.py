@@ -73,5 +73,11 @@ class StateMachine:
         self.connection.backup(now_connection)
         self.connection = now_connection
 
+    def get_all(self):
+        sql = """SELECT * FROM user_states"""
+        cursor = self.connection.cursor()
+        cursor.execute(sql)
+        return dict(cursor.fetchall())
+
 
 StateMachine.global_state_machine = StateMachine()
