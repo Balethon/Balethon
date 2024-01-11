@@ -30,3 +30,4 @@ from .at_state_condition import AtState as at_state
 from .is_instance_condition import IsInstance as is_instance
 from .chat_condition import Chat as chat
 from .is_joined_condition import IsJoined as is_joined
+from .author_condition import Author as author
