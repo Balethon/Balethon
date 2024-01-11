@@ -288,3 +288,4 @@ class Message(Object):
         #         self.invoice.description,
         #         reply_to_message_id=reply_to_message_id
         #     )
+        raise TypeError("Message is not copyable")
