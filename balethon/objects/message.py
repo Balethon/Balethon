@@ -281,11 +281,4 @@ class Message(Object):
                 caption=self.caption,
                 reply_to_message_id=reply_to_message_id
             )
-        # elif self.invoice:
-        #     return await client.send_invoice(
-        #         chat_id,
-        #         self.invoice.title,
-        #         self.invoice.description,
-        #         reply_to_message_id=reply_to_message_id
-        #     )
         raise TypeError("Message is not copyable")
