@@ -1,4 +1,5 @@
 from sqlite3 import connect
+from threading import local
 from typing import Union
 
 from .state import State
@@ -10,26 +11,40 @@ class StateMachine:
 
     def create_table(self):
         sql = """CREATE TABLE IF NOT EXISTS user_states(user_id INTEGER PRIMARY KEY, user_state TEXT)"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql)
-        self.connection.commit()
+        connection.commit()
 
     def __init__(self, database: str = ":memory:", state_group=None):
-        self.connection = connect(database)
+        self.database = database
+        self.local = local()
         self.state_group = state_group
         self.create_table()
 
+    @property
+    def connection(self):
+        if not hasattr(self.local, "connection"):
+            self.connection = connect(self.database)
+        return self.local.connection
+
+    @connection.setter
+    def connection(self, connection):
+        self.local.connection = connection
+
     def insert_user_state(self, user_id: Union[int, str], state: Union[State, str]):
         sql = """INSERT INTO user_states VALUES (?, ?)"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql, (int(user_id), state))
-        self.connection.commit()
+        connection.commit()
 
     def update_user_state(self, user_id: Union[int, str], state: Union[State, str]):
         sql = """UPDATE user_states SET user_state = ? WHERE user_id = ?"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql, (state, int(user_id)))
-        self.connection.commit()
+        connection.commit()
 
     def __setitem__(self, user_id: Union[int, str], state: Union[State, str]):
         if isinstance(state, State):
@@ -41,7 +56,8 @@ class StateMachine:
 
     def select_user_state(self, user_id: Union[int, str]):
         sql = """SELECT user_state FROM user_states WHERE user_id = ?"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql, (int(user_id),))
         return cursor.fetchone()
 
@@ -56,9 +72,10 @@ class StateMachine:
 
     def delete_user_state(self, user_id: Union[int, str]):
         sql = """DELETE from user_states where user_id = ?"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql, (int(user_id),))
-        self.connection.commit()
+        connection.commit()
 
     def __delitem__(self, user_id: Union[int, str]):
         if self[user_id] is None:
@@ -69,13 +86,15 @@ class StateMachine:
         return at_state(state, self)
 
     def change_database(self, database: str = ":memory:"):
+        connection = self.connection
         now_connection = connect(database)
-        self.connection.backup(now_connection)
+        connection.backup(now_connection)
         self.connection = now_connection
 
     def get_all(self):
         sql = """SELECT * FROM user_states"""
-        cursor = self.connection.cursor()
+        connection = self.connection
+        cursor = connection.cursor()
         cursor.execute(sql)
         return dict(cursor.fetchall())
 
