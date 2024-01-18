@@ -12,6 +12,7 @@ class SendPhoto:
             chat_id: Union[int, str],
             photo: Union[str, bytes, BinaryIO, InputMedia],
             caption: str = None,
+            reply_markup: "objects.ReplyMarkup" = None,
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
