@@ -3,6 +3,7 @@ from typing import BinaryIO
 
 import balethon
 from ...objects import InputMedia, Message
+from balethon import objects
 
 
 class SendPhoto:
