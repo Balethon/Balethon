@@ -35,3 +35,4 @@ from .sticker import Sticker
 from .sticker_set import StickerSet
 from .keyboard_remove import KeyboardRemove
 from .animation import Animation
+from .webhook_info import WebhookInfo

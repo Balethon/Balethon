@@ -119,10 +119,11 @@ class Message(Object):
             self,
             document: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
+            reply_markup: "objects.ReplyMarkup" = None,
             client=None
     ):
         client = client or self.client
-        await client.send_document(self.chat.id, document, caption, self.id)
+        await client.send_document(self.chat.id, document, caption, reply_markup, self.id)
 
     async def reply_location(
             self,
@@ -145,10 +146,11 @@ class Message(Object):
             self,
             photo: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
+            reply_markup: "objects.ReplyMarkup" = None,
             client=None
     ):
         client = client or self.client
-        await client.send_photo(self.chat.id, photo, caption, self.id)
+        await client.send_photo(self.chat.id, photo, caption, reply_markup, self.id)
 
     async def reply_video(
             self,
