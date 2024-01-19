@@ -1,6 +1,6 @@
 from typing import List, Union, BinaryIO
 
-from . import Object, InputMedia
+from . import Object
 from balethon import objects
 
 
@@ -84,7 +84,7 @@ class Message(Object):
 
     async def reply_animation(
             self,
-            animation: Union[str, bytes, BinaryIO, InputMedia],
+            animation: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             duration: int = None,
             width: int = None,
             height: int = None,
@@ -96,7 +96,7 @@ class Message(Object):
 
     async def reply_audio(
             self,
-            audio: Union[str, bytes, BinaryIO, InputMedia],
+            audio: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
             duration: int = None,
             title: str = None,
@@ -117,7 +117,7 @@ class Message(Object):
 
     async def reply_document(
             self,
-            document: Union[str, bytes, BinaryIO, InputMedia],
+            document: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
             client=None
     ):
@@ -143,7 +143,7 @@ class Message(Object):
 
     async def reply_photo(
             self,
-            photo: Union[str, bytes, BinaryIO, InputMedia],
+            photo: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
             client=None
     ):
@@ -152,7 +152,7 @@ class Message(Object):
 
     async def reply_video(
             self,
-            video: Union[str, bytes, BinaryIO, InputMedia],
+            video: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             duration: int = None,
             width: int = None,
             height: int = None,
@@ -164,7 +164,7 @@ class Message(Object):
 
     async def reply_voice(
             self,
-            voice: Union[str, bytes, BinaryIO, InputMedia],
+            voice: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
             duration: int = None,
             client=None
