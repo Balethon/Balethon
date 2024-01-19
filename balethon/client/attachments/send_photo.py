@@ -2,7 +2,7 @@ from typing import Union
 from typing import BinaryIO
 
 import balethon
-from ...objects import InputMedia, Message, ReplyMarkup
+from ...objects import Object, InputMedia, Message, ReplyMarkup
 
 
 class SendPhoto:
@@ -21,6 +21,9 @@ class SendPhoto:
         photo = photo.media
         data = locals()
         del data["self"]
+        for key, value in data.copy().items():
+            if isinstance(value, Object):
+                data[key] = value.unwrap()
         result = await self.execute("post", "sendPhoto", json=False, **data)
         result = Message.wrap(result)
         result.bind(self)

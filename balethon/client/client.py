@@ -1,3 +1,4 @@
+from json import dumps
 from asyncio import get_event_loop
 from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
@@ -68,10 +69,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
     async def execute(self, method: str, service: str, json: bool = True, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
-        for key, value in data.copy().items():
-            if isinstance(value, (bytes, BufferedReader)):
-                files[key] = value
-                del data[key]
+        if not json:
+            for key, value in data.copy().items():
+                if isinstance(value, (bytes, BufferedReader)):
+                    files[key] = value
+                    del data[key]
+                elif isinstance(value, dict):
+                    data[key] = dumps(value)
         if json:
             return await self.connection.request(method, service, json=data, files=files)
         return await self.connection.request(method, service, data=data, files=files)
