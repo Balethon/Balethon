@@ -1,5 +1,4 @@
-from typing import Union
-from typing import BinaryIO
+from typing import Union, BinaryIO
 
 from . import InputMedia
 

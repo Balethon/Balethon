@@ -1,5 +1,4 @@
-from typing import Union
-from typing import BinaryIO
+from typing import Union, BinaryIO
 
 import balethon
 from ...objects import InputMedia, Message
