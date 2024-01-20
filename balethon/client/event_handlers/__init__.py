@@ -9,6 +9,8 @@ from .on_event import OnEvent
 from .on_message import OnMessage
 from .on_pre_checkout_query import OnPreCheckoutQuery
 from .on_shipping_query import OnShippingQuery
+from .on_start import OnStart
+from .on_stop import OnStop
 from .on_update import OnUpdate
 from .remove_event_handler import RemoveEventHandler
 
@@ -25,6 +27,8 @@ class EventHandlers(
     OnMessage,
     OnPreCheckoutQuery,
     OnShippingQuery,
+    OnStart,
+    OnStop,
     OnUpdate,
     RemoveEventHandler
 ):
