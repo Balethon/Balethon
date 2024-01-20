@@ -6,6 +6,7 @@ from .get_chat_member import GetChatMember
 from .invite_user import InviteUser
 from .leave_chat import LeaveChat
 from .promote_chat_member import PromoteChatMember
+from .set_chat_photo import SetChatPhoto
 
 
 class Chats(
@@ -16,6 +17,7 @@ class Chats(
     GetChatMember,
     InviteUser,
     LeaveChat,
-    PromoteChatMember
+    PromoteChatMember,
+    SetChatPhoto
 ):
     pass
