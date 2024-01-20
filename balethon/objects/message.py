@@ -210,6 +210,7 @@ class Message(Object):
     async def copy(
             self,
             chat_id,
+            reply_markup: "objects.ReplyMarkup" = None,
             reply_to_message_id=None,
             client=None
     ):
@@ -218,14 +219,16 @@ class Message(Object):
             return await client.send_message(
                 chat_id,
                 self.text,
-                reply_to_message_id=reply_to_message_id
+                reply_markup,
+                reply_to_message_id
             )
         elif self.photo and len(self.photo) == 1:
             return await client.send_photo(
                 chat_id,
                 self.photo[0].id,
-                caption=self.caption,
-                reply_to_message_id=reply_to_message_id
+                self.caption,
+                reply_markup,
+                reply_to_message_id
             )
         elif self.photo:
             from . import InputMediaPhoto
@@ -280,7 +283,8 @@ class Message(Object):
             return await client.send_document(
                 chat_id,
                 self.document.id,
-                caption=self.caption,
-                reply_to_message_id=reply_to_message_id
+                self.caption,
+                reply_markup,
+                reply_to_message_id
             )
         raise TypeError("Message is not copyable")
