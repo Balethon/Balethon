@@ -92,7 +92,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_animation(self.chat.id, animation, duration, width, height, caption, self.id)
+        return await client.send_animation(self.chat.id, animation, duration, width, height, caption, self.id)
 
     async def reply_audio(
             self,
@@ -103,7 +103,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_audio(self.chat.id, audio, caption, duration, title, self.id)
+        return await client.send_audio(self.chat.id, audio, caption, duration, title, self.id)
 
     async def reply_contact(
             self,
@@ -113,7 +113,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_contact(self.chat.id, phone_number, first_name, last_name, self.id)
+        return await client.send_contact(self.chat.id, phone_number, first_name, last_name, self.id)
 
     async def reply_document(
             self,
@@ -123,7 +123,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_document(self.chat.id, document, caption, reply_markup, self.id)
+        return await client.send_document(self.chat.id, document, caption, reply_markup, self.id)
 
     async def reply_location(
             self,
@@ -132,7 +132,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_location(self.chat.id, longitude, latitude, self.id)
+        return await client.send_location(self.chat.id, longitude, latitude, self.id)
 
     async def reply_media_group(
             self,
@@ -140,7 +140,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_media_group(self.chat.id, media)
+        return await client.send_media_group(self.chat.id, media)
 
     async def reply_photo(
             self,
@@ -150,7 +150,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_photo(self.chat.id, photo, caption, reply_markup, self.id)
+        return await client.send_photo(self.chat.id, photo, caption, reply_markup, self.id)
 
     async def reply_video(
             self,
@@ -162,7 +162,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_video(self.chat.id, video, duration, width, height, caption)
+        return await client.send_video(self.chat.id, video, duration, width, height, caption)
 
     async def reply_voice(
             self,
@@ -172,7 +172,7 @@ class Message(Object):
             client=None
     ):
         client = client or self.client
-        await client.send_voice(self.chat.id, voice, caption, duration, self.id)
+        return await client.send_voice(self.chat.id, voice, caption, duration, self.id)
 
     async def reply(
             self,
