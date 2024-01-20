@@ -9,3 +9,5 @@ from .command_handler import CommandHandler
 from .shipping_query_handler import ShippingQueryHandler
 from .pre_checkout_query_handler import PreCheckoutQueryHandler
 from .edited_message_handler import EditedMessageHandler
+from .start_handler import StartHandler
+from .stop_handler import StopHandler
