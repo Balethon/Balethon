@@ -1,7 +1,7 @@
-from typing import Union
+from typing import Union, List
 
 import balethon
-from ...objects import Message
+from ...objects import Message, LabeledPrice
 from balethon import objects
 
 
@@ -13,7 +13,7 @@ class SendInvoice:
             title: str,
             description: str,
             provider_token: str,
-            prices,
+            prices: List[LabeledPrice],
             provider_data: str = None,
             photo_url: str = None,
             photo_size: int = None,
@@ -30,6 +30,9 @@ class SendInvoice:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
+        for i, price in enumerate(prices):
+            if isinstance(price, LabeledPrice):
+                prices[i] = price.unwrap()
         del data["self"]
         result = await self.execute("post", "sendInvoice", **data)
         result = Message.wrap(result)

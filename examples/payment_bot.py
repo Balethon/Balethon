@@ -14,7 +14,7 @@ async def send_invoice(client, message):
         title="Some title",
         description="Some description",
         provider_token=PROVIDER_TOKEN,
-        prices=LabeledPrice(label="Some label", amount=1000000)
+        prices=[LabeledPrice(label="Some label", amount=1000000)]
     )
 
 
