@@ -2,7 +2,7 @@ from inspect import getfullargspec, signature
 
 
 def remove_unwanted_positional_parameters(function, *args):
-    _, varargs, __, ___, ____, _____, ______ = getfullargspec(function)
+    _, varargs, *__ = getfullargspec(function)
 
     if varargs is not None:
         return args
@@ -20,7 +20,7 @@ def remove_unwanted_positional_parameters(function, *args):
 
 
 def remove_unwanted_keyword_parameters(function, **kwargs):
-    _, __, varkw, ___, ____, _____, ______ = getfullargspec(function)
+    _, __, varkw, *___ = getfullargspec(function)
 
     if varkw is not None:
         return kwargs

@@ -34,9 +34,9 @@ class AllCondition(Condition):
         super().__init__()
         self.conditions = conditions
 
-    async def __call__(self, client, update) -> bool:
+    async def __call__(self, client, event) -> bool:
         for condition in self.conditions:
-            if not await condition(client, update):
+            if not await condition(client, event):
                 return False
         return True
 
@@ -51,9 +51,9 @@ class AnyCondition(Condition):
         super().__init__()
         self.conditions = conditions
 
-    async def __call__(self, client, update) -> bool:
+    async def __call__(self, client, event) -> bool:
         for condition in self.conditions:
-            if await condition(client, update):
+            if await condition(client, event):
                 return True
         return False
 
@@ -68,8 +68,8 @@ class NotCondition(Condition):
         super().__init__()
         self.condition = condition
 
-    async def __call__(self, client, update) -> bool:
-        return not await self.condition(client, update)
+    async def __call__(self, client, event) -> bool:
+        return not await self.condition(client, event)
 
     def __repr__(self):
         return f"Not({self.condition})"

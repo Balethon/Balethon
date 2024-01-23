@@ -7,8 +7,8 @@ class Author(Condition):
         super().__init__()
         self.authors = authors
 
-    async def __call__(self, client, update) -> bool:
+    async def __call__(self, client, event) -> bool:
         from ..objects import Object
-        if isinstance(update, Object):
-            update = update.author.id
-        return update in self.authors
+        if isinstance(event, Object):
+            event = event.author.id
+        return event in self.authors

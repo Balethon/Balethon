@@ -120,7 +120,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         finally:
             self.disconnect()
 
-    async def download(self, file_id: str) -> str:
+    async def download(self, file_id: str):
         return await self.connection.download_file(file_id)
 
     async def resolve_peer_id(self, chat_id):

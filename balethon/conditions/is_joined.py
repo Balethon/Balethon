@@ -10,10 +10,10 @@ class IsJoined(Condition):
         super().__init__(chat_ids)
         self.chat_ids = chat_ids
 
-    async def __call__(self, client, update) -> bool:
+    async def __call__(self, client, event) -> bool:
         for chat_id in self.chat_ids:
             try:
-                chat_member = await client.get_chat_member(chat_id, update.author.id)
+                chat_member = await client.get_chat_member(chat_id, event.author.id)
             except RPCError:
                 return False
             else:

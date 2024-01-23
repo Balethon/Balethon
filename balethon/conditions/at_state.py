@@ -9,11 +9,11 @@ class AtState(Condition):
         self.state = state
         self.state_machine = state_machine
 
-    async def __call__(self, client, update) -> bool:
-        if isinstance(update, Object):
-            user = update.author
+    async def __call__(self, client, event) -> bool:
+        if isinstance(event, Object):
+            user = event.author
         else:
-            user = update
+            user = event
         if self.state_machine is None:
             return user.get_state() == self.state
         else:
