@@ -1,7 +1,6 @@
 from asyncio import sleep
 
 from balethon import Client
-from balethon.conditions import text
 from balethon.objects import Message, CallbackQuery, InlineKeyboard
 
 import config
@@ -16,7 +15,7 @@ async def ready(time):
     print(f"bot is ready! {time}")
 
 
-@bot.on_message(text)
+@bot.on_message()
 async def answer_message(message: Message):
     print(f"{message.author.full_name}: {message.text}")
     if message.text != "test":
