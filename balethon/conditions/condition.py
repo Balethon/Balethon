@@ -1,5 +1,7 @@
 from inspect import iscoroutinefunction
 
+from ..smart_call import remove_unwanted_keyword_parameters
+
 
 class Condition:
 
@@ -10,10 +12,12 @@ class Condition:
     def __init__(self, function=None):
         self.function = function
 
-    async def __call__(self, client, update) -> bool:
+    async def __call__(self, client, event) -> bool:
+        kwargs = dict(condition=self, client=client, event=event)
+        kwargs = remove_unwanted_keyword_parameters(self.function, **kwargs)
         if iscoroutinefunction(self.function):
-            return await self.function(self, client, update)
-        return self.function(self, client, update)
+            return await self.function(**kwargs)
+        return self.function(**kwargs)
 
     def __and__(self, other):
         return AllCondition(self, other)

@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def private(condition, client, message) -> bool:
-    return message.chat.type == "private"
+async def private(event) -> bool:
+    return event.chat.type == "private"

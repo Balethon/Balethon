@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def text(condition, client, message) -> bool:
-    return bool(message.text)
+async def text(event) -> bool:
+    return bool(event.text)

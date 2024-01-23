@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def caption(condition, client, message) -> bool:
-    return bool(message.caption)
+async def caption(condition, client, event) -> bool:
+    return bool(event.caption)

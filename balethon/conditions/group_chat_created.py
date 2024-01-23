@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def group_chat_created(condition, client, message) -> bool:
-    return bool(message.group_chat_created)
+async def group_chat_created(event) -> bool:
+    return bool(event.group_chat_created)

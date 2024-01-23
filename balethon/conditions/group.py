@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def group(condition, client, message) -> bool:
-    return message.chat.type == "group"
+async def group(event) -> bool:
+    return event.chat.type == "group"

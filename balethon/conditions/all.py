@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def all(condition, client, message) -> bool:
+async def all() -> bool:
     return True

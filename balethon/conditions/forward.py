@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def forward(condition, client, message) -> bool:
-    bool(message.forward_from or message.forward_from_chat)
+async def forward(event) -> bool:
+    return bool(event.forward_from or event.forward_from_chat)

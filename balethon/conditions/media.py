@@ -2,10 +2,10 @@ from .condition import Condition
 
 
 @Condition.create
-async def media(condition, client, message) -> bool:
+async def media(event) -> bool:
     return bool(
-        message.photo or
-        message.video or
-        message.voice or
-        message.document
+        event.photo or
+        event.video or
+        event.voice or
+        event.document
     )
