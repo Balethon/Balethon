@@ -22,7 +22,7 @@ async def greet(message):
 bot.run()
 ```
 
-> You must replace `TOKEN` with the token which [@botfather](https://ble.ir/botfather) gives you in the [Bale](https://www.bale.ai) messenger
+> You must replace `TOKEN` with the token which [BotFather](https://ble.ir/botfather) gives you in the [Bale](https://www.bale.ai) messenger
 
 ## Key Features
 
