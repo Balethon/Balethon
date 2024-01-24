@@ -19,7 +19,7 @@ class Dispatcher:
             self.event_loop = get_event_loop()
         except RuntimeError:
             self.event_loop = new_event_loop()
-        self.thread_pool_executor = ThreadPoolExecutor(max_workers, "Event Handler")
+        self.thread_pool_executor = ThreadPoolExecutor(max_workers, thread_name_prefix="Event Handler")
 
     def add_event_handler(self, event_handler, chain="default"):
         if chain not in self.event_handler_chains:
@@ -41,7 +41,7 @@ class Dispatcher:
     async def __call__(self, client, event, event_handler_type=None):
         for event_handler_chain in self.event_handler_chains.values():
             for event_handler in event_handler_chain:
-                if event_handler_type is not None and not isinstance(event_handler, event_handler_type):
+                if event_handler_type is not None and not type(event_handler) is event_handler_type:
                     continue
                 if not isinstance(event, event_handler.can_handle):
                     continue
