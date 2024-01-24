@@ -11,7 +11,7 @@ reply_markup = InlineKeyboard([("Button 1", "1"), ("Button 2", "2")])
 
 
 @bot.on_connect()
-async def connected(client, time):
+def connected(client, time):
     print(f"{client} is connected! {time}")
 
 
@@ -38,8 +38,13 @@ async def answer_callback_query(callback_query: CallbackQuery):
     )
 
 
-@bot.on_disconnect()
+@bot.on_shutdown()
 def bye(client, time):
+    print(f"{client} is shutting down! {time}")
+
+
+@bot.on_disconnect()
+def disconnected(client, time):
     print(f"{client} is disconnected! {time}")
 
 

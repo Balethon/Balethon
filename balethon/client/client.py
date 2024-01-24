@@ -2,6 +2,7 @@ from json import dumps
 from asyncio import get_event_loop
 from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
+from asyncio import CancelledError
 
 from .messages import Messages
 from .updates import Updates
@@ -14,7 +15,7 @@ from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler, ErrorHandler
-from ..smart_call import remove_unwanted_parameters
+from ..smart_call import remove_unwanted_keyword_parameters
 
 
 # TODO: adding a decorator for creating methods
@@ -32,6 +33,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         self.dispatcher = Dispatcher(max_workers)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.user = None
+        self.is_initialized = False
 
     def __repr__(self):
         client_name = type(self).__name__
@@ -84,26 +86,41 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             return await self.connection.request(method, service, json=data, files=files)
         return await self.connection.request(method, service, data=data, files=files)
 
-    async def start_polling(self):
-        await self.delete_webhook()
+    async def initialize(self):
+        if self.is_initialized:
+            raise ConnectionError("Dispatcher is already started")
+        self.is_initialized = True
         await self.dispatcher(self, None, InitializeHandler)
-        last_update_id = None
-        while True:
-            try:
-                if last_update_id is None:
-                    updates = await self.get_updates(-1)
-                    if updates:
-                        last_update_id = updates[-1].id
+
+    async def shutdown(self):
+        if not self.is_initialized:
+            raise ConnectionError("Dispatcher is already stopped")
+        self.is_initialized = False
+        await self.dispatcher(self, None, ShutdownHandler)
+
+    async def start_polling(self):
+        try:
+            await self.delete_webhook()
+            await self.initialize()
+            last_update_id = None
+            while True:
+                try:
+                    if last_update_id is None:
+                        updates = await self.get_updates(-1)
+                        if updates:
+                            last_update_id = updates[-1].id
+                    else:
+                        updates = await self.get_updates(last_update_id + 1)
+                except Exception as error:
+                    await self.dispatcher(self, error, ErrorHandler)
                 else:
-                    updates = await self.get_updates(last_update_id + 1)
-            except Exception as error:
-                await self.dispatcher(self, error, ErrorHandler)
-            else:
-                for update in updates:
-                    if last_update_id is not None and last_update_id >= update.id:
-                        continue
-                    last_update_id = update.id
-                    await self.dispatcher(self, update.available_update, update.available_update_event_handler_type)
+                    for update in updates:
+                        if last_update_id is not None and last_update_id >= update.id:
+                            continue
+                        last_update_id = update.id
+                        await self.dispatcher(self, update.available_update, update.available_update_event_handler_type)
+        except CancelledError:
+            await self.shutdown()
 
     def run(self, function=None):
         try:
@@ -114,13 +131,15 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                 loop = get_event_loop()
                 loop.run_until_complete(function)
             elif iscoroutinefunction(function):
-                kwargs = remove_unwanted_parameters(function, client=self)
+                kwargs = remove_unwanted_keyword_parameters(function, client=self)
                 loop = get_event_loop()
                 loop.run_until_complete(function(**kwargs))
             else:
-                kwargs = remove_unwanted_parameters(function, client=self)
+                kwargs = remove_unwanted_keyword_parameters(function, client=self)
                 function(**kwargs)
         except KeyboardInterrupt:
+            if self.is_initialized:
+                self.shutdown()
             return
         finally:
             self.disconnect()
