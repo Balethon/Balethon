@@ -3,7 +3,7 @@ from datetime import datetime
 from .event_handler import EventHandler
 
 
-class StartHandler(EventHandler):
+class ShutdownHandler(EventHandler):
 
     def __init__(self, callback):
         super().__init__(callback)

@@ -1,5 +1,5 @@
-from .start_handler import StartHandler
+from .initialize_handler import InitializeHandler
 
 
-class ConnectHandler(StartHandler):
+class ConnectHandler(InitializeHandler):
     pass

@@ -1,11 +1,11 @@
 import balethon
-from ...event_handlers import StopHandler
+from ...event_handlers import ShutdownHandler
 
 
 class OnStop:
 
-    def on_stop(
+    def on_shutdown(
             self: "balethon.Client",
             chain="default"
     ):
-        return self.add_event_handler(StopHandler, chain)
+        return self.add_event_handler(ShutdownHandler, chain)

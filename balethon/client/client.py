@@ -13,7 +13,7 @@ from .stickers import Stickers
 from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import ConnectHandler, DisconnectHandler, ErrorHandler
+from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler, ErrorHandler
 from ..smart_call import remove_unwanted_parameters
 
 
@@ -34,8 +34,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         self.user = None
 
     def __repr__(self):
-        name = type(self).__name__
-        return f"{name}({self.connection.token})"
+        client_name = type(self).__name__
+        try:
+            name = self.user.full_name
+        except AttributeError:
+            name = "Not connected yet"
+        return f"{client_name}({name})"
 
     async def connect(self):
         await self.connection.start()
@@ -82,6 +86,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
 
     async def start_polling(self):
         await self.delete_webhook()
+        await self.dispatcher(self, None, InitializeHandler)
         last_update_id = None
         while True:
             try:

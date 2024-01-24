@@ -1,5 +1,5 @@
-from .stop_handler import StopHandler
+from .shutdown_handler import ShutdownHandler
 
 
-class DisconnectHandler(StopHandler):
+class DisconnectHandler(ShutdownHandler):
     pass
