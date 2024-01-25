@@ -4,6 +4,8 @@ from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
 from asyncio import CancelledError
 
+from httpx import ConnectError
+
 from .messages import Messages
 from .updates import Updates
 from .users import Users
@@ -33,6 +35,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         self.dispatcher = Dispatcher(max_workers)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.user = None
+        self.is_disconnected = False
         self.is_initialized = False
 
     def __repr__(self):
@@ -111,9 +114,16 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                             last_update_id = updates[-1].id
                     else:
                         updates = await self.get_updates(last_update_id + 1)
+                except ConnectError:
+                    if not self.is_disconnected:
+                        self.is_disconnected = True
+                        await self.dispatcher(self, None, DisconnectHandler)
                 except Exception as error:
                     await self.dispatcher(self, error, ErrorHandler)
                 else:
+                    if self.is_disconnected:
+                        self.is_disconnected = False
+                        await self.dispatcher(self, None, ConnectHandler)
                     for update in updates:
                         if last_update_id is not None and last_update_id >= update.id:
                             continue
