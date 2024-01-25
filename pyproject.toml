@@ -21,6 +21,6 @@ dependencies = ["httpx"]
 [project.urls]
 "Homepage" = "https://github.com/Balethon/Balethon"
 "Download" = "https://github.com/Balethon/Balethon/releases/latest"
-"Documentation" = "http://balethon.ir"
+"Documentation" = "https://balethon.ir"
 "Tracker" = "https://github.com/Balethon/Balethon/issues"
 "Community" = "https://ble.ir/join/MTlhN2Q2Mz"
