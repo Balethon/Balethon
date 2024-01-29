@@ -10,8 +10,8 @@ from .callback_query import CallbackQuery
 from .reply_markup import ReplyMarkup
 from .inline_keyboard_button import InlineKeyboardButton
 from .inline_keyboard import InlineKeyboard
-from .keyboard_button import KeyboardButton
-from .keyboard import Keyboard
+from .reply_keyboard_button import ReplyKeyboardButton
+from .reply_keyboard import ReplyKeyboard
 from .entity import Entity
 from .shipping_query import ShippingQuery
 from .shipping_address import ShippingAddress
@@ -33,6 +33,6 @@ from .input_media_photo import InputMediaPhoto
 from .input_media_video import InputMediaVideo
 from .sticker import Sticker
 from .sticker_set import StickerSet
-from .keyboard_remove import KeyboardRemove
+from .reply_keyboard_remove import ReplyKeyboardRemove
 from .animation import Animation
 from .webhook_info import WebhookInfo

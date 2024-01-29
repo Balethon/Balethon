@@ -1,7 +1,7 @@
-from . import Keyboard
+from . import ReplyKeyboard
 
 
-class KeyboardRemove(Keyboard):
+class ReplyKeyboardRemove(ReplyKeyboard):
 
     def __init__(self):
         super().__init__([])

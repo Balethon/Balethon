@@ -1,7 +1,7 @@
 from . import Object
 
 
-class KeyboardButton(Object):
+class ReplyKeyboardButton(Object):
 
     def __init__(
             self,
