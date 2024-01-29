@@ -2,7 +2,7 @@ import balethon
 from ...event_handlers import ShutdownHandler
 
 
-class OnStop:
+class OnShutdown:
 
     def on_shutdown(
             self: "balethon.Client",

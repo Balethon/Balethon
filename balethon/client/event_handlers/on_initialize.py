@@ -2,7 +2,7 @@ import balethon
 from ...event_handlers import InitializeHandler
 
 
-class OnStart:
+class OnInitialize:
 
     def on_initialize(
             self: "balethon.Client",
