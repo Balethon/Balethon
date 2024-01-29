@@ -18,6 +18,7 @@ class Chat(Object):
             pinned_message: "objects.Message" = None,
             sticker_set_name: str = None,
             can_set_sticker_set: bool = None,
+            photo: "objects.ChatPhoto" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -33,6 +34,7 @@ class Chat(Object):
         self.pinned_message: "objects.Message" = pinned_message
         self.sticker_set_name: str = sticker_set_name
         self.can_set_sticker_set: bool = can_set_sticker_set
+        self.photo: "objects.ChatPhoto" = photo
 
     @property
     def full_name(self):

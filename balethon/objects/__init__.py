@@ -36,3 +36,4 @@ from .sticker_set import StickerSet
 from .reply_keyboard_remove import ReplyKeyboardRemove
 from .animation import Animation
 from .webhook_info import WebhookInfo
+from .chat_photo import ChatPhoto
