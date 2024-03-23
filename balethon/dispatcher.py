@@ -2,19 +2,29 @@ from asyncio import get_event_loop, new_event_loop
 from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
 
-from .event_handlers import ErrorHandler
+from .event_handlers import ErrorHandler, InitializeHandler, ShutdownHandler
 from .errors import ContinueDispatching, BreakDispatching
 
 
-async def print_error(error):
+def print_error(error):
     print_exception(None, error, error.__traceback__)
+
+
+def print_ready(client):
+    print(f"---{client} is ready---")
+
+
+def print_stopped(client):
+    print(f"---{client} has stopped---")
 
 
 class Dispatcher:
 
     def __init__(self, max_workers: int = None):
         self.event_handler_chains: dict = {}
-        self.add_event_handler(ErrorHandler(print_error), chain="print_error")
+        self.add_event_handler(ErrorHandler(print_error), chain="print")
+        self.add_event_handler(InitializeHandler(print_ready), chain="print")
+        self.add_event_handler(ShutdownHandler(print_stopped), chain="print")
         try:
             self.event_loop = get_event_loop()
         except RuntimeError:
@@ -41,7 +51,7 @@ class Dispatcher:
     async def __call__(self, client, event, event_handler_type=None):
         for event_handler_chain in self.event_handler_chains.values():
             for event_handler in event_handler_chain:
-                if event_handler_type is not None and not type(event_handler) is event_handler_type:
+                if event_handler_type is not None and not isinstance(event_handler, event_handler_type):
                     continue
                 if not isinstance(event, event_handler.can_handle):
                     continue

@@ -15,11 +15,6 @@ def connected(client, time):
     print(f"{client} is connected! {time}")
 
 
-@bot.on_initialize()
-def ready(client, time):
-    print(f"{client} is ready! {time}")
-
-
 @bot.on_message()
 async def answer_message(message: Message):
     print(f"{message.author.full_name}: {message.text}")
@@ -36,11 +31,6 @@ async def answer_callback_query(callback_query: CallbackQuery):
     await callback_query.answer(
         f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!"
     )
-
-
-@bot.on_shutdown()
-def bye(client, time):
-    print(f"{client} is shutting down! {time}")
 
 
 @bot.on_disconnect()
