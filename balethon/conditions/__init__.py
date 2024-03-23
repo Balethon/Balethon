@@ -25,6 +25,7 @@ from .media import media
 from .command import Command as command
 from .private import private
 from .group import group
+from .channel import channel
 from .regex import Regex as regex
 from .at_state import AtState as at_state
 from .is_instance import IsInstance as is_instance
