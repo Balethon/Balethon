@@ -5,6 +5,10 @@ from .event_handler import EventHandler
 
 class ShutdownHandler(EventHandler):
 
+    @property
+    def can_handle(self):
+        return ShutdownHandler
+
     def __init__(self, callback):
         super().__init__(callback)
 

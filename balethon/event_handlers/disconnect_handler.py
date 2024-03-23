@@ -5,6 +5,10 @@ from .shutdown_handler import EventHandler
 
 class DisconnectHandler(EventHandler):
 
+    @property
+    def can_handle(self):
+        return DisconnectHandler
+
     def __init__(self, callback):
         super().__init__(callback)
 

@@ -6,6 +6,12 @@ from .event_handlers import ErrorHandler, InitializeHandler, ShutdownHandler
 from .errors import ContinueDispatching, BreakDispatching
 
 
+def is_subclass(cls, super_cls):
+    if not isinstance(cls, type):
+        return False
+    return issubclass(cls, super_cls)
+
+
 def print_error(error):
     print_exception(None, error, error.__traceback__)
 
@@ -48,12 +54,10 @@ class Dispatcher:
                 return
         raise ValueError(f"{event_handler} does not exist")
 
-    async def __call__(self, client, event, event_handler_type=None):
+    async def __call__(self, client, event):
         for event_handler_chain in self.event_handler_chains.values():
             for event_handler in event_handler_chain:
-                if event_handler_type is not None and not isinstance(event_handler, event_handler_type):
-                    continue
-                if not isinstance(event, event_handler.can_handle):
+                if not isinstance(event, event_handler.can_handle) and not is_subclass(event, event_handler.can_handle):
                     continue
                 try:
                     if await event_handler.check(client, event):
@@ -64,4 +68,4 @@ class Dispatcher:
                 except BreakDispatching:
                     return
                 except Exception as error:
-                    await self(client, error, ErrorHandler)
+                    await self(client, error)

@@ -5,6 +5,10 @@ from .event_handler import EventHandler
 
 class InitializeHandler(EventHandler):
 
+    @property
+    def can_handle(self):
+        return InitializeHandler
+
     def __init__(self, callback):
         super().__init__(callback)
 

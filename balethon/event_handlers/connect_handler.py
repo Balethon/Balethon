@@ -5,6 +5,10 @@ from .initialize_handler import EventHandler
 
 class ConnectHandler(EventHandler):
 
+    @property
+    def can_handle(self):
+        return ConnectHandler
+
     def __init__(self, callback):
         super().__init__(callback)
 

@@ -16,7 +16,7 @@ from .stickers import Stickers
 from .event_handlers import EventHandlers
 from ..network import Connection
 from ..dispatcher import Dispatcher
-from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler, ErrorHandler
+from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 
 
@@ -48,12 +48,12 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
 
     async def connect(self):
         await self.connection.start()
-        await self.dispatcher(self, None, ConnectHandler)
+        await self.dispatcher(self, ConnectHandler)
         self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
-        await self.dispatcher(self, None, DisconnectHandler)
+        await self.dispatcher(self, DisconnectHandler)
 
     async def __aenter__(self):
         await self.connect()
@@ -93,13 +93,13 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         if self.is_initialized:
             raise ConnectionError("Dispatcher is already started")
         self.is_initialized = True
-        await self.dispatcher(self, None, InitializeHandler)
+        await self.dispatcher(self, InitializeHandler)
 
     async def shutdown(self):
         if not self.is_initialized:
             raise ConnectionError("Dispatcher is already stopped")
         self.is_initialized = False
-        await self.dispatcher(self, None, ShutdownHandler)
+        await self.dispatcher(self, ShutdownHandler)
 
     async def start_polling(self):
         try:
@@ -109,7 +109,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             while True:
                 try:
                     if last_update_id is None:
-                        updates = await self.get_updates(-1)
+                        updates = await self.get_updates()
                         if updates:
                             last_update_id = updates[-1].id
                     else:
@@ -117,18 +117,18 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
                 except ConnectError:
                     if not self.is_disconnected:
                         self.is_disconnected = True
-                        await self.dispatcher(self, None, DisconnectHandler)
+                        await self.dispatcher(self, DisconnectHandler)
                 except Exception as error:
-                    await self.dispatcher(self, error, ErrorHandler)
+                    await self.dispatcher(self, error)
                 else:
                     if self.is_disconnected:
                         self.is_disconnected = False
-                        await self.dispatcher(self, None, ConnectHandler)
+                        await self.dispatcher(self, ConnectHandler)
                     for update in updates:
                         if last_update_id is not None and last_update_id >= update.id:
                             continue
                         last_update_id = update.id
-                        await self.dispatcher(self, update.available_update, update.available_update_event_handler_type)
+                        await self.dispatcher(self, update.available_update)
         except CancelledError:
             await self.shutdown()
 
