@@ -1,9 +1,9 @@
 from .condition import Condition
-from ..objects import Message, CallbackQuery
 
 
 @Condition.create
 async def private(event) -> bool:
+    from ..objects import Message, CallbackQuery
     if isinstance(event, Message):
         event = event.chat.type
     elif isinstance(event, CallbackQuery):
