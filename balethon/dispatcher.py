@@ -1,15 +1,42 @@
 from asyncio import get_event_loop, new_event_loop
 from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
+from logging import getLogger
 
-from .event_handlers import ErrorHandler, InitializeHandler, ShutdownHandler
+from .event_handlers import ErrorHandler, InitializeHandler, ShutdownHandler, ConnectHandler, DisconnectHandler
 from .errors import ContinueDispatching, BreakDispatching
+
+log = getLogger(__name__)
 
 
 def is_subclass(cls, super_cls):
     if not isinstance(cls, type):
         return False
     return issubclass(cls, super_cls)
+
+
+def log_error(error):
+    log.exception(error)
+
+
+def log_connect(client):
+    log.info(f"{client} connected")
+
+
+def log_initialize(client):
+    log.info(f"{client} initialized")
+
+
+def log_shutdown(client):
+    log.info(f"{client} shutting down")
+
+
+def log_disconnect(client):
+    log.info(f"{client} disconnected")
+
+
+def log_event(event):
+    log.info(event)
 
 
 def print_error(error):
@@ -28,6 +55,11 @@ class Dispatcher:
 
     def __init__(self, max_workers: int = None):
         self.event_handler_chains: dict = {}
+        self.add_event_handler(ErrorHandler(log_error), chain="log")
+        self.add_event_handler(ConnectHandler(log_connect), chain="log")
+        self.add_event_handler(InitializeHandler(log_initialize), chain="log")
+        self.add_event_handler(ShutdownHandler(log_shutdown), chain="log")
+        self.add_event_handler(DisconnectHandler(log_disconnect), chain="log")
         self.add_event_handler(ErrorHandler(print_error), chain="print")
         self.add_event_handler(InitializeHandler(print_ready), chain="print")
         self.add_event_handler(ShutdownHandler(print_stopped), chain="print")

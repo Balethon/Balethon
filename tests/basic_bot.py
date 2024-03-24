@@ -1,9 +1,12 @@
+import logging
 from asyncio import sleep
 
 from balethon import Client
 from balethon.objects import Message, CallbackQuery, InlineKeyboard
 
 import config
+
+logging.basicConfig(filename="balethon.log", level=logging.INFO)
 
 bot = Client(config.TOKEN)
 

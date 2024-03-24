@@ -43,7 +43,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
         try:
             name = self.user.full_name
         except AttributeError:
-            name = "Not connected yet"
+            name = "Not initialized yet"
         return f"{client_name}({name})"
 
     async def connect(self):
