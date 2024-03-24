@@ -49,9 +49,9 @@ class Connection:
 
     async def request(self, method: str, service: str, data: dict = None, files: dict = None, json: dict = None):
         if json:
-            log.info(f"[{service}] {json}")
+            log.info(f"[{service}] JSON{json}")
         if data:
-            log.info(f"[{service}] {data} - {files}")
+            log.info(f"[{service}] DATA{data} - FILES{files}")
         response = await self.client.request(
             method,
             f"{self.bot_url()}/{service}",
