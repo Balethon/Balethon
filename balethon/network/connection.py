@@ -1,9 +1,12 @@
 from json import loads
 from re import search
+from logging import getLogger
 
 from httpx import AsyncClient
 
 from ..errors import RPCError
+
+log = getLogger(__name__)
 
 
 class Connection:
@@ -45,13 +48,17 @@ class Connection:
         return loads(json_info)
 
     async def request(self, method: str, service: str, data: dict = None, files: dict = None, json: dict = None):
+        if json:
+            log.info(f"[{service}] {json}")
+        if data:
+            log.info(f"[{service}] {data} - {files}")
         response = await self.client.request(
-                method,
-                f"{self.bot_url()}/{service}",
-                data=data,
-                files=files,
-                json=json,
-                timeout=self.time_out
+            method,
+            f"{self.bot_url()}/{service}",
+            data=data,
+            files=files,
+            json=json,
+            timeout=self.time_out
         )
         response_json = response.json()
         if response.status_code != 200:
