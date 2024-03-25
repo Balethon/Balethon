@@ -5,7 +5,7 @@ class Chat(Condition):
 
     def __init__(self, *chats):
         super().__init__()
-        self.chats = chats
+        self.chats = set(chats)
 
     async def __call__(self, client, event) -> bool:
         from ..objects import Message, CallbackQuery
