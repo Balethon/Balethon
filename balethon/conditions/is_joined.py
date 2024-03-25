@@ -17,6 +17,6 @@ class IsJoined(Condition):
             except RPCError:
                 return False
             else:
-                if chat_member.status not in ("member", "administrator", "owner"):
+                if chat_member.status not in ("member", "administrator", "creator"):
                     return False
         return True
