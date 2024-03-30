@@ -1,4 +1,4 @@
-__version__ = "0.6.5"
+__version__ = "0.6.6"
 
 from .client import Client
 from .sync_support import add_sync_support
