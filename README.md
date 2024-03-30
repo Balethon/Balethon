@@ -28,7 +28,7 @@ bot.run()
 
 - **[Easy](https://balethon.ir/posts/balethon-is-easy)**: Concise and high level programming interface
 - **[Fast](https://balethon.ir/posts/balethon-is-fast)**: Optimized and supports asynchronous programming
-- **[Documented](https://balethon.ir/posts/balethon-is-documented)**: Learn Balethon in depth with the documentation at https://balethon.ir
+- **[Documented](https://balethon.ir/posts/balethon-is-documented)**: Learn Balethon in depth with the documentation
 - **[Community](https://balethon.ir/posts/balethon-has-community)**: Active and friendly community, you are sure to get answers to your questions
 - **[Design](https://balethon.ir/posts/balethon-has-design-options)**: Support for functional as well as object-oriented designs
 - **[powerful](https://balethon.ir/posts/balethon-is-powerful)**: Covers the [Bale](https://www.bale.ai) messenger's api and has useful tools to make your job easier
