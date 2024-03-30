@@ -6,6 +6,7 @@ from .update import Update
 from .file import File
 from .chat_member import ChatMember
 from .message import Message
+from .edited_message import EditedMessage
 from .callback_query import CallbackQuery
 from .reply_markup import ReplyMarkup
 from .inline_keyboard_button import InlineKeyboardButton

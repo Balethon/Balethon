@@ -1,9 +1,9 @@
 from .update_handler import UpdateHandler
-from ..objects import Message
+from ..objects import EditedMessage
 
 
 class EditedMessageHandler(UpdateHandler):
-    can_handle = Message
+    can_handle = EditedMessage
 
     def __init__(self, callback, condition=None):
         super().__init__(callback, condition)
@@ -12,5 +12,5 @@ class EditedMessageHandler(UpdateHandler):
         if client is not None:
             kwargs["client"] = client
         if event is not None:
-            kwargs["message"] = event
+            kwargs["edited_message"] = event
         return super().__call__(*args, **kwargs)

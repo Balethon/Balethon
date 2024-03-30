@@ -3,7 +3,14 @@ from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
 from logging import getLogger
 
-from .event_handlers import ErrorHandler, InitializeHandler, ShutdownHandler, ConnectHandler, DisconnectHandler
+from .event_handlers import (
+    ErrorHandler,
+    InitializeHandler,
+    ShutdownHandler,
+    ConnectHandler,
+    DisconnectHandler,
+    EventHandler
+)
 from .errors import ContinueDispatching, BreakDispatching
 
 log = getLogger(__name__)
@@ -60,6 +67,7 @@ class Dispatcher:
         self.add_event_handler(InitializeHandler(log_initialize), chain="log")
         self.add_event_handler(ShutdownHandler(log_shutdown), chain="log")
         self.add_event_handler(DisconnectHandler(log_disconnect), chain="log")
+        self.add_event_handler(EventHandler(log_event), chain="log")
         self.add_event_handler(ErrorHandler(print_error), chain="print")
         self.add_event_handler(InitializeHandler(print_ready), chain="print")
         self.add_event_handler(ShutdownHandler(print_stopped), chain="print")
