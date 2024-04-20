@@ -12,7 +12,7 @@ class Regex(Condition):
     async def __call__(self, client, event) -> bool:
         from ..objects import Message, CallbackQuery
         if isinstance(event, Message):
-            event = event.text or event.caption
+            event = event.content
         elif isinstance(event, CallbackQuery):
             event = event.data
         return bool(list(self.pattern.finditer(event)) or None)

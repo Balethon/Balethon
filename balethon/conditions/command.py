@@ -10,6 +10,8 @@ class Command(Condition):
         self.max_arguments = max_arguments
 
     async def __call__(self, client, message) -> bool:
+        if not message.text:
+            return False
         name, *arguments = message.text.split()
         if name.lower() != f"/{self.name.lower()}":
             return False
