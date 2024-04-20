@@ -82,6 +82,10 @@ class Message(Object):
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
 
+    @property
+    def content(self) -> str:
+        return self.text or self.caption or ""
+
     async def reply_animation(
             self,
             animation: Union[str, bytes, BinaryIO, "objects.InputMedia"],
