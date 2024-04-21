@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from traceback import print_exception
 from logging import getLogger
 
-from .event_handlers import (
+from ..event_handlers import (
     ErrorHandler,
     InitializeHandler,
     ShutdownHandler,
@@ -11,7 +11,7 @@ from .event_handlers import (
     DisconnectHandler,
     EventHandler
 )
-from .errors import ContinueDispatching, BreakDispatching
+from ..errors import ContinueDispatching, BreakDispatching
 
 log = getLogger(__name__)
 
