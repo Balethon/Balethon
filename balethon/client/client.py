@@ -13,15 +13,14 @@ from .attachments import Attachments
 from .chats import Chats
 from .payments import Payments
 from .stickers import Stickers
-from .event_handlers import EventHandlers
 from ..network import Connection
-from ..dispatcher import Dispatcher
+from ..dispatcher import Dispatcher, Chain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 
 
 # TODO: adding a decorator for creating methods
-class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, EventHandlers):
+class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
 
     def __init__(
             self,
@@ -32,6 +31,7 @@ class Client(Messages, Updates, Users, Attachments, Chats, Payments, Stickers, E
             base_url: str = None,
             short_url: str = None
     ):
+        super().__init__()
         self.dispatcher = Dispatcher(max_workers)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.user = None
