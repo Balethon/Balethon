@@ -4,7 +4,7 @@ from .chain import Chain
 
 log = getLogger(__name__)
 
-log_chain = Chain()
+log_chain = Chain("log")
 
 
 @log_chain.on_error()

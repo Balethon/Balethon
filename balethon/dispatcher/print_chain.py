@@ -2,7 +2,7 @@ from traceback import print_exception
 
 from .chain import Chain
 
-print_chain = Chain()
+print_chain = Chain("print")
 
 
 @print_chain.on_error()
