@@ -34,3 +34,4 @@ from .is_joined import IsJoined as is_joined
 from .author import Author as author
 from .equals import Equals as equals
 from .successful_payment import successful_payment
+from .content import content
