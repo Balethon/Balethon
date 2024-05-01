@@ -31,8 +31,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
             base_url: str = None,
             short_url: str = None
     ):
-        super().__init__()
+        super().__init__("default")
         self.dispatcher = Dispatcher(max_workers)
+        self.dispatcher.add_chain(self)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.user = None
         self.is_disconnected = False
