@@ -17,8 +17,19 @@ from ..event_handlers import (
 
 class Chain:
 
-    def __init__(self):
+    def __init__(self, name, condition=None):
+        self.name = name
+        self.condition = condition
         self.event_handlers = []
+
+    def __repr__(self):
+        event_handlers = ", ".join(repr(event_handler) for event_handler in self.event_handlers)
+        return f"Chain({event_handlers})"
+
+    async def check(self, client, event):
+        if self.condition is None:
+            return True
+        return await self.condition(client, event)
 
     def add_event_handler(self, event_handler, *args, **kwargs):
         if isinstance(event_handler, type):
