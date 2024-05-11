@@ -10,14 +10,14 @@ class CommandHandler(MessageHandler):
 
     @staticmethod
     def get_min_arguments(callback):
-        args, _, __, defaults, ___, ____, _____ = getfullargspec(callback)
+        args, _, __, defaults, *___ = getfullargspec(callback)
         args_count = len(args)
         defaults_count = 0 if defaults is None else len(defaults)
         return args_count - defaults_count
 
     @staticmethod
     def get_max_arguments(callback):
-        args, varargs, _, __, ___, ____, _____ = getfullargspec(callback)
+        args, varargs, *_ = getfullargspec(callback)
         if varargs is not None:
             return None
         return len(args)
