@@ -12,6 +12,7 @@ class SendInvoice:
             chat_id: Union[int, str],
             title: str,
             description: str,
+            payload: str,
             provider_token: str,
             prices: List[LabeledPrice],
             provider_data: str = None,
