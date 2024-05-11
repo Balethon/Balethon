@@ -3,9 +3,9 @@ from .condition import Condition
 
 class Equals(Condition):
 
-    def __init__(self, value):
+    def __init__(self, *values):
         super().__init__()
-        self.value = value
+        self.values = values
 
     def __call__(self, client, event) -> bool:
         from ..objects import Message, CallbackQuery
@@ -13,4 +13,4 @@ class Equals(Condition):
             event = event.content
         elif isinstance(event, CallbackQuery):
             event = event.data
-        return event == self.value
+        return event in self.values
