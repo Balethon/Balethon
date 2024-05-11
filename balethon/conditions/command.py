@@ -9,7 +9,7 @@ class Command(Condition):
         self.min_arguments = min_arguments
         self.max_arguments = max_arguments
 
-    async def __call__(self, client, message) -> bool:
+    def __call__(self, client, message) -> bool:
         if not message.text:
             return False
         name, *arguments = message.text.split()

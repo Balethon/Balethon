@@ -2,7 +2,7 @@ from .condition import Condition
 
 
 @Condition.create
-async def private(event) -> bool:
+def private(event) -> bool:
     from ..objects import Message, CallbackQuery
     if isinstance(event, Message):
         event = event.chat.type

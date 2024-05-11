@@ -2,5 +2,5 @@ from .condition import Condition
 
 
 @Condition.create
-async def all() -> bool:
+def all() -> bool:
     return True

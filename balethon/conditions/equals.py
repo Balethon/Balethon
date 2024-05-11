@@ -7,7 +7,7 @@ class Equals(Condition):
         super().__init__()
         self.value = value
 
-    async def __call__(self, client, event) -> bool:
+    def __call__(self, client, event) -> bool:
         from ..objects import Message, CallbackQuery
         if isinstance(event, Message):
             event = event.content
