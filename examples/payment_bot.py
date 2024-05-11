@@ -1,5 +1,5 @@
 from balethon import Client
-from balethon.conditions import private
+from balethon.conditions import private, successful_payment
 from balethon.objects import LabeledPrice
 
 bot = Client("TOKEN")
@@ -13,16 +13,17 @@ async def send_invoice(client, message):
         chat_id=message.chat.id,
         title="Some title",
         description="Some description",
+        payload=str(message.author.id),
         provider_token=PROVIDER_TOKEN,
         prices=[LabeledPrice(label="Some label", amount=1000000)]
     )
 
 
-@bot.on_pre_checkout_query()
-async def show_pre_checkout_query(pre_checkout_query):
-    user = pre_checkout_query.author.full_name
-    payload = pre_checkout_query.invoice_payload
-    print(f"{user} paid {payload}")
+@bot.on_message(successful_payment)
+async def show_pre_checkout_query(client, message):
+    user = await client.get_chat(message.successful_payment.invoice_payload)
+    amount = message.successful_payment.total_amount
+    print(f"{user.full_name} paid {amount}")
 
 
 bot.run()
