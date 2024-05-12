@@ -2,6 +2,7 @@ import logging
 from asyncio import sleep
 
 from balethon import Client
+from balethon.conditions import equals
 from balethon.objects import Message, CallbackQuery, InlineKeyboard
 
 import config
@@ -18,19 +19,22 @@ def connected(client, time):
     print(f"{client} is connected! {time}")
 
 
-@bot.on_message()
+@bot.on_message(equals("test"))
 async def answer_message(message: Message):
-    print(f"{message.author.full_name}: {message.text}")
-    if message.text != "test":
-        return
     msg = await message.reply("(:")
-    await sleep(1)
+    await sleep(500)
     await msg.edit_text("Hello from Balethon!", reply_markup)
+
+
+@bot.on_message()
+async def show_message(message: Message):
+    print(f"{message.author.full_name}: {message.text}")
 
 
 @bot.on_callback_query()
 async def answer_callback_query(callback_query: CallbackQuery):
     print(f"{callback_query.author.full_name}: [{callback_query.data}]")
+
     await callback_query.answer(
         f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!"
     )
