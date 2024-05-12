@@ -7,7 +7,7 @@ class Chat(Condition):
         super().__init__()
         self.chats = set(chats)
 
-    def __call__(self, client, event) -> bool:
+    async def __call__(self, client, event) -> bool:
         from ..objects import Message, CallbackQuery
         if isinstance(event, Message):
             event = event.chat.id

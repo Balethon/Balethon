@@ -7,5 +7,5 @@ class IsInstance(Condition):
         super().__init__()
         self.classes = classes
 
-    def __call__(self, client, event) -> bool:
+    async def __call__(self, client, event) -> bool:
         return isinstance(event, self.classes)
