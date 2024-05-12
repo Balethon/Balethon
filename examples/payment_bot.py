@@ -20,7 +20,7 @@ async def send_invoice(client, message):
 
 
 @bot.on_message(successful_payment)
-async def show_pre_checkout_query(client, message):
+async def show_payment(client, message):
     user = await client.get_chat(message.successful_payment.invoice_payload)
     amount = message.successful_payment.total_amount
     print(f"{user.full_name} paid {amount}")
