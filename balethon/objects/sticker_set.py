@@ -25,5 +25,5 @@ class StickerSet(Object):
         self.is_animated: bool = is_animated
         self.is_video: bool = is_video
         self.contains_masks: bool = contains_masks
-        self.stickers: List = stickers
+        self.stickers: List["objects.Sticker"] = stickers
         self.thumb: "objects.Photo" = thumb
