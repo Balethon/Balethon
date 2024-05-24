@@ -2,6 +2,7 @@ from typing import Callable
 from inspect import iscoroutinefunction
 from functools import partial
 
+from ..conditions import Condition
 from ..smart_call import remove_unwanted_parameters
 
 
@@ -10,6 +11,8 @@ class EventHandler:
 
     def __init__(self, callback: Callable, condition=None):
         self.callback = callback
+        if not isinstance(condition, Condition) and condition is not None:
+            condition = Condition.create(condition)
         self.condition = condition
 
     async def __call__(self, *args, client=None, event=None, **kwargs):
