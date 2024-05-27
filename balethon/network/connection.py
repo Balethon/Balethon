@@ -63,7 +63,7 @@ class Connection:
         response_json = response.json()
         if response.status_code != 200:
             code = response.status_code or response_json.get("error_code")
-            raise RPCError.create(code, response_json.get("description"), service)
+            raise RPCError.create(code, response_json.get("description"), service, response_json.get("parameters"))
         return response_json.get("result")
 
     async def download_file(self, file_id: str):

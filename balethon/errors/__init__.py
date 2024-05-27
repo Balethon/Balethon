@@ -6,5 +6,6 @@ from .rpc_errors import (
     InternalError,
     NotFoundError,
     RPCError,
-    UnauthorizedError
+    UnauthorizedError,
+    TooManyRequestsError
 )
