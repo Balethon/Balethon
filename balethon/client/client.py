@@ -1,8 +1,7 @@
 from json import dumps
-from asyncio import get_event_loop
+from asyncio import get_event_loop, CancelledError, sleep
 from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
-from asyncio import CancelledError
 
 from httpx import ConnectError
 
@@ -13,13 +12,13 @@ from .attachments import Attachments
 from .chats import Chats
 from .payments import Payments
 from .stickers import Stickers
+from ..errors import TooManyRequestsError
 from ..network import Connection
 from ..dispatcher import Dispatcher, Chain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 
 
-# TODO: adding a decorator for creating methods
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
 
     def __init__(
@@ -76,19 +75,23 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
         except ConnectionError:
             return
 
-    async def execute(self, method: str, service: str, json: bool = True, **data):
+    async def execute(self, method: str, service: str, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
-        if not json:
-            for key, value in data.copy().items():
-                if isinstance(value, (bytes, BufferedReader)):
-                    files[key] = value
-                    del data[key]
-                elif isinstance(value, dict):
-                    data[key] = dumps(value)
-        if json:
-            return await self.connection.request(method, service, json=data, files=files)
-        return await self.connection.request(method, service, data=data, files=files)
+        for key, value in data.copy().items():
+            if isinstance(value, (bytes, BufferedReader)):
+                files[key] = value
+                del data[key]
+            elif isinstance(value, dict):
+                data[key] = dumps(value)
+        while True:
+            try:
+                return await self.connection.request(method, service, data=data, files=files)
+            except TooManyRequestsError as error:
+                if error.seconds <= 60:
+                    await sleep(error.seconds)
+                else:
+                    raise error
 
     async def initialize(self):
         if self.is_initialized:
