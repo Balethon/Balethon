@@ -22,7 +22,7 @@ class SendAnimation:
         animation = animation.media
         data = locals()
         del data["self"]
-        result = await self.execute("post", "sendAnimation", json=False, **data)
+        result = await self.execute("post", "sendAnimation", **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

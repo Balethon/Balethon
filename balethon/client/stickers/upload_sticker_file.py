@@ -17,5 +17,5 @@ class UploadStickerFile:
         sticker = sticker.media
         data = locals()
         del data["self"]
-        result = await self.execute("get", "uploadStickerFile", json=False, **data)
+        result = await self.execute("get", "uploadStickerFile", **data)
         return result
