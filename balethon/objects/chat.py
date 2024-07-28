@@ -43,3 +43,33 @@ class Chat(Object):
         if self.first_name:
             return self.first_name
         return ""
+
+    async def ban_member(self, user_id):
+        return await self.client.ban_chat_member(self.id, user_id)
+
+    async def get_administrators(self):
+        return await self.client.get_chat_administrators(self.id)
+
+    async def get_member(self, user_id):
+        return await self.client.get_chat_member(self.id, user_id)
+
+    async def get_members_count(self):
+        return await self.client.get_chat_members_count(self.id)
+
+    async def invite_user(self, user_id):
+        return await self.client.invite_user(self.id, user_id)
+
+    async def leave(self):
+        return await self.client.leave_chat(self.id)
+
+    async def promote_member(self, user_id, *args, **kwargs):
+        return await self.client.promote_chat_member(self.id, user_id, *args, **kwargs)
+
+    async def send_action(self, action="typing"):
+        return await self.client.send_chat_action(self.id, action)
+
+    async def set_photo(self, photo):
+        return await self.client.set_chat_photo(self.id, photo)
+
+    async def unban_member(self, user_id, only_if_banned=True):
+        return await self.client.unban_chat_member(self.id, user_id, only_if_banned)
