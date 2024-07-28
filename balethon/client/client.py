@@ -89,7 +89,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
                 return await self.connection.request(method, service, data=data, files=files)
             except TooManyRequestsError as error:
                 if error.seconds <= 60:
-                    print(f"waiting for {error.seconds} seconds (caused by {service})")
+                    print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
                     await sleep(error.seconds)
                 else:
                     raise error
