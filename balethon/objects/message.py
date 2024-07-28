@@ -86,6 +86,13 @@ class Message(Object):
     def content(self) -> str:
         return self.text or self.caption or ""
 
+    @content.setter
+    def content(self, value):
+        if self.caption or self.document or self.contact or self.location or self.photo:
+            self.caption = value
+        else:
+            self.text = value
+
     async def reply_animation(
             self,
             animation: Union[str, bytes, BinaryIO, "objects.InputMedia"],
