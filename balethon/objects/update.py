@@ -29,8 +29,7 @@ class Update(Object):
         self.shipping_query: "objects.ShippingQuery" = shipping_query
         self.pre_checkout_query: "objects.PreCheckoutQuery" = pre_checkout_query
 
-    @property
-    def available_update(self):
+    def get_effective_update(self):
         for value in self.__dict__.values():
             if isinstance(value, Object):
                 return value

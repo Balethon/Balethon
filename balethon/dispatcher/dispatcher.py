@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from .print_chain import print_chain
 from .log_chain import log_chain
 from ..errors import ContinueDispatching, BreakDispatching
+from ..objects import Update
 
 
 def is_subclass(cls, super_cls):
@@ -39,6 +40,11 @@ class Dispatcher:
                     return
                 except Exception as error:
                     await self(client, error)
+
+    async def feed_raw_update(self, client, update):
+        update = Update.wrap(update).get_effective_update()
+        update.bind(client)
+        await self(client, update)
 
     def add_chain(self, chain):
         self.chains.append(chain)

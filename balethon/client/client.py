@@ -133,7 +133,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
                         if last_update_id is not None and last_update_id >= update.id:
                             continue
                         last_update_id = update.id
-                        await self.dispatcher(self, update.available_update)
+                        await self.dispatcher(self, update.get_effective_update())
         except CancelledError:
             await self.shutdown()
 
