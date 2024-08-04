@@ -36,16 +36,24 @@ class Chat(Object):
         self.can_set_sticker_set: bool = can_set_sticker_set
         self.photo: "objects.ChatPhoto" = photo
 
+    def __str__(self):
+        return f"[{self.full_name}](https://web.bale.ai/chat?uid={self.id})"
+
     @property
     def full_name(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         if self.first_name:
             return self.first_name
+        if self.title:
+            return self.title
         return ""
 
     async def ban_member(self, user_id):
         return await self.client.ban_chat_member(self.id, user_id)
+
+    async def get(self):
+        return await self.client.get_chat(self.id)
 
     async def get_administrators(self):
         return await self.client.get_chat_administrators(self.id)
