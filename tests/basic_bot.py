@@ -22,7 +22,7 @@ def connected(client, time):
 @bot.on_message(equals("test"))
 async def answer_message(message: Message):
     msg = await message.reply("(:")
-    await sleep(500)
+    await sleep(2)
     await msg.edit_text("Hello from Balethon!", reply_markup)
 
 
@@ -36,7 +36,7 @@ async def answer_callback_query(callback_query: CallbackQuery):
     print(f"{callback_query.author.full_name}: [{callback_query.data}]")
 
     await callback_query.answer(
-        f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!"
+        f"Thanks for clicking on Button {callback_query.data} {callback_query.author}!"
     )
 
 
