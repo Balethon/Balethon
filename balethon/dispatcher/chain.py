@@ -23,6 +23,26 @@ class Chain:
         self.chains = list(chains)
         self.children = []
 
+    def to_string(self, keyword="if", tabs=0):
+        result = []
+        if self.condition:
+            result.append(f"{'    ' * tabs}{keyword} {self.condition}:")
+            tabs += 1
+        for i, child in enumerate(self.children):
+            if i:
+                keyword = "elif"
+            elif not self.condition:
+                keyword = keyword
+            else:
+                keyword = "if"
+            result.append(child.to_string(keyword, tabs))
+        for i, child in enumerate(self.chains):
+            result.append(child.to_string("elif" if i else "if", tabs))
+        return "\n".join(result)
+
+    def __repr__(self):
+        return self.to_string()
+
     async def check(self, client, event):
         if self.condition is None:
             return True

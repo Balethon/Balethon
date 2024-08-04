@@ -15,6 +15,16 @@ class EventHandler:
             condition = Condition.create(condition)
         self.condition = condition
 
+    def to_string(self, keyword="if", tabs=0):
+        result = []
+        condition = self.condition or self.can_handle.__name__
+        result.append(f"{keyword} {condition}:")
+        result.append(f"    {type(self).__name__}({self.can_handle.__name__})")
+        return "\n".join(f"{'    ' * tabs}{i}" for i in result)
+
+    def __repr__(self):
+        return self.to_string()
+
     async def __call__(self, *args, client=None, event=None, **kwargs):
         if client is not None:
             kwargs["client"] = client
