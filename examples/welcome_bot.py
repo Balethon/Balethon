@@ -6,9 +6,9 @@ bot = Client("TOKEN")
 
 @bot.on_message(new_chat_members)
 async def welcome_new_chat_members(message):
-    members = [member.full_name for member in message.new_chat_members]
+    members = ", ".join(str(member) for member in message.new_chat_members)
     await message.reply(
-        f"Hello {', '.join(members)}, welcome to {message.chat.title}!"
+        f"Hello {members}, welcome to {message.chat}!"
     )
 
 
