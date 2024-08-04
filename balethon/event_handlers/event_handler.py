@@ -23,9 +23,9 @@ class EventHandler:
             kwargs["event"] = event
         args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)
         if iscoroutinefunction(self.callback):
-            return client.dispatcher.event_loop.create_task(self.callback(*args, **kwargs))
+            return await self.callback(*args, **kwargs)
         return client.dispatcher.event_loop.run_in_executor(
-            client.dispatcher.thread_pool_executor,
+            client.dispatcher.sync_workers,
             partial(self.callback, *args, **kwargs)
         )
 

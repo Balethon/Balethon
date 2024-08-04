@@ -17,14 +17,11 @@ from ..event_handlers import (
 
 class Chain:
 
-    def __init__(self, name, condition=None):
+    def __init__(self, name, condition=None, *chains):
         self.name = name
         self.condition = condition
-        self.event_handlers = []
-
-    def __repr__(self):
-        event_handlers = ", ".join(repr(event_handler) for event_handler in self.event_handlers)
-        return f"Chain({event_handlers})"
+        self.chains = list(chains)
+        self.children = []
 
     async def check(self, client, event):
         if self.condition is None:
@@ -37,7 +34,7 @@ class Chain:
                 self.add_event_handler(event_handler(callback, *args, **kwargs))
                 return callback
             return decorator
-        self.event_handlers.append(event_handler)
+        self.children.append(event_handler)
 
     def on_connect(self):
         return self.add_event_handler(ConnectHandler)
@@ -79,7 +76,27 @@ class Chain:
         return self.add_event_handler(DisconnectHandler)
 
     def remove_event_handler(self, event_handler):
-        self.event_handlers.remove(event_handler)
+        self.children.remove(event_handler)
 
-    def include(self, other):
-        self.event_handlers.extend(other.event_handlers)
+    def add(self, *chains):
+        self.children.extend(chains)
+
+    def include(self, *chains):
+        self.chains.extend(chains)
+
+    def get(self, name):
+        for chain in self.chains:
+            if chain.name == name:
+                return chain
+        raise ValueError(f"Chain \"{name}\" does not exist")
+
+    def delete(self, name):
+        for i, c in enumerate(self.chains):
+            if c.name == name:
+                del self.chains[i]
+                return
+        for i, c in enumerate(self.children):
+            if isinstance(c, Chain) and c.name == name:
+                del self.children[i]
+                return
+        raise ValueError(f"Chain \"{name}\" does not exist")

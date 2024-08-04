@@ -19,7 +19,7 @@ def log_connect(client):
 
 @log_chain.on_initialize()
 def log_initialize(client):
-    log.info(f"{client} initialized (max workers: {client.dispatcher.thread_pool_executor._max_workers})")
+    log.info(f"{client} initialized (sync workers: {client.dispatcher.sync_workers_count} - async workers: {client.dispatcher.async_workers_count})")
 
 
 @log_chain.on_shutdown()

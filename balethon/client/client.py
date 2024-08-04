@@ -14,7 +14,7 @@ from .payments import Payments
 from .stickers import Stickers
 from ..errors import TooManyRequestsError
 from ..network import Connection
-from ..dispatcher import Dispatcher, Chain
+from ..dispatcher import Dispatcher, Chain, print_chain, log_chain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 
@@ -24,19 +24,20 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
     def __init__(
             self,
             token: str,
-            max_workers: int = None,
+            async_workers: int = None,
+            sync_workers: int = None,
             time_out: int = None,
+            sleep_threshold: int = 60,
             proxies=None,
             base_url: str = None,
             short_url: str = None
     ):
-        super().__init__("default")
-        self.dispatcher = Dispatcher(max_workers)
-        self.dispatcher.add_chain(self)
+        super().__init__("default", None, print_chain, log_chain)
+        self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
+        self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
-        self.is_initialized = False
 
     def __repr__(self):
         client_name = type(self).__name__
@@ -48,12 +49,12 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
 
     async def connect(self):
         await self.connection.start()
-        await self.dispatcher(self, ConnectHandler)
+        await self.dispatcher.dispatch_event(self, ConnectHandler)
         self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
-        await self.dispatcher(self, DisconnectHandler)
+        await self.dispatcher.dispatch_event(self, DisconnectHandler)
 
     async def __aenter__(self):
         await self.connect()
@@ -88,23 +89,19 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
             try:
                 return await self.connection.request(method, service, data=data, files=files)
             except TooManyRequestsError as error:
-                if error.seconds <= 60:
+                if error.seconds <= self.sleep_threshold:
                     print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
                     await sleep(error.seconds)
                 else:
                     raise error
 
     async def initialize(self):
-        if self.is_initialized:
-            raise ConnectionError("Dispatcher is already started")
-        self.is_initialized = True
-        await self.dispatcher(self, InitializeHandler)
+        await self.dispatcher.start()
+        await self.dispatcher.dispatch_event(self, InitializeHandler)
 
     async def shutdown(self):
-        if not self.is_initialized:
-            raise ConnectionError("Dispatcher is already stopped")
-        self.is_initialized = False
-        await self.dispatcher(self, ShutdownHandler)
+        await self.dispatcher.dispatch_event(self, ShutdownHandler)
+        await self.dispatcher.stop()
 
     async def start_polling(self):
         try:
@@ -122,18 +119,18 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
                 except ConnectError:
                     if not self.is_disconnected:
                         self.is_disconnected = True
-                        await self.dispatcher(self, DisconnectHandler)
+                        await self.dispatcher.dispatch_event(self, DisconnectHandler)
                 except Exception as error:
-                    await self.dispatcher(self, error)
+                    await self.dispatcher.dispatch_event(self, error)
                 else:
                     if self.is_disconnected:
                         self.is_disconnected = False
-                        await self.dispatcher(self, ConnectHandler)
+                        await self.dispatcher.dispatch_event(self, ConnectHandler)
                     for update in updates:
                         if last_update_id is not None and last_update_id >= update.id:
                             continue
                         last_update_id = update.id
-                        await self.dispatcher(self, update.get_effective_update())
+                        await self.dispatcher.dispatch_event(self, update.get_effective_update())
         except CancelledError:
             await self.shutdown()
 
@@ -153,10 +150,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
                 kwargs = remove_unwanted_keyword_parameters(function, client=self)
                 function(**kwargs)
         except KeyboardInterrupt:
-            if self.is_initialized:
-                self.shutdown()
             return
         finally:
+            if self.dispatcher.is_started:
+                self.shutdown()
             self.disconnect()
 
     async def download(self, file_id: str):
@@ -168,5 +165,5 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
             return peer.id
         return chat_id
 
-    def create_deep_link(self, referral_parameter: str) -> str:
-        return f"{self.connection.short_url}/{self.user.username}?{referral_parameter}"
+    def create_referral_link(self, name: str, value: str) -> str:
+        return f"{self.connection.short_url}/{self.user.username}?{name}={value}"
