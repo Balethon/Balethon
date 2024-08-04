@@ -12,7 +12,7 @@ async def download_document(client, message):
 
     mime_type = message.document.mime_type.split("/")[-1]
     file_format = mime_type.split(";")[0]
-    with open(f"downloaded file.{file_format}", "wb") as file:
+    with open(f"downloaded_file.{file_format}", "wb") as file:
         file.write(response)
 
     await downloading.edit_text("Download completed")
