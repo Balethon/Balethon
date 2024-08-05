@@ -23,7 +23,7 @@ class SendMediaGroup:
                 data[f"media{i}"] = m.media
                 data["media"][i]["media"] = f"media{i}"
         data["media"] = dumps(data["media"])
-        result = await self.execute("post", "sendMediaGroup", **data)
+        result = await self.execute("post", "sendMediaGroup", json=False, **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

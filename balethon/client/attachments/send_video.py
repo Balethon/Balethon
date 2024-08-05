@@ -22,7 +22,7 @@ class SendVideo:
         video = video.media
         data = locals()
         del data["self"]
-        result = await self.execute("post", "sendVideo", **data)
+        result = await self.execute("post", "sendVideo", json=False, **data)
         result = Message.wrap(result)
         result.bind(self)
         return result

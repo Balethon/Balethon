@@ -17,4 +17,4 @@ class SetChatPhoto:
         photo = photo.media
         data = locals()
         del data["self"]
-        return await self.execute("post", "setChatPhoto", **data)
+        return await self.execute("post", "setChatPhoto", json=False, **data)

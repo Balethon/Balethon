@@ -47,14 +47,17 @@ class Connection:
         json_info = search(r"({.*})", response.text)[0]
         return loads(json_info)
 
-    async def request(self, method: str, service: str, data: dict = None, files: dict = None):
+    async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
+        if json:
+            log.info(f"[{service}] JSON{json}")
         if data:
-            log.info(f"[{service}] {data} - FILES{files}")
+            log.info(f"[{service}] DATA{data} - FILES{files}")
         response = await self.client.request(
             method,
             f"{self.bot_url()}/{service}",
             data=data,
             files=files,
+            json=json,
             timeout=self.time_out
         )
         response_json = response.json()

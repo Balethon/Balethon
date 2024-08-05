@@ -21,7 +21,7 @@ class SendAudio:
         audio = audio.media
         data = locals()
         del data["self"]
-        result = await self.execute("post", "sendAudio", **data)
+        result = await self.execute("post", "sendAudio", json=False, **data)
         result = Message.wrap(result)
         result.bind(self)
         return result
