@@ -3,4 +3,6 @@ from .condition import Condition
 
 @Condition.create
 def contact(event) -> bool:
-    return bool(event.contact)
+    from ..objects import Message
+    if isinstance(event, Message):
+        return bool(event.contact)

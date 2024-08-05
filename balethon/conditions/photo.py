@@ -3,4 +3,6 @@ from .condition import Condition
 
 @Condition.create
 def photo(event) -> bool:
-    return bool(event.photo)
+    from ..objects import Message
+    if isinstance(event, Message):
+        return bool(event.photo)

@@ -4,7 +4,7 @@ from balethon import Client
 
 from config import TOKEN, CHAT_ID, USER_ID
 
-PHOTO_URL = "https://www.bale.ai/img/bale-main.png"
+PHOTO_URL = "https://bale.ai/_next/image?url=%2Fuploads%2FmainPic.webp&w=1200&q=75"
 VIDEO_URL = "https://dev.bale.ai/sites/default/files/1398-03/final_5ce505a96467ba00144535c8_377089.mp4"
 
 
@@ -14,13 +14,13 @@ async def test_message_methods(client):
 
     await sleep(1)
 
-    response = await client.edit_message_text(CHAT_ID, message["message_id"], "edit_message_text")
+    response = await client.edit_message_text(CHAT_ID, message.id, "edit_message_text")
     print(f"edit_message_text: {response}")
 
     await sleep(1)
 
-    response = await client.delete_message(CHAT_ID, message["message_id"])
-    print(f"delete_message: {response}")
+    # response = await client.delete_message(CHAT_ID, message.id)
+    # print(f"delete_message: {response}")
 
 
 async def test_update_methods(client):

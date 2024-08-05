@@ -9,10 +9,13 @@ class Command(Condition):
         self.min_arguments = min_arguments
         self.max_arguments = max_arguments
 
-    async def __call__(self, client, message) -> bool:
-        if not message.text:
+    async def __call__(self, client, event) -> bool:
+        from ..objects import Message
+        if not isinstance(event, Message):
             return False
-        name, *arguments = message.text.split()
+        if not event.text:
+            return False
+        name, *arguments = event.text.split()
         if name.lower() != f"/{self.name.lower()}":
             return False
         if self.min_arguments is not None and len(arguments) < self.min_arguments:

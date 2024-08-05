@@ -3,4 +3,6 @@ from .condition import Condition
 
 @Condition.create
 def video(event) -> bool:
-    return bool(event.video)
+    from ..objects import Message
+    if isinstance(event, Message):
+        return bool(event.video)

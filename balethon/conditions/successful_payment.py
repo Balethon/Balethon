@@ -3,4 +3,6 @@ from .condition import Condition
 
 @Condition.create
 def successful_payment(event) -> bool:
-    return bool(event.successful_payment)
+    from ..objects import Message
+    if isinstance(event, Message):
+        return bool(event.successful_payment)

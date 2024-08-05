@@ -3,4 +3,6 @@ from .condition import Condition
 
 @Condition.create
 def new_chat_title(event) -> bool:
-    return bool(event.new_chat_title)
+    from ..objects import Message
+    if isinstance(event, Message):
+        return bool(event.new_chat_title)

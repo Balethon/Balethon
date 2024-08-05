@@ -76,6 +76,8 @@ class Dispatcher:
                 except Exception as error:
                     await self.dispatch_event(client, error)
         for child in chain.chains:
+            if not await child.check(client, event):
+                continue
             await self.propagate_chain(child, client, event)
 
     async def worker(self):
