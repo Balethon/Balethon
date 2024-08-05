@@ -1,7 +1,7 @@
 from typing import Union
 
 from .condition import Condition
-from ..errors import ForbiddenError
+from ..errors import RPCError, ForbiddenError, NotFoundError
 
 
 class IsJoined(Condition):
@@ -14,7 +14,9 @@ class IsJoined(Condition):
         for chat_id in self.chat_ids:
             try:
                 chat_member = await client.get_chat_member(chat_id, event.author.id)
-            except ForbiddenError:
+            except (ForbiddenError, NotFoundError) as error:
+                raise error
+            except RPCError:
                 return False
             else:
                 if chat_member.status not in ("member", "administrator", "creator"):
