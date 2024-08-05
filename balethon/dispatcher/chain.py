@@ -120,3 +120,14 @@ class Chain:
                 del self.children[i]
                 return
         raise ValueError(f"Chain \"{name}\" does not exist")
+
+    def get_commands_guide(self):
+        result = []
+        for child in self.children:
+            if isinstance(child, CommandHandler):
+                result.append(child.help)
+            elif isinstance(child, Chain):
+                result.append(child.get_commands_guide())
+        for child in self.chains:
+            result.append(child.get_commands_guide())
+        return "\n\n".join(i for i in result if i)
