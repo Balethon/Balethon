@@ -75,6 +75,7 @@ class Dispatcher:
                     break
                 except Exception as error:
                     await self.dispatch_event(client, error)
+                    break
         for child in chain.chains:
             if not await child.check(client, event):
                 continue
