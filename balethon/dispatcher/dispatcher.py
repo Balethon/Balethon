@@ -89,7 +89,8 @@ class Dispatcher:
             await self.propagate_chain(client, client, event)
 
     async def dispatch_event(self, client, event):
-        self.events_queue.put_nowait((client, event))
+        if self.is_started:
+            self.events_queue.put_nowait((client, event))
 
     async def dispatch_raw_update(self, client, update):
         update = Update.wrap(update).get_effective_update()
