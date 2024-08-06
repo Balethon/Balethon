@@ -49,12 +49,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
 
     async def connect(self):
         await self.connection.start()
-        await self.dispatcher.dispatch_event(self, ConnectHandler)
         self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
-        await self.dispatcher.dispatch_event(self, DisconnectHandler)
 
     async def __aenter__(self):
         await self.connect()
@@ -76,9 +74,16 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stic
         except ConnectionError:
             return
 
-    async def execute(self, method: str, service: str, json: bool = True, **data):
+    async def execute(self, method: str, service: str, json: bool = None, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
+        if json is None:
+            for value in data.values():
+                if isinstance(value, (bytes, BufferedReader)):
+                    json = False
+                    break
+            else:
+                json = True
         if not json:
             for key, value in data.copy().items():
                 if isinstance(value, (bytes, BufferedReader)):
