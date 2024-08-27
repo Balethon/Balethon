@@ -8,11 +8,14 @@ from config import TOKEN, CHAT_ID, USER_ID
 PHOTO_URL = "https://bale.ai/_next/image?url=%2Fuploads%2FmainPic.webp&w=1200&q=75"
 VIDEO_URL = "https://dev.bale.ai/sites/default/files/1398-03/final_5ce505a96467ba00144535c8_377089.mp4"
 AUDIO = "https://vgmsite.com/soundtracks/minecraft/abtibsbmth/1-07.%20Haggstrom.mp3"
-
+MESSAGE_ID = None
 
 async def test_message_methods(client):
     message = await client.send_message(CHAT_ID, "send_message")
     print(f"send_message: {message}")
+
+    global MESSAGE_ID
+    MESSAGE_ID = message.id
 
     await sleep(1)
 
@@ -20,6 +23,11 @@ async def test_message_methods(client):
     print(f"edit_message_text: {response}")
 
     await sleep(1)
+
+    # response = await client.edit_message_caption(CHAT_ID, message.id, "edit_message_caption")
+    # print(f"edit_message_caption: {response}")
+    #
+    # await sleep(1)
 
     response = await client.forward_message(CHAT_ID, CHAT_ID, message.id)
     print(f"forward_message: {response}")
@@ -58,6 +66,9 @@ async def test_attachment_methods(client):
     response = await client.send_photo(CHAT_ID, PHOTO_URL)
     print(f"send_photo: {response}")
 
+    # response = await client.send_sticker(CHAT_ID, PHOTO_URL)
+    # print(f"send_sticker: {response}")
+
     response = await client.send_audio(CHAT_ID, AUDIO)
     print(f"send_audio: {response}")
 
@@ -76,11 +87,11 @@ async def test_attachment_methods(client):
     response = await client.send_contact(chat_id=CHAT_ID, phone_number="09909090999", first_name="name")
     print(f"send_contact: {response}")
 
-    response = client.send_animation(CHAT_ID, VIDEO_URL)
-    print(f"send_animation: {response}")
+    # response = await client.send_animation(CHAT_ID, VIDEO_URL)
+    # print(f"send_animation: {response}")
 
-    response = client.send_media_group(CHAT_ID, [InputMediaPhoto(PHOTO_URL), InputMediaVideo(VIDEO_URL)])
-    print(f"send_media_group: {response}")
+    # response = await client.send_media_group(CHAT_ID, [InputMediaPhoto(PHOTO_URL), InputMediaVideo(VIDEO_URL)])
+    # print(f"send_media_group: {response}")
 
     response = await client.get_file(CHAT_ID)
     print(f"get_file: {response}")
@@ -89,6 +100,9 @@ async def test_attachment_methods(client):
 async def test_chat_methods(client):
     # response = await client.ban_chat_member(CHAT_ID, USER_ID)
     # print(f"ban_chat_member: {response}")
+
+    response = await client.delete_chat_photo(CHAT_ID)
+    print(f"delete_chat_photo: {response}")
 
     response = await client.get_chat(CHAT_ID)
     print(f"get_chat: {response}")
@@ -108,17 +122,29 @@ async def test_chat_methods(client):
     # response = await client.leave_chat(CHAT_ID)
     # print(f"leave_chat: {response}")
 
+    response = await client.pin_chat_message(CHAT_ID, MESSAGE_ID)
+    print(f"pin_chat_message: {response}")
+
     # response = await client.promote_chat_member(CHAT_ID, USER_ID)
     # print(f"promote_chat_member: {response}")
 
     response = await client.send_chat_action(CHAT_ID)
     print(f"send_chat_action: {response}")
 
-    response = await client.set_chat_photo(CHAT_ID, PHOTO_URL)
-    print(f"set_chat_photo: {response}")
+    response = await client.set_chat_description(CHAT_ID, "Description")
+    print(f"set_chat_description: {response}")
+
+    # response = await client.set_chat_photo(CHAT_ID, PHOTO_URL)
+    # print(f"set_chat_photo: {response}")
+
+    response = await client.set_chat_title(CHAT_ID, "Title")
+    print(f"set_chat_title: {response}")
 
     # response = await client.unban_chat_member(CHAT_ID, USER_ID)
     # print(f"unban_chat_member: {response}")
+
+    response = await client.unpin_chat_message(CHAT_ID, MESSAGE_ID)
+    print(f"unpin_chat_message: {response}")
 
 
 async def test_payment_methods(client):
