@@ -128,6 +128,9 @@ async def test_chat_methods(client):
     # response = await client.promote_chat_member(CHAT_ID, USER_ID)
     # print(f"promote_chat_member: {response}")
 
+    # response = await client.restrict_chat_member(CHAT_ID, USER_ID)
+    # print(f"restrict_chat_member: {response}")
+
     response = await client.send_chat_action(CHAT_ID)
     print(f"send_chat_action: {response}")
 
@@ -142,6 +145,9 @@ async def test_chat_methods(client):
 
     # response = await client.unban_chat_member(CHAT_ID, USER_ID)
     # print(f"unban_chat_member: {response}")
+
+    # response = await client.unpin_all_chat_messages(CHAT_ID)
+    # print(f"unpin_all_chat_messages: {response}")
 
     response = await client.unpin_chat_message(CHAT_ID, MESSAGE_ID)
     print(f"unpin_chat_message: {response}")
@@ -159,6 +165,17 @@ async def test_payment_methods(client):
     print(f"send_invoice: {response}")
 
 
+async def test_invite_link_methods(client):
+    invite_link = await client.create_chat_invite_link(CHAT_ID)
+    print(f"create_chat_invite_link: {invite_link}")
+
+    result = await client.export_chat_invite_link(CHAT_ID)
+    print(f"export_chat_invite_link: {result}")
+
+    result = await client.revoke_chat_invite_link(CHAT_ID, invite_link.link)
+    print(f"revoke_chat_invite_link: {result}")
+
+
 async def main():
     bot = Client(TOKEN)
     async with bot:
@@ -168,6 +185,7 @@ async def main():
         await test_attachment_methods(bot)
         await test_chat_methods(bot)
         await test_payment_methods(bot)
+        await test_invite_link_methods(bot)
 
 
 if __name__ == "__main__":

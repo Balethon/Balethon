@@ -163,6 +163,15 @@ class Message(Object):
         client = client or self.client
         return await client.send_photo(self.chat.id, photo, caption, reply_markup, self.id)
 
+    async def reply_sticker(
+            self,
+            sticker: Union[str, bytes, BinaryIO, "objects.InputMedia"],
+            reply_markup: "objects.ReplyMarkup" = None,
+            client=None
+    ):
+        client = client or self.client
+        return await client.send_sticker(self.chat.id, sticker, reply_markup, self.id)
+
     async def reply_video(
             self,
             video: Union[str, bytes, BinaryIO, "objects.InputMedia"],
@@ -202,6 +211,15 @@ class Message(Object):
     ):
         client = client or self.client
         return await client.edit_message_text(self.chat.id, self.id, text, reply_markup)
+
+    async def edit_caption(
+            self,
+            caption,
+            reply_markup=None,
+            client=None
+    ):
+        client = client or self.client
+        return await client.edit_message_caption(self.chat.id, self.id, caption, reply_markup)
 
     async def delete(
             self,

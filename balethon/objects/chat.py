@@ -52,6 +52,9 @@ class Chat(Object):
     async def ban_member(self, user_id):
         return await self.client.ban_chat_member(self.id, user_id)
 
+    async def delete_photo(self):
+        return await self.client.delete_chat_photo(self.id)
+
     async def get(self):
         return await self.client.get_chat(self.id)
 
@@ -70,14 +73,26 @@ class Chat(Object):
     async def leave(self):
         return await self.client.leave_chat(self.id)
 
+    async def pin_message(self, message_id):
+        return await self.client.pin_chat_message(self.id, message_id)
+
     async def promote_member(self, user_id, *args, **kwargs):
         return await self.client.promote_chat_member(self.id, user_id, *args, **kwargs)
 
     async def send_action(self, action="typing"):
         return await self.client.send_chat_action(self.id, action)
 
+    async def set_description(self, description):
+        return await self.client.set_chat_description(self.id, description)
+
     async def set_photo(self, photo):
         return await self.client.set_chat_photo(self.id, photo)
 
+    async def set_title(self, title):
+        return await self.client.set_chat_title(self.id, title)
+
     async def unban_member(self, user_id, only_if_banned=True):
         return await self.client.unban_chat_member(self.id, user_id, only_if_banned)
+
+    async def unpin_message(self, message_id=None):
+        return await self.client.unpin_chat_message(self.id, message_id)

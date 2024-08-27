@@ -10,6 +10,7 @@ from .updates import Updates
 from .users import Users
 from .attachments import Attachments
 from .chats import Chats
+from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
 from ..errors import TooManyRequestsError
@@ -19,7 +20,7 @@ from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandle
 from ..smart_call import remove_unwanted_keyword_parameters
 
 
-class Client(Chain, Messages, Updates, Users, Attachments, Chats, Payments, Stickers):
+class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers):
 
     def __init__(
             self,
