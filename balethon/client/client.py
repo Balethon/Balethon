@@ -113,35 +113,30 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         await self.dispatcher.stop()
 
     async def start_polling(self):
-        try:
-            await self.delete_webhook()
-            await self.initialize()
-            last_update_id = None
-            while True:
-                try:
-                    if last_update_id is None:
-                        updates = await self.get_updates()
-                        if updates:
-                            last_update_id = updates[-1].id
-                    else:
-                        updates = await self.get_updates(last_update_id + 1)
-                except ConnectError:
-                    if not self.is_disconnected:
-                        self.is_disconnected = True
-                        await self.dispatcher.dispatch_event(self, DisconnectHandler)
-                except Exception as error:
-                    await self.dispatcher.dispatch_event(self, error)
+        await self.delete_webhook()
+        await self.initialize()
+        last_update_id = None
+        while True:
+            try:
+                if last_update_id is None:
+                    updates = await self.get_updates()
                 else:
-                    if self.is_disconnected:
-                        self.is_disconnected = False
-                        await self.dispatcher.dispatch_event(self, ConnectHandler)
-                    for update in updates:
-                        if last_update_id is not None and last_update_id >= update.id:
-                            continue
-                        last_update_id = update.id
-                        await self.dispatcher.dispatch_event(self, update.get_effective_update())
-        except CancelledError:
-            await self.shutdown()
+                    updates = await self.get_updates(last_update_id + 1)
+            except ConnectError:
+                if not self.is_disconnected:
+                    self.is_disconnected = True
+                    await self.dispatcher.dispatch_event(self, DisconnectHandler)
+            except Exception as error:
+                await self.dispatcher.dispatch_event(self, error)
+            else:
+                if self.is_disconnected:
+                    self.is_disconnected = False
+                    await self.dispatcher.dispatch_event(self, ConnectHandler)
+                for update in updates:
+                    if last_update_id is not None and last_update_id >= update.id:
+                        continue
+                    last_update_id = update.id
+                    await self.dispatcher.dispatch_event(self, update.get_effective_update())
 
     def run(self, function=None):
         try:
