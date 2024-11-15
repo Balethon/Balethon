@@ -31,6 +31,7 @@ class Message(Object):
             photo: List["objects.Photo"] = None,
             video: "objects.Video" = None,
             voice: "objects.Voice" = None,
+            sticker: "objects.Sticker" = None,
             caption: str = None,
             contact: "objects.Contact" = None,
             location: "objects.Location" = None,
@@ -68,6 +69,7 @@ class Message(Object):
         self.photo: List["objects.Photo"] = photo
         self.video: "objects.Video" = video
         self.voice: "objects.Voice" = voice
+        self.sticker: "objects.Sticker" = sticker
         self.caption: str = caption
         self.contact: "objects.Contact" = contact
         self.location: "objects.Location" = location
