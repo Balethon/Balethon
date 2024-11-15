@@ -45,6 +45,7 @@ class Message(Object):
             pinned_message: None = None,
             invoice: "objects.Invoice" = None,
             successful_payment: "objects.SuccessfulPayment" = None,
+            media_group_id: int = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -81,6 +82,7 @@ class Message(Object):
         self.pinned_message: None = pinned_message
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
+        self.media_group_id: int = media_group_id
 
     @property
     def content(self) -> str:
@@ -256,14 +258,6 @@ class Message(Object):
             return await client.send_message(
                 chat_id,
                 self.text,
-                reply_markup,
-                reply_to_message_id
-            )
-        elif self.photo and len(self.photo) == 1:
-            return await client.send_photo(
-                chat_id,
-                self.photo[0].id,
-                self.caption,
                 reply_markup,
                 reply_to_message_id
             )
