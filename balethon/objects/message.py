@@ -239,6 +239,14 @@ class Message(Object):
     async def copy(
             self,
             chat_id,
+            client=None
+    ):
+        client = client or self.client
+        return await client.copy_message(chat_id, self.chat.id, self.id)
+
+    async def send(
+            self,
+            chat_id,
             reply_markup: "objects.ReplyMarkup" = None,
             reply_to_message_id=None,
             client=None
