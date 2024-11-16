@@ -264,10 +264,9 @@ class Message(Object):
                 reply_to_message_id
             )
         elif self.photo:
-            from . import InputMediaPhoto
-            return await client.send_media_group(
+            return await client.send_photo(
                 chat_id,
-                [InputMediaPhoto(photo.id) for photo in self.photo]
+                self.photo[0].id
             )
         elif self.audio:
             return await client.send_audio(
@@ -310,6 +309,13 @@ class Message(Object):
                 chat_id,
                 self.voice.id,
                 caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
+        elif self.sticker:
+            return await client.send_sticker(
+                chat_id,
+                self.sticker.id,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.document:
