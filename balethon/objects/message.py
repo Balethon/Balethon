@@ -225,6 +225,15 @@ class Message(Object):
         client = client or self.client
         return await client.edit_message_caption(self.chat.id, self.id, caption, reply_markup)
 
+    async def edit_reply_markup(
+            self,
+            reply_markup=None,
+            client=None
+    ):
+        if self.text:
+            return self.edit_text(self.text, reply_markup, client)
+        return await self.edit_caption(self.caption, reply_markup, client)
+
     async def delete(
             self,
             client=None
