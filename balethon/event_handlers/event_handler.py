@@ -14,7 +14,7 @@ class EventHandler:
         if not isinstance(condition, Condition) and condition is not None:
             condition = Condition.create(condition)
         self.condition = condition
-        self.is_method = False
+        self.self = None
 
     def to_string(self, keyword="if", tabs=0):
         result = []
@@ -30,9 +30,9 @@ class EventHandler:
         if client is not None:
             kwargs["client"] = client
         client = kwargs["client"]
-        if self.is_method:
+        if self.self is not None:
             args = list(args)
-            args.insert(0, client)
+            args.insert(0, self.self)
         if event is not None:
             kwargs["event"] = event
         args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)

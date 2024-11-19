@@ -1,4 +1,5 @@
 from .chain import Chain
 from .dispatcher import Dispatcher
-from .print_chain import print_chain
-from .log_chain import log_chain
+from .printing_chain import PrintingChain
+from .logging_chain import LoggingChain
+from .monitoring_chain import MonitoringChain

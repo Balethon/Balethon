@@ -25,7 +25,7 @@ class Chain:
         for attribute_name in dir(self):
             attribute = getattr(self, attribute_name)
             if isinstance(attribute, EventHandler):
-                attribute.is_method = True
+                attribute.self = self
                 self.add_event_handler(attribute)
 
     def to_string(self, keyword="if", tabs=0):

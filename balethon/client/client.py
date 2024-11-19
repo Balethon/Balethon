@@ -1,5 +1,5 @@
 from json import dumps
-from asyncio import get_event_loop, CancelledError, sleep
+from asyncio import get_event_loop, sleep
 from inspect import iscoroutine, iscoroutinefunction
 from io import BufferedReader
 
@@ -15,7 +15,7 @@ from .payments import Payments
 from .stickers import Stickers
 from ..errors import TooManyRequestsError
 from ..network import Connection
-from ..dispatcher import Dispatcher, Chain, print_chain, log_chain
+from ..dispatcher import Dispatcher, Chain, PrintingChain, LoggingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 
@@ -33,7 +33,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             base_url: str = None,
             short_url: str = None
     ):
-        super().__init__("default", None, print_chain, log_chain)
+        super().__init__("default", None, PrintingChain(), LoggingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
         self.connection = Connection(token, time_out, proxies, base_url, short_url)
         self.sleep_threshold = sleep_threshold
