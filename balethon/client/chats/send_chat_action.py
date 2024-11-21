@@ -11,7 +11,7 @@ class SendChatAction:
             action: str = "typing"
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        chat_id = str(chat_id)
+        chat_id = str(chat_id)  # The sendChatAction method only works with a string chat_id
         data = locals()
         del data["self"]
         return await self.execute("post", "sendChatAction", **data)

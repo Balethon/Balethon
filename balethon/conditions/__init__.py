@@ -36,3 +36,4 @@ from .equals import Equals as equals
 from .successful_payment import successful_payment
 from .content import content
 from .media_group import media_group
+from .sticker import sticker
