@@ -16,7 +16,7 @@ class Video(Object):
             width: int = None,
             height: int = None,
             duration: int = None,
-            thumb: List["objects.Photo"] = None,
+            thumb: "objects.Photo" = None,
             mime_type: str = None,
             size: int = None,
             **kwargs
