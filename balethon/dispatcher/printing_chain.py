@@ -5,8 +5,8 @@ from .chain import Chain
 
 class PrintingChain(Chain):
 
-    def __init__(self, name=None, condition=None):
-        super().__init__(name or __name__, condition)
+    def __init__(self, name="printing", condition=None):
+        super().__init__(name, condition)
 
     @Chain.error_handler()
     def print_error(self, error):

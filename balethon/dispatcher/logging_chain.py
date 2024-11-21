@@ -5,8 +5,8 @@ from .chain import Chain
 
 class LoggingChain(Chain):
 
-    def __init__(self, name=None, condition=None, logger=None):
-        super().__init__(name or __name__, condition)
+    def __init__(self, name="logging", condition=None, logger=None):
+        super().__init__(name, condition)
         self.log = logger or getLogger(self.name)
 
     @Chain.error_handler()

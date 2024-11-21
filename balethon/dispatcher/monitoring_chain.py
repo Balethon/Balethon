@@ -5,8 +5,8 @@ from .chain import Chain
 
 class MonitoringChain(Chain):
 
-    def __init__(self, name=None, condition=None, stream=None):
-        super().__init__(name or __name__, condition)
+    def __init__(self, name="monitoring", condition=None, stream=None):
+        super().__init__(name, condition)
         self.stream = stream or stdout
 
     @Chain.message_handler()
