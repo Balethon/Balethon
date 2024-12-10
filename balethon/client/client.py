@@ -29,13 +29,13 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             sync_workers: int = None,
             time_out: int = None,
             sleep_threshold: int = 60,
-            proxies=None,
+            proxy=None,
             base_url: str = None,
             short_url: str = None
     ):
         super().__init__("default", None, PrintingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
-        self.connection = Connection(token, time_out, proxies, base_url, short_url)
+        self.connection = Connection(token, time_out, proxy, base_url, short_url)
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
