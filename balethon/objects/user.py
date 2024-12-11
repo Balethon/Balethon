@@ -1,3 +1,5 @@
+from typing import Union
+
 from . import Object
 from ..states import StateMachine
 
@@ -41,3 +43,6 @@ class User(Object):
 
     def del_state(self):
         del StateMachine.global_state_machine[self.id]
+
+    async def invite(self, chat_id: Union[int, str]):
+        return await self.client.invite_user(chat_id, self.id)

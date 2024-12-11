@@ -1,3 +1,5 @@
+from typing import Union, BinaryIO
+
 from . import Object
 from balethon import objects
 
@@ -49,7 +51,7 @@ class Chat(Object):
             return self.title
         return ""
 
-    async def ban_member(self, user_id):
+    async def ban_member(self, user_id: Union[int, str]):
         return await self.client.ban_chat_member(self.id, user_id)
 
     async def delete_photo(self):
@@ -61,38 +63,35 @@ class Chat(Object):
     async def get_administrators(self):
         return await self.client.get_chat_administrators(self.id)
 
-    async def get_member(self, user_id):
+    async def get_member(self, user_id: Union[int, str]):
         return await self.client.get_chat_member(self.id, user_id)
 
     async def get_members_count(self):
         return await self.client.get_chat_members_count(self.id)
 
-    async def invite_user(self, user_id):
-        return await self.client.invite_user(self.id, user_id)
-
     async def leave(self):
         return await self.client.leave_chat(self.id)
 
-    async def pin_message(self, message_id):
+    async def pin_message(self, message_id: int):
         return await self.client.pin_chat_message(self.id, message_id)
 
-    async def promote_member(self, user_id, *args, **kwargs):
+    async def promote_member(self, user_id: Union[int, str], *args, **kwargs):
         return await self.client.promote_chat_member(self.id, user_id, *args, **kwargs)
 
-    async def send_action(self, action="typing"):
+    async def send_action(self, action: str = "typing"):
         return await self.client.send_chat_action(self.id, action)
 
-    async def set_description(self, description):
+    async def set_description(self, description: str):
         return await self.client.set_chat_description(self.id, description)
 
-    async def set_photo(self, photo):
+    async def set_photo(self, photo: Union[str, bytes, BinaryIO, objects.InputMedia]):
         return await self.client.set_chat_photo(self.id, photo)
 
-    async def set_title(self, title):
+    async def set_title(self, title: str):
         return await self.client.set_chat_title(self.id, title)
 
-    async def unban_member(self, user_id, only_if_banned=True):
+    async def unban_member(self, user_id: Union[int, str], only_if_banned: bool = True):
         return await self.client.unban_chat_member(self.id, user_id, only_if_banned)
 
-    async def unpin_message(self, message_id=None):
+    async def unpin_message(self, message_id: int = None):
         return await self.client.unpin_chat_message(self.id, message_id)
