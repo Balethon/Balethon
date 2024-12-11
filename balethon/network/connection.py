@@ -3,6 +3,7 @@ from re import search
 from logging import getLogger
 
 from httpx import AsyncClient
+from httpx._types import ProxyTypes
 
 from ..errors import RPCError
 
@@ -14,14 +15,21 @@ class Connection:
     BASE_URL = "https://tapi.bale.ai"
     SHORT_URL = "https://ble.ir"
 
-    def __init__(self, token: str, time_out: int = None, proxy=None, base_url: str = None, short_url: str = None):
-        self.token: str = token
-        self.client: AsyncClient = None
-        self.is_started: bool = False
-        self.time_out: int = time_out or self.TIMEOUT
+    def __init__(
+            self,
+            token: str,
+            time_out: int = None,
+            proxy: ProxyTypes = None,
+            base_url: str = None,
+            short_url: str = None
+    ):
+        self.token = token
+        self.client = None
+        self.is_started = False
+        self.time_out = time_out or self.TIMEOUT
         self.proxy = proxy
-        self.base_url: str = base_url or self.BASE_URL
-        self.short_url: str = short_url or self.SHORT_URL
+        self.base_url = base_url or self.BASE_URL
+        self.short_url = short_url or self.SHORT_URL
 
     async def start(self):
         if self.is_started:
