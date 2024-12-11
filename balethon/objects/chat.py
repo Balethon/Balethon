@@ -84,7 +84,7 @@ class Chat(Object):
     async def set_description(self, description: str):
         return await self.client.set_chat_description(self.id, description)
 
-    async def set_photo(self, photo: Union[str, bytes, BinaryIO, objects.InputMedia]):
+    async def set_photo(self, photo: Union[str, bytes, BinaryIO, "objects.InputMedia"]):
         return await self.client.set_chat_photo(self.id, photo)
 
     async def set_title(self, title: str):
