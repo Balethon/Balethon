@@ -240,7 +240,10 @@ class Message(Object):
         elif self.photo:
             return await self.client.send_photo(
                 chat_id,
-                self.photo[0].id
+                self.photo[0].id,
+                self.caption,
+                reply_markup,
+                reply_to_message_id
             )
         elif self.audio:
             return await self.client.send_audio(
