@@ -7,6 +7,4 @@ class DeleteStickerFromSet:
             self: "balethon.Client",
             sticker: str
     ) -> bool:
-        data = locals()
-        del data["self"]
-        return await self.execute("get", "deleteStickerToSet", **data)
+        return await self.auto_execute("get", "deleteStickerToSet", locals())

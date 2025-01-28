@@ -13,6 +13,4 @@ class UnbanChatMember:
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
         user_id = await self.resolve_peer_id(user_id)
-        data = locals()
-        del data["self"]
-        return await self.execute("post", "unbanChatMember", **data)
+        return await self.auto_execute("post", "unbanChatMember", locals())

@@ -1,7 +1,7 @@
 from typing import Union, List
 
 import balethon
-from ...objects import Message, LabeledPrice
+from ...objects import Object, Message, LabeledPrice
 from balethon import objects
 
 
@@ -34,8 +34,7 @@ class SendInvoice:
         for i, price in enumerate(prices):
             if isinstance(price, LabeledPrice):
                 prices[i] = price.unwrap()
-        del data["self"]
-        result = await self.execute("post", "sendInvoice", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        for key, value in data.copy().items():
+            if isinstance(value, Object):
+                data[key] = value.unwrap()
+        return await self.auto_execute("post", "sendInvoice", data)

@@ -14,9 +14,4 @@ class ForwardMessage:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         from_chat_id = await self.resolve_peer_id(from_chat_id)
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "forwardMessage", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "forwardMessage", locals())

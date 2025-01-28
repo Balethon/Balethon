@@ -15,7 +15,4 @@ class UploadStickerFile:
         if not isinstance(sticker, InputMedia):
             sticker = InputMedia(media=sticker)
         sticker = sticker.media
-        data = locals()
-        del data["self"]
-        result = await self.execute("get", "uploadStickerFile", **data)
-        return result
+        return await self.auto_execute("get", "uploadStickerFile", locals())

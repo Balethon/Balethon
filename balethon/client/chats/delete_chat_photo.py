@@ -10,6 +10,4 @@ class DeleteChatPhoto:
             chat_id: Union[int, str]
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        del data["self"]
-        return await self.execute("post", "deleteChatPhoto", **data)
+        return await self.auto_execute("post", "deleteChatPhoto", locals())

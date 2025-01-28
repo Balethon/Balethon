@@ -11,6 +11,4 @@ class UnpinChatMessage:
             message_id: int = None
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        del data["self"]
-        return await self.execute("post", "unpinChatMessage", **data)
+        return await self.auto_execute("post", "unpinChatMessage", locals())

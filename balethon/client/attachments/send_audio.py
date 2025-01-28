@@ -19,9 +19,4 @@ class SendAudio:
         if not isinstance(audio, InputMedia):
             audio = InputMedia(media=audio)
         audio = audio.media
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "sendAudio", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "sendAudio", locals())

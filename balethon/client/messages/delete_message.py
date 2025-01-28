@@ -11,6 +11,4 @@ class DeleteMessage:
             message_id: int
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        del data["self"]
-        return await self.execute("get", "deleteMessage", **data)
+        return await self.auto_execute("get", "deleteMessage", locals())

@@ -14,9 +14,4 @@ class SendLocation:
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "sendLocation", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "sendLocation", locals())

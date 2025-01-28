@@ -16,11 +16,7 @@ class SendMessage:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
-        del data["self"]
         for key, value in data.copy().items():
             if isinstance(value, Object):
                 data[key] = value.unwrap()
-        result = await self.execute("post", "sendMessage", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "sendMessage", data)

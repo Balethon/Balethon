@@ -11,8 +11,6 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
-        data = locals()
-        del data["self"]
         if isinstance(chat_id, str) and not chat_id.isnumeric():
             result = {}
             if chat_id.startswith("@"):
@@ -42,8 +40,8 @@ class GetChat:
                 result["title"] = info["group"]["title"]
                 result["description"] = info["group"]["description"]
             result["id"] = info["peer"]["id"]
+            result = Chat.wrap(result)
+            result.bind(self)
+            return result
         else:
-            result = await self.execute("get", "getChat", **data)
-        result = Chat.wrap(result)
-        result.bind(self)
-        return result
+            return await self.auto_execute("get", "getChat", locals())

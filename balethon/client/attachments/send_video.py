@@ -20,9 +20,4 @@ class SendVideo:
         if not isinstance(video, InputMedia):
             video = InputMedia(media=video)
         video = video.media
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "sendVideo", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "sendVideo", locals())

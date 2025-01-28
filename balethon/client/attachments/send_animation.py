@@ -20,14 +20,9 @@ class SendAnimation:
         if not isinstance(animation, InputMedia):
             animation = InputMedia(media=animation)
         animation = animation.media
-        data = locals()
-        del data["self"]
-        result = await self.execute(
+        return await self.auto_execute(
             "post",
             "sendAnimation",
+            locals(),
             json=False,  # The sendAnimation method only works with multipart/form-data
-            **data
         )
-        result = Message.wrap(result)
-        result.bind(self)
-        return result

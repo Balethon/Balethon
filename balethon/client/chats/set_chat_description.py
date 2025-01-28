@@ -11,6 +11,4 @@ class SetChatDescription:
             description: str
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        del data["self"]
-        return await self.execute("post", "setChatDescription", **data)
+        return await self.auto_execute("post", "setChatDescription", locals())

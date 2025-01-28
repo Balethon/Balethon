@@ -13,9 +13,4 @@ class GetChatMember:
     ) -> ChatMember:
         chat_id = await self.resolve_peer_id(chat_id)
         user_id = await self.resolve_peer_id(user_id)
-        data = locals()
-        del data["self"]
-        result = await self.execute("get", "getChatMember", **data)
-        result = ChatMember.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("get", "getChatMember", locals())

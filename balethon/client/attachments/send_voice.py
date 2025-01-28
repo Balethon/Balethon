@@ -18,9 +18,4 @@ class SendVoice:
         if not isinstance(voice, InputMedia):
             voice = InputMedia(media=voice)
         voice = voice.media
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "sendVoice", **data)
-        result = Message.wrap(result)
-        result.bind(self)
-        return result
+        return await self.auto_execute("post", "sendVoice", locals())

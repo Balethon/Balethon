@@ -15,6 +15,4 @@ class SetChatPhoto:
         if not isinstance(photo, InputMedia):
             photo = InputMedia(media=photo)
         photo = photo.media
-        data = locals()
-        del data["self"]
-        return await self.execute("post", "setChatPhoto", **data)
+        return await self.auto_execute("post", "setChatPhoto", locals())
