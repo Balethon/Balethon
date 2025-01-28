@@ -1,7 +1,8 @@
 from json import dumps
 from asyncio import get_event_loop, sleep
-from inspect import iscoroutine, iscoroutinefunction
+from inspect import iscoroutine, iscoroutinefunction, stack
 from io import BufferedReader
+from typing import get_type_hints
 
 from httpx import ConnectError
 
@@ -103,6 +104,18 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     await sleep(error.seconds)
                 else:
                     raise error
+
+    async def auto_execute(self, method: str, service: str, json: bool = None, data: dict = None):
+        bound_method_name = stack()[1].function
+        bound_method = getattr(self, bound_method_name)
+        type_hints = get_type_hints(bound_method)
+        del data["self"]
+        del type_hints["self"]
+        return_type_hint = type_hints.pop("return")
+        result = await self.execute(method, service, json, **data)
+        result = return_type_hint.wrap(result)
+        result.bind(self)
+        return result
 
     async def initialize(self):
         await self.dispatcher.start()
