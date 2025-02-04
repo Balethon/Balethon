@@ -1,8 +1,7 @@
 from .condition import create
+from ..objects import Message
 
 
-@create
+@create(can_process=Message)
 def media_group(event) -> bool:
-    from ..objects import Message
-    if isinstance(event, Message):
-        return bool(event.media_group_id)
+    return bool(event.media_group_id)

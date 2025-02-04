@@ -1,12 +1,13 @@
 from typing import Union
 
 from .condition import Condition
+from ..objects import Message, CallbackQuery
 from ..errors import RPCError, ForbiddenError
 
 
 class IsJoined(Condition):
     def __init__(self, *chat_ids: Union[int, str]):
-        super().__init__(chat_ids)
+        super().__init__(can_process=(Message, CallbackQuery))
         self.chat_ids = chat_ids
 
     async def __call__(self, client, event) -> bool:

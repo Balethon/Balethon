@@ -1,8 +1,7 @@
 from .condition import create
+from ..objects import Message
 
 
-@create
+@create(can_process=Message)
 def media(event) -> bool:
-    from ..objects import Message
-    if isinstance(event, Message):
-        return bool(event.animation or event.audio or event.document or event.photo or event.video or event.voice)
+    return bool(event.animation or event.audio or event.document or event.photo or event.video or event.voice)

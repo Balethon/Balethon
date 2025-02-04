@@ -1,8 +1,7 @@
 from .condition import create
+from ..objects import Message
 
 
-@create
+@create(can_process=Message)
 def caption(event) -> bool:
-    from ..objects import Message
-    if isinstance(event, Message):
-        return bool(event.caption)
+    return bool(event.caption)

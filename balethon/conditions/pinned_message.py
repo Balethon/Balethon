@@ -1,8 +1,7 @@
 from .condition import create
+from ..objects import Message
 
 
-@create
+@create(can_process=Message)
 def pinned_message(event) -> bool:
-    from ..objects import Message
-    if isinstance(event, Message):
-        return bool(event.pinned_message)
+    return bool(event.pinned_message)

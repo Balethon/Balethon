@@ -1,7 +1,7 @@
 from inspect import getfullargspec, getdoc, signature
 
 from .message_handler import MessageHandler
-from ..conditions import text, command
+from ..conditions import command
 from ..objects import Message
 
 
@@ -60,9 +60,9 @@ class CommandHandler(MessageHandler):
         self.help = self.get_help(callback)
         command_condition = command(name, min_arguments, max_arguments)
         if condition is None:
-            condition = text & command_condition
+            condition = command_condition
         else:
-            condition = text & command_condition & condition
+            condition = command_condition & condition
         super().__init__(callback, condition)
 
     def __call__(self, *args, client=None, event=None, **kwargs):

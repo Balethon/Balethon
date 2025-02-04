@@ -4,10 +4,13 @@ from ..smart_call import remove_unwanted_keyword_parameters
 
 
 class Condition:
-    def __init__(self, function=None):
+    def __init__(self, function=None, can_process=None):
         self.function = function
+        self.can_process = can_process
 
     async def __call__(self, client, event) -> bool:
+        if self.can_process is not None and not isinstance(event, self.can_process):
+            return False
         kwargs = dict(condition=self, client=client, event=event)
         kwargs = remove_unwanted_keyword_parameters(self.function, **kwargs)
         if iscoroutinefunction(self.function):
@@ -71,6 +74,9 @@ class NotCondition(Condition):
         return f"Not({self.condition})"
 
 
-def create(function):
-    CustomCondition = type(function.__name__ or "CustomCondition", (Condition,), {})
-    return CustomCondition(function)
+def create(name: str = None, can_process=None):
+    def decorator(function):
+        CustomCondition = type(name or function.__name__ or "CustomCondition", (Condition,), {})
+        return CustomCondition(function, can_process)
+
+    return decorator

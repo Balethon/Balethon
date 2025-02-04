@@ -1,8 +1,7 @@
 from .condition import create
+from ..objects import Message
 
 
-@create
+@create(can_process=Message)
 def channel_chat_created(event) -> bool:
-    from ..objects import Message
-    if isinstance(event, Message):
-        return bool(event.channel_chat_created)
+    return bool(event.channel_chat_created)

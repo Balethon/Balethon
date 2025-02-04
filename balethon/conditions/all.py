@@ -1,6 +1,6 @@
 from .condition import create
 
 
-@create
+@create()
 def all() -> bool:
     return True

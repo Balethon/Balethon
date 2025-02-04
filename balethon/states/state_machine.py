@@ -2,7 +2,6 @@ from sqlite3 import connect
 from typing import Union
 
 from .state import State
-from ..conditions import at_state
 
 
 class StateMachine:
@@ -66,6 +65,7 @@ class StateMachine:
         self.delete_user_state(user_id)
 
     def at(self, state: Union[State, str]):
+        from ..conditions import at_state
         return at_state(state, self)
 
     def change_database(self, database: str = ":memory:"):

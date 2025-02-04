@@ -1,15 +1,14 @@
 from .condition import Condition
+from ..objects import Message, CallbackQuery
 
 
 class Chat(Condition):
     def __init__(self, *chats):
-        super().__init__()
+        super().__init__(can_process=(Message, CallbackQuery))
         self.chats = set(chats)
 
     async def __call__(self, client, event) -> bool:
-        from ..objects import Message, CallbackQuery
         if isinstance(event, Message):
-            event = event.chat.id
+            return event.chat.id in self.chats
         elif isinstance(event, CallbackQuery):
-            event = event.message.chat.id
-        return event in self.chats
+            return event.message.chat.id in self.chats

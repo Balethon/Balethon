@@ -1,17 +1,15 @@
 from .condition import Condition
+from ..objects import Message
 
 
 class Command(Condition):
     def __init__(self, name, min_arguments=None, max_arguments=None):
-        super().__init__()
+        super().__init__(can_process=Message)
         self.name = name
         self.min_arguments = min_arguments
         self.max_arguments = max_arguments
 
     async def __call__(self, client, event) -> bool:
-        from ..objects import Message
-        if not isinstance(event, Message):
-            return False
         if not event.text:
             return False
         name, *arguments = event.text.split()

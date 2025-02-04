@@ -1,11 +1,10 @@
 from .condition import create
+from ..objects import Message, CallbackQuery
 
 
-@create
+@create(can_process=(Message, CallbackQuery))
 def private(event) -> bool:
-    from ..objects import Message, CallbackQuery
     if isinstance(event, Message):
-        event = event.chat.type
+        return event.chat.type == "private"
     elif isinstance(event, CallbackQuery):
-        event = event.message.chat.type
-    return event == "private"
+        return event.message.chat.type == "private"
