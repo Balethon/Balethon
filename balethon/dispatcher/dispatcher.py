@@ -45,7 +45,7 @@ class Dispatcher:
 
     async def stop(self):
         if not self.is_started:
-            raise ConnectionError("Dispatcher is already stopped")
+            raise RuntimeError("Dispatcher is already stopped")
         self.is_started = False
         for _ in self.async_workers:
             self.events_queue.put_nowait(None)
