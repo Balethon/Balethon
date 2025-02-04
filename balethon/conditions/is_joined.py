@@ -5,7 +5,6 @@ from ..errors import RPCError, ForbiddenError
 
 
 class IsJoined(Condition):
-
     def __init__(self, *chat_ids: Union[int, str]):
         super().__init__(chat_ids)
         self.chat_ids = chat_ids

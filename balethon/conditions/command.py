@@ -2,7 +2,6 @@ from .condition import Condition
 
 
 class Command(Condition):
-
     def __init__(self, name, min_arguments=None, max_arguments=None):
         super().__init__()
         self.name = name

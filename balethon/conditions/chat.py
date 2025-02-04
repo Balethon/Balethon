@@ -2,7 +2,6 @@ from .condition import Condition
 
 
 class Chat(Condition):
-
     def __init__(self, *chats):
         super().__init__()
         self.chats = set(chats)

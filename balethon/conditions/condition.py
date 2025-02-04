@@ -4,11 +4,6 @@ from ..smart_call import remove_unwanted_keyword_parameters
 
 
 class Condition:
-
-    @classmethod
-    def create(cls, function):
-        return type(function.__name__ or "CustomCondition", (cls,), {})(function)
-
     def __init__(self, function=None):
         self.function = function
 
@@ -33,7 +28,6 @@ class Condition:
 
 
 class AllCondition(Condition):
-
     def __init__(self, *conditions):
         super().__init__()
         self.conditions = conditions
@@ -50,7 +44,6 @@ class AllCondition(Condition):
 
 
 class AnyCondition(Condition):
-
     def __init__(self, *conditions):
         super().__init__()
         self.conditions = conditions
@@ -67,7 +60,6 @@ class AnyCondition(Condition):
 
 
 class NotCondition(Condition):
-
     def __init__(self, condition):
         super().__init__()
         self.condition = condition
@@ -77,3 +69,8 @@ class NotCondition(Condition):
 
     def __repr__(self):
         return f"Not({self.condition})"
+
+
+def create(function):
+    CustomCondition = type(function.__name__ or "CustomCondition", (Condition,), {})
+    return CustomCondition(function)

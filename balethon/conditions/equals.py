@@ -2,7 +2,6 @@ from .condition import Condition
 
 
 class Equals(Condition):
-
     def __init__(self, *values):
         super().__init__()
         self.values = values

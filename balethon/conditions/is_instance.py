@@ -2,7 +2,6 @@ from .condition import Condition
 
 
 class IsInstance(Condition):
-
     def __init__(self, classes):
         super().__init__()
         self.classes = classes

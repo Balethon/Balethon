@@ -1,7 +1,7 @@
-from .condition import Condition
+from .condition import create
 
 
-@Condition.create
+@create
 def voice(event) -> bool:
     from ..objects import Message
     if isinstance(event, Message):

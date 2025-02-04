@@ -2,7 +2,6 @@ from .condition import Condition
 
 
 class Author(Condition):
-
     def __init__(self, *authors):
         super().__init__()
         self.authors = set(authors)

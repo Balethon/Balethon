@@ -3,7 +3,6 @@ from ..objects import Object
 
 
 class AtState(Condition):
-
     def __init__(self, state, state_machine=None):
         super().__init__()
         self.state = state

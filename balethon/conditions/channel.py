@@ -1,7 +1,7 @@
-from .condition import Condition
+from .condition import create
 
 
-@Condition.create
+@create
 def channel(event) -> bool:
     from ..objects import Message, CallbackQuery
     if isinstance(event, Message):

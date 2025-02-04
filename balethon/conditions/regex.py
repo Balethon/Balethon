@@ -4,7 +4,6 @@ from .condition import Condition
 
 
 class Regex(Condition):
-
     def __init__(self, pattern, flags=0):
         super().__init__()
         self.pattern = compile(pattern, flags)
