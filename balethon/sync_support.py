@@ -4,7 +4,6 @@ from inspect import iscoroutinefunction
 from threading import current_thread, main_thread
 from typing import Callable
 
-from .client import Client
 from balethon import objects
 
 
@@ -44,10 +43,10 @@ def add_sync_support_to_object(obj):
         dual_purpose_method = add_sync_support_to_function(attribute)
         setattr(obj, name, dual_purpose_method)
 
+    return obj
+
 
 def add_sync_support():
-    add_sync_support_to_object(Client)
-
     for name in dir(objects):
         obj = getattr(objects, name)
 
