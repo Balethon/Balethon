@@ -103,26 +103,38 @@ class Message(Object):
             duration: int = None,
             width: int = None,
             height: int = None,
-            caption: str = None
+            caption: str = None,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_animation(self.chat.id, animation, duration, width, height, caption, self.id)
+        return await self.client.send_animation(
+            self.chat.id,
+            animation,
+            duration,
+            width,
+            height,
+            caption,
+            reply_markup,
+            self.id
+        )
 
     async def reply_audio(
             self,
             audio: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
             duration: int = None,
-            title: str = None
+            title: str = None,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_audio(self.chat.id, audio, caption, duration, title, self.id)
+        return await self.client.send_audio(self.chat.id, audio, caption, duration, title, reply_markup, self.id)
 
     async def reply_contact(
             self,
             phone_number: str,
             first_name: str,
-            last_name: str = None
+            last_name: str = None,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_contact(self.chat.id, phone_number, first_name, last_name, self.id)
+        return await self.client.send_contact(self.chat.id, phone_number, first_name, last_name, reply_markup, self.id)
 
     async def reply_document(
             self,
@@ -135,9 +147,10 @@ class Message(Object):
     async def reply_location(
             self,
             latitude: int,
-            longitude: int
+            longitude: int,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_location(self.chat.id, longitude, latitude, self.id)
+        return await self.client.send_location(self.chat.id, longitude, latitude, reply_markup, self.id)
 
     async def reply_media_group(
             self,
@@ -166,17 +179,19 @@ class Message(Object):
             duration: int = None,
             width: int = None,
             height: int = None,
-            caption: str = None
+            caption: str = None,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_video(self.chat.id, video, duration, width, height, caption)
+        return await self.client.send_video(self.chat.id, video, duration, width, height, caption, reply_markup)
 
     async def reply_voice(
             self,
             voice: Union[str, bytes, BinaryIO, "objects.InputMedia"],
             caption: str = None,
-            duration: int = None
+            duration: int = None,
+            reply_markup: "objects.ReplyMarkup" = None
     ):
-        return await self.client.send_voice(self.chat.id, voice, caption, duration, self.id)
+        return await self.client.send_voice(self.chat.id, voice, caption, duration, reply_markup, self.id)
 
     async def reply(
             self,

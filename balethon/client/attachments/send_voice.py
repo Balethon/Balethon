@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia, Message
+from ...objects import InputMedia, Message, ReplyMarkup
 
 
 class SendVoice:
@@ -12,6 +12,7 @@ class SendVoice:
             voice: Union[str, bytes, BinaryIO, InputMedia],
             caption: str = None,
             duration: int = None,
+            reply_markup: ReplyMarkup = None,
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
