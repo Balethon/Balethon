@@ -24,8 +24,9 @@ class User(Object):
         self.language_code: str = language_code
         self.is_bot: bool = is_bot
 
-    def __str__(self):
-        return f"[{self.full_name}](https://web.bale.ai/chat?uid={self.id})"
+    def mention(self, text=None):
+        text = text or self.full_name
+        return f"[{text}](https://web.bale.ai/chat?uid={self.id})"
 
     @property
     def full_name(self):
