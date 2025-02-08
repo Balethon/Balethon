@@ -26,3 +26,7 @@ class InputMedia(Object):
     @property
     def is_json_serializable(self):
         return isinstance(self.media, str)
+
+
+def resolve_media(media: Union[str, bytes, BinaryIO]):
+    return InputMedia(media=media).media
