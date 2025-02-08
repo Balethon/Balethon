@@ -20,8 +20,10 @@ from ..network import Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
+from ..sync_support import add_sync_support_to_object
 
 
+@add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers):
 
     def __init__(
