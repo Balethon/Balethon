@@ -1,6 +1,7 @@
 from typing import Union, List
 
 from . import ReplyMarkup, ReplyKeyboardButton
+from .list import List as BalethonList
 from balethon import objects
 
 
@@ -19,7 +20,7 @@ class ReplyKeyboard(ReplyMarkup):
             **kwargs
     ):
         super().__init__(**kwargs)
-        self.keyboard: List[List["objects.ReplyKeyboardButton"]] = []
+        self.keyboard: List[List["objects.ReplyKeyboardButton"]] = BalethonList()
         for row in rows:
             self.add_row(*row)
         self.resize: bool = resize
@@ -38,10 +39,10 @@ class ReplyKeyboard(ReplyMarkup):
 
     def add_row(self, *row: Union["objects.ReplyKeyboardButton", str], row_index: int = -1):
         if row_index == -1:
-            self.keyboard.append([])
+            self.keyboard.append(BalethonList())
         elif row_index < 0:
-            self.keyboard.insert(row_index + 1, [])
+            self.keyboard.insert(row_index + 1, BalethonList())
         else:
-            self.keyboard.insert(row_index, [])
+            self.keyboard.insert(row_index, BalethonList())
         for button in row:
             self.add_button(button, row_index)

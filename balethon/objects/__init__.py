@@ -1,4 +1,4 @@
-from .object import Object, unwrap
+from .object import Object, wrap, unwrap
 from .user import User
 from .date import Date
 from .chat import Chat
@@ -39,3 +39,4 @@ from .animation import Animation
 from .webhook_info import WebhookInfo
 from .chat_photo import ChatPhoto
 from .invite_link import InviteLink
+from .list import List

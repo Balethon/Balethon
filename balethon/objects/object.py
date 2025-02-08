@@ -12,23 +12,6 @@ class Object:
     def expected_types(cls):
         return get_type_hints(cls.__init__)
 
-    @staticmethod
-    def wrap_list(expected_type, lst):
-        lst = copy(lst)
-        for i, element in enumerate(lst):
-            if element is None:
-                continue
-            if isinstance(expected_type, (type(List), type(List[str]))) and isinstance(get_origin(expected_type), list):
-                if isinstance(element, list):
-                    lst[i] = Object.wrap_list(get_args(expected_type)[0], element)
-                continue
-            if not issubclass(expected_type, Object):
-                continue
-            if isinstance(element, expected_type):
-                continue
-            lst[i] = expected_type.wrap(element)
-        return lst
-
     @classmethod
     def validate_types(cls, raw_object):
         expected_types = cls.expected_types()
@@ -42,7 +25,7 @@ class Object:
                 expected_type = get_args(expected_type)[0]
             if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
                 if isinstance(value, list):
-                    raw_object[key] = cls.wrap_list(get_args(expected_type)[0], value)
+                    raw_object[key] = wrap(expected_type, value)
                 continue
             if not issubclass(expected_type, Object):
                 continue
@@ -79,22 +62,12 @@ class Object:
         for key, value in kwargs.items():
             self[key] = value
 
-    @staticmethod
-    def unwrap_list(lst):
-        lst = copy(lst)
-        for i, element in enumerate(lst):
-            if isinstance(element, list):
-                lst[i] = Object.unwrap_list(element)
-            elif isinstance(element, Object):
-                lst[i] = element.unwrap()
-        return lst
-
     def unwrap(self):
         result = copy(self)
         del result.client
         for key, value in result.__dict__.copy().items():
             if isinstance(value, list):
-                result[key] = self.unwrap_list(value)
+                result[key] = unwrap(value)
             if isinstance(value, Object):
                 result[key] = value.unwrap()
             if value is None:
@@ -115,7 +88,7 @@ class Object:
             if value is None:
                 continue
             attributes[key] = value
-        attributes = [f"{key}={repr(value)}" for key, value in attributes.items()]
+        attributes = [f"{key}={repr(value)}," for key, value in attributes.items()]
         attributes = "\n".join(attributes)
         if attributes:
             attributes = "\n".join(" "*4 + line for line in attributes.splitlines())
@@ -123,14 +96,40 @@ class Object:
         return f"{type(self).__name__}({attributes})"
 
 
-def unwrap(obj):
-    if isinstance(obj, list):
-        obj = copy(obj)
-        for i, element in enumerate(obj):
-            obj[i] = unwrap(element)
-        return obj
+def wrap(expected_type, raw_object):
+    if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
+        if isinstance(raw_object, list):
+            expected_type = get_args(expected_type)[0]
+            raw_object = copy(raw_object)
+            for i, element in enumerate(raw_object):
+                if element is None:
+                    continue
+                if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
+                    if isinstance(element, list):
+                        raw_object[i] = wrap(expected_type, element)
+                    continue
+                if not issubclass(expected_type, Object):
+                    continue
+                if isinstance(element, expected_type):
+                    continue
+                raw_object[i] = expected_type.wrap(element)
+            from .list import List as BalethonList
+            return BalethonList(raw_object)
 
-    if isinstance(obj, Object):
-        return obj.unwrap()
+    if isinstance(expected_type, Object):
+        return expected_type.wrap(raw_object)
 
-    return obj
+    return raw_object
+
+
+def unwrap(wrapped_object):
+    if isinstance(wrapped_object, list):
+        wrapped_object = copy(wrapped_object)
+        for i, element in enumerate(wrapped_object):
+            wrapped_object[i] = unwrap(element)
+        return list(wrapped_object)
+
+    if isinstance(wrapped_object, Object):
+        return wrapped_object.unwrap()
+
+    return wrapped_object
