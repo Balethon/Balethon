@@ -14,7 +14,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
-from ..objects import Object
+from ..objects import Object, unwrap
 from ..errors import TooManyRequestsError
 from ..network import Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
@@ -96,6 +96,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     del data[key]
                 elif isinstance(value, dict):
                     data[key] = dumps(value)
+        for key, value in data.items():
+            data[key] = unwrap(value)
         while True:
             try:
                 if json:

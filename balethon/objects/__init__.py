@@ -1,4 +1,4 @@
-from .object import Object
+from .object import Object, unwrap
 from .user import User
 from .date import Date
 from .chat import Chat

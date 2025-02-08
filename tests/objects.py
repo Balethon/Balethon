@@ -1,32 +1,13 @@
-from balethon.conditions import private, text
-from balethon.dispatcher import Chain
-from balethon.event_handlers import MessageHandler
+from balethon.objects import User, unwrap
 
-chain = Chain(__name__, private & text)
-@chain.on_message(~private & text)
-def kos():
-    pass
-@chain.on_initialize()
-def mos():
-    pass
-@chain.on_callback_query(private)
-def chos():
-    pass
-
-
-chain2 = Chain("2", text)
-@chain2.on_command()
-def ok():
-    pass
-
-chain.add(chain2)
-chain.include(chain2)
 
 def main():
-    # eh = MessageHandler(lambda kos: kos)
-    # print(eh)
+    user = User(id=1234, username="@username", first_name="first_name", last_name="last_name")
+    print(user)
 
-    print(chain)
+    print(unwrap(user))
+
+    print(unwrap([user, [user, user]]))
 
 
 if __name__ == "__main__":

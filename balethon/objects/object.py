@@ -121,3 +121,16 @@ class Object:
             attributes = "\n".join(" "*4 + line for line in attributes.splitlines())
             attributes = f"\n{attributes}\n"
         return f"{type(self).__name__}({attributes})"
+
+
+def unwrap(obj):
+    if isinstance(obj, list):
+        obj = copy(obj)
+        for i, element in enumerate(obj):
+            obj[i] = unwrap(element)
+        return obj
+
+    if isinstance(obj, Object):
+        return obj.unwrap()
+
+    return obj
