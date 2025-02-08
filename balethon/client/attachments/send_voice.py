@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia, Message, ReplyMarkup
+from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
 
 
 class SendVoice:
@@ -16,7 +16,5 @@ class SendVoice:
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        if not isinstance(voice, InputMedia):
-            voice = InputMedia(media=voice)
-        voice = voice.media
+        voice = resolve_media(voice)
         return await self.auto_execute("post", "sendVoice", locals())

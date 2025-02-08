@@ -28,5 +28,8 @@ class InputMedia(Object):
         return isinstance(self.media, str)
 
 
-def resolve_media(media: Union[str, bytes, BinaryIO]):
+def resolve_media(media):
+    if isinstance(media, InputMedia):
+        return media
+
     return InputMedia(media=media).media

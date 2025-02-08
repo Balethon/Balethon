@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia
+from ...objects import InputMedia, resolve_media
 
 
 class SetChatPhoto:
@@ -12,7 +12,5 @@ class SetChatPhoto:
             photo: Union[str, bytes, BinaryIO, InputMedia]
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        if not isinstance(photo, InputMedia):
-            photo = InputMedia(media=photo)
-        photo = photo.media
+        photo = resolve_media(photo)
         return await self.auto_execute("post", "setChatPhoto", locals())

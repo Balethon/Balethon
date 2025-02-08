@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia, Message, ReplyMarkup
+from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
 
 
 class SendAnimation:
@@ -18,9 +18,7 @@ class SendAnimation:
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        if not isinstance(animation, InputMedia):
-            animation = InputMedia(media=animation)
-        animation = animation.media
+        animation = resolve_media(animation)
         return await self.auto_execute(
             "post",
             "sendAnimation",

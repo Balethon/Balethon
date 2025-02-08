@@ -1,7 +1,7 @@
 from typing import Union, List
 
 import balethon
-from ...objects import Object, Message, LabeledPrice
+from ...objects import Message, LabeledPrice
 from balethon import objects
 
 
@@ -30,11 +30,4 @@ class SendInvoice:
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        data = locals()
-        for i, price in enumerate(prices):
-            if isinstance(price, LabeledPrice):
-                prices[i] = price.unwrap()
-        for key, value in data.copy().items():
-            if isinstance(value, Object):
-                data[key] = value.unwrap()
-        return await self.auto_execute("post", "sendInvoice", data)
+        return await self.auto_execute("post", "sendInvoice", locals())

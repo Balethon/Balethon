@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia, Message, ReplyMarkup
+from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
 
 
 class SendVideo:
@@ -18,7 +18,5 @@ class SendVideo:
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        if not isinstance(video, InputMedia):
-            video = InputMedia(media=video)
-        video = video.media
+        video = resolve_media(video)
         return await self.auto_execute("post", "sendVideo", locals())
