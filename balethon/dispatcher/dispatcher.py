@@ -67,7 +67,7 @@ class Dispatcher:
                 try:
                     if not await child.check(client, event):
                         continue
-                    await child(client=client, event=event)
+                    await child.handle(client=client, event=event)
                     break
                 except ContinueDispatching:
                     continue

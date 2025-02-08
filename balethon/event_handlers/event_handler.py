@@ -26,7 +26,12 @@ class EventHandler:
     def __repr__(self):
         return self.to_string()
 
-    async def __call__(self, *args, client=None, event=None, **kwargs):
+    async def check(self, client, event):
+        if self.condition is None:
+            return True
+        return await self.condition(client, event)
+
+    async def handle(self, *args, client=None, event=None, **kwargs):
         if client is not None:
             kwargs["client"] = client
         client = kwargs["client"]
@@ -43,7 +48,6 @@ class EventHandler:
             partial(self.callback, *args, **kwargs)
         )
 
-    async def check(self, client, event):
-        if self.condition is None:
-            return True
-        return await self.condition(client, event)
+    def __call__(self, *args, **kwargs):
+        args, kwargs = remove_unwanted_parameters(self.callback, *args, **kwargs)
+        return self.callback(*args, **kwargs)

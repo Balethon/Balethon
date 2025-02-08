@@ -65,11 +65,11 @@ class CommandHandler(MessageHandler):
             condition = command_condition & condition
         super().__init__(callback, condition)
 
-    def __call__(self, *args, client=None, event=None, **kwargs):
+    def handle(self, *args, client=None, event=None, **kwargs):
         if client is not None:
             kwargs["client"] = client
         if event is not None:
             kwargs["message"] = event
             _, *arguments = event.text.split()
             args += tuple(arguments)
-        return super().__call__(*args, **kwargs)
+        return super().handle(*args, **kwargs)
