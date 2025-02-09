@@ -14,7 +14,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
-from ..objects import Object, unwrap
+from ..objects import Object, wrap, unwrap
 from ..errors import TooManyRequestsError
 from ..network import Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
@@ -118,8 +118,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         del type_hints["self"]
         return_type_hint = type_hints.pop("return")
         result = await self.execute(method, service, json, **data)
-        if issubclass(return_type_hint, Object):
-            result = return_type_hint.wrap(result)
+        result = wrap(return_type_hint, result)
+        if isinstance(result, Object):
             result.bind(self)
         return result
 
@@ -188,5 +188,5 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             return peer.id
         return chat_id
 
-    def create_referral_link(self, name: str, value: str) -> str:
+    def create_referral_link(self, name, value) -> str:
         return f"{self.connection.short_url}/{self.user.username}?{name}={value}"
