@@ -116,7 +116,7 @@ def wrap(expected_type, raw_object):
             from .list import List as BalethonList
             return BalethonList(raw_object)
 
-    if isinstance(expected_type, Object):
+    if issubclass(expected_type, Object):
         return expected_type.wrap(raw_object)
 
     return raw_object

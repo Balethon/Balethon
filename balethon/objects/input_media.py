@@ -15,12 +15,7 @@ class InputMedia(Object):
     ):
         super().__init__(**kwargs)
         self.type: str = type
-        try:
-            if isfile(media):
-                media = open(media, "rb")
-        except TypeError:
-            pass
-        self.media: Union[str, bytes, BinaryIO] = media
+        self.media: Union[str, bytes, BinaryIO] = resolve_media(media)
         self.caption: str = caption
 
     @property
@@ -30,6 +25,12 @@ class InputMedia(Object):
 
 def resolve_media(media):
     if isinstance(media, InputMedia):
-        return media
+        return media.media
 
-    return InputMedia(media=media).media
+    try:
+        if isfile(media):
+            return open(media, "rb")
+    except TypeError:
+        pass
+
+    return media

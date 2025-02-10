@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Tuple
 
 from .condition import Condition
 from ..objects import Message, CallbackQuery
@@ -6,9 +6,12 @@ from ..errors import RPCError, ForbiddenError
 
 
 class IsJoined(Condition):
-    def __init__(self, *chat_ids: Union[int, str]):
+    ACCEPTED_STATUSES = ("member", "administrator", "creator")
+
+    def __init__(self, *chat_ids: Union[int, str], accepted_statuses: Tuple[str, ...] = None):
         super().__init__(can_process=(Message, CallbackQuery))
         self.chat_ids = chat_ids
+        self.accepted_statuses = accepted_statuses or self.ACCEPTED_STATUSES
 
     async def __call__(self, client, event) -> bool:
         if not event.author:
@@ -21,6 +24,6 @@ class IsJoined(Condition):
             except RPCError:
                 return False
             else:
-                if chat_member.status not in ("member", "administrator", "creator"):
+                if chat_member.status not in self.ACCEPTED_STATUSES:
                     return False
         return True
