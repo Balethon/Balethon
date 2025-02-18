@@ -40,3 +40,4 @@ from .webhook_info import WebhookInfo
 from .chat_photo import ChatPhoto
 from .invite_link import InviteLink
 from .list import List
+from .web_app_info import WebAppInfo
