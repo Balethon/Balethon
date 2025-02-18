@@ -8,6 +8,7 @@ class InlineKeyboardButton(Object):
             text: str = None,
             callback_data: str = None,
             url: str = None,
+            web_app: str = None,
             switch_inline_query: str = None,
             switch_inline_query_current_chat: str = None,
             pay: bool = None,
@@ -17,6 +18,7 @@ class InlineKeyboardButton(Object):
         self.text: str = text
         self.callback_data: str = callback_data
         self.url: str = url
+        self.web_app: str = web_app
         self.switch_inline_query: str = switch_inline_query
         self.switch_inline_query_current_chat: str = switch_inline_query_current_chat
         self.pay: bool = pay
