@@ -10,6 +10,20 @@ class Message(Object):
         ("author", "from")
     ]
 
+    @classmethod
+    def wrap(cls, raw_object):
+        try:
+            if not raw_object.get("voice") and raw_object["document"]["mime_type"].startswith("audio"):
+                raw_object["audio"] = raw_object["document"]
+        except (TypeError, KeyError):
+            pass
+        try:
+            if not raw_object.get("video") and raw_object["document"]["mime_type"].startswith("video"):
+                raw_object["animation"] = raw_object["document"]
+        except (TypeError, KeyError):
+            pass
+        return super().wrap(raw_object)
+
     def __init__(
             self,
             id: int = None,
@@ -26,11 +40,11 @@ class Message(Object):
             animation: "objects.Animation" = None,
             entities: List["objects.Entity"] = None,
             caption_entities: List["objects.Entity"] = None,
+            voice: "objects.Voice" = None,
             audio: "objects.Audio" = None,
             document: "objects.Document" = None,
             photo: List["objects.Photo"] = None,
             video: "objects.Video" = None,
-            voice: "objects.Voice" = None,
             sticker: "objects.Sticker" = None,
             caption: str = None,
             contact: "objects.Contact" = None,
@@ -64,11 +78,11 @@ class Message(Object):
         self.animation: "objects.Animation" = animation
         self.entities: List["objects.Entity"] = entities
         self.caption_entities: List["objects.Entity"] = caption_entities
+        self.voice: "objects.Voice" = voice
         self.audio: "objects.Audio" = audio
         self.document: "objects.Document" = document
         self.photo: List["objects.Photo"] = photo
         self.video: "objects.Video" = video
-        self.voice: "objects.Voice" = voice
         self.sticker: "objects.Sticker" = sticker
         self.caption: str = caption
         self.contact: "objects.Contact" = contact
@@ -85,6 +99,24 @@ class Message(Object):
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
         self.media_group_id: int = media_group_id
+
+    @property
+    def type(self):
+        types = [
+            "text",
+            "photo",
+            "voice",
+            "audio",
+            "video",
+            "animation",
+            "contact",
+            "location",
+            "sticker",
+            "document"
+        ]
+        for message_type in types:
+            if getattr(self, message_type):
+                return message_type
 
     @property
     def content(self) -> str:
@@ -260,6 +292,13 @@ class Message(Object):
                 reply_markup,
                 reply_to_message_id
             )
+        elif self.voice:
+            return await self.client.send_voice(
+                chat_id,
+                self.voice.id,
+                caption=self.caption,
+                reply_to_message_id=reply_to_message_id
+            )
         elif self.audio:
             return await self.client.send_audio(
                 chat_id,
@@ -294,13 +333,6 @@ class Message(Object):
                 chat_id,
                 self.location.longitude,
                 self.location.latitude,
-                reply_to_message_id=reply_to_message_id
-            )
-        elif self.voice:
-            return await self.client.send_voice(
-                chat_id,
-                self.voice.id,
-                caption=self.caption,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.sticker:
