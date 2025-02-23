@@ -246,6 +246,15 @@ class Message(Object):
     ):
         return await self.client.edit_message_caption(self.chat.id, self.id, caption, reply_markup)
 
+    async def edit(
+            self,
+            text: str,
+            reply_markup: "objects.ReplyMarkup" = None
+    ):
+        if self.text:
+            return self.edit_text(text, reply_markup)
+        return await self.edit_caption(text, reply_markup)
+
     async def edit_reply_markup(
             self,
             reply_markup: "objects.ReplyMarkup" = None
@@ -297,6 +306,7 @@ class Message(Object):
                 chat_id,
                 self.voice.id,
                 caption=self.caption,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.audio:
@@ -304,6 +314,7 @@ class Message(Object):
                 chat_id,
                 self.audio.id,
                 caption=self.caption,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.video:
@@ -311,6 +322,7 @@ class Message(Object):
                 chat_id,
                 self.video.id,
                 caption=self.caption,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.animation:
@@ -318,6 +330,7 @@ class Message(Object):
                 chat_id,
                 self.animation.id,
                 caption=self.caption,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.contact:
@@ -326,6 +339,7 @@ class Message(Object):
                 self.contact.phone_number,
                 self.contact.first_name,
                 self.contact.last_name,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.location:
@@ -333,6 +347,7 @@ class Message(Object):
                 chat_id,
                 self.location.longitude,
                 self.location.latitude,
+                reply_markup=reply_markup,
                 reply_to_message_id=reply_to_message_id
             )
         elif self.sticker:
