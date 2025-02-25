@@ -27,7 +27,12 @@ class ReplyKeyboard(ReplyMarkup):
         self.one_time: bool = one_time
         self.selective: bool = selective
 
-    def add_button(self, button: Union["objects.ReplyKeyboardButton", str], row_index: int = -1, button_index: int = -1):
+    def add_button(
+            self,
+            button: Union["objects.ReplyKeyboardButton", str],
+            row_index: int = -1,
+            button_index: int = -1
+    ):
         if isinstance(button, str):
             button = ReplyKeyboardButton(button)
         if button_index == -1:
@@ -46,3 +51,7 @@ class ReplyKeyboard(ReplyMarkup):
             self.keyboard.insert(row_index, BalethonList())
         for button in row:
             self.add_button(button, row_index)
+
+    def on_click(self, row_index: int, button_index: int):
+        from ..conditions import click
+        return click(self, row_index, button_index)
