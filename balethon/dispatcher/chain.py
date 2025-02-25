@@ -28,26 +28,6 @@ class Chain:
                 attribute.self = self
                 self.add_event_handler(attribute)
 
-    def to_string(self, keyword="if", tabs=0):
-        result = []
-        if self.condition:
-            result.append(f"{'    ' * tabs}{keyword} {self.condition}:")
-            tabs += 1
-        for i, child in enumerate(self.children):
-            if i:
-                keyword = "elif"
-            elif not self.condition:
-                keyword = keyword
-            else:
-                keyword = "if"
-            result.append(child.to_string(keyword, tabs))
-        for i, child in enumerate(self.chains):
-            result.append(child.to_string("elif" if i else "if", tabs))
-        return "\n".join(result)
-
-    def __repr__(self):
-        return self.to_string()
-
     async def check(self, client, event):
         if self.condition is None:
             return True
@@ -184,14 +164,3 @@ class Chain:
                 del self.children[i]
                 return
         raise ValueError(f"Chain \"{name}\" does not exist")
-
-    def get_commands_guide(self):
-        result = []
-        for child in self.children:
-            if isinstance(child, CommandHandler):
-                result.append(child.help)
-            elif isinstance(child, Chain):
-                result.append(child.get_commands_guide())
-        for child in self.chains:
-            result.append(child.get_commands_guide())
-        return "\n\n".join(i for i in result if i)

@@ -27,6 +27,9 @@ class CallbackQuery(Object):
         self.data: str = data
         self.game_short_name: str = game_short_name
 
-    async def answer(self, text, reply_markup=None, client=None):
-        client = client or self.client
-        return await client.send_message(self.message.chat.id, text, reply_markup)
+    async def answer(
+            self,
+            text: str,
+            reply_markup: "objects.ReplyMarkup" = None
+    ):
+        return await self.client.send_message(self.message.chat.id, text, reply_markup)

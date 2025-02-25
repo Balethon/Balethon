@@ -22,34 +22,6 @@ class CommandHandler(MessageHandler):
             return None
         return len(args)
 
-    @staticmethod
-    def get_help(callback):
-        name = callback.__name__
-        sig = signature(callback)
-        doc = getdoc(callback)
-        help = f"/{name}"
-        for p in sig.parameters:
-            param = sig.parameters[p]
-            if param.kind is param.KEYWORD_ONLY:
-                continue
-            if param.annotation is param.empty:
-                param_string = param.name
-            else:
-                try:
-                    annotation = param.annotation.__name__
-                except AttributeError:
-                    annotation = param.annotation
-                param_string = f"{param.name}: {annotation}"
-            if param.kind is param.VAR_POSITIONAL:
-                help += f" [*{param_string}]"
-            elif param.default is param.empty:
-                help += f" <{param_string}>"
-            else:
-                help += f" [{param_string}]"
-        if doc:
-            help += f"\n{doc}"
-        return help
-
     def __init__(self, callback, condition=None, name=None, min_arguments=None, max_arguments=None):
         if name is None:
             name = callback.__name__
@@ -57,7 +29,6 @@ class CommandHandler(MessageHandler):
             min_arguments = self.get_min_arguments(callback)
         if max_arguments is None:
             max_arguments = self.get_max_arguments(callback)
-        self.help = self.get_help(callback)
         command_condition = command(name, min_arguments, max_arguments)
         if condition is None:
             condition = command_condition

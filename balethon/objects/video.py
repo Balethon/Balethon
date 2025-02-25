@@ -1,5 +1,3 @@
-from typing import List
-
 from . import Object
 from balethon import objects
 
@@ -26,6 +24,6 @@ class Video(Object):
         self.width: int = width
         self.height: int = height
         self.duration: int = duration
-        self.thumb: List["objects.Photo"] = thumb
+        self.thumb: "objects.Photo" = thumb
         self.mime_type: str = mime_type
         self.size: int = size
