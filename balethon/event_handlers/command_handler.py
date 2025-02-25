@@ -1,4 +1,4 @@
-from inspect import getfullargspec, getdoc, signature
+from inspect import getfullargspec
 
 from .message_handler import MessageHandler
 from ..conditions import command
