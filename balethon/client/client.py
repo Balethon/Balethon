@@ -1,7 +1,7 @@
 from json import dumps
 from asyncio import get_event_loop, sleep
 from inspect import iscoroutine, iscoroutinefunction, stack
-from io import BufferedReader
+from io import BufferedReader, BytesIO
 from typing import get_type_hints
 
 from httpx import ConnectError
@@ -91,7 +91,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                 json = True
         if not json:
             for key, value in data.copy().items():
-                if isinstance(value, (bytes, BufferedReader)):
+                if isinstance(value, (bytes, BufferedReader, BytesIO)):
                     files[key] = value
                     del data[key]
                 elif isinstance(value, dict):
