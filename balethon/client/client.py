@@ -84,7 +84,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         files = {}
         if json is None:
             for value in data.values():
-                if isinstance(value, (bytes, BufferedReader)):
+                if isinstance(value, (bytes, BufferedReader, BytesIO)):
                     json = False
                     break
             else:
