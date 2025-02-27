@@ -11,10 +11,4 @@ class GetUpdates:
             offset: int = None,
             limit: int = None
     ) -> List[Update]:
-        data = locals()
-        del data["self"]
-        result = await self.execute("post", "getUpdates", **data)
-        result = [Update.wrap(update) for update in result]
-        for update in result:
-            update.bind(self)
-        return result
+        return await self.auto_execute("post", "getUpdates", locals())
