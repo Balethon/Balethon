@@ -2,8 +2,10 @@ from typing import Union, BinaryIO
 
 from . import Object
 from balethon import objects
+from ..sync_support import add_sync_support_to_object
 
 
+@add_sync_support_to_object
 class Chat(Object):
 
     def __init__(

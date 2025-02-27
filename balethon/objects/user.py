@@ -2,8 +2,10 @@ from typing import Union
 
 from . import Object
 from ..states import StateMachine
+from ..sync_support import add_sync_support_to_object
 
 
+@add_sync_support_to_object
 class User(Object):
 
     def __init__(

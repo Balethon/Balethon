@@ -2,8 +2,11 @@ from typing import List, Union, BinaryIO
 
 from . import Object
 from balethon import objects
+from ..enums import MessageMediaType
+from ..sync_support import add_sync_support_to_object
 
 
+@add_sync_support_to_object
 class Message(Object):
     attribute_names = [
         ("id", "message_id"),
@@ -101,22 +104,10 @@ class Message(Object):
         self.media_group_id: int = media_group_id
 
     @property
-    def type(self):
-        types = [
-            "text",
-            "photo",
-            "voice",
-            "audio",
-            "video",
-            "animation",
-            "contact",
-            "location",
-            "sticker",
-            "document"
-        ]
-        for message_type in types:
-            if getattr(self, message_type):
-                return message_type
+    def media_type(self):
+        for media_type in MessageMediaType:
+            if getattr(self, media_type.value):
+                return media_type
 
     @property
     def content(self) -> str:

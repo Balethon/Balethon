@@ -1,7 +1,9 @@
 from . import Object
 from balethon import objects
+from ..sync_support import add_sync_support_to_object
 
 
+@add_sync_support_to_object
 class CallbackQuery(Object):
     attribute_names = [
         ("author", "from")

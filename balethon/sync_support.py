@@ -4,8 +4,6 @@ from inspect import iscoroutinefunction
 from threading import current_thread, main_thread
 from typing import Callable
 
-from balethon import objects
-
 
 def add_sync_support_to_function(coroutine_function) -> Callable:
     main_loop = get_event_loop()
@@ -44,15 +42,3 @@ def add_sync_support_to_object(obj):
         setattr(obj, name, dual_purpose_method)
 
     return obj
-
-
-def add_sync_support():
-    for name in dir(objects):
-        obj = getattr(objects, name)
-
-        if not isinstance(obj, type):
-            continue
-        if not issubclass(obj, objects.Object):
-            continue
-
-        add_sync_support_to_object(obj)
