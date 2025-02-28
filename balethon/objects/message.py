@@ -243,7 +243,7 @@ class Message(Object):
             reply_markup: "objects.ReplyMarkup" = None
     ):
         if self.text:
-            return self.edit_text(text, reply_markup)
+            return await self.edit_text(text, reply_markup)
         return await self.edit_caption(text, reply_markup)
 
     async def edit_reply_markup(
@@ -251,7 +251,7 @@ class Message(Object):
             reply_markup: "objects.ReplyMarkup" = None
     ):
         if self.text:
-            return self.edit_text(self.text, reply_markup)
+            return await self.edit_text(self.text, reply_markup)
         return await self.edit_caption(self.caption, reply_markup)
 
     async def delete(
