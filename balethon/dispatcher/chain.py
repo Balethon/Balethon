@@ -98,11 +98,11 @@ class Chain:
         return self.add_event_handler(EditedMessageHandler, condition)
 
     @classmethod
-    def command_handler(cls, condition=None, name=None, min_arguments=None, max_arguments=None):
-        return cls.create_event_handler(CommandHandler, condition, name, min_arguments, max_arguments)
+    def command_handler(cls, condition=None, name=None, prefix="/", min_arguments=None, max_arguments=None):
+        return cls.create_event_handler(CommandHandler, condition, name, prefix, min_arguments, max_arguments)
 
-    def on_command(self, condition=None, name=None, min_arguments=None, max_arguments=None):
-        return self.add_event_handler(CommandHandler, condition, name, min_arguments, max_arguments)
+    def on_command(self, condition=None, name=None, prefix="/", min_arguments=None, max_arguments=None):
+        return self.add_event_handler(CommandHandler, condition, name, prefix, min_arguments, max_arguments)
 
     @classmethod
     def callback_query_handler(cls, condition=None):
