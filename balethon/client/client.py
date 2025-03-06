@@ -14,7 +14,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
-from ..objects import Object, wrap, unwrap, Chat
+from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
 from ..network import Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
@@ -186,7 +186,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         if isinstance(chat_id, str) and not chat_id.isnumeric():
             peer = await self.get_chat(chat_id)
             return peer.id
-        if isinstance(chat_id, Chat):
+        if isinstance(chat_id, (Chat, User)):
             return chat_id.id
         return chat_id
 
