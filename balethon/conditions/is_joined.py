@@ -38,4 +38,4 @@ class IsJoined(Condition):
             else:
                 if chat_member.status not in self.accepted_statuses:
                     event.not_joined_chats.append(chat)
-        return bool(event.not_joined_chats)
+        return not bool(event.not_joined_chats)
