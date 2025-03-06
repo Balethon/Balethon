@@ -45,6 +45,13 @@ class Chat(Object):
         return f"[{text}](https://web.bale.ai/chat?uid={self.id})"
 
     @property
+    def link(self):
+        if self.invite_link:
+            return f"https://{self.invite_link}"
+        if self.username:
+            return f"{self.client.connection.short_url}/{self.username}"
+
+    @property
     def full_name(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
