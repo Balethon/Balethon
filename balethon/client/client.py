@@ -89,6 +89,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     break
             else:
                 json = True
+        for key, value in data.items():
+            data[key] = unwrap(value)
         if not json:
             for key, value in data.copy().items():
                 if isinstance(value, (bytes, BufferedReader, BytesIO)):
@@ -96,8 +98,6 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     del data[key]
                 elif isinstance(value, dict):
                     data[key] = dumps(value)
-        for key, value in data.items():
-            data[key] = unwrap(value)
         while True:
             try:
                 if json:
