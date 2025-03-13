@@ -3,6 +3,7 @@ from typing import Union
 import balethon
 from ...objects import Chat
 from ...errors import RPCError
+from ...enums import ChatType
 
 
 class GetChat:
@@ -11,37 +12,51 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
-        if isinstance(chat_id, str) and not chat_id.isnumeric():
-            result = {}
-            if chat_id.startswith("@"):
-                chat_id = chat_id.strip("@")
-            elif chat_id.startswith("+"):
-                chat_id = "@" + chat_id.strip("+")
-            elif not chat_id.isnumeric():
-                chat_id = "join/" + chat_id
-            info = await self.connection.get_peer_info(chat_id)
-            if info["query"].get("token"):
-                result["invite_link"] = f"{self.connection.SHORT_URL}/join/{info['query']['token']}"
-            info = info["props"]["pageProps"]
-            if info["peer"]["type"] == 0:
-                raise RPCError.create(404, "no such group or user", "getPeerInfo")
-            elif info["peer"]["type"] == 1:
-                result["type"] = "private"
-                result["username"] = info["user"]["nick"]
-                result["first_name"] = info["user"]["title"]
-                result["description"] = info["user"]["description"]
-            elif info["peer"]["type"] == 2:
-                if info["group"]["isChannel"]:
-                    result["type"] = "channel"
-                    result["username"] = info["group"]["nick"]
-                else:
-                    result["type"] = "group"
-                    result["username"] = "unknown"
-                result["title"] = info["group"]["title"]
-                result["description"] = info["group"]["description"]
-            result["id"] = info["peer"]["id"]
-            result = Chat.wrap(result)
-            result.bind(self)
-            return result
-        else:
+        # 1234567890 | "1234567890"
+        if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
             return await self.auto_execute("get", "getChat", locals())
+
+        # "@username"
+        if chat_id.startswith("@"):
+            chat_id = chat_id.lstrip("@")
+
+        # "+9*********" | "+09*********" | "+989*********"
+        elif chat_id.startswith("+"):
+            chat_id = "@" + chat_id.lstrip("+")
+
+        # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
+        elif chat_id.startswith(f"{self.connection.SHORT_URL}/"):
+            chat_id = chat_id.replace(f"{self.connection.SHORT_URL}/", "")
+
+        # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
+        elif chat_id.startswith("ble.ir/"):
+            chat_id = chat_id.replace("ble.ir/", "")
+
+        info = await self.connection.get_peer_info(chat_id)
+
+        result = Chat()
+
+        if info["query"].get("token"):
+            token = info["query"]["token"]
+            result.invite_link = f"{self.connection.SHORT_URL}/join/{token}"
+
+        info = info["props"]["pageProps"]
+
+        if info["peer"]["type"] == 0:
+            raise RPCError.create(code=404, description="no such group or user", reason="getChat")
+
+        elif info["peer"]["type"] == 1:
+            result.type = ChatType.PRIVATE
+            result.username = info["user"]["nick"] if info["user"].get("nick") else None
+            result.first_name = info["user"]["title"]
+            result.description = info["user"]["description"]
+
+        elif info["peer"]["type"] == 2:
+            result.type = ChatType.CHANNEL if info["group"]["isChannel"] else ChatType.GROUP
+            result.username = info["group"]["nick"] if info["group"].get("nick") else None
+            result.title = info["group"]["title"]
+            result.description = info["group"]["description"]
+
+        result.id = info["peer"]["id"]
+        result.bind(self)
+        return result
