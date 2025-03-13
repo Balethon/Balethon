@@ -26,11 +26,13 @@ class IsJoined(Condition):
         chat = await client.get_chat(chat_id)
         self.chats.append(chat)
         self.chat_ids.append(chat.id)
+        return chat
 
     async def remove_chat(self, client, chat_id):
         chat = await client.get_chat(chat_id)
         self.chats.remove(chat)
         self.chat_ids.remove(chat_id)
+        return chat
 
     async def __call__(self, client, event) -> bool:
         if not self.chats:
