@@ -30,8 +30,11 @@ class IsJoined(Condition):
 
     async def remove_chat(self, client, chat_id):
         chat = await client.get_chat(chat_id)
-        self.chats.remove(chat)
-        self.chat_ids.remove(chat_id)
+        for c in self.chats:
+            if c.id == chat.id:
+                index = self.chats.index(c)
+                self.chats.pop(index)
+        self.chat_ids.remove(chat.id)
         return chat
 
     async def __call__(self, client, event) -> bool:
