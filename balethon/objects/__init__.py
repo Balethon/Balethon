@@ -41,3 +41,4 @@ from .chat_photo import ChatPhoto
 from .invite_link import InviteLink
 from .list import List
 from .web_app_info import WebAppInfo
+from .copy_text_button import CopyTextButton
