@@ -1,7 +1,7 @@
 from json import loads
-from bs4 import BeautifulSoup
 from logging import getLogger
 
+from bs4 import BeautifulSoup
 from httpx import AsyncClient
 from httpx._types import ProxyTypes
 
