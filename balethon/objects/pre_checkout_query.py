@@ -31,7 +31,7 @@ class PreCheckoutQuery(Object):
             self,
             ok: bool = True,
             error_message: str = None
-    ) -> bool:
+    ):
         await self.client.execute(
             "post",
             "answerPreCheckoutQuery",
