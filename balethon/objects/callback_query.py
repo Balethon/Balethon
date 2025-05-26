@@ -33,7 +33,7 @@ class CallbackQuery(Object):
             self,
             text: str,
             show_alert: bool = None
-    ):
+    ) -> bool:
         return await self.client.execute(
             "post",
             "answerCallbackQuery",
