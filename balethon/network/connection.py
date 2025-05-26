@@ -1,5 +1,5 @@
 from json import loads
-from re import search
+from bs4 import BeautifulSoup
 from logging import getLogger
 
 from httpx import AsyncClient
@@ -52,7 +52,7 @@ class Connection:
 
     async def get_peer_info(self, query: str):
         response = await self.client.get(f"{self.short_url}/{query}")
-        json_info = search(r"({.*})", response.text)[0]
+        json_info = BeautifulSoup(response.text, "html.parser").find_all("script")[-1].text
         return loads(json_info)
 
     async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
