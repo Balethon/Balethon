@@ -32,6 +32,12 @@ class CallbackQuery(Object):
     async def answer(
             self,
             text: str,
-            reply_markup: "objects.ReplyMarkup" = None
+            show_alert: bool = None
     ):
-        return await self.client.send_message(self.message.chat.id, text, reply_markup)
+        return await self.client.execute(
+            "post",
+            "answerCallbackQuery",
+            callback_query_id=self.id,
+            text=text,
+            show_alert=show_alert,
+        )
