@@ -102,8 +102,8 @@ class Message(Object):
         self.pinned_message: None = pinned_message
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
-        self.media_group_id: int = media_group_id
         transaction: "objects.Transaction" = transaction
+        self.media_group_id: int = media_group_id
 
 
     @property
