@@ -63,6 +63,7 @@ class Message(Object):
             pinned_message: None = None,
             invoice: "objects.Invoice" = None,
             successful_payment: "objects.SuccessfulPayment" = None,
+            transaction: "objects.Transaction" = None,
             media_group_id: int = None,
             **kwargs
     ):
@@ -102,6 +103,8 @@ class Message(Object):
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
         self.media_group_id: int = media_group_id
+        transaction: "objects.Transaction" = transaction
+
 
     @property
     def media_type(self):
