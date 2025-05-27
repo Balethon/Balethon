@@ -1,7 +1,7 @@
 from json import loads
 from logging import getLogger
 
-from bs4 import BeautifulSoup
+from markupever import HtmlOptions, parse
 from httpx import AsyncClient
 from httpx._types import ProxyTypes
 
@@ -52,7 +52,8 @@ class Connection:
 
     async def get_peer_info(self, query: str):
         response = await self.client.get(f"{self.short_url}/{query}")
-        json_info = BeautifulSoup(response.text, "html.parser").find_all("script")[-1].text
+        script = list(parse(response.text, HtmlOptions()).select("script"))
+        json_info = script[-1].text()
         return loads(json_info)
 
     async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
