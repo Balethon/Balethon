@@ -39,3 +39,6 @@ class PreCheckoutQuery(Object):
             ok=ok,
             error_message=error_message
         )
+
+    async def inquire(self) -> "objects.Transaction":
+        return await self.client.inquire_transaction(self.id)
