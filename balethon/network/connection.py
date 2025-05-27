@@ -16,12 +16,12 @@ class Connection:
     SHORT_URL = "https://ble.ir"
 
     def __init__(
-            self,
-            token: str,
-            time_out: int = None,
-            proxy: ProxyTypes = None,
-            base_url: str = None,
-            short_url: str = None
+        self,
+        token: str,
+        time_out: int = None,
+        proxy: ProxyTypes = None,
+        base_url: str = None,
+        short_url: str = None,
     ):
         self.token = token
         self.client = None
@@ -52,11 +52,18 @@ class Connection:
 
     async def get_peer_info(self, query: str):
         response = await self.client.get(f"{self.short_url}/{query}")
-        script = list(parse(response.text, HtmlOptions()).select("script"))
-        json_info = script[-1].text()
-        return loads(json_info)
+        return loads(
+            list(parse(response.text, HtmlOptions()).select("script"))[-1].text()
+        )
 
-    async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
+    async def request(
+        self,
+        method: str,
+        service: str,
+        data: dict = None,
+        json: dict = None,
+        files: dict = None,
+    ):
         if json:
             log.info(f"[{service}] JSON{json}")
         if data:
@@ -67,17 +74,24 @@ class Connection:
             data=data,
             files=files,
             json=json,
-            timeout=self.time_out
+            timeout=self.time_out,
         )
         response_json = response.json()
         if response.status_code != 200:
             code = response.status_code or response_json.get("error_code")
-            raise RPCError.create(code, response_json.get("description"), service, response_json.get("parameters"))
+            raise RPCError.create(
+                code,
+                response_json.get("description"),
+                service,
+                response_json.get("parameters"),
+            )
         return response_json.get("result")
 
     async def download_file(self, file_id: str):
         response = await self.client.get(self.file_url(file_id))
         if response.status_code != 200:
             response_json = response.json()
-            raise RPCError.create(response.status_code, response_json.get("description"), "downloadFile")
+            raise RPCError.create(
+                response.status_code, response_json.get("description"), "downloadFile"
+            )
         return response.read()
