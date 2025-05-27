@@ -41,4 +41,4 @@ from .number import number
 from .click import Click as click
 from .audio import audio
 from .animation import animation
-from .restrictions import Restriction as restriction
+from .restriction import Restriction as restriction
