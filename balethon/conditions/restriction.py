@@ -17,4 +17,3 @@ class Restriction(Condition):
             self.authors[user_id] = current_time
             return True
         return False
-    
