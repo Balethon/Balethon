@@ -31,7 +31,7 @@ class CallbackQuery(Object):
 
     async def answer(
             self,
-            text: str,
+            text: str = None,
             show_alert: bool = None
     ) -> bool:
         return await self.client.execute(
