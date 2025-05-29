@@ -3,8 +3,8 @@ from . import Object
 
 class Transaction(Object):
     attribute_names = [
-        ("userID", "user_id"),
-        ("createdAt", "created_at"),
+        ("user_id", "userID"),
+        ("created_at", "createdAt"),
     ]
 
     def __init__(
