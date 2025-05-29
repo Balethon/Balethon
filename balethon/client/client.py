@@ -19,27 +19,44 @@ from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
 from ..network import Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
-from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
+from ..event_handlers import (
+    ConnectHandler,
+    DisconnectHandler,
+    InitializeHandler,
+    ShutdownHandler,
+)
 from ..smart_call import remove_unwanted_keyword_parameters
 from ..sync_support import add_sync_support_to_object
 
 
 @add_sync_support_to_object
-class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Alerts):
-
+class Client(
+    Chain,
+    Messages,
+    Updates,
+    Users,
+    Attachments,
+    Chats,
+    InviteLinks,
+    Payments,
+    Stickers,
+    Alerts,
+):
     def __init__(
-            self,
-            token: str,
-            async_workers: int = None,
-            sync_workers: int = None,
-            time_out: int = None,
-            sleep_threshold: int = 60,
-            proxy=None,
-            base_url: str = None,
-            short_url: str = None
+        self,
+        token: str,
+        async_workers: int = None,
+        sync_workers: int = None,
+        time_out: int = None,
+        sleep_threshold: int = 60,
+        proxy=None,
+        base_url: str = None,
+        short_url: str = None,
     ):
         super().__init__("default", None, PrintingChain())
-        self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
+        self.dispatcher = Dispatcher(
+            self, async_workers=async_workers, sync_workers=sync_workers
+        )
         self.connection = Connection(token, time_out, proxy, base_url, short_url)
         self.sleep_threshold = sleep_threshold
         self.user = None
@@ -103,15 +120,21 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             try:
                 if json:
                     return await self.connection.request(method, service, json=data)
-                return await self.connection.request(method, service, data=data, files=files)
+                return await self.connection.request(
+                    method, service, data=data, files=files
+                )
             except TooManyRequestsError as error:
                 if error.seconds <= self.sleep_threshold:
-                    print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
+                    print(
+                        f"[Too many requests] retry after: {error.seconds} (caused by {service})"
+                    )
                     await sleep(error.seconds)
                 else:
                     raise error
 
-    async def auto_execute(self, method: str, service: str, data: dict, json: bool = None):
+    async def auto_execute(
+        self, method: str, service: str, data: dict, json: bool = None
+    ):
         bound_method_name = stack()[1].function
         bound_method = getattr(self, bound_method_name)
         type_hints = get_type_hints(bound_method)
@@ -156,7 +179,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     if last_update_id is not None and last_update_id >= update.id:
                         continue
                     last_update_id = update.id
-                    await self.dispatcher.dispatch_event(self, update.get_effective_update())
+                    await self.dispatcher.dispatch_event(
+                        self, update.get_effective_update()
+                    )
 
     def run(self, function=None):
         try:
