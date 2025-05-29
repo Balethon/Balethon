@@ -14,6 +14,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
+from .alerts import Alerts
 from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
 from ..network import Connection
@@ -24,7 +25,7 @@ from ..sync_support import add_sync_support_to_object
 
 
 @add_sync_support_to_object
-class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers):
+class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Alerts):
 
     def __init__(
             self,
