@@ -29,3 +29,4 @@ class CallbackQuery(Object):
 
     async def answer(self, text: str = None, show_alert: bool = None) -> bool:
         return await self.client.asnwer_callback_query(self.id, text, show_alert)
+        
