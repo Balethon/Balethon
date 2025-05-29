@@ -13,7 +13,10 @@ class Restriction(Condition):
     async def __call__(self, client, event):
         current_time = time()
         user_id = str(event.author.id)
-        if user_id not in self.authors or current_time - self.authors[user_id] >= self.seconds: 
+        if (
+            user_id not in self.authors
+            or current_time - self.authors[user_id] >= self.seconds
+        ):
             self.authors[user_id] = current_time
             return True
         return False
