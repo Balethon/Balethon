@@ -25,7 +25,7 @@ async def answer_message(message: Message):
 
 @bot.on_callback_query()
 async def answer_callback_query(callback_query: CallbackQuery):
-    await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author}!")
+    await callback_query.answer(f"Thanks for clicking on Button {callback_query.data} {callback_query.author.full_name}!")
 
 
 if __name__ == "__main__":
