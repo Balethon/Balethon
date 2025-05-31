@@ -33,5 +33,5 @@ class CallbackQuery(Object):
             self,
             text: str,
             show_alert: bool = False
-    ):
+    ) -> bool:
         return await self.client.answer_callback_query(self.id, text, show_alert)

@@ -26,3 +26,10 @@ class PreCheckoutQuery(Object):
         self.invoice_payload: str = invoice_payload
         self.shipping_option_id: str = shipping_option_id
         self.order_info: "objects.OrderInfo" = order_info
+
+    async def answer(
+            self,
+            ok: bool = True,
+            error_message: str = None
+    ) -> bool:
+        return await self.client.answer_pre_checkout_query(self.id, ok, error_message)
