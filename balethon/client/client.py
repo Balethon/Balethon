@@ -11,6 +11,7 @@ from .updates import Updates
 from .users import Users
 from .attachments import Attachments
 from .chats import Chats
+from ..enums import ChatAction
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
@@ -98,6 +99,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     del data[key]
                 elif isinstance(value, dict):
                     data[key] = dumps(value)
+                elif isinstance(value, ChatAction):
+                    data[key] = value.name.lower()               
         while True:
             try:
                 if json:
