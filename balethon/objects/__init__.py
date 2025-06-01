@@ -28,7 +28,7 @@ from .video import Video
 from .voice import Voice
 from .invoice import Invoice
 from .successful_payment import SuccessfulPayment
-from .successful_payment import SuccessfulPayment
+from .transaction import Transaction
 from .input_media import InputMedia, resolve_media
 from .input_media_photo import InputMediaPhoto
 from .input_media_video import InputMediaVideo
