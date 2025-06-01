@@ -1,5 +1,5 @@
 from . import Object
-from balethon import objects
+from balethon import enums, objects
 
 
 class ChatMember(Object):
@@ -42,7 +42,7 @@ class ChatMember(Object):
         self.can_see_members: bool = can_see_members
         self.can_add_story: bool = can_add_story
         self.user: "objects.User" = user
-        self.status: str = status
+        self.status: "enums.ChatMemberStatus" = enums.ChatMemberStatus(status)
         self.can_change_info: bool = can_change_info
         self.can_delete_messages: bool = can_delete_messages
         self.can_invite_users: bool = can_invite_users
