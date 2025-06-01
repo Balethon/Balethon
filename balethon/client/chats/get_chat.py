@@ -12,10 +12,31 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
+        result = Chat()
+        
         # 1234567890 | "1234567890"
-        if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
-            return await self.auto_execute("get", "getChat", locals())
-
+        if isinstance(chat_id, int) or (
+            isinstance(chat_id, str) and chat_id.isnumeric()
+        ):
+            info = await self.auto_execute("get", "getChat", locals())
+            result.id = info.id
+            result.username = info.username
+            result.description = info.description
+            
+            if info.type == "private":
+                result.type = ChatType.PRIVATE
+                result.first_name = info.first_name
+                result.bind(self)
+                return result
+            
+            result.title = info.title
+            if info.type == "group":
+                result.type = ChatType.GROUP
+            if info.type == "channel":
+                result.type = ChatType.CHANNEL
+            result.bind(self)
+            return result
+            
         # "@username"
         if chat_id.startswith("@"):
             chat_id = chat_id.lstrip("@")
@@ -33,8 +54,6 @@ class GetChat:
             chat_id = chat_id.replace("ble.ir/", "")
 
         info = await self.connection.get_peer_info(chat_id)
-
-        result = Chat()
 
         if info["query"].get("token"):
             token = info["query"]["token"]
