@@ -3,6 +3,7 @@ from copy import copy
 from json import dumps
 
 import balethon
+from ..enums import NameEnum
 
 
 class Object:
@@ -131,5 +132,8 @@ def unwrap(wrapped_object):
 
     if isinstance(wrapped_object, Object):
         return wrapped_object.unwrap()
+    
+    if isinstance(wrapped_object, NameEnum):
+        return wrapped_object.name.lower()
 
     return wrapped_object
