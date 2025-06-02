@@ -14,6 +14,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
+from ..enums import ChatAction
 from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
 from ..network import Connection
@@ -83,9 +84,12 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
         if json is None:
-            for value in data.values():
+            for key, value in data.items():
                 if isinstance(value, (bytes, BufferedReader, BytesIO)):
                     json = False
+                    break
+                elif isinstance(value, ChatAction):
+                    data[key] = value.name.lower()
                     break
             else:
                 json = True
