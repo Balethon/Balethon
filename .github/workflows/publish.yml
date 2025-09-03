@@ -1,70 +1,49 @@
-# This workflow will upload a Python Package to PyPI when a release is created
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Upload Python Package
-
 on:
   release:
-    types: [published]
+    types:
+      - published
 
-permissions:
-  contents: read
+name: release
 
 jobs:
-  release-build:
+  pypi:
+    name: upload release to PyPI
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
-      - name: Build release distributions
+      - name: deps
+        run: python -m pip install -U build
+
+      - name: build
+        run: python -m build
+
+      - name: mint API token
+        id: mint-token
         run: |
-          # NOTE: put your own distribution build steps here.
-          python -m pip install build
-          python -m build
+          # retrieve the ambient OIDC token
+          resp=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=pypi")
+          oidc_token=$(jq -r '.value' <<< "${resp}")
 
-      - name: Upload distributions
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
+          # exchange the OIDC token for an API token
+          resp=$(curl -X POST https://pypi.org/_/oidc/mint-token -d "{\"token\": \"${oidc_token}\"}")
+          api_token=$(jq -r '.token' <<< "${resp}")
 
-  pypi-publish:
-    runs-on: ubuntu-latest
-    needs:
-      - release-build
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
+          # mask the newly minted API token, so that we don't accidentally leak it
+          echo "::add-mask::${api_token}"
 
-    # Dedicated environments with protections for publishing are strongly recommended.
-    # For more information, see: https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#deployment-protection-rules
-    environment:
-      name: pypi
-      # OPTIONAL: uncomment and update to include your PyPI project URL in the deployment status:
-      # url: https://pypi.org/p/YOURPROJECT
-      #
-      # ALTERNATIVE: if your GitHub Release name is the PyPI project version string
-      # ALTERNATIVE: exactly, uncomment the following line instead:
-      # url: https://pypi.org/project/YOURPROJECT/${{ github.event.release.name }}
+          # see the next step in the workflow for an example of using this step output
+          echo "api-token=${api_token}" >> "${GITHUB_OUTPUT}"
 
-    steps:
-      - name: Retrieve release distributions
-        uses: actions/download-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
-
-      - name: Publish release distributions to PyPI
+      - name: publish
+        # gh-action-pypi-publish uses TWINE_PASSWORD automatically
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: dist/
+          password: ${{ steps.mint-token.outputs.api-token }}
