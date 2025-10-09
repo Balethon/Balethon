@@ -8,7 +8,7 @@ from ...enums import ChatType
 
 class GetChat:
 
-    async def get_chat(
+    async def get_chat_scrap(
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
@@ -32,7 +32,7 @@ class GetChat:
         elif chat_id.startswith("ble.ir/"):
             chat_id = chat_id.replace("ble.ir/", "")
 
-        info = await self.connection.get_peer_info(chat_id)
+        info = await self.connection.get_peer_info_scrap(chat_id)
 
         result = Chat()
 
@@ -58,5 +58,41 @@ class GetChat:
             result.description = info["group"]["description"]
 
         result.id = info["peer"]["id"]
+        result.bind(self)
+        return result
+
+    async def get_chat(
+            self: "balethon.Client",
+            chat_id: Union[int, str]
+    ) -> Chat:
+        # 1234567890 | "1234567890"
+        if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
+            return await self.auto_execute("post", "getChat", locals())
+
+        # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
+        elif chat_id.startswith(f"{self.connection.SHORT_URL}/"):
+            chat_id = chat_id.replace(f"{self.connection.SHORT_URL}/", "")
+
+        # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
+        elif chat_id.startswith("ble.ir/"):
+            chat_id = chat_id.replace("ble.ir/", "")
+
+        chat_id = chat_id if chat_id.startswith("@") else f"@{chat_id}"
+
+        info = await self.connection.get_peer_info(chat_id)
+
+        result = Chat()
+
+        if info["ok"] == False:
+            raise RPCError.create(code=404, description="no such group or user", reason="getChat")
+
+        info = info["result"]
+        result.type = ChatType.CHANNEL if info["type"] == "channel" else ChatType.GROUP
+        result.username = info["username"]
+        result.title = info["title"]
+        result.description = info["description"]
+        result.invite_link = info["invite_link"]
+        result.id = info["id"]
+
         result.bind(self)
         return result
