@@ -57,7 +57,7 @@ class Connection:
         return loads(json_info)
 
     async def get_peer_info(self, query: str):
-        return await self.client.get(f"{self.short_url}/getChat?chat_id={query}")
+        return await self.client.post(f"{self.short_url}/getChat?chat_id={query}")
 
     async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
         if json:
