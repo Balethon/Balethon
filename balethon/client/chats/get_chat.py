@@ -83,10 +83,10 @@ class GetChat:
 
         result = Chat()
 
-        if info["ok"] == False:
+        if info.status_code != 200 or not info.json().get("ok", False):
             raise RPCError.create(code=404, description="no such group or user", reason="getChat")
 
-        info = info["result"]
+        info = info.json()["result"]
         result.type = ChatType.CHANNEL if info["type"] == "channel" else ChatType.GROUP
         result.username = info["username"]
         result.title = info["title"]
