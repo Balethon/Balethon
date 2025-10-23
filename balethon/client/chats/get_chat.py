@@ -86,13 +86,13 @@ class GetChat:
         if not info.get("ok", False):
             raise RPCError.create(code=404, description="no such group or user", reason="getChat")
 
-        info = info["result"]
-        result.type = ChatType.CHANNEL if info["type"] == "channel" else ChatType.GROUP
-        result.username = info["username"]
-        result.title = info["title"]
-        result.description = info["description"]
-        result.invite_link = info["invite_link"]
-        result.id = info["id"]
+        info = info.get("result", {})
+        result.type = ChatType.CHANNEL if info.get("type", "") == "channel" else ChatType.GROUP
+        result.username = info.get("username", "")
+        result.title = info.get("title", "")
+        result.description = info.get("description", "")
+        result.invite_link = info.get("invite_link", "")
+        result.id = info.get("id", "")
 
         result.bind(self)
         return result
