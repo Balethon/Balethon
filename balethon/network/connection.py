@@ -56,7 +56,7 @@ class Connection:
         info = info.json()
         if info.get("ok", False):
             return ["v1", info]
-        response = await self.client.get(f"{self.bot_url}/{query}")
+        response = await self.client.get(f"{self.short_url}/{query}")
         json_info = search(r'(<script id="__NEXT_DATA__" type="application/json">.*</script>)', response.text)[0]
         json_info = search(r"({.*})", json_info)[0]
         return ["v2", loads(json_info)]
