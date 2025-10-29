@@ -134,6 +134,6 @@ def unwrap(wrapped_object):
         return wrapped_object.unwrap()
     
     if isinstance(wrapped_object, NameEnum):
-        return wrapped_object.value.lower()
+        return wrapped_object.value
 
     return wrapped_object
