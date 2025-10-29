@@ -2,6 +2,7 @@ from typing import get_type_hints, get_args, get_origin, Union, List, Optional
 from copy import copy
 from json import dumps
 
+from ..enums import NameEnum
 import balethon
 
 
@@ -131,5 +132,8 @@ def unwrap(wrapped_object):
 
     if isinstance(wrapped_object, Object):
         return wrapped_object.unwrap()
+    
+    if isinstance(wrapped_object, NameEnum):
+        return wrapped_object.value
 
     return wrapped_object
