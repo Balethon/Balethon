@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 from . import Object
-from balethon import objects
+from balethon import enums, objects
 from ..sync_support import add_sync_support_to_object
 
 
@@ -91,7 +91,7 @@ class Chat(Object):
     async def promote_member(self, user_id: Union[int, str], *args, **kwargs):
         return await self.client.promote_chat_member(self.id, user_id, *args, **kwargs)
 
-    async def send_action(self, action: str = "typing"):
+    async def send_action(self, action: "enums.ChatAction" = enums.ChatAction.TYPING):
         return await self.client.send_chat_action(self.id, action)
 
     async def set_description(self, description: str):
