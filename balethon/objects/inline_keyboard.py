@@ -1,6 +1,6 @@
 from typing import Union, List, Tuple
 
-from . import ReplyMarkup, InlineKeyboardButton
+from . import Object, ReplyMarkup, InlineKeyboardButton
 from .list import List as BalethonList
 from balethon import objects
 
@@ -12,9 +12,20 @@ class InlineKeyboard(ReplyMarkup):
             **kwargs
     ):
         super().__init__(**kwargs)
-        self.inline_keyboard: List[List["objects.InlineKeyboardButton"]] = BalethonList()
+        if "inline_keyboard" not in kwargs:
+            self.inline_keyboard: List[List["objects.InlineKeyboardButton"]] = BalethonList()
         for row in rows:
             self.add_row(*row)
+
+    @classmethod
+    def expected_types(cls):
+        expected_types = super().expected_types()
+        expected_types["inline_keyboard"] = List[List[objects.InlineKeyboardButton]]
+        return expected_types
+
+    @classmethod
+    def wrap(cls, raw_object):
+        return Object.wrap.__func__(cls, raw_object)
 
     def add_button(
             self,

@@ -5,8 +5,8 @@ class ReplyMarkup(Object):
 
     @classmethod
     def wrap(cls, raw_object):
-        for subclass in cls.__subclasses__():
-            try:
-                return subclass.wrap(raw_object)
-            except KeyError:
-                continue
+        from . import InlineKeyboard, ReplyKeyboard
+        if "inline_keyboard" in raw_object:
+            return InlineKeyboard.wrap(raw_object)
+        elif "keyboard" in raw_object:
+            return ReplyKeyboard.wrap(raw_object)

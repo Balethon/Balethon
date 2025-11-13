@@ -64,6 +64,7 @@ class Message(Object):
             invoice: "objects.Invoice" = None,
             successful_payment: "objects.SuccessfulPayment" = None,
             media_group_id: int = None,
+            reply_markup: "objects.ReplyMarkup" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -102,6 +103,7 @@ class Message(Object):
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
         self.media_group_id: int = media_group_id
+        self.reply_markup: "objects.ReplyMarkup" = reply_markup
 
     @property
     def media_type(self):
