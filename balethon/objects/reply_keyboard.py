@@ -8,7 +8,8 @@ from balethon import objects
 class ReplyKeyboard(ReplyMarkup):
     attribute_names = [
         ("resize", "resize_keyboard"),
-        ("one_time", "one_time_keyboard")
+        ("one_time", "one_time_keyboard"),
+        ("remove", "remove_keyboard")
     ]
 
     def __init__(
@@ -17,6 +18,7 @@ class ReplyKeyboard(ReplyMarkup):
             resize: bool = None,
             one_time: bool = None,
             selective: bool = None,
+            remove: bool = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -27,6 +29,7 @@ class ReplyKeyboard(ReplyMarkup):
         self.resize: bool = resize
         self.one_time: bool = one_time
         self.selective: bool = selective
+        self.remove: bool = remove
 
     @classmethod
     def expected_types(cls):
