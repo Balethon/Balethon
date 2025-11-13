@@ -28,6 +28,13 @@ class Object:
                 if isinstance(value, list):
                     raw_object[key] = wrap(expected_type, value)
                 continue
+            if issubclass(expected_type, NameEnum):
+                try:
+                    raw_object[key] = expected_type(value)
+                except ValueError:
+                    pass
+                else:
+                    continue
             if not issubclass(expected_type, Object):
                 continue
             if isinstance(value, expected_type):
@@ -67,6 +74,8 @@ class Object:
         result = copy(self)
         del result.client
         for key, value in result.__dict__.copy().items():
+            if isinstance(value, NameEnum):
+                result[key] = value.value
             if isinstance(value, list):
                 result[key] = unwrap(value)
             if isinstance(value, Object):

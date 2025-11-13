@@ -11,7 +11,7 @@ class Chat(Object):
     def __init__(
             self,
             id: int = None,
-            type: str = None,
+            type: "enums.ChatType" = None,
             title: str = None,
             username: str = None,
             first_name: str = None,
@@ -27,7 +27,7 @@ class Chat(Object):
     ):
         super().__init__(**kwargs)
         self.id: int = id
-        self.type: str = type
+        self.type: "enums.ChatType" = type
         self.title: str = title
         self.username: str = username
         self.first_name: str = first_name

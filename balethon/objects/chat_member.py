@@ -18,7 +18,7 @@ class ChatMember(Object):
             can_see_members: bool = None,
             can_add_story: bool = None,
             user: "objects.User" = None,
-            status: str = None,
+            status: "enums.ChatMemberStatus" = None,
             can_change_info: bool = None,
             can_delete_messages: bool = None,
             can_invite_users: bool = None,
@@ -42,7 +42,7 @@ class ChatMember(Object):
         self.can_see_members: bool = can_see_members
         self.can_add_story: bool = can_add_story
         self.user: "objects.User" = user
-        self.status: "enums.ChatMemberStatus" = enums.ChatMemberStatus(status)
+        self.status: "enums.ChatMemberStatus" = status
         self.can_change_info: bool = can_change_info
         self.can_delete_messages: bool = can_delete_messages
         self.can_invite_users: bool = can_invite_users

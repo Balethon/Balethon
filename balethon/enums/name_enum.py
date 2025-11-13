@@ -6,9 +6,6 @@ class NameEnum(Enum):
     def _generate_next_value_(name, start, count, last_values):
         return name.lower()
 
-    def __str__(self):
-        return self.value
-
     def __repr__(self):
         return super().__str__()
 
