@@ -16,8 +16,9 @@ class List(list, Object):
         return unwrap(self)
 
     def __repr__(self):
-        elements = "\n".join(f"{repr(element)}," for element in self)
-        if elements:
-            elements = "\n".join(" "*4 + line for line in elements.splitlines())
-            elements = f"\n{elements}\n"
-        return f"[{elements}]"
+        if not self:
+            return "[]"
+
+        elements = ",\n".join(f"{repr(element)}" for element in self)
+        elements = "\n".join(" "*4 + line for line in elements.splitlines())
+        return f"[\n{elements}\n]"

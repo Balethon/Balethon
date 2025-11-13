@@ -82,19 +82,20 @@ class Object:
         return dumps(self.unwrap(), ensure_ascii=False, indent=4)
 
     def __repr__(self):
-        attributes = {}
+        attributes = []
         for key, value in self.__dict__.items():
             if key == "client":
                 continue
             if value is None:
                 continue
-            attributes[key] = value
-        attributes = [f"{key}={repr(value)}," for key, value in attributes.items()]
-        attributes = "\n".join(attributes)
-        if attributes:
-            attributes = "\n".join(" "*4 + line for line in attributes.splitlines())
-            attributes = f"\n{attributes}\n"
-        return f"{type(self).__name__}({attributes})"
+            attributes.append(f"{key}={repr(value)}")
+
+        if not attributes:
+            return f"{type(self).__name__}()"
+
+        attributes = ",\n".join(attributes)
+        attributes = "\n".join(" "*4 + line for line in attributes.splitlines())
+        return f"{type(self).__name__}(\n{attributes}\n)"
 
 
 def wrap(expected_type, raw_object):
