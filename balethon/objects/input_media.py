@@ -27,6 +27,10 @@ def resolve_media(media):
     if isinstance(media, InputMedia):
         return media.media
 
+    if isinstance(media, Object):
+        if getattr(media, "id", None):
+            return media.id
+
     try:
         if isfile(media):
             return open(media, "rb")

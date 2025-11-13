@@ -6,7 +6,6 @@ from balethon import objects
 
 
 class InlineKeyboard(ReplyMarkup):
-
     def __init__(
             self,
             *rows: List[Union["objects.InlineKeyboardButton", Tuple[str, str]]],
