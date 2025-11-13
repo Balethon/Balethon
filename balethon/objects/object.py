@@ -83,8 +83,8 @@ class Object:
             if value is None:
                 delattr(result, key)
         for attribute_name, key_name in result.attribute_names:
-            if result.__dict__.get(key_name):
-                result[attribute_name] = result.__dict__.pop(key_name)
+            if result.__dict__.get(attribute_name):
+                result[key_name] = result.__dict__.pop(attribute_name)
         return result.__dict__
 
     def to_json(self):
