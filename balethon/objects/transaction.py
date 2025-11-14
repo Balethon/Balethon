@@ -11,7 +11,7 @@ class Transaction(Object):
     def __init__(
             self,
             id: str = None,
-            status: "enums.TransactionStatus" = None,
+            status: str = None,
             user_id: int = None,
             amount: int = None,
             created_at: int = None,
