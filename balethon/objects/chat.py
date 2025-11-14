@@ -7,6 +7,9 @@ from ..sync_support import add_sync_support_to_object
 
 @add_sync_support_to_object
 class Chat(Object):
+    attribute_names = [
+        ("linked_id", "linked_chat_id")
+    ]
 
     def __init__(
             self,
@@ -16,13 +19,11 @@ class Chat(Object):
             username: str = None,
             first_name: str = None,
             last_name: str = None,
-            all_members_are_administrators: bool = None,
+            photo: "objects.ChatPhoto" = None,
+            bio: str = None,
             description: str = None,
             invite_link: str = None,
-            pinned_message: "objects.Message" = None,
-            sticker_set_name: str = None,
-            can_set_sticker_set: bool = None,
-            photo: "objects.ChatPhoto" = None,
+            linked_id: str = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -32,13 +33,11 @@ class Chat(Object):
         self.username: str = username
         self.first_name: str = first_name
         self.last_name: str = last_name
-        self.all_members_are_administrators: bool = all_members_are_administrators
+        self.photo: "objects.ChatPhoto" = photo
+        self.bio: str = bio
         self.description: str = description
         self.invite_link: str = invite_link
-        self.pinned_message: "objects.Message" = pinned_message
-        self.sticker_set_name: str = sticker_set_name
-        self.can_set_sticker_set: bool = can_set_sticker_set
-        self.photo: "objects.ChatPhoto" = photo
+        self.linked_id: str = linked_id
 
     def __eq__(self, other):
         return self.id == other.id
