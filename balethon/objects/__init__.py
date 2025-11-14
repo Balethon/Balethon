@@ -30,6 +30,8 @@ from .invoice import Invoice
 from .successful_payment import SuccessfulPayment
 from .transaction import Transaction
 from .input_media import InputMedia, resolve_media
+from .input_media_document import InputMediaDocument
+from .input_media_audio import InputMediaAudio
 from .input_media_photo import InputMediaPhoto
 from .input_media_video import InputMediaVideo
 from .sticker import Sticker
