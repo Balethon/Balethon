@@ -11,7 +11,7 @@ class Transaction(Object):
     def __init__(
             self,
             id: str = None,
-            status: str = None,
+            status: "enums.TransactionStatus" = None,
             user_id: int = None,
             amount: int = None,
             created_at: int = None,
@@ -19,7 +19,7 @@ class Transaction(Object):
     ):
         super().__init__(**kwargs)
         self.id: str = id
-        self.status: "enums.TransactionStatus" = enums.TransactionStatus(status)
+        self.status: "enums.TransactionStatus" = status
         self.user_id: int = user_id
         self.amount: int = amount
         self.created_at: int = created_at
