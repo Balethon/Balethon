@@ -33,3 +33,8 @@ class PreCheckoutQuery(Object):
             error_message: str = None
     ) -> bool:
         return await self.client.answer_pre_checkout_query(self.id, ok, error_message)
+
+    async def inquire(
+            self
+    ):
+        return await self.client.inquire_transaction(self.id)
