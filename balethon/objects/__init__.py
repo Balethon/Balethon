@@ -32,6 +32,8 @@ from .successful_payment import SuccessfulPayment
 from .input_media import InputMedia, resolve_media
 from .input_media_photo import InputMediaPhoto
 from .input_media_video import InputMediaVideo
+from .input_media_audio import InputMediaAudio
+from .input_media_document import InputMediaDocument
 from .sticker import Sticker
 from .sticker_set import StickerSet
 from .reply_keyboard_remove import ReplyKeyboardRemove
