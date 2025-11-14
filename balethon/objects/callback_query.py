@@ -35,3 +35,7 @@ class CallbackQuery(Object):
             show_alert: bool = False
     ) -> bool:
         return await self.client.answer_callback_query(self.id, text, show_alert)
+
+    @property
+    def answer_supported(self):
+        return not self.id.startswith("1")
