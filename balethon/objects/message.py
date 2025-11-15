@@ -33,6 +33,7 @@ class Message(Object):
             author: "objects.User" = None,
             date: "objects.Date" = None,
             chat: "objects.Chat" = None,
+            sender_chat: "objects.Chat" = None,
             forward_from: "objects.User" = None,
             forward_from_chat: "objects.Chat" = None,
             forward_from_message_id: int = None,
@@ -54,16 +55,8 @@ class Message(Object):
             location: "objects.Location" = None,
             new_chat_members: List["objects.User"] = None,
             left_chat_member: "objects.User" = None,
-            new_chat_title: str = None,
-            new_chat_photo: List["objects.Photo"] = None,
-            delete_chat_photo: bool = None,
-            group_chat_created: bool = None,
-            supergroup_chat_created: bool = None,
-            channel_chat_created: bool = None,
-            pinned_message: None = None,
             invoice: "objects.Invoice" = None,
             successful_payment: "objects.SuccessfulPayment" = None,
-            media_group_id: int = None,
             web_app_data: "objects.WebAppData" = None,
             reply_markup: "objects.ReplyMarkup" = None,
             **kwargs
@@ -73,6 +66,7 @@ class Message(Object):
         self.author: "objects.User" = author
         self.date: "objects.Date" = date
         self.chat: "objects.Chat" = chat
+        self.sender_chat: "objects.Chat" = sender_chat
         self.forward_from: "objects.User" = forward_from
         self.forward_from_chat: "objects.Chat" = forward_from_chat
         self.forward_from_message_id: int = forward_from_message_id
@@ -94,16 +88,8 @@ class Message(Object):
         self.location: "objects.Location" = location
         self.new_chat_members: List["objects.User"] = new_chat_members
         self.left_chat_member: "objects.User" = left_chat_member
-        self.new_chat_title: str = new_chat_title
-        self.new_chat_photo: List["objects.Photo"] = new_chat_photo
-        self.delete_chat_photo: bool = delete_chat_photo
-        self.group_chat_created: bool = group_chat_created
-        self.supergroup_chat_created: bool = supergroup_chat_created
-        self.channel_chat_created: bool = channel_chat_created
-        self.pinned_message: None = pinned_message
         self.invoice: "objects.Invoice" = invoice
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
-        self.media_group_id: int = media_group_id
         self.web_app_data: "objects.WebAppData" = web_app_data
         self.reply_markup: "objects.ReplyMarkup" = reply_markup
 
