@@ -51,10 +51,15 @@ class Connection:
         return f"{self.base_url}/file/bot{self.token}/{file_id}"
 
     async def get_peer_info(self, query: str):
+        chat_id = query if query.startswith("@") else f"@{query}"
+        info = await self.client.post(f"{self.bot_url()}/getChat?chat_id={chat_id}")
+        info = info.json()
+        if info.get("ok", False):
+            return ["v1", info]
         response = await self.client.get(f"{self.short_url}/{query}")
         json_info = search(r'(<script id="__NEXT_DATA__" type="application/json">.*</script>)', response.text)[0]
         json_info = search(r"({.*})", json_info)[0]
-        return loads(json_info)
+        return ["v2", loads(json_info)]
 
     async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
         if json:
