@@ -7,9 +7,6 @@ from ..sync_support import add_sync_support_to_object
 
 @add_sync_support_to_object
 class Chat(Object):
-    attribute_names = [
-        ("linked_id", "linked_chat_id")
-    ]
 
     def __init__(
             self,
