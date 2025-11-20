@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package struct;
+
+// Compile command: python -m grpc_tools.protoc -I./balethon/proto --python_out ./balethon/proto --pyi_out ./balethon/proto --grpc_python_out ./balethon/proto ./balethon/proto/struct.proto
+
+message Peer {
+  int32 type = 1;
+  int64 id = 2;
+}
+
+message TextMessage {
+  string text = 1;
+  repeated int64 mentions = 2;
+}
+
+message Message {
+  TextMessage text_message = 15;
+}
+
+message DeleteDates {
+  repeated int64 dates = 1;
+}
+
+message MessageId {
+  int64 date = 1;
+  int64 rid = 2;
+  int64 seq = 3;
+}
+
+message GroupOutPeer {
+  int32 group_id = 1;
+  int64 access_hash = 2;
+}
+
+message UserOutPeer {
+  int32 uid = 1;
+  int64 access_hash = 2;
+}
+
+message MessageContainer {
+  int32 sender_uid = 1;
+  int64 rid = 2;
+  int64 date = 3;
+  Message message = 4;
+}
+
+message Group {
+  int32 id = 1;
+  string title = 3;
+  int32 members_count = 20;
+  repeated string available_reactions = 33;
+}
+
+message FullGroup {
+  int32 id = 1;
+  string title = 3;
+  int32 members_count = 10;
+  repeated string available_reactions = 24;
+}
+
+message MessagesViews {
+  MessageId mid = 1;
+  repeated int64 views = 2;
+}

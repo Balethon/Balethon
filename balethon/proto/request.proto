@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package request;
+
+import "struct.proto";
+
+// Compile command: python -m grpc_tools.protoc -I./balethon/proto --python_out ./balethon/proto --pyi_out ./balethon/proto --grpc_python_out ./balethon/proto ./balethon/proto/request.proto
+
+message Request {
+  WsRequest ws_request = 1;
+}
+
+message WsRequest {
+  string service_name = 1;
+  string method = 2;
+  bytes payload = 3;
+  Metadata metadata = 4;
+  int64 index = 5;
+}
+
+// ----------------------------------------------------------
+
+message MetadataComplexValues {
+  fixed64 fixed64_value = 6;
+}
+
+message MetadataValues {
+  string string_value = 1;
+  MetadataComplexValues msg_value = 2;
+}
+
+message MetadataKeyValues {
+  string key = 1;
+  MetadataValues value = 2;
+}
+
+message Metadata {
+  repeated MetadataKeyValues key_values = 1;
+}
+
+// ----------------------------------------------------------
+// Keep Alive
+
+message KeepAliveRequest {
+  KeepAlive payloads = 2;
+}
+
+message KeepAlive {
+  uint32 value_should_2 = 1;
+}
+
+// ----------------------------------------------------------
+// Set Online
+
+message SetOnline {
+  uint32 is_online = 1;
+  uint32 duration = 2;
+}
+
+// ----------------------------------------------------------
+// Edit Name
+
+message EditName {
+  string name = 1;
+}
+
+// ----------------------------------------------------------
+// Send Message
+
+message SendMessage {
+  struct.Peer peer = 1;
+  int64 rid = 2;
+  struct.Message message = 3;
+  struct.Peer ex_peer = 6;
+}
+
+// ----------------------------------------------------------
+// Update Message
+
+message UpdateMessage {
+  struct.Peer peer = 1;
+  int64 rid = 2;
+  struct.Message updated_message = 3;
+}
+
+// ----------------------------------------------------------
+// Delete Message
+
+message DeleteMessage {
+  struct.Peer peer = 1;
+  repeated int64 rids = 2;
+  struct.DeleteDates dates = 3;
+  bool just_mine = 4;
+}
+
+// ----------------------------------------------------------
+// Get Message Views
+
+message GetMessageViews {
+  struct.Peer peer = 1;
+  repeated struct.MessageId mids = 2;
+  bool increment = 3;
+}
+
+// ----------------------------------------------------------
+// Message Set Reaction
+
+message MessageSetReaction {
+  struct.Peer peer = 1;
+  int64 rid = 2;
+  string code = 3;
+  int64 date = 4;
+}
+
+// ----------------------------------------------------------
+// Load History
+
+message LoadHistory {
+  struct.Peer peer = 1;
+  int64 date = 2;
+  int32 load_mode = 4;
+  int32 limit = 5;
+  repeated int32 optimizations = 6;
+}
+
+// ----------------------------------------------------------
+// Join Group
+
+message JoinGroup {
+  string token = 1;
+  repeated int32 optimizations = 2;
+}
+
+// ----------------------------------------------------------
+// Join Public Group
+
+message JoinPublicGroup {
+  struct.Peer peer = 1;
+  repeated int32 optimizations = 2;
+}
+
+// ----------------------------------------------------------
+// Leave Group
+
+message LeaveGroup {
+  struct.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  repeated int32 optimizations = 3;
+  bool make_orphan = 4;
+}
+
+// ----------------------------------------------------------
+// Load Users
+
+message LoadUsers {
+  repeated struct.UserOutPeer user_peers = 1;
+}
+
+// ----------------------------------------------------------
+// Load Full Users
+
+message LoadFullUsers {
+  repeated struct.UserOutPeer user_peers = 1;
+}
+
+// ----------------------------------------------------------
+// Get Full Group
+
+message GetFullGroup {
+  struct.GroupOutPeer peer = 1;
+}
+
+// ----------------------------------------------------------
+// Search Contacts
+
+message SearchContacts {
+  string request = 1;
+  repeated int32 optimizations = 2;
+}

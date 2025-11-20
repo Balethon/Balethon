@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package response;
+
+import "struct.proto";
+
+// Compile command: python -m grpc_tools.protoc -I./balethon/proto --python_out ./balethon/proto --pyi_out ./balethon/proto --grpc_python_out ./balethon/proto ./balethon/proto/response.proto
+
+message Response {
+  WsResponse ws_response = 1;
+  WsUpdate ws_update = 2;
+}
+
+message WsResponse {
+  bytes error = 1;
+  bytes response = 2;
+  int64 index = 3;
+}
+
+message WsUpdate {
+  Update update = 1;
+}
+
+message Update {
+  ComposedUpdate composed_update = 1;
+}
+
+message ComposedUpdate {
+  bytes message_sent = 4;
+}
+
+// ----------------------------------------------------------
+// Get Message Views
+
+message GetMessageViews {
+  repeated struct.MessagesViews containers = 1;
+}
+
+// ----------------------------------------------------------
+// Load History
+
+message LoadHistory {
+  repeated struct.MessageContainer history = 1;
+}
+
+// ----------------------------------------------------------
+// Join Group
+
+message JoinGroup {
+  struct.Group group = 1;
+  int32 seq = 2;
+}
+
+// ----------------------------------------------------------
+// Join Public Group
+
+message JoinPublicGroup {
+  struct.Group group = 1;
+  int32 seq = 2;
+}
+
+// ----------------------------------------------------------
+// Get Full Group
+
+message GetFullGroup {
+  struct.FullGroup full_group = 1;
+}
+
+// ----------------------------------------------------------
+// Search Contacts
+
+message SearchContacts {
+  repeated int32 users = 1;
+  repeated int32 user_peers = 2;
+  repeated int32 groups = 4;
+  repeated struct.GroupOutPeer group_peers = 5;
+}
