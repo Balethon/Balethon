@@ -17,8 +17,10 @@ class Chat(Object):
             first_name: str = None,
             last_name: str = None,
             all_members_are_administrators: bool = None,
+            bio: str = None,
             description: str = None,
             invite_link: str = None,
+            linked_chat_id: str = None,
             pinned_message: "objects.Message" = None,
             sticker_set_name: str = None,
             can_set_sticker_set: bool = None,
@@ -33,8 +35,10 @@ class Chat(Object):
         self.first_name: str = first_name
         self.last_name: str = last_name
         self.all_members_are_administrators: bool = all_members_are_administrators
+        self.bio: str = bio
         self.description: str = description
         self.invite_link: str = invite_link
+        self.linked_chat_id: str = linked_chat_id
         self.pinned_message: "objects.Message" = pinned_message
         self.sticker_set_name: str = sticker_set_name
         self.can_set_sticker_set: bool = can_set_sticker_set
