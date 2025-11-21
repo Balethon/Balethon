@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "grpcio-tools"]
 build-backend = "hatchling.build"
 
 [project]
@@ -16,7 +16,7 @@ keywords = ["bale", "messenger", "bot", "api", "client"]
 classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
-dependencies = ["httpx==0.28.1", "grpcio-tools"]
+dependencies = ["httpx==0.28.1"]
 
 [tool.hatch.version]
 path = "balethon/__init__.py"
