@@ -33,6 +33,7 @@ class Message(Object):
             author: "objects.User" = None,
             date: "objects.Date" = None,
             chat: "objects.Chat" = None,
+            sender_chat: "objects.Chat" = None,
             forward_from: "objects.User" = None,
             forward_from_chat: "objects.Chat" = None,
             forward_from_message_id: int = None,
@@ -73,6 +74,7 @@ class Message(Object):
         self.author: "objects.User" = author
         self.date: "objects.Date" = date
         self.chat: "objects.Chat" = chat
+        self.sender_chat: "objects.Chat" = sender_chat
         self.forward_from: "objects.User" = forward_from
         self.forward_from_chat: "objects.Chat" = forward_from_chat
         self.forward_from_message_id: int = forward_from_message_id
