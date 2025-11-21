@@ -2,7 +2,6 @@ from typing import Union
 
 import balethon
 from ...objects import Chat
-from ...errors import RPCError
 from ...enums import ChatType
 
 
@@ -16,23 +15,25 @@ class GetChat:
         if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
             return await self.auto_execute("post", "getChat", locals())
 
+        query = chat_id
+
         # "@username"
-        if chat_id.startswith("@"):
-            chat_id = chat_id.lstrip("@")
+        if query.startswith("@"):
+            query = query.lstrip("@")
 
         # "+9*********" | "+09*********" | "+989*********"
-        elif chat_id.startswith("+"):
-            chat_id = "@" + chat_id.lstrip("+")
+        elif query.startswith("+"):
+            query = "@" + query.lstrip("+")
 
         # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
-        elif chat_id.startswith(f"{self.connection.SHORT_URL}/"):
-            chat_id = chat_id.replace(f"{self.connection.SHORT_URL}/", "")
+        elif query.startswith(f"{self.connection.SHORT_URL}/"):
+            query = query.replace(f"{self.connection.SHORT_URL}/", "")
 
         # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
-        elif chat_id.startswith("ble.ir/"):
-            chat_id = chat_id.replace("ble.ir/", "")
+        elif query.startswith("ble.ir/"):
+            query = query.replace("ble.ir/", "")
 
-        info = await self.connection.get_peer_info(chat_id)
+        info = await self.connection.get_peer_info(query)
 
         result = Chat()
 
@@ -43,7 +44,7 @@ class GetChat:
         info = info["props"]["pageProps"]
 
         if info["peer"]["type"] == 0:
-            raise RPCError.create(code=404, description="no such group or user", reason="getChat")
+            return await self.auto_execute("post", "getChat", locals())
 
         elif info["peer"]["type"] == 1:
             result.type = ChatType.PRIVATE
