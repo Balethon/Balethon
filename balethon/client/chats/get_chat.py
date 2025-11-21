@@ -43,7 +43,8 @@ class GetChat:
         info = info["props"]["pageProps"]
 
         if info["peer"]["type"] == 0:
-            raise RPCError.create(code=404, description="no such group or user", reason="getChat")
+            chat_id = f"@{chat_id}"
+            return await self.auto_execute("post", "getChat", locals())
 
         elif info["peer"]["type"] == 1:
             result.type = ChatType.PRIVATE
