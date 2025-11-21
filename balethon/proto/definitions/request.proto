@@ -4,8 +4,6 @@ package request;
 
 import "struct.proto";
 
-// Compile command: python -m grpc_tools.protoc -I./balethon/proto --python_out ./balethon/proto --pyi_out ./balethon/proto --grpc_python_out ./balethon/proto ./balethon/proto/request.proto
-
 message Request {
   WsRequest ws_request = 1;
 }
