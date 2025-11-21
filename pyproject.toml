@@ -16,7 +16,7 @@ keywords = ["bale", "messenger", "bot", "api", "client"]
 classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
-dependencies = ["httpx==0.28.1"]
+dependencies = ["httpx==0.28.1", "grpcio-tools"]
 
 [tool.hatch.version]
 path = "balethon/__init__.py"
