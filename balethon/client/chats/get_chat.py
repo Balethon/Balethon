@@ -12,9 +12,14 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
-        # 1234567890 | "1234567890"
-        if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
-            return await self.auto_execute("post", "getChat", locals())
+        try:
+            result = await self.auto_execute("post", "getChat", locals())
+        except RPCError as error:
+            # 1234567890 | "1234567890"
+            if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
+                raise RPCError.create(error.code, error.description, error.reason)
+        else:
+            return result
 
         # "@username"
         if chat_id.startswith("@"):
