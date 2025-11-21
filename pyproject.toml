@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
+dynamic = ["version"]
 name = "Balethon"
-version = "1.1.0"
 description = "A library for creating bots in the Bale messenger"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -18,9 +18,15 @@ classifiers = [
 ]
 dependencies = ["httpx==0.28.1"]
 
+[tool.hatch.version]
+path = "balethon/__init__.py"
+
 [project.urls]
 "Homepage" = "https://github.com/Balethon/Balethon"
 "Download" = "https://github.com/Balethon/Balethon/releases/latest"
 "Documentation" = "https://balethon.ir"
 "Tracker" = "https://github.com/Balethon/Balethon/issues"
 "Community" = "https://ble.ir/join/MTlhN2Q2Mz"
+
+[tool.hatch.build.hooks.custom]
+path = "build_hook.py"
