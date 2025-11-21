@@ -28,7 +28,7 @@ class User(Object):
 
     def mention(self, text=None):
         text = text or self.full_name
-        return f"[{text}](https://web.bale.ai/chat?uid={self.id})"
+        return f"[{text}](uid:{self.id})"
 
     @property
     def link(self):
