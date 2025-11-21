@@ -1,1 +1,2 @@
-from .connection import Connection
+from .httpconnection import HTTPConnection
+from .wsconnection import WSConnection

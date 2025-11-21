@@ -10,7 +10,7 @@ from ..errors import RPCError
 log = getLogger(__name__)
 
 
-class Connection:
+class HTTPConnection:
     TIMEOUT = 20
     BASE_URL = "https://tapi.bale.ai"
     SHORT_URL = "https://ble.ir"

@@ -16,7 +16,7 @@ from .payments import Payments
 from .stickers import Stickers
 from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
-from ..network import Connection
+from ..network import HTTPConnection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
@@ -39,7 +39,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
     ):
         super().__init__("default", None, PrintingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
-        self.connection = Connection(token, time_out, proxy, base_url, short_url)
+        self.connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
