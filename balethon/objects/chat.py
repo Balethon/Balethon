@@ -20,7 +20,7 @@ class Chat(Object):
             bio: str = None,
             description: str = None,
             invite_link: str = None,
-            linked_chat_id: str = None,
+            linked_chat_id: int = None,
             pinned_message: "objects.Message" = None,
             sticker_set_name: str = None,
             can_set_sticker_set: bool = None,
@@ -38,7 +38,7 @@ class Chat(Object):
         self.bio: str = bio
         self.description: str = description
         self.invite_link: str = invite_link
-        self.linked_chat_id: str = linked_chat_id
+        self.linked_chat_id: int = linked_chat_id
         self.pinned_message: "objects.Message" = pinned_message
         self.sticker_set_name: str = sticker_set_name
         self.can_set_sticker_set: bool = can_set_sticker_set
