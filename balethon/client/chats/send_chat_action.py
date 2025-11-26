@@ -13,4 +13,4 @@ class SendChatAction:
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
         chat_id = str(chat_id)  # The sendChatAction method only works with a string chat_id
-        return await self.auto_execute("post", "sendChatAction", locals())
+        return await self.auto_execute("sendChatAction", locals())

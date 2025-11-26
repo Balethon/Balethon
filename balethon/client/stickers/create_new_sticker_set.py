@@ -13,4 +13,4 @@ class CreateNewStickerSet:
             sticker=None
     ) -> bool:
         user_id = await self.resolve_peer_id(user_id)
-        return await self.auto_execute("post", "createNewStickerSet", locals())
+        return await self.auto_execute("createNewStickerSet", locals())

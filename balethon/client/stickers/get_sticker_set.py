@@ -8,4 +8,4 @@ class GetStickerSet:
             self: "balethon.Client",
             name: str
     ) -> StickerSet:
-        return await self.auto_execute("get", "getStickerSet", locals())
+        return await self.auto_execute("getStickerSet", locals())

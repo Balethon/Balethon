@@ -14,7 +14,7 @@ class GetChat:
     ) -> Chat:
         # 1234567890 | "1234567890"
         if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
-            return await self.auto_execute("post", "getChat", locals())
+            return await self.auto_execute("getChat", locals())
 
         # "@username"
         if chat_id.startswith("@"):

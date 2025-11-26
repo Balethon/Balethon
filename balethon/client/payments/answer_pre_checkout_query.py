@@ -9,4 +9,4 @@ class AnswerPreCheckoutQuery:
             ok: bool = True,
             error_message: str = None
     ) -> bool:
-        return await self.auto_execute("post", "answerPreCheckoutQuery", locals())
+        return await self.auto_execute("answerPreCheckoutQuery", locals())

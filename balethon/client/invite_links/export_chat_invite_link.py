@@ -10,4 +10,4 @@ class ExportChatInviteLink:
             chat_id: Union[int, str]
     ) -> str:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "exportChatInviteLink", locals())
+        return await self.auto_execute("exportChatInviteLink", locals())

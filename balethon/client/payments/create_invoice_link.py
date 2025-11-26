@@ -15,4 +15,4 @@ class CreateInvoiceLink:
             prices: List[LabeledPrice],
             **kwargs
     ) -> str:
-        return await self.auto_execute("post", "createInvoiceLink", locals())
+        return await self.auto_execute("createInvoiceLink", locals())

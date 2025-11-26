@@ -8,4 +8,4 @@ class GetFile:
             self: "balethon.Client",
             file_id: str
     ) -> File:
-        return await self.auto_execute("get", "getFile", locals())
+        return await self.auto_execute("getFile", locals())

@@ -17,4 +17,4 @@ class SendVoice:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         voice = resolve_media(voice)
-        return await self.auto_execute("post", "sendVoice", locals())
+        return await self.auto_execute("sendVoice", locals())

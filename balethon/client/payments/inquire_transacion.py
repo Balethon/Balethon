@@ -8,4 +8,4 @@ class InquireTransaction:
             self: "balethon.Client",
             transaction_id: str
     ) -> Transaction:
-        return await self.auto_execute("post", "inquireTransaction", locals())
+        return await self.auto_execute("inquireTransaction", locals())

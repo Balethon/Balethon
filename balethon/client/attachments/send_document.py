@@ -16,4 +16,4 @@ class SendDocument:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         document = resolve_media(document)
-        return await self.auto_execute("post", "sendDocument", locals())
+        return await self.auto_execute("sendDocument", locals())

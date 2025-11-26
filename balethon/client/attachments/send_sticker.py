@@ -15,4 +15,4 @@ class SendSticker:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         sticker = resolve_media(sticker)
-        return await self.auto_execute("post", "sendSticker", locals())
+        return await self.auto_execute("sendSticker", locals())

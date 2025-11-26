@@ -14,4 +14,4 @@ class EditMessageReplyMarkup:
             reply_markup: "objects.ReplyMarkup"
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "editMessageReplyMarkup", locals())
+        return await self.auto_execute("editMessageReplyMarkup", locals())

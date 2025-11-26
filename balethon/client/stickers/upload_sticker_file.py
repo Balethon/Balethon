@@ -13,4 +13,4 @@ class UploadStickerFile:
     ) -> str:
         user_id = await self.resolve_peer_id(user_id)
         sticker = resolve_media(sticker)
-        return await self.auto_execute("get", "uploadStickerFile", locals())
+        return await self.auto_execute("uploadStickerFile", locals())

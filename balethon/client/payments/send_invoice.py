@@ -30,4 +30,4 @@ class SendInvoice:
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "sendInvoice", locals())
+        return await self.auto_execute("sendInvoice", locals())
