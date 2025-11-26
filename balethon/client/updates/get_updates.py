@@ -11,4 +11,4 @@ class GetUpdates:
             offset: int = None,
             limit: int = None
     ) -> List[Update]:
-        return await self.auto_execute("post", "getUpdates", locals())
+        return await self.auto_execute("getUpdates", locals())

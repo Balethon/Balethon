@@ -19,4 +19,4 @@ class SendVideo:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         video = resolve_media(video)
-        return await self.auto_execute("post", "sendVideo", locals())
+        return await self.auto_execute("sendVideo", locals())

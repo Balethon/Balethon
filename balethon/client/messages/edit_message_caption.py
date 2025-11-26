@@ -15,4 +15,4 @@ class EditMessageCaption:
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "editMessageCaption", locals())
+        return await self.auto_execute("editMessageCaption", locals())

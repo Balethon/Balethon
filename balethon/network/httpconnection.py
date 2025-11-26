@@ -56,13 +56,12 @@ class HTTPConnection:
         json_info = search(r"({.*})", json_info)[0]
         return loads(json_info)
 
-    async def request(self, method: str, service: str, data: dict = None, json: dict = None, files: dict = None):
+    async def request(self, service: str, data: dict = None, json: dict = None, files: dict = None):
         if json:
             log.info(f"[{service}] JSON{json}")
         if data:
             log.info(f"[{service}] DATA{data} - FILES{files}")
-        response = await self.client.request(
-            method,
+        response = await self.client.post(
             f"{self.bot_url()}/{service}",
             data=data,
             files=files,

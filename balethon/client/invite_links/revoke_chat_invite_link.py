@@ -12,4 +12,4 @@ class RevokeChatInviteLink:
             invite_link: str
     ) -> InviteLink:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "revokeChatInviteLink", locals())
+        return await self.auto_execute("revokeChatInviteLink", locals())

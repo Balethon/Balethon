@@ -16,4 +16,4 @@ class SendPhoto:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         photo = resolve_media(photo)
-        return await self.auto_execute("post", "sendPhoto", locals())
+        return await self.auto_execute("sendPhoto", locals())

@@ -79,7 +79,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         except ConnectionError:
             return
 
-    async def execute(self, method: str, service: str, json: bool = None, **data):
+    async def execute(self, service: str, json: bool = None, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
         if json is None:
@@ -101,8 +101,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         while True:
             try:
                 if json:
-                    return await self.connection.request(method, service, json=data)
-                return await self.connection.request(method, service, data=data, files=files)
+                    return await self.connection.request(service, json=data)
+                return await self.connection.request(service, data=data, files=files)
             except TooManyRequestsError as error:
                 if error.seconds <= self.sleep_threshold:
                     print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
@@ -110,14 +110,14 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                 else:
                     raise error
 
-    async def auto_execute(self, method: str, service: str, data: dict, json: bool = None):
+    async def auto_execute(self, service: str, data: dict, json: bool = None):
         bound_method_name = stack()[1].function
         bound_method = getattr(self, bound_method_name)
         type_hints = get_type_hints(bound_method)
         del data["self"]
         del type_hints["self"]
         return_type_hint = type_hints.pop("return")
-        result = await self.execute(method, service, json, **data)
+        result = await self.execute(service, json, **data)
         result = wrap(return_type_hint, result)
         if isinstance(result, Object):
             result.bind(self)

@@ -7,4 +7,4 @@ class GetMe:
     async def get_me(
             self: "balethon.Client"
     ) -> User:
-        return await self.auto_execute("get", "getMe", locals())
+        return await self.auto_execute("getMe", locals())

@@ -7,4 +7,4 @@ class SetWebhook:
             self: "balethon.Client",
             url: str
     ) -> bool:
-        return await self.auto_execute("post", "setWebhook", locals())
+        return await self.auto_execute("setWebhook", locals())

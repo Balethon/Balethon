@@ -9,4 +9,4 @@ class AnswerCallbackQuery:
             text: str,
             show_alert: bool = False
     ) -> bool:
-        return await self.auto_execute("post", "answerCallbackQuery", locals())
+        return await self.auto_execute("answerCallbackQuery", locals())

@@ -11,4 +11,4 @@ class CreateChatInviteLink:
             chat_id: Union[int, str]
     ) -> InviteLink:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "createChatInviteLink", locals())
+        return await self.auto_execute("createChatInviteLink", locals())

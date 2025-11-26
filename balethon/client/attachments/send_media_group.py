@@ -29,7 +29,7 @@ class SendMediaGroup:
         else:
             for i, m in enumerate(data["media"]):
                 data["media"][i] = m.unwrap()
-        result = await self.execute("post", "sendMediaGroup", **data)
+        result = await self.execute("sendMediaGroup", **data)
         result = [Message.wrap(message) for message in result]
         for message in result:
             message.bind(self)

@@ -12,4 +12,4 @@ class RestrictChatMember:
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
         user_id = await self.resolve_peer_id(user_id)
-        return await self.auto_execute("post", "restrictChatMember", locals())
+        return await self.auto_execute("restrictChatMember", locals())

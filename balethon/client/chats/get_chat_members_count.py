@@ -10,4 +10,4 @@ class GetChatMembersCount:
             chat_id: Union[int, str]
     ) -> int:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("get", "getChatMembersCount", locals())
+        return await self.auto_execute("getChatMembersCount", locals())

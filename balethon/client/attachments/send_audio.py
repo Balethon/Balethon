@@ -18,4 +18,4 @@ class SendAudio:
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
         audio = resolve_media(audio)
-        return await self.auto_execute("post", "sendAudio", locals())
+        return await self.auto_execute("sendAudio", locals())

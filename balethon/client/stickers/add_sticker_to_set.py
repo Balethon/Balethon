@@ -12,4 +12,4 @@ class AddStickerToSet:
             sticker: str
     ) -> bool:
         user_id = await self.resolve_peer_id(user_id)
-        return await self.auto_execute("get", "addStickerToSet", locals())
+        return await self.auto_execute("addStickerToSet", locals())

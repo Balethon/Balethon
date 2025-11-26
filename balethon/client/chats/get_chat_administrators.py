@@ -11,4 +11,4 @@ class GetChatAdministrators:
             chat_id: Union[int, str]
     ) -> List[ChatMember]:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("get", "getChatAdministrators", locals())
+        return await self.auto_execute("getChatAdministrators", locals())

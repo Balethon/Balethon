@@ -15,4 +15,4 @@ class SendLocation:
             reply_to_message_id: int = None
     ) -> Message:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "sendLocation", locals())
+        return await self.auto_execute("sendLocation", locals())

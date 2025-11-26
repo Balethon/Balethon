@@ -11,4 +11,4 @@ class PinChatMessage:
             message_id: int
     ) -> bool:
         chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("post", "pinChatMessage", locals())
+        return await self.auto_execute("pinChatMessage", locals())
