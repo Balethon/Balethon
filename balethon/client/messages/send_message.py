@@ -3,6 +3,8 @@ from typing import Union
 import balethon
 from ...objects import Message
 from balethon import objects
+from balethon.proto import request_pb2
+from balethon.proto import struct_pb2
 
 
 class SendMessage:
@@ -14,5 +16,30 @@ class SendMessage:
             reply_markup: "objects.ReplyMarkup" = None,
             reply_to_message_id: int = None
     ) -> Message:
-        chat_id = await self.resolve_peer_id(chat_id)
-        return await self.auto_execute("sendMessage", locals())
+        if self.is_userbot():
+            for peer_type in self.get_estimated_peer_types(chat_id):
+                result = await self.invoke(
+                    service_name="bale.messaging.v2.Messaging",
+                    method="SendMessage",
+                    payload=request_pb2.SendMessage(
+                        peer=struct_pb2.Peer(
+                            type=peer_type,
+                            id=chat_id
+                        ),
+                        rid=self.connection.create_rid(),
+                        message=struct_pb2.Message(
+                            text_message=struct_pb2.TextMessage(
+                                text=text
+                            )
+                        ),
+                        ex_peer=struct_pb2.Peer(
+                            type=peer_type,
+                            id=chat_id
+                        )
+                    )
+                )
+                if result:
+                    return result
+        else:
+            chat_id = await self.resolve_peer_id(chat_id)
+            return await self.auto_execute("sendMessage", locals())

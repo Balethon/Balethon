@@ -5,6 +5,7 @@ from io import BufferedReader, BytesIO
 from typing import get_type_hints
 
 from httpx import ConnectError
+from google.protobuf.message import Message
 
 from .messages import Messages
 from .updates import Updates
@@ -16,7 +17,7 @@ from .payments import Payments
 from .stickers import Stickers
 from ..objects import Object, wrap, unwrap, Chat, User
 from ..errors import TooManyRequestsError
-from ..network import HTTPConnection
+from ..network import HTTPConnection, WSConnection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
@@ -39,10 +40,16 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
     ):
         super().__init__("default", None, PrintingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
-        self.connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
+        if len(token) > 45:
+            self.connection = WSConnection(token, time_out)
+        else:
+            self.connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
+
+    def is_userbot(self):
+        return not isinstance(self.connection, HTTPConnection)
 
     def __repr__(self):
         client_name = type(self).__name__
@@ -54,7 +61,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def connect(self):
         await self.connection.start()
-        self.user = await self.get_me()
+        if not self.is_userbot():
+            self.user = await self.get_me()
 
     async def disconnect(self):
         await self.connection.stop()
@@ -123,6 +131,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             result.bind(self)
         return result
 
+    async def invoke(self, service_name: str, method: str, payload: Message):
+        return await self.connection.request(service_name, method, payload)
+
     async def initialize(self):
         await self.dispatcher.start()
         await self.dispatcher.dispatch_event(self, InitializeHandler)
@@ -189,6 +200,14 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         if isinstance(chat_id, (Chat, User)):
             return chat_id.id
         return chat_id
+
+    @staticmethod
+    def get_estimated_peer_types(chat_id: int):
+        if 0 < chat_id < 2_999_999_999:
+            return 1, 4
+        if 4_000_000_000 < chat_id < 6_999_999_999:
+            return 2, 3
+        return 1, 2, 3, 4
 
     def create_referral_link(self, name, value) -> str:
         return f"{self.connection.short_url}/{self.user.username}?{name}={value}"
