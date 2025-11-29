@@ -1,10 +1,8 @@
-import socket
+import asyncio
 import ssl
 import base64
 import hashlib
 import struct
-from threading import Thread
-from queue import Queue
 from urllib.parse import urlparse
 import os
 from datetime import datetime
@@ -40,8 +38,8 @@ class WSConnection:
     ):
         self.access_token = access_token
         self.timeout = timeout or self.TIMEOUT
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.settimeout(self.timeout)
+        self.reader: Optional[asyncio.StreamReader] = None
+        self.writer: Optional[asyncio.StreamWriter] = None
         self.websocket_uri = websocket_uri or self.WEBSOCKET_URI
         self.origin = origin or self.ORIGIN
         self.app_version = app_version or self.APP_VERSION
@@ -50,13 +48,16 @@ class WSConnection:
         self.os_type = os_type or self.OS_TYPE
         self.additional_headers = {"Cookie": f"access_token={access_token}"}
         self.is_started = False
-        self.send_queue = Queue()
-        self.recv_queue = Queue()
+        self.send_queue = asyncio.Queue()
+        self.recv_queue = asyncio.Queue()
         self.responses = []
         self.session_id: Optional[str] = None
         self.index = 1
+        self._send_task = None
+        self._recv_task = None
+        self._response_lock = asyncio.Lock()
 
-    def websocket_handshake(self, host: str, path: str, port: int):
+    async def websocket_handshake(self, host: str, path: str, port: int):
         key = base64.b64encode(hashlib.sha1().digest()[:16]).decode()
 
         handshake = (
@@ -74,16 +75,20 @@ class WSConnection:
 
         handshake += "\r\n"
 
-        self.sock.sendall(handshake.encode())
+        self.writer.write(handshake.encode())
+        await self.writer.drain()
 
         response = b""
         while b"\r\n\r\n" not in response:
-            response += self.sock.recv(1024)
+            chunk = await self.reader.read(1024)
+            if not chunk:
+                raise ConnectionError("Connection closed during handshake")
+            response += chunk
 
         if b"101 Switching Protocols" not in response:
             raise Exception("WebSocket handshake failed")
 
-    def send_frame(self, data: bytes, opcode: int = 0x2):
+    async def send_frame(self, data: bytes, opcode: int = 0x2):
         frame = bytearray()
         frame.append(0x80 | opcode)
 
@@ -105,10 +110,11 @@ class WSConnection:
             masked_data[i] ^= mask[i % 4]
 
         frame.extend(masked_data)
-        self.sock.sendall(bytes(frame))
+        self.writer.write(bytes(frame))
+        await self.writer.drain()
 
-    def recv_frame(self):
-        header = self.sock.recv(2)
+    async def recv_frame(self):
+        header = await self.reader.readexactly(2)
         if len(header) < 2:
             raise ConnectionError("Connection closed")
 
@@ -117,33 +123,30 @@ class WSConnection:
         payload_len = header[1] & 0x7F
 
         if payload_len == 126:
-            payload_len = struct.unpack(">H", self.sock.recv(2))[0]
+            payload_len = struct.unpack(">H", await self.reader.readexactly(2))[0]
         elif payload_len == 127:
-            payload_len = struct.unpack(">Q", self.sock.recv(8))[0]
+            payload_len = struct.unpack(">Q", await self.reader.readexactly(8))[0]
 
         if masked:
-            mask = self.sock.recv(4)
+            mask = await self.reader.readexactly(4)
 
-        payload = bytearray()
-        while len(payload) < payload_len:
-            chunk = self.sock.recv(payload_len - len(payload))
-            if not chunk:
-                raise ConnectionError("Connection closed")
-            payload.extend(chunk)
+        payload = await self.reader.readexactly(payload_len)
 
         if masked:
+            payload = bytearray(payload)
             for i in range(len(payload)):
                 payload[i] ^= mask[i % 4]
+            payload = bytes(payload)
 
         if opcode == 0x8:  # Close
             raise ConnectionError("Connection closed by server")
         elif opcode == 0x9:  # Ping
-            self.send_frame(bytes(payload), opcode=0xA)  # Pong
-            return self.recv_frame()
+            await self.send_frame(payload, opcode=0xA)  # Pong
+            return await self.recv_frame()
         elif opcode == 0xA:  # Pong
-            return self.recv_frame()
+            return await self.recv_frame()
 
-        return bytes(payload)
+        return payload
 
     @staticmethod
     def create_rid():
@@ -155,46 +158,78 @@ class WSConnection:
         frac, whole = modf(timestamp)
         return f"{int(whole)}{int(frac * 1000)}"
 
-    def keep_alive(self):
-        return self.send(request_pb2.KeepAliveRequest(
+    async def keep_alive(self):
+        return await self.send(request_pb2.KeepAliveRequest(
             payloads=request_pb2.KeepAlive(value_should_2=2),
         ))
 
-    def start(self):
+    async def start(self):
         parsed = urlparse(self.websocket_uri)
         host = parsed.hostname
         port = parsed.port or (443 if parsed.scheme == "wss" else 80)
         path = parsed.path or "/"
 
         if parsed.scheme == "wss":
-            context = ssl.create_default_context()
-            self.sock = context.wrap_socket(self.sock, server_hostname=host)
+            ssl_context = ssl.create_default_context()
+            self.reader, self.writer = await asyncio.wait_for(
+                asyncio.open_connection(host, port, ssl=ssl_context),
+                timeout=self.timeout
+            )
+        else:
+            self.reader, self.writer = await asyncio.wait_for(
+                asyncio.open_connection(host, port),
+                timeout=self.timeout
+            )
 
-        self.sock.connect((host, port))
-        self.websocket_handshake(host, path, port)
+        await self.websocket_handshake(host, path, port)
 
         self.session_id = self.get_normalized_timestamp()
-        self.keep_alive()
+        await self.keep_alive()
         self.is_started = True
-        Thread(target=self.send_loop, daemon=True).start()
-        Thread(target=self.recv_loop, daemon=True).start()
 
-    def stop(self):
+        # Start background tasks
+        self._send_task = asyncio.create_task(self.send_loop())
+        self._recv_task = asyncio.create_task(self.recv_loop())
+
+    async def stop(self):
         self.is_started = False
-        if self.sock:
+
+        # Cancel background tasks
+        if self._send_task:
+            self._send_task.cancel()
             try:
-                self.send_frame(b"", opcode=0x8)
-                self.sock.close()
+                await self._send_task
+            except asyncio.CancelledError:
+                pass
+
+        if self._recv_task:
+            self._recv_task.cancel()
+            try:
+                await self._recv_task
+            except asyncio.CancelledError:
+                pass
+
+        # Close connection
+        if self.writer:
+            try:
+                await self.send_frame(b"", opcode=0x8)
+                self.writer.close()
+                await self.writer.wait_closed()
             except:
                 pass
-            self.sock = None
+            self.writer = None
+            self.reader = None
 
-    def send_loop(self):
+    async def send_loop(self):
         while self.is_started:
             try:
-                message = self.send_queue.get(timeout=1)
-                self.send_frame(message)
-            except:
+                message = await asyncio.wait_for(self.send_queue.get(), timeout=1)
+                await self.send_frame(message)
+            except asyncio.TimeoutError:
+                continue
+            except asyncio.CancelledError:
+                break
+            except Exception:
                 if not self.is_started:
                     break
                 continue
@@ -209,15 +244,18 @@ class WSConnection:
         deserialized_message = cls.deserialize_message(message)
         return isinstance(deserialized_message, response_pb2.WsResponse)
 
-    def recv_loop(self):
+    async def recv_loop(self):
         while self.is_started:
             try:
-                message = self.recv_frame()
+                message = await self.recv_frame()
                 if self.is_update(message):
-                    self.recv_queue.put(message)
+                    await self.recv_queue.put(message)
                 if self.is_response(message):
-                    self.responses.append(message)
-            except:
+                    async with self._response_lock:
+                        self.responses.append(message)
+            except asyncio.CancelledError:
+                break
+            except Exception:
                 if not self.is_started:
                     break
                 continue
@@ -239,21 +277,31 @@ class WSConnection:
                 message = response.ws_response
         return message
 
-    def send(self, message):
+    async def send(self, message):
         message = self.serialize_message(message)
-        self.send_queue.put(message)
+        await self.send_queue.put(message)
         return message
 
-    def recv(self):
-        message = self.recv_queue.get()
+    async def recv(self):
+        message = await self.recv_queue.get()
         return self.deserialize_message(message)
 
-    def wait_for_response(self, index: int):
+    async def wait_for_response(self, index: int):
+        start_time = asyncio.get_event_loop().time()
+
         while True:
-            for response in self.responses:
-                deserialized_response = self.deserialize_message(response)
-                if deserialized_response.index == index:
-                    return deserialized_response.response
+            async with self._response_lock:
+                for response in self.responses:
+                    deserialized_response = self.deserialize_message(response)
+                    if deserialized_response.index == index:
+                        self.responses.remove(response)
+                        return deserialized_response.response
+
+            elapsed = asyncio.get_event_loop().time() - start_time
+            if elapsed >= self.timeout:
+                raise asyncio.TimeoutError(f"Response with index {index} not received within {self.timeout}s")
+
+            await asyncio.sleep(0.1)
 
     def build_request_metadata(self):
         return request_pb2.Metadata(
@@ -305,11 +353,11 @@ class WSConnection:
         )
         return request
 
-    def request(self, service_name: str, method: str, payload: Message, wait_for_response=True):
+    async def request(self, service_name: str, method: str, payload: Message, wait_for_response: bool = True):
         request = self.build_request(service_name, method, payload)
         request_index = self.index
         self.index += 1
-        message = self.send(request)
+        message = await self.send(request)
         if not wait_for_response:
             return message
-        return self.wait_for_response(request_index)
+        return await self.wait_for_response(request_index)
