@@ -1,4 +1,5 @@
 from typing import Union, Tuple
+from copy import copy
 
 from .condition import Condition
 from ..objects import Message, CallbackQuery
@@ -14,6 +15,7 @@ class IsJoined(Condition):
         self.chat_ids = list(chat_ids)
         self.chats = []
         self.accepted_statuses = accepted_statuses or self.ACCEPTED_STATUSES
+        self.source_chat = False
 
     async def update_chats(self, client):
         self.chats = []
@@ -38,19 +40,22 @@ class IsJoined(Condition):
         return chat
 
     async def __call__(self, client, event) -> bool:
-        if not self.chats:
+        if self.chat_ids and not self.chats:
             await self.update_chats(client)
         if not event.author:
             return False
-        event.not_joined_chats = []
-        for chat in self.chats:
+        chats = copy(self.chats)
+        if self.source_chat:
+            chats.append(event.chat)
+        event.not_accepted_chats = []
+        for chat in chats:
             try:
                 chat_member = await client.get_chat_member(chat.id, event.author.id)
             except ForbiddenError as error:
                 raise error
             except RPCError:
-                event.not_joined_chats.append(chat)
+                event.not_accepted_chats.append(chat)
             else:
                 if chat_member.status not in self.accepted_statuses:
-                    event.not_joined_chats.append(chat)
-        return not bool(event.not_joined_chats)
+                    event.not_accepted_chats.append(chat)
+        return not bool(event.not_accepted_chats)
