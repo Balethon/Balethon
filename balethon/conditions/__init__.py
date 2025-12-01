@@ -31,6 +31,7 @@ from .at_state import AtState as at_state
 from .is_instance import IsInstance as is_instance
 from .chat import Chat as chat
 from .is_joined import IsJoined as is_joined
+from .is_admin import IsAdmin as is_admin
 from .author import Author as author
 from .equals import Equals as equals
 from .successful_payment import successful_payment
