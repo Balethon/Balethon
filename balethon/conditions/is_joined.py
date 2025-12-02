@@ -46,7 +46,7 @@ class IsJoined(Condition):
             return False
         chats = copy(self.chats)
         if self.source_chat:
-            chats.append(event.chat)
+            chats.append(event.chat if isinstance(event, Message) else event.message.chat)
         event.not_accepted_chats = []
         for chat in chats:
             try:
