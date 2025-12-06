@@ -40,7 +40,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
     ):
         super().__init__("default", None, PrintingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
-        if len(token) > 45:
+        if len(token) > 100:
             self.connection = WSConnection(token, time_out)
         else:
             self.connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
