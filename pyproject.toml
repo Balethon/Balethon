@@ -27,3 +27,6 @@ version = {attr = "balethon.__version__"}
 "Documentation" = "https://balethon.ir"
 "Tracker" = "https://github.com/Balethon/Balethon/issues"
 "Community" = "https://ble.ir/join/MTlhN2Q2Mz"
+
+[tool.setuptools.packages.find]
+include = ["balethon*"]
