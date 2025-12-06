@@ -1,6 +1,6 @@
 [build-system]
-requires = ["hatchling", "grpcio-tools"]
-build-backend = "hatchling.build"
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 dynamic = ["version"]
@@ -18,8 +18,8 @@ classifiers = [
 ]
 dependencies = ["httpx==0.28.1"]
 
-[tool.hatch.version]
-path = "balethon/__init__.py"
+[tool.setuptools.dynamic]
+version = {attr = "balethon.__version__"}
 
 [project.urls]
 "Homepage" = "https://github.com/Balethon/Balethon"
@@ -27,6 +27,3 @@ path = "balethon/__init__.py"
 "Documentation" = "https://balethon.ir"
 "Tracker" = "https://github.com/Balethon/Balethon/issues"
 "Community" = "https://ble.ir/join/MTlhN2Q2Mz"
-
-[tool.hatch.build.hooks.custom]
-path = "build_hook.py"

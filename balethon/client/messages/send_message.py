@@ -3,8 +3,7 @@ from typing import Union
 import balethon
 from ...objects import Message
 from balethon import objects
-from balethon.proto import request_pb2
-from balethon.proto import struct_pb2
+from balethon.proto import request_pb2, struct_pb2
 
 
 class SendMessage:
