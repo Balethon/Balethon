@@ -57,13 +57,23 @@ class Dispatcher:
     async def propagate_chain(self, chain, client, event):
         for child in chain.children:
             if isinstance(child, Chain):
-                if not await child.check(client, event):
+                try:
+                    if not await child.check(client, event):
+                        continue
+                except ContinueDispatching:
+                    continue
+                except BreakDispatching:
+                    break
+                except Exception as error:
+                    await self.dispatch_event(client, error)
                     continue
                 await self.propagate_chain(child, client, event)
                 break
+
             elif isinstance(child, EventHandler):
                 if not isinstance(event, child.can_handle) and not is_subclass(event, child.can_handle):
                     continue
+
                 try:
                     if not await child.check(client, event):
                         continue
@@ -76,9 +86,19 @@ class Dispatcher:
                 except Exception as error:
                     await self.dispatch_event(client, error)
                     break
+
         for child in chain.chains:
-            if not await child.check(client, event):
+            try:
+                if not await child.check(client, event):
+                    continue
+            except ContinueDispatching:
                 continue
+            except BreakDispatching:
+                break
+            except Exception as error:
+                await self.dispatch_event(client, error)
+                continue
+
             await self.propagate_chain(child, client, event)
 
     async def worker(self):
