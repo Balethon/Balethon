@@ -5,7 +5,7 @@ from io import BufferedReader, BytesIO
 from typing import get_type_hints
 
 from httpx import ConnectError
-from google.protobuf.message import Message
+from google.protobuf.message import Message as ProtobufMessage
 
 from .messages import Messages
 from .updates import Updates
@@ -15,7 +15,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
-from ..objects import Object, wrap, unwrap, Chat, User
+from ..objects import Object, wrap, unwrap, Chat, User, Message
 from ..errors import TooManyRequestsError
 from ..network import HTTPConnection, WSConnection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
@@ -131,7 +131,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             result.bind(self)
         return result
 
-    async def invoke(self, service_name: str, method: str, payload: Message):
+    async def invoke(self, service_name: str, method: str, payload: ProtobufMessage):
         return await self.connection.request(service_name, method, payload)
 
     async def initialize(self):
@@ -168,11 +168,29 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     last_update_id = update.id
                     await self.dispatcher.dispatch_event(self, update.get_effective_update())
 
+    async def start_websocket(self):
+        await self.initialize()
+        while True:
+            try:
+                raw_update = await self.connection.recv()
+                if raw_update.update and raw_update.update.composed_update and raw_update.update.composed_update.message:
+                    raw_message = raw_update.update.composed_update.message
+                    if raw_message.rid == 0:
+                        continue
+                    message = Message.from_protobuf(raw_message)
+                    message.bind(self)
+                    await self.dispatcher.dispatch_event(self, message)
+            except Exception as error:
+                await self.dispatcher.dispatch_event(self, error)
+
     def run(self, function=None):
         try:
             self.connect()
             if function is None:
-                self.start_polling()
+                if self.is_userbot():
+                    self.start_websocket()
+                else:
+                    self.start_polling()
             elif iscoroutine(function):
                 loop = get_event_loop()
                 loop.run_until_complete(function)
