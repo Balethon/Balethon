@@ -25,6 +25,17 @@ message Update {
 
 message ComposedUpdate {
   bytes message_sent = 4;
+  UpdateMessage message = 55;
+}
+
+
+message UpdateMessage {
+  struct.Peer peer = 1;
+  int32 sender_uid = 2;
+  int64 date = 3;
+  int64 rid = 4;
+  struct.Message message = 5;
+  struct.MessageId previous_message_id = 9;
 }
 
 // ----------------------------------------------------------
