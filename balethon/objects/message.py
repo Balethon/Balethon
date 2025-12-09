@@ -27,6 +27,16 @@ class Message(Object):
             pass
         return super().wrap(raw_object)
 
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=f"{protobuf_data.date}|{protobuf_data.rid}",
+            author=objects.User(id=protobuf_data.sender_uid),
+            chat=objects.Chat(id=protobuf_data.peer.id),
+            date=objects.Date.wrap(int(protobuf_data.date / 1000)),
+            text=protobuf_data.message.text_message.text
+        )
+
     def __init__(
             self,
             id: int = None,

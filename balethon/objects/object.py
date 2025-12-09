@@ -50,6 +50,10 @@ class Object:
         raw_object = cls.validate_types(raw_object)
         return cls(**raw_object)
 
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        raise NotImplementedError()
+
     def __setitem__(self, key, value):
         setattr(self, key, value)
 
