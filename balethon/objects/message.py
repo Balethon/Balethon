@@ -32,8 +32,8 @@ class Message(Object):
         return cls(
             id=f"{protobuf_data.date}|{protobuf_data.rid}",
             author=objects.User(id=protobuf_data.sender_uid),
-            chat=objects.Chat(id=protobuf_data.peer.id),
-            date=objects.Date.wrap(int(protobuf_data.date / 1000)),
+            chat=objects.Chat(id=f"{protobuf_data.peer.id}|{protobuf_data.peer.type}"),
+            date=objects.Date.wrap(protobuf_data.date / 1000),
             text=protobuf_data.message.text_message.text
         )
 

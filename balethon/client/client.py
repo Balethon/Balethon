@@ -219,13 +219,5 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             return chat_id.id
         return chat_id
 
-    @staticmethod
-    def get_estimated_peer_types(chat_id: int):
-        if 0 < chat_id < 2_999_999_999:
-            return 1, 4
-        if 4_000_000_000 < chat_id < 6_999_999_999:
-            return 2, 3
-        return 1, 2, 3, 4
-
     def create_referral_link(self, name, value) -> str:
         return f"{self.connection.short_url}/{self.user.username}?{name}={value}"

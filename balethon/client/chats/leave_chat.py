@@ -11,11 +11,12 @@ class LeaveChat:
             chat_id: Union[int, str]
     ) -> bool:
         if self.is_userbot():
+            peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="LeaveGroup",
                 payload=request_pb2.LeaveGroup(
-                    group_peer=struct_pb2.GroupOutPeer(group_id=chat_id, access_hash=1),
+                    group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
                     rid=self.connection.create_rid(),
                     make_orphan=False
                 )
