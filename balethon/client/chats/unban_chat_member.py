@@ -22,7 +22,7 @@ class UnbanChatMember:
                     user=struct_pb2.UserOutPeer(uid=user_id, access_hash=1)
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            user_id = await self.resolve_peer_id(user_id)
-            return await self.auto_execute("unbanChatMember", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        user_id = await self.resolve_peer_id(user_id)
+        return await self.auto_execute("unbanChatMember", locals())

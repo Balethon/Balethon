@@ -15,7 +15,6 @@ class PinChatMessage:
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
             if peer_type in (1, 4):
-                print(1)
                 return await self.invoke(
                     service_name="bale.messaging.v2.Messaging",
                     method="PinMessage",
@@ -34,6 +33,6 @@ class PinChatMessage:
                         msg_rid=rid
                     )
                 )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("pinChatMessage", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("pinChatMessage", locals())

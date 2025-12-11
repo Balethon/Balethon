@@ -22,6 +22,6 @@ class SetChatDescription:
                     about=description
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("setChatDescription", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("setChatDescription", locals())

@@ -21,6 +21,6 @@ class LeaveChat:
                     make_orphan=False
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("leaveChat", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("leaveChat", locals())

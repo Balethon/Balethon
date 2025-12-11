@@ -22,6 +22,6 @@ class UnpinChatMessage:
                     message_ids=[struct_pb2.MessageId(date=date, rid=rid)]
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("unpinChatMessage", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("unpinChatMessage", locals())

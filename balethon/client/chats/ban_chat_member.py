@@ -22,7 +22,7 @@ class BanChatMember:
                     rid=self.connection.create_rid()
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            user_id = await self.resolve_peer_id(user_id)
-            return await self.auto_execute("banChatMember", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        user_id = await self.resolve_peer_id(user_id)
+        return await self.auto_execute("banChatMember", locals())

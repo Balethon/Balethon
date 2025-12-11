@@ -22,6 +22,6 @@ class SetChatTitle:
                     rid=self.connection.create_rid()
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("setChatTitle", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("setChatTitle", locals())
