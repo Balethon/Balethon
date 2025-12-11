@@ -175,3 +175,90 @@ message SearchContacts {
   string request = 1;
   repeated int32 optimizations = 2;
 }
+
+// ----------------------------------------------------------
+// Pin Message (Group)
+
+message PinMessage {
+  int32 sender_user_id = 1;
+  struct.GroupOutPeer group_peer = 2;
+  int64 date = 3;
+  int64 msg_rid = 4;
+}
+
+// ----------------------------------------------------------
+// Pin Messages (Messaging)
+
+message PinMessages {
+  struct.ExPeer peer = 1;
+  struct.MessageId message_id = 2;
+  bool just_mine = 3;
+}
+
+// ----------------------------------------------------------
+// UnPin Messages
+
+message UnPinMessages {
+  struct.ExPeer peer = 1;
+  repeated struct.MessageId message_ids = 2;
+  bool all = 3;
+}
+
+// ----------------------------------------------------------
+// Edit Group Avatar
+
+message EditGroupAvatar {
+  struct.GroupOutPeer group_peer = 1;
+  struct.FileLocation file_location = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}
+
+// ----------------------------------------------------------
+// Remove Group Avatar
+
+message RemoveGroupAvatar {
+  struct.GroupOutPeer group_peer = 1;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+  int64 avater_id = 6;
+}
+
+// ----------------------------------------------------------
+// Edit Group Title
+
+message EditGroupTitle {
+  struct.GroupOutPeer group_peer = 1;
+  string title = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}
+
+// ----------------------------------------------------------
+// Edit Group About
+
+message EditGroupAbout {
+  struct.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  string about = 3;
+  repeated int32 optimizations = 5;
+}
+
+// ----------------------------------------------------------
+// UnBan User
+
+message UnBanUser {
+  struct.GroupOutPeer group_peer = 1;
+  struct.UserOutPeer user = 2;
+  repeated int32 optimizations = 3;
+}
+
+// ----------------------------------------------------------
+// Kick User
+
+message KickUser {
+  struct.GroupOutPeer group_peer = 1;
+  struct.UserOutPeer user = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}

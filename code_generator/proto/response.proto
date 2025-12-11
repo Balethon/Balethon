@@ -84,3 +84,13 @@ message SearchContacts {
   repeated int32 groups = 4;
   repeated struct.GroupOutPeer group_peers = 5;
 }
+
+// ----------------------------------------------------------
+// Edit Group Avatar
+
+message EditGroupAvatar {
+  struct.Avatar avatar = 1;
+  int32 seq = 2;
+  bytes state = 3;
+  int64 date = 4;
+}
