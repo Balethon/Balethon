@@ -88,3 +88,13 @@ message FileLocation {
   int64 access_hash = 2;
   int32 file_storage_version = 3;
 }
+
+message DateValue {
+  int64 date = 1;
+}
+
+message HistoryMessageIdentifier {
+  Peer peer = 1;
+  int64 random_id = 2;
+  DateValue date = 3;
+}

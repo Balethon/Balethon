@@ -115,6 +115,16 @@ class DeleteMessage(_message.Message):
     just_mine: bool
     def __init__(self, peer: _Optional[_Union[_struct_pb2.Peer, _Mapping]] = ..., rids: _Optional[_Iterable[int]] = ..., dates: _Optional[_Union[_struct_pb2.DeleteDates, _Mapping]] = ..., just_mine: bool = ...) -> None: ...
 
+class ForwardMessages(_message.Message):
+    __slots__ = ("peer", "rid", "forwarded_messages")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    FORWARDED_MESSAGES_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.Peer
+    rid: _containers.RepeatedScalarFieldContainer[int]
+    forwarded_messages: _containers.RepeatedCompositeFieldContainer[_struct_pb2.HistoryMessageIdentifier]
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.Peer, _Mapping]] = ..., rid: _Optional[_Iterable[int]] = ..., forwarded_messages: _Optional[_Iterable[_Union[_struct_pb2.HistoryMessageIdentifier, _Mapping]]] = ...) -> None: ...
+
 class GetMessageViews(_message.Message):
     __slots__ = ("peer", "mids", "increment")
     PEER_FIELD_NUMBER: _ClassVar[int]

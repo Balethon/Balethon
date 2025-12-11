@@ -92,6 +92,15 @@ message DeleteMessage {
 }
 
 // ----------------------------------------------------------
+// Forward Messages
+
+message ForwardMessages {
+  struct.Peer peer = 1;
+  repeated int64 rid = 2;
+  repeated struct.HistoryMessageIdentifier forwarded_messages = 3;
+}
+
+// ----------------------------------------------------------
 // Get Message Views
 
 message GetMessageViews {

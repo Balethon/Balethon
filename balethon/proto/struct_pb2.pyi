@@ -149,3 +149,19 @@ class FileLocation(_message.Message):
     access_hash: int
     file_storage_version: int
     def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...
+
+class DateValue(_message.Message):
+    __slots__ = ("date",)
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    date: int
+    def __init__(self, date: _Optional[int] = ...) -> None: ...
+
+class HistoryMessageIdentifier(_message.Message):
+    __slots__ = ("peer", "random_id", "date")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    RANDOM_ID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    peer: Peer
+    random_id: int
+    date: DateValue
+    def __init__(self, peer: _Optional[_Union[Peer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[_Union[DateValue, _Mapping]] = ...) -> None: ...
