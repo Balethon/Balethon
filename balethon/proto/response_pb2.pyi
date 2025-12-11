@@ -118,3 +118,9 @@ class EditGroupAvatar(_message.Message):
     state: bytes
     date: int
     def __init__(self, avatar: _Optional[_Union[_struct_pb2.Avatar, _Mapping]] = ..., seq: _Optional[int] = ..., state: _Optional[bytes] = ..., date: _Optional[int] = ...) -> None: ...
+
+class InviteUsers(_message.Message):
+    __slots__ = ("not_added_user_peers",)
+    NOT_ADDED_USER_PEERS_FIELD_NUMBER: _ClassVar[int]
+    not_added_user_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
+    def __init__(self, not_added_user_peers: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ...) -> None: ...

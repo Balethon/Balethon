@@ -306,3 +306,13 @@ class KickUser(_message.Message):
     rid: int
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class InviteUsers(_message.Message):
+    __slots__ = ("group_peer", "rid", "users")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    USERS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    rid: int
+    users: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., users: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ...) -> None: ...

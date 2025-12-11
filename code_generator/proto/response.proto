@@ -94,3 +94,10 @@ message EditGroupAvatar {
   bytes state = 3;
   int64 date = 4;
 }
+
+// ----------------------------------------------------------
+// Invite Users
+
+message InviteUsers {
+  repeated struct.UserOutPeer not_added_user_peers = 1;
+}
