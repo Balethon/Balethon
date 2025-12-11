@@ -7,6 +7,12 @@ message Peer {
   int64 id = 2;
 }
 
+message ExPeer {
+  int32 type = 1;
+  int64 id = 2;
+  int64 access_hash = 3;
+}
+
 message TextMessage {
   string text = 1;
   repeated int64 mentions = 2;
@@ -60,4 +66,25 @@ message FullGroup {
 message MessagesViews {
   MessageId mid = 1;
   repeated int64 views = 2;
+}
+
+message Avatar {
+  AvatarImage small_image = 1;
+  AvatarImage large_image = 2;
+  AvatarImage full_image = 3;
+  int64 id = 4;
+  int64 date = 5;
+}
+
+message AvatarImage {
+  FileLocation file_location = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 file_size = 4;
+}
+
+message FileLocation {
+  int64 file_id = 1;
+  int64 access_hash = 2;
+  int32 file_storage_version = 3;
 }

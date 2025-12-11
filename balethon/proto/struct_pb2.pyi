@@ -14,6 +14,16 @@ class Peer(_message.Message):
     id: int
     def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ...) -> None: ...
 
+class ExPeer(_message.Message):
+    __slots__ = ("type", "id", "access_hash")
+    TYPE_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    type: int
+    id: int
+    access_hash: int
+    def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...
+
 class TextMessage(_message.Message):
     __slots__ = ("text", "mentions")
     TEXT_FIELD_NUMBER: _ClassVar[int]
@@ -103,3 +113,39 @@ class MessagesViews(_message.Message):
     mid: MessageId
     views: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, mid: _Optional[_Union[MessageId, _Mapping]] = ..., views: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class Avatar(_message.Message):
+    __slots__ = ("small_image", "large_image", "full_image", "id", "date")
+    SMALL_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    LARGE_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    FULL_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    small_image: AvatarImage
+    large_image: AvatarImage
+    full_image: AvatarImage
+    id: int
+    date: int
+    def __init__(self, small_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., large_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., full_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., id: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
+
+class AvatarImage(_message.Message):
+    __slots__ = ("file_location", "width", "height", "file_size")
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_location: FileLocation
+    width: int
+    height: int
+    file_size: int
+    def __init__(self, file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ..., file_size: _Optional[int] = ...) -> None: ...
+
+class FileLocation(_message.Message):
+    __slots__ = ("file_id", "access_hash", "file_storage_version")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    FILE_STORAGE_VERSION_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    access_hash: int
+    file_storage_version: int
+    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...

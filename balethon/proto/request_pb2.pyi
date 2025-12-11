@@ -204,3 +204,105 @@ class SearchContacts(_message.Message):
     request: str
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, request: _Optional[str] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class PinMessage(_message.Message):
+    __slots__ = ("sender_user_id", "group_peer", "date", "msg_rid")
+    SENDER_USER_ID_FIELD_NUMBER: _ClassVar[int]
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    MSG_RID_FIELD_NUMBER: _ClassVar[int]
+    sender_user_id: int
+    group_peer: _struct_pb2.GroupOutPeer
+    date: int
+    msg_rid: int
+    def __init__(self, sender_user_id: _Optional[int] = ..., group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., date: _Optional[int] = ..., msg_rid: _Optional[int] = ...) -> None: ...
+
+class PinMessages(_message.Message):
+    __slots__ = ("peer", "message_id", "just_mine")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    JUST_MINE_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.ExPeer
+    message_id: _struct_pb2.MessageId
+    just_mine: bool
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., message_id: _Optional[_Union[_struct_pb2.MessageId, _Mapping]] = ..., just_mine: bool = ...) -> None: ...
+
+class UnPinMessages(_message.Message):
+    __slots__ = ("peer", "message_ids", "all")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_IDS_FIELD_NUMBER: _ClassVar[int]
+    ALL_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.ExPeer
+    message_ids: _containers.RepeatedCompositeFieldContainer[_struct_pb2.MessageId]
+    all: bool
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., message_ids: _Optional[_Iterable[_Union[_struct_pb2.MessageId, _Mapping]]] = ..., all: bool = ...) -> None: ...
+
+class EditGroupAvatar(_message.Message):
+    __slots__ = ("group_peer", "file_location", "rid", "optimizations")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    file_location: _struct_pb2.FileLocation
+    rid: int
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., file_location: _Optional[_Union[_struct_pb2.FileLocation, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class RemoveGroupAvatar(_message.Message):
+    __slots__ = ("group_peer", "rid", "optimizations", "avater_id")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    AVATER_ID_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    rid: int
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    avater_id: int
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ..., avater_id: _Optional[int] = ...) -> None: ...
+
+class EditGroupTitle(_message.Message):
+    __slots__ = ("group_peer", "title", "rid", "optimizations")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    TITLE_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    title: str
+    rid: int
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., title: _Optional[str] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class EditGroupAbout(_message.Message):
+    __slots__ = ("group_peer", "rid", "about", "optimizations")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    ABOUT_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    rid: int
+    about: str
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., about: _Optional[str] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class UnBanUser(_message.Message):
+    __slots__ = ("group_peer", "user", "optimizations")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    USER_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    user: _struct_pb2.UserOutPeer
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class KickUser(_message.Message):
+    __slots__ = ("group_peer", "user", "rid", "optimizations")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    USER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    user: _struct_pb2.UserOutPeer
+    rid: int
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...

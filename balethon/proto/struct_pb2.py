@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cstruct.proto\x12\x06struct\" \n\x04Peer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\"-\n\x0bTextMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x10\n\x08mentions\x18\x02 \x03(\x03\"4\n\x07Message\x12)\n\x0ctext_message\x18\x0f \x01(\x0b\x32\x13.struct.TextMessage\"\x1c\n\x0b\x44\x65leteDates\x12\r\n\x05\x64\x61tes\x18\x01 \x03(\x03\"3\n\tMessageId\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\x03\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12\x0b\n\x03seq\x18\x03 \x01(\x03\"5\n\x0cGroupOutPeer\x12\x10\n\x08group_id\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"/\n\x0bUserOutPeer\x12\x0b\n\x03uid\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"c\n\x10MessageContainer\x12\x12\n\nsender_uid\x18\x01 \x01(\x05\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x03\x12 \n\x07message\x18\x04 \x01(\x0b\x32\x0f.struct.Message\"V\n\x05Group\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x03 \x01(\t\x12\x15\n\rmembers_count\x18\x14 \x01(\x05\x12\x1b\n\x13\x61vailable_reactions\x18! \x03(\t\"Z\n\tFullGroup\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x03 \x01(\t\x12\x15\n\rmembers_count\x18\n \x01(\x05\x12\x1b\n\x13\x61vailable_reactions\x18\x18 \x03(\t\">\n\rMessagesViews\x12\x1e\n\x03mid\x18\x01 \x01(\x0b\x32\x11.struct.MessageId\x12\r\n\x05views\x18\x02 \x03(\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cstruct.proto\x12\x06struct\" \n\x04Peer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\"7\n\x06\x45xPeer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x03 \x01(\x03\"-\n\x0bTextMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x10\n\x08mentions\x18\x02 \x03(\x03\"4\n\x07Message\x12)\n\x0ctext_message\x18\x0f \x01(\x0b\x32\x13.struct.TextMessage\"\x1c\n\x0b\x44\x65leteDates\x12\r\n\x05\x64\x61tes\x18\x01 \x03(\x03\"3\n\tMessageId\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\x03\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12\x0b\n\x03seq\x18\x03 \x01(\x03\"5\n\x0cGroupOutPeer\x12\x10\n\x08group_id\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"/\n\x0bUserOutPeer\x12\x0b\n\x03uid\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"c\n\x10MessageContainer\x12\x12\n\nsender_uid\x18\x01 \x01(\x05\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x03\x12 \n\x07message\x18\x04 \x01(\x0b\x32\x0f.struct.Message\"V\n\x05Group\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x03 \x01(\t\x12\x15\n\rmembers_count\x18\x14 \x01(\x05\x12\x1b\n\x13\x61vailable_reactions\x18! \x03(\t\"Z\n\tFullGroup\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x03 \x01(\t\x12\x15\n\rmembers_count\x18\n \x01(\x05\x12\x1b\n\x13\x61vailable_reactions\x18\x18 \x03(\t\">\n\rMessagesViews\x12\x1e\n\x03mid\x18\x01 \x01(\x0b\x32\x11.struct.MessageId\x12\r\n\x05views\x18\x02 \x03(\x03\"\x9f\x01\n\x06\x41vatar\x12(\n\x0bsmall_image\x18\x01 \x01(\x0b\x32\x13.struct.AvatarImage\x12(\n\x0blarge_image\x18\x02 \x01(\x0b\x32\x13.struct.AvatarImage\x12\'\n\nfull_image\x18\x03 \x01(\x0b\x32\x13.struct.AvatarImage\x12\n\n\x02id\x18\x04 \x01(\x03\x12\x0c\n\x04\x64\x61te\x18\x05 \x01(\x03\"l\n\x0b\x41vatarImage\x12+\n\rfile_location\x18\x01 \x01(\x0b\x32\x14.struct.FileLocation\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x11\n\tfile_size\x18\x04 \x01(\x05\"R\n\x0c\x46ileLocation\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x12\x1c\n\x14\x66ile_storage_version\x18\x03 \x01(\x05\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,24 +33,32 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_PEER']._serialized_start=24
   _globals['_PEER']._serialized_end=56
-  _globals['_TEXTMESSAGE']._serialized_start=58
-  _globals['_TEXTMESSAGE']._serialized_end=103
-  _globals['_MESSAGE']._serialized_start=105
-  _globals['_MESSAGE']._serialized_end=157
-  _globals['_DELETEDATES']._serialized_start=159
-  _globals['_DELETEDATES']._serialized_end=187
-  _globals['_MESSAGEID']._serialized_start=189
-  _globals['_MESSAGEID']._serialized_end=240
-  _globals['_GROUPOUTPEER']._serialized_start=242
-  _globals['_GROUPOUTPEER']._serialized_end=295
-  _globals['_USEROUTPEER']._serialized_start=297
-  _globals['_USEROUTPEER']._serialized_end=344
-  _globals['_MESSAGECONTAINER']._serialized_start=346
-  _globals['_MESSAGECONTAINER']._serialized_end=445
-  _globals['_GROUP']._serialized_start=447
-  _globals['_GROUP']._serialized_end=533
-  _globals['_FULLGROUP']._serialized_start=535
-  _globals['_FULLGROUP']._serialized_end=625
-  _globals['_MESSAGESVIEWS']._serialized_start=627
-  _globals['_MESSAGESVIEWS']._serialized_end=689
+  _globals['_EXPEER']._serialized_start=58
+  _globals['_EXPEER']._serialized_end=113
+  _globals['_TEXTMESSAGE']._serialized_start=115
+  _globals['_TEXTMESSAGE']._serialized_end=160
+  _globals['_MESSAGE']._serialized_start=162
+  _globals['_MESSAGE']._serialized_end=214
+  _globals['_DELETEDATES']._serialized_start=216
+  _globals['_DELETEDATES']._serialized_end=244
+  _globals['_MESSAGEID']._serialized_start=246
+  _globals['_MESSAGEID']._serialized_end=297
+  _globals['_GROUPOUTPEER']._serialized_start=299
+  _globals['_GROUPOUTPEER']._serialized_end=352
+  _globals['_USEROUTPEER']._serialized_start=354
+  _globals['_USEROUTPEER']._serialized_end=401
+  _globals['_MESSAGECONTAINER']._serialized_start=403
+  _globals['_MESSAGECONTAINER']._serialized_end=502
+  _globals['_GROUP']._serialized_start=504
+  _globals['_GROUP']._serialized_end=590
+  _globals['_FULLGROUP']._serialized_start=592
+  _globals['_FULLGROUP']._serialized_end=682
+  _globals['_MESSAGESVIEWS']._serialized_start=684
+  _globals['_MESSAGESVIEWS']._serialized_end=746
+  _globals['_AVATAR']._serialized_start=749
+  _globals['_AVATAR']._serialized_end=908
+  _globals['_AVATARIMAGE']._serialized_start=910
+  _globals['_AVATARIMAGE']._serialized_end=1018
+  _globals['_FILELOCATION']._serialized_start=1020
+  _globals['_FILELOCATION']._serialized_end=1102
 # @@protoc_insertion_point(module_scope)

@@ -106,3 +106,15 @@ class SearchContacts(_message.Message):
     groups: _containers.RepeatedScalarFieldContainer[int]
     group_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.GroupOutPeer]
     def __init__(self, users: _Optional[_Iterable[int]] = ..., user_peers: _Optional[_Iterable[int]] = ..., groups: _Optional[_Iterable[int]] = ..., group_peers: _Optional[_Iterable[_Union[_struct_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...
+
+class EditGroupAvatar(_message.Message):
+    __slots__ = ("avatar", "seq", "state", "date")
+    AVATAR_FIELD_NUMBER: _ClassVar[int]
+    SEQ_FIELD_NUMBER: _ClassVar[int]
+    STATE_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    avatar: _struct_pb2.Avatar
+    seq: int
+    state: bytes
+    date: int
+    def __init__(self, avatar: _Optional[_Union[_struct_pb2.Avatar, _Mapping]] = ..., seq: _Optional[int] = ..., state: _Optional[bytes] = ..., date: _Optional[int] = ...) -> None: ...
