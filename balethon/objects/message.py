@@ -30,7 +30,7 @@ class Message(Object):
     @classmethod
     def from_protobuf(cls, protobuf_data):
         return cls(
-            id=f"{protobuf_data.date}|{protobuf_data.rid}",
+            id=f"{protobuf_data.rid}|{protobuf_data.date}",
             author=objects.User(id=protobuf_data.sender_uid),
             chat=objects.Chat(id=f"{protobuf_data.peer.id}|{protobuf_data.peer.type}"),
             date=objects.Date.wrap(protobuf_data.date / 1000),

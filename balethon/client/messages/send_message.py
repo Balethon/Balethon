@@ -37,6 +37,6 @@ class SendMessage:
                     )
                 )
             )
-        else:
-            chat_id = await self.resolve_peer_id(chat_id)
-            return await self.auto_execute("sendMessage", locals())
+
+        chat_id = await self.resolve_peer_id(chat_id)
+        return await self.auto_execute("sendMessage", locals())
