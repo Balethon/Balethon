@@ -222,10 +222,10 @@ class PinMessages(_message.Message):
     PEER_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
     JUST_MINE_FIELD_NUMBER: _ClassVar[int]
-    peer: _struct_pb2.ExPeer
+    peer: _struct_pb2.Peer
     message_id: _struct_pb2.MessageId
     just_mine: bool
-    def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., message_id: _Optional[_Union[_struct_pb2.MessageId, _Mapping]] = ..., just_mine: bool = ...) -> None: ...
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.Peer, _Mapping]] = ..., message_id: _Optional[_Union[_struct_pb2.MessageId, _Mapping]] = ..., just_mine: bool = ...) -> None: ...
 
 class UnPinMessages(_message.Message):
     __slots__ = ("peer", "message_ids", "all")

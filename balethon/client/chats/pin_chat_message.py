@@ -15,11 +15,12 @@ class PinChatMessage:
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
             if peer_type in (1, 4):
+                print(1)
                 return await self.invoke(
                     service_name="bale.messaging.v2.Messaging",
-                    method="PinMessages",
+                    method="PinMessage",
                     payload=request_pb2.PinMessages(
-                        peer=struct_pb2.ExPeer(type=peer_type, id=peer_id, access_hash=1),
+                        peer=struct_pb2.Peer(type=peer_type, id=peer_id),
                         message_id=struct_pb2.MessageId(date=date, rid=rid)
                     )
                 )

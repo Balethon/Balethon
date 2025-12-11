@@ -190,7 +190,7 @@ message PinMessage {
 // Pin Messages (Messaging)
 
 message PinMessages {
-  struct.ExPeer peer = 1;
+  struct.Peer peer = 1;
   struct.MessageId message_id = 2;
   bool just_mine = 3;
 }
