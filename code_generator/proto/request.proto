@@ -262,3 +262,12 @@ message KickUser {
   int64 rid = 4;
   repeated int32 optimizations = 5;
 }
+
+// ----------------------------------------------------------
+// Invite Users
+
+message InviteUsers {
+  struct.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  repeated struct.UserOutPeer users = 3;
+}
