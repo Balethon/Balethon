@@ -264,6 +264,13 @@ message KickUser {
 }
 
 // ----------------------------------------------------------
+// Get Group Invite Url
+
+message GetGroupInviteUrl {
+  struct.GroupOutPeer group_peer = 1;
+}
+
+// ----------------------------------------------------------
 // Invite Users
 
 message InviteUsers {

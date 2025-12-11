@@ -96,6 +96,13 @@ message EditGroupAvatar {
 }
 
 // ----------------------------------------------------------
+// Get Group Invite Url
+
+message GetGroupInviteUrl {
+  string url = 1;
+}
+
+// ----------------------------------------------------------
 // Invite Users
 
 message InviteUsers {
