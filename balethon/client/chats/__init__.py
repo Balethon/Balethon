@@ -2,6 +2,7 @@ from .ban_chat_member import BanChatMember
 from .delete_chat_photo import DeleteChatPhoto
 from .get_chat import GetChat
 from .get_chat_administrators import GetChatAdministrators
+from .get_chat_history import GetChatHistory
 from .get_chat_members_count import GetChatMembersCount
 from .get_chat_member import GetChatMember
 from .leave_chat import LeaveChat
@@ -22,6 +23,7 @@ class Chats(
     DeleteChatPhoto,
     GetChat,
     GetChatAdministrators,
+    GetChatHistory,
     GetChatMembersCount,
     GetChatMember,
     LeaveChat,
