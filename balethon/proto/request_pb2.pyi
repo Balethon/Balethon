@@ -332,3 +332,13 @@ class InviteUsers(_message.Message):
     rid: int
     users: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., users: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ...) -> None: ...
+
+class SetMemberPermissions(_message.Message):
+    __slots__ = ("group", "user", "permissions")
+    GROUP_FIELD_NUMBER: _ClassVar[int]
+    USER_FIELD_NUMBER: _ClassVar[int]
+    PERMISSIONS_FIELD_NUMBER: _ClassVar[int]
+    group: _struct_pb2.GroupOutPeer
+    user: _struct_pb2.UserOutPeer
+    permissions: _struct_pb2.Permissions
+    def __init__(self, group: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ..., permissions: _Optional[_Union[_struct_pb2.Permissions, _Mapping]] = ...) -> None: ...
