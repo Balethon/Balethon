@@ -46,20 +46,22 @@ class ComposedUpdate(_message.Message):
     def __init__(self, message_sent: _Optional[bytes] = ..., message: _Optional[_Union[UpdateMessage, _Mapping]] = ...) -> None: ...
 
 class UpdateMessage(_message.Message):
-    __slots__ = ("peer", "sender_uid", "date", "rid", "message", "previous_message_id")
+    __slots__ = ("peer", "sender_uid", "date", "rid", "message", "quoted_message", "previous_message_id")
     PEER_FIELD_NUMBER: _ClassVar[int]
     SENDER_UID_FIELD_NUMBER: _ClassVar[int]
     DATE_FIELD_NUMBER: _ClassVar[int]
     RID_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    QUOTED_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     PREVIOUS_MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
     peer: _struct_pb2.Peer
     sender_uid: int
     date: int
     rid: int
     message: _struct_pb2.Message
+    quoted_message: _struct_pb2.QuotedMessage
     previous_message_id: _struct_pb2.MessageId
-    def __init__(self, peer: _Optional[_Union[_struct_pb2.Peer, _Mapping]] = ..., sender_uid: _Optional[int] = ..., date: _Optional[int] = ..., rid: _Optional[int] = ..., message: _Optional[_Union[_struct_pb2.Message, _Mapping]] = ..., previous_message_id: _Optional[_Union[_struct_pb2.MessageId, _Mapping]] = ...) -> None: ...
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.Peer, _Mapping]] = ..., sender_uid: _Optional[int] = ..., date: _Optional[int] = ..., rid: _Optional[int] = ..., message: _Optional[_Union[_struct_pb2.Message, _Mapping]] = ..., quoted_message: _Optional[_Union[_struct_pb2.QuotedMessage, _Mapping]] = ..., previous_message_id: _Optional[_Union[_struct_pb2.MessageId, _Mapping]] = ...) -> None: ...
 
 class GetMessageViews(_message.Message):
     __slots__ = ("containers",)

@@ -13,12 +13,32 @@ message ExPeer {
   int64 access_hash = 3;
 }
 
+message FastThumb {
+  int32 w = 1;
+  int32 h = 2;
+  bytes thumb = 3;
+}
+
+// message DocumentEx {}
+
+message DocumentMessage {
+  int64 file_id = 1;
+  int64 access_hash = 2;
+  int32 file_size = 3;
+  string name = 4;
+  string mime_type = 5;
+  FastThumb thumb = 6;
+  // DocumentEx ext = 7;
+  TextMessage caption = 8;
+}
+
 message TextMessage {
   string text = 1;
   repeated int64 mentions = 2;
 }
 
 message Message {
+  DocumentMessage document_message = 4;
   TextMessage text_message = 15;
 }
 
@@ -32,6 +52,12 @@ message MessageId {
   int64 seq = 3;
 }
 
+message OutPeer {
+  int32 type = 1;
+  int32 id = 2;
+  int64 access_hash = 3;
+}
+
 message GroupOutPeer {
   int64 group_id = 1;
   int64 access_hash = 2;
@@ -42,11 +68,20 @@ message UserOutPeer {
   int64 access_hash = 2;
 }
 
+message QuotedMessage {
+  Int64Value message_id = 1;
+  int32 sender_user_id = 3;
+  int64 message_date = 4;
+  Message quoted_message_content = 5;
+  OutPeer quoted_peer = 6;
+}
+
 message MessageContainer {
   int32 sender_uid = 1;
   int64 rid = 2;
   int64 date = 3;
   Message message = 4;
+  QuotedMessage quoted_message = 8;
 }
 
 message Group {
@@ -89,14 +124,14 @@ message FileLocation {
   int32 file_storage_version = 3;
 }
 
-message DateValue {
+message Int64Value {
   int64 date = 1;
 }
 
 message HistoryMessageIdentifier {
   Peer peer = 1;
   int64 random_id = 2;
-  DateValue date = 3;
+  Int64Value date = 3;
 }
 
 message Permissions {

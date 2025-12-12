@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from balethon.proto import struct_pb2 as struct__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eresponse.proto\x12\x08response\x1a\x0cstruct.proto\"\\\n\x08Response\x12)\n\x0bws_response\x18\x01 \x01(\x0b\x32\x14.response.WsResponse\x12%\n\tws_update\x18\x02 \x01(\x0b\x32\x12.response.WsUpdate\"<\n\nWsResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\x0c\x12\x10\n\x08response\x18\x02 \x01(\x0c\x12\r\n\x05index\x18\x03 \x01(\x03\",\n\x08WsUpdate\x12 \n\x06update\x18\x01 \x01(\x0b\x32\x10.response.Update\";\n\x06Update\x12\x31\n\x0f\x63omposed_update\x18\x01 \x01(\x0b\x32\x18.response.ComposedUpdate\"P\n\x0e\x43omposedUpdate\x12\x14\n\x0cmessage_sent\x18\x04 \x01(\x0c\x12(\n\x07message\x18\x37 \x01(\x0b\x32\x17.response.UpdateMessage\"\xac\x01\n\rUpdateMessage\x12\x1a\n\x04peer\x18\x01 \x01(\x0b\x32\x0c.struct.Peer\x12\x12\n\nsender_uid\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x03\x12\x0b\n\x03rid\x18\x04 \x01(\x03\x12 \n\x07message\x18\x05 \x01(\x0b\x32\x0f.struct.Message\x12.\n\x13previous_message_id\x18\t \x01(\x0b\x32\x11.struct.MessageId\"<\n\x0fGetMessageViews\x12)\n\ncontainers\x18\x01 \x03(\x0b\x32\x15.struct.MessagesViews\"8\n\x0bLoadHistory\x12)\n\x07history\x18\x01 \x03(\x0b\x32\x18.struct.MessageContainer\"6\n\tJoinGroup\x12\x1c\n\x05group\x18\x01 \x01(\x0b\x32\r.struct.Group\x12\x0b\n\x03seq\x18\x02 \x01(\x05\"<\n\x0fJoinPublicGroup\x12\x1c\n\x05group\x18\x01 \x01(\x0b\x32\r.struct.Group\x12\x0b\n\x03seq\x18\x02 \x01(\x05\"5\n\x0cGetFullGroup\x12%\n\nfull_group\x18\x01 \x01(\x0b\x32\x11.struct.FullGroup\"n\n\x0eSearchContacts\x12\r\n\x05users\x18\x01 \x03(\x05\x12\x12\n\nuser_peers\x18\x02 \x03(\x05\x12\x0e\n\x06groups\x18\x04 \x03(\x05\x12)\n\x0bgroup_peers\x18\x05 \x03(\x0b\x32\x14.struct.GroupOutPeer\"[\n\x0f\x45\x64itGroupAvatar\x12\x1e\n\x06\x61vatar\x18\x01 \x01(\x0b\x32\x0e.struct.Avatar\x12\x0b\n\x03seq\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x03\" \n\x11GetGroupInviteUrl\x12\x0b\n\x03url\x18\x01 \x01(\t\"@\n\x0bInviteUsers\x12\x31\n\x14not_added_user_peers\x18\x01 \x03(\x0b\x32\x13.struct.UserOutPeerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eresponse.proto\x12\x08response\x1a\x0cstruct.proto\"\\\n\x08Response\x12)\n\x0bws_response\x18\x01 \x01(\x0b\x32\x14.response.WsResponse\x12%\n\tws_update\x18\x02 \x01(\x0b\x32\x12.response.WsUpdate\"<\n\nWsResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\x0c\x12\x10\n\x08response\x18\x02 \x01(\x0c\x12\r\n\x05index\x18\x03 \x01(\x03\",\n\x08WsUpdate\x12 \n\x06update\x18\x01 \x01(\x0b\x32\x10.response.Update\";\n\x06Update\x12\x31\n\x0f\x63omposed_update\x18\x01 \x01(\x0b\x32\x18.response.ComposedUpdate\"P\n\x0e\x43omposedUpdate\x12\x14\n\x0cmessage_sent\x18\x04 \x01(\x0c\x12(\n\x07message\x18\x37 \x01(\x0b\x32\x17.response.UpdateMessage\"\xdb\x01\n\rUpdateMessage\x12\x1a\n\x04peer\x18\x01 \x01(\x0b\x32\x0c.struct.Peer\x12\x12\n\nsender_uid\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x03\x12\x0b\n\x03rid\x18\x04 \x01(\x03\x12 \n\x07message\x18\x05 \x01(\x0b\x32\x0f.struct.Message\x12-\n\x0equoted_message\x18\x07 \x01(\x0b\x32\x15.struct.QuotedMessage\x12.\n\x13previous_message_id\x18\t \x01(\x0b\x32\x11.struct.MessageId\"<\n\x0fGetMessageViews\x12)\n\ncontainers\x18\x01 \x03(\x0b\x32\x15.struct.MessagesViews\"8\n\x0bLoadHistory\x12)\n\x07history\x18\x01 \x03(\x0b\x32\x18.struct.MessageContainer\"6\n\tJoinGroup\x12\x1c\n\x05group\x18\x01 \x01(\x0b\x32\r.struct.Group\x12\x0b\n\x03seq\x18\x02 \x01(\x05\"<\n\x0fJoinPublicGroup\x12\x1c\n\x05group\x18\x01 \x01(\x0b\x32\r.struct.Group\x12\x0b\n\x03seq\x18\x02 \x01(\x05\"5\n\x0cGetFullGroup\x12%\n\nfull_group\x18\x01 \x01(\x0b\x32\x11.struct.FullGroup\"n\n\x0eSearchContacts\x12\r\n\x05users\x18\x01 \x03(\x05\x12\x12\n\nuser_peers\x18\x02 \x03(\x05\x12\x0e\n\x06groups\x18\x04 \x03(\x05\x12)\n\x0bgroup_peers\x18\x05 \x03(\x0b\x32\x14.struct.GroupOutPeer\"[\n\x0f\x45\x64itGroupAvatar\x12\x1e\n\x06\x61vatar\x18\x01 \x01(\x0b\x32\x0e.struct.Avatar\x12\x0b\n\x03seq\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\x03\" \n\x11GetGroupInviteUrl\x12\x0b\n\x03url\x18\x01 \x01(\t\"@\n\x0bInviteUsers\x12\x31\n\x14not_added_user_peers\x18\x01 \x03(\x0b\x32\x13.struct.UserOutPeerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -43,23 +43,23 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_COMPOSEDUPDATE']._serialized_start=305
   _globals['_COMPOSEDUPDATE']._serialized_end=385
   _globals['_UPDATEMESSAGE']._serialized_start=388
-  _globals['_UPDATEMESSAGE']._serialized_end=560
-  _globals['_GETMESSAGEVIEWS']._serialized_start=562
-  _globals['_GETMESSAGEVIEWS']._serialized_end=622
-  _globals['_LOADHISTORY']._serialized_start=624
-  _globals['_LOADHISTORY']._serialized_end=680
-  _globals['_JOINGROUP']._serialized_start=682
-  _globals['_JOINGROUP']._serialized_end=736
-  _globals['_JOINPUBLICGROUP']._serialized_start=738
-  _globals['_JOINPUBLICGROUP']._serialized_end=798
-  _globals['_GETFULLGROUP']._serialized_start=800
-  _globals['_GETFULLGROUP']._serialized_end=853
-  _globals['_SEARCHCONTACTS']._serialized_start=855
-  _globals['_SEARCHCONTACTS']._serialized_end=965
-  _globals['_EDITGROUPAVATAR']._serialized_start=967
-  _globals['_EDITGROUPAVATAR']._serialized_end=1058
-  _globals['_GETGROUPINVITEURL']._serialized_start=1060
-  _globals['_GETGROUPINVITEURL']._serialized_end=1092
-  _globals['_INVITEUSERS']._serialized_start=1094
-  _globals['_INVITEUSERS']._serialized_end=1158
+  _globals['_UPDATEMESSAGE']._serialized_end=607
+  _globals['_GETMESSAGEVIEWS']._serialized_start=609
+  _globals['_GETMESSAGEVIEWS']._serialized_end=669
+  _globals['_LOADHISTORY']._serialized_start=671
+  _globals['_LOADHISTORY']._serialized_end=727
+  _globals['_JOINGROUP']._serialized_start=729
+  _globals['_JOINGROUP']._serialized_end=783
+  _globals['_JOINPUBLICGROUP']._serialized_start=785
+  _globals['_JOINPUBLICGROUP']._serialized_end=845
+  _globals['_GETFULLGROUP']._serialized_start=847
+  _globals['_GETFULLGROUP']._serialized_end=900
+  _globals['_SEARCHCONTACTS']._serialized_start=902
+  _globals['_SEARCHCONTACTS']._serialized_end=1012
+  _globals['_EDITGROUPAVATAR']._serialized_start=1014
+  _globals['_EDITGROUPAVATAR']._serialized_end=1105
+  _globals['_GETGROUPINVITEURL']._serialized_start=1107
+  _globals['_GETGROUPINVITEURL']._serialized_end=1139
+  _globals['_INVITEUSERS']._serialized_start=1141
+  _globals['_INVITEUSERS']._serialized_end=1205
 # @@protoc_insertion_point(module_scope)

@@ -24,6 +24,34 @@ class ExPeer(_message.Message):
     access_hash: int
     def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...
 
+class FastThumb(_message.Message):
+    __slots__ = ("w", "h", "thumb")
+    W_FIELD_NUMBER: _ClassVar[int]
+    H_FIELD_NUMBER: _ClassVar[int]
+    THUMB_FIELD_NUMBER: _ClassVar[int]
+    w: int
+    h: int
+    thumb: bytes
+    def __init__(self, w: _Optional[int] = ..., h: _Optional[int] = ..., thumb: _Optional[bytes] = ...) -> None: ...
+
+class DocumentMessage(_message.Message):
+    __slots__ = ("file_id", "access_hash", "file_size", "name", "mime_type", "thumb", "caption")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    MIME_TYPE_FIELD_NUMBER: _ClassVar[int]
+    THUMB_FIELD_NUMBER: _ClassVar[int]
+    CAPTION_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    access_hash: int
+    file_size: int
+    name: str
+    mime_type: str
+    thumb: FastThumb
+    caption: TextMessage
+    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_size: _Optional[int] = ..., name: _Optional[str] = ..., mime_type: _Optional[str] = ..., thumb: _Optional[_Union[FastThumb, _Mapping]] = ..., caption: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
+
 class TextMessage(_message.Message):
     __slots__ = ("text", "mentions")
     TEXT_FIELD_NUMBER: _ClassVar[int]
@@ -33,10 +61,12 @@ class TextMessage(_message.Message):
     def __init__(self, text: _Optional[str] = ..., mentions: _Optional[_Iterable[int]] = ...) -> None: ...
 
 class Message(_message.Message):
-    __slots__ = ("text_message",)
+    __slots__ = ("document_message", "text_message")
+    DOCUMENT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     TEXT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    document_message: DocumentMessage
     text_message: TextMessage
-    def __init__(self, text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
+    def __init__(self, document_message: _Optional[_Union[DocumentMessage, _Mapping]] = ..., text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
 
 class DeleteDates(_message.Message):
     __slots__ = ("dates",)
@@ -54,6 +84,16 @@ class MessageId(_message.Message):
     seq: int
     def __init__(self, date: _Optional[int] = ..., rid: _Optional[int] = ..., seq: _Optional[int] = ...) -> None: ...
 
+class OutPeer(_message.Message):
+    __slots__ = ("type", "id", "access_hash")
+    TYPE_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    type: int
+    id: int
+    access_hash: int
+    def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...
+
 class GroupOutPeer(_message.Message):
     __slots__ = ("group_id", "access_hash")
     GROUP_ID_FIELD_NUMBER: _ClassVar[int]
@@ -70,17 +110,33 @@ class UserOutPeer(_message.Message):
     access_hash: int
     def __init__(self, uid: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...
 
+class QuotedMessage(_message.Message):
+    __slots__ = ("message_id", "sender_user_id", "message_date", "quoted_message_content", "quoted_peer")
+    MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    SENDER_USER_ID_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_DATE_FIELD_NUMBER: _ClassVar[int]
+    QUOTED_MESSAGE_CONTENT_FIELD_NUMBER: _ClassVar[int]
+    QUOTED_PEER_FIELD_NUMBER: _ClassVar[int]
+    message_id: Int64Value
+    sender_user_id: int
+    message_date: int
+    quoted_message_content: Message
+    quoted_peer: OutPeer
+    def __init__(self, message_id: _Optional[_Union[Int64Value, _Mapping]] = ..., sender_user_id: _Optional[int] = ..., message_date: _Optional[int] = ..., quoted_message_content: _Optional[_Union[Message, _Mapping]] = ..., quoted_peer: _Optional[_Union[OutPeer, _Mapping]] = ...) -> None: ...
+
 class MessageContainer(_message.Message):
-    __slots__ = ("sender_uid", "rid", "date", "message")
+    __slots__ = ("sender_uid", "rid", "date", "message", "quoted_message")
     SENDER_UID_FIELD_NUMBER: _ClassVar[int]
     RID_FIELD_NUMBER: _ClassVar[int]
     DATE_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    QUOTED_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     sender_uid: int
     rid: int
     date: int
     message: Message
-    def __init__(self, sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ...) -> None: ...
+    quoted_message: QuotedMessage
+    def __init__(self, sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ..., quoted_message: _Optional[_Union[QuotedMessage, _Mapping]] = ...) -> None: ...
 
 class Group(_message.Message):
     __slots__ = ("id", "title", "members_count", "available_reactions")
@@ -150,7 +206,7 @@ class FileLocation(_message.Message):
     file_storage_version: int
     def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...
 
-class DateValue(_message.Message):
+class Int64Value(_message.Message):
     __slots__ = ("date",)
     DATE_FIELD_NUMBER: _ClassVar[int]
     date: int
@@ -163,8 +219,8 @@ class HistoryMessageIdentifier(_message.Message):
     DATE_FIELD_NUMBER: _ClassVar[int]
     peer: Peer
     random_id: int
-    date: DateValue
-    def __init__(self, peer: _Optional[_Union[Peer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[_Union[DateValue, _Mapping]] = ...) -> None: ...
+    date: Int64Value
+    def __init__(self, peer: _Optional[_Union[Peer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[_Union[Int64Value, _Mapping]] = ...) -> None: ...
 
 class Permissions(_message.Message):
     __slots__ = ("see_message", "delete_message", "kick_user", "pin_message", "invite_user", "add_admin", "change_info", "send_message", "see_members", "edit_message", "send_media", "send_gif_stickers", "reply_to_story", "forward_message_from", "send_gift_packet", "start_call", "send_link_message", "send_forwarded_message", "add_story", "manage_call")

@@ -34,7 +34,14 @@ class Message(Object):
             author=objects.User(id=protobuf_data.sender_uid),
             chat=objects.Chat(id=f"{protobuf_data.peer.id}|{protobuf_data.peer.type}"),
             date=objects.Date.wrap(protobuf_data.date / 1000),
-            text=protobuf_data.message.text_message.text
+            text=protobuf_data.message.text_message.text,
+            document=objects.Document(
+                id=protobuf_data.message.document_message.file_id,
+                name=protobuf_data.message.document_message.name,
+                size=protobuf_data.message.document_message.file_size,
+                mime_type=protobuf_data.message.document_message.mime_type
+            ),
+            caption=protobuf_data.message.document_message.caption.text
         )
 
     def __init__(

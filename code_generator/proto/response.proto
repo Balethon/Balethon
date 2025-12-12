@@ -35,6 +35,7 @@ message UpdateMessage {
   int64 date = 3;
   int64 rid = 4;
   struct.Message message = 5;
+  struct.QuotedMessage quoted_message = 7;
   struct.MessageId previous_message_id = 9;
 }
 
