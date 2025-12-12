@@ -165,3 +165,47 @@ class HistoryMessageIdentifier(_message.Message):
     random_id: int
     date: DateValue
     def __init__(self, peer: _Optional[_Union[Peer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[_Union[DateValue, _Mapping]] = ...) -> None: ...
+
+class Permissions(_message.Message):
+    __slots__ = ("see_message", "delete_message", "kick_user", "pin_message", "invite_user", "add_admin", "change_info", "send_message", "see_members", "edit_message", "send_media", "send_gif_stickers", "reply_to_story", "forward_message_from", "send_gift_packet", "start_call", "send_link_message", "send_forwarded_message", "add_story", "manage_call")
+    SEE_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    DELETE_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    KICK_USER_FIELD_NUMBER: _ClassVar[int]
+    PIN_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    INVITE_USER_FIELD_NUMBER: _ClassVar[int]
+    ADD_ADMIN_FIELD_NUMBER: _ClassVar[int]
+    CHANGE_INFO_FIELD_NUMBER: _ClassVar[int]
+    SEND_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    SEE_MEMBERS_FIELD_NUMBER: _ClassVar[int]
+    EDIT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    SEND_MEDIA_FIELD_NUMBER: _ClassVar[int]
+    SEND_GIF_STICKERS_FIELD_NUMBER: _ClassVar[int]
+    REPLY_TO_STORY_FIELD_NUMBER: _ClassVar[int]
+    FORWARD_MESSAGE_FROM_FIELD_NUMBER: _ClassVar[int]
+    SEND_GIFT_PACKET_FIELD_NUMBER: _ClassVar[int]
+    START_CALL_FIELD_NUMBER: _ClassVar[int]
+    SEND_LINK_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    SEND_FORWARDED_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    ADD_STORY_FIELD_NUMBER: _ClassVar[int]
+    MANAGE_CALL_FIELD_NUMBER: _ClassVar[int]
+    see_message: bool
+    delete_message: bool
+    kick_user: bool
+    pin_message: bool
+    invite_user: bool
+    add_admin: bool
+    change_info: bool
+    send_message: bool
+    see_members: bool
+    edit_message: bool
+    send_media: bool
+    send_gif_stickers: bool
+    reply_to_story: bool
+    forward_message_from: bool
+    send_gift_packet: bool
+    start_call: bool
+    send_link_message: bool
+    send_forwarded_message: bool
+    add_story: bool
+    manage_call: bool
+    def __init__(self, see_message: bool = ..., delete_message: bool = ..., kick_user: bool = ..., pin_message: bool = ..., invite_user: bool = ..., add_admin: bool = ..., change_info: bool = ..., send_message: bool = ..., see_members: bool = ..., edit_message: bool = ..., send_media: bool = ..., send_gif_stickers: bool = ..., reply_to_story: bool = ..., forward_message_from: bool = ..., send_gift_packet: bool = ..., start_call: bool = ..., send_link_message: bool = ..., send_forwarded_message: bool = ..., add_story: bool = ..., manage_call: bool = ...) -> None: ...

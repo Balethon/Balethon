@@ -287,3 +287,12 @@ message InviteUsers {
   int64 rid = 2;
   repeated struct.UserOutPeer users = 3;
 }
+
+// ----------------------------------------------------------
+// Set Member Permissions
+
+message SetMemberPermissions {
+  struct.GroupOutPeer group = 1;
+  struct.UserOutPeer user = 2;
+  struct.Permissions permissions = 3;
+}

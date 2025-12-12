@@ -98,3 +98,26 @@ message HistoryMessageIdentifier {
   int64 random_id = 2;
   DateValue date = 3;
 }
+
+message Permissions {
+  bool see_message = 1;
+  bool delete_message = 2;
+  bool kick_user = 3;
+  bool pin_message = 4;
+  bool invite_user = 5;
+  bool add_admin = 6;
+  bool change_info = 7;
+  bool send_message = 8;
+  bool see_members = 9;
+  bool edit_message = 10;
+  bool send_media = 11;
+  bool send_gif_stickers = 12;
+  bool reply_to_story = 13;
+  bool forward_message_from = 14;
+  bool send_gift_packet = 15;
+  bool start_call = 16;
+  bool send_link_message = 17;
+  bool send_forwarded_message = 18;
+  bool add_story = 19;
+  bool manage_call = 20;
+}
