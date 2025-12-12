@@ -14,5 +14,8 @@ class EditMessageCaption:
             caption: str,
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
+        if self.is_userbot():
+            return await self.edit_message_text(chat_id, message_id, caption)
+        
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("editMessageCaption", locals())
