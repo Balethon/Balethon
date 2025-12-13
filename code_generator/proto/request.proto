@@ -303,3 +303,20 @@ message SetMemberPermissions {
   struct.UserOutPeer user = 2;
   struct.Permissions permissions = 3;
 }
+
+// ----------------------------------------------------------
+// LoadMembers
+
+message LoadMembers {
+  struct.GroupOutPeer group = 1;
+  int32 limit = 2;
+  bytes next = 3;
+  struct.LoadMembersCondition condition = 4;
+}
+
+// ----------------------------------------------------------
+// Get Chat Members Count
+
+message GetGroupMembersCount {
+    struct.GroupOutPeer group = 1;
+}

@@ -5,6 +5,8 @@ from .get_chat_administrators import GetChatAdministrators
 from .get_chat_history import GetChatHistory
 from .get_chat_members_count import GetChatMembersCount
 from .get_chat_member import GetChatMember
+from .get_chat_members import GetChatMembers
+from .join_chat import JoinChat
 from .leave_chat import LeaveChat
 from .pin_chat_message import PinChatMessage
 from .promote_chat_member import PromoteChatMember
@@ -26,6 +28,8 @@ class Chats(
     GetChatHistory,
     GetChatMembersCount,
     GetChatMember,
+    GetChatMembers,
+    JoinChat,
     LeaveChat,
     PinChatMessage,
     PromoteChatMember,
