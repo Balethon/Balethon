@@ -104,6 +104,13 @@ message GetGroupInviteUrl {
 }
 
 // ----------------------------------------------------------
+// Revoke Invite Url
+
+message RevokeInviteUrl {
+  string url = 1;
+}
+
+// ----------------------------------------------------------
 // Invite Users
 
 message InviteUsers {

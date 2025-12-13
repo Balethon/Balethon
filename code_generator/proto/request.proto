@@ -254,6 +254,13 @@ message EditGroupAbout {
 }
 
 // ----------------------------------------------------------
+// Revoke Invite Url
+
+message RevokeInviteUrl {
+  struct.GroupOutPeer group_peer = 1;
+}
+
+// ----------------------------------------------------------
 // UnBan User
 
 message UnBanUser {

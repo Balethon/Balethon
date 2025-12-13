@@ -127,6 +127,12 @@ class GetGroupInviteUrl(_message.Message):
     url: str
     def __init__(self, url: _Optional[str] = ...) -> None: ...
 
+class RevokeInviteUrl(_message.Message):
+    __slots__ = ("url",)
+    URL_FIELD_NUMBER: _ClassVar[int]
+    url: str
+    def __init__(self, url: _Optional[str] = ...) -> None: ...
+
 class InviteUsers(_message.Message):
     __slots__ = ("not_added_user_peers",)
     NOT_ADDED_USER_PEERS_FIELD_NUMBER: _ClassVar[int]
