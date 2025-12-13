@@ -295,6 +295,12 @@ class EditGroupAbout(_message.Message):
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., about: _Optional[str] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
 
+class RevokeInviteUrl(_message.Message):
+    __slots__ = ("group_peer",)
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...
+
 class UnBanUser(_message.Message):
     __slots__ = ("group_peer", "user", "optimizations")
     GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
