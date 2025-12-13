@@ -54,7 +54,7 @@ message MessageId {
 
 message OutPeer {
   int32 type = 1;
-  int32 id = 2;
+  int64 id = 2;
   int64 access_hash = 3;
 }
 
@@ -155,4 +155,21 @@ message Permissions {
   bool send_forwarded_message = 18;
   bool add_story = 19;
   bool manage_call = 20;
+}
+
+message LoadMembersCondition {
+  bool excepted_permissions = 1;
+  bool contacts = 2;
+  string query = 3;
+}
+
+message Member {
+  int32 uid = 1;
+  int32 inviter_uid = 2;
+  int64 date = 3;
+  bool is_admin = 4;
+  int32 promoter_user_id = 5;
+  int64 promoted_at = 6;
+  Permissions permissions = 7;
+  string title = 8;
 }

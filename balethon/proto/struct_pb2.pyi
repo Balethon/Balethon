@@ -265,3 +265,33 @@ class Permissions(_message.Message):
     add_story: bool
     manage_call: bool
     def __init__(self, see_message: bool = ..., delete_message: bool = ..., kick_user: bool = ..., pin_message: bool = ..., invite_user: bool = ..., add_admin: bool = ..., change_info: bool = ..., send_message: bool = ..., see_members: bool = ..., edit_message: bool = ..., send_media: bool = ..., send_gif_stickers: bool = ..., reply_to_story: bool = ..., forward_message_from: bool = ..., send_gift_packet: bool = ..., start_call: bool = ..., send_link_message: bool = ..., send_forwarded_message: bool = ..., add_story: bool = ..., manage_call: bool = ...) -> None: ...
+
+class LoadMembersCondition(_message.Message):
+    __slots__ = ("excepted_permissions", "contacts", "query")
+    EXCEPTED_PERMISSIONS_FIELD_NUMBER: _ClassVar[int]
+    CONTACTS_FIELD_NUMBER: _ClassVar[int]
+    QUERY_FIELD_NUMBER: _ClassVar[int]
+    excepted_permissions: bool
+    contacts: bool
+    query: str
+    def __init__(self, excepted_permissions: bool = ..., contacts: bool = ..., query: _Optional[str] = ...) -> None: ...
+
+class Member(_message.Message):
+    __slots__ = ("uid", "inviter_uid", "date", "is_admin", "promoter_user_id", "promoted_at", "permissions", "title")
+    UID_FIELD_NUMBER: _ClassVar[int]
+    INVITER_UID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    IS_ADMIN_FIELD_NUMBER: _ClassVar[int]
+    PROMOTER_USER_ID_FIELD_NUMBER: _ClassVar[int]
+    PROMOTED_AT_FIELD_NUMBER: _ClassVar[int]
+    PERMISSIONS_FIELD_NUMBER: _ClassVar[int]
+    TITLE_FIELD_NUMBER: _ClassVar[int]
+    uid: int
+    inviter_uid: int
+    date: int
+    is_admin: bool
+    promoter_user_id: int
+    promoted_at: int
+    permissions: Permissions
+    title: str
+    def __init__(self, uid: _Optional[int] = ..., inviter_uid: _Optional[int] = ..., date: _Optional[int] = ..., is_admin: bool = ..., promoter_user_id: _Optional[int] = ..., promoted_at: _Optional[int] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., title: _Optional[str] = ...) -> None: ...

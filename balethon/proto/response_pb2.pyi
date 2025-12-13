@@ -138,3 +138,17 @@ class InviteUsers(_message.Message):
     NOT_ADDED_USER_PEERS_FIELD_NUMBER: _ClassVar[int]
     not_added_user_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
     def __init__(self, not_added_user_peers: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ...) -> None: ...
+
+class LoadMembers(_message.Message):
+    __slots__ = ("members", "next")
+    MEMBERS_FIELD_NUMBER: _ClassVar[int]
+    NEXT_FIELD_NUMBER: _ClassVar[int]
+    members: _containers.RepeatedCompositeFieldContainer[_struct_pb2.Member]
+    next: bytes
+    def __init__(self, members: _Optional[_Iterable[_Union[_struct_pb2.Member, _Mapping]]] = ..., next: _Optional[bytes] = ...) -> None: ...
+
+class GetGroupMembersCount(_message.Message):
+    __slots__ = ("members_count",)
+    MEMBERS_COUNT_FIELD_NUMBER: _ClassVar[int]
+    members_count: int
+    def __init__(self, members_count: _Optional[int] = ...) -> None: ...
