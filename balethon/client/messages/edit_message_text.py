@@ -3,7 +3,7 @@ from typing import Union
 import balethon
 from ...objects import Message
 from balethon import objects
-from balethon.proto import request_pb2, struct_pb2
+from balethon.proto import request_pb2, struct_pb2, response_pb2
 
 
 class EditMessageText:
@@ -18,6 +18,30 @@ class EditMessageText:
         if self.is_userbot():
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
+            peer = struct_pb2.Peer(type=peer_type, id=peer_id)
+            response = await self.invoke(
+                service_name="bale.messaging.v2.Messaging",
+                method="LoadHistory",
+                payload=request_pb2.LoadHistory(
+                    peer=peer,
+                    date=date,
+                    load_mode=2,
+                    limit=1
+                )
+            )
+            result = response_pb2.LoadHistory()
+            result.ParseFromString(response)
+            if not result:
+                return
+            result = result.history[0]
+            result = result.message
+            if result.text_message:
+                result.text_message.text = text
+                updated_message = struct_pb2.Message(
+                    text_message=result.text_message
+                )
+            else:
+                return
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="UpdateMessage",
@@ -27,11 +51,7 @@ class EditMessageText:
                         id=peer_id
                     ),
                     rid=rid,
-                    updated_message=struct_pb2.Message(
-                        text_message=struct_pb2.TextMessage(
-                            text=text
-                        )
-                    )
+                    updated_message=updated_message
                 )
             )
 
