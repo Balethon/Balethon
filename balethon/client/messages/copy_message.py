@@ -30,20 +30,10 @@ class CopyMessage:
             )
             result = response_pb2.LoadHistory()
             result.ParseFromString(response)
+            result = result.history
             if not result:
                 return
-            result = result.history[0]
-            result = result.message
-            if result.document_message:
-                message = struct_pb2.Message(
-                    document_message=result.document_message
-                )
-            elif result.text_message:
-                message = struct_pb2.Message(
-                    text=result.text_message
-                )
-            else:
-                return
+            result = result[0]
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",
@@ -53,7 +43,7 @@ class CopyMessage:
                         id=peer_id
                     ),
                     rid=self.connection.create_rid(),
-                    message=message,
+                    message=result.message,
                     ex_peer=struct_pb2.Peer(
                         type=peer_type,
                         id=peer_id
