@@ -31,15 +31,13 @@ class EditMessageCaption:
             )
             result = response_pb2.LoadHistory()
             result.ParseFromString(response)
+            result = result.history
             if not result:
                 return
-            result = result.history[0]
+            result = result[0]
             result = result.message
             if result.document_message:
                 result.document_message.caption.text = caption
-                updated_message = struct_pb2.Message(
-                    document_message=result.document_message
-                )
             else:
                 return
             return await self.invoke(
@@ -51,7 +49,7 @@ class EditMessageCaption:
                         id=peer_id
                     ),
                     rid=rid,
-                    updated_message=updated_message
+                    updated_message=result
                 )
             )
 
