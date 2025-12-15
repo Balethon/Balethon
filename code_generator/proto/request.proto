@@ -320,3 +320,17 @@ message LoadMembers {
 message GetGroupMembersCount {
     struct.GroupOutPeer group = 1;
 }
+
+// ----------------------------------------------------------
+// Get Nasim File Url
+
+message GetNasimFileUploadUrl {
+  int32 expected_size = 1;
+  int64 crc = 2;
+  int64 uid = 3;
+  string name = 4;
+  string mime_type = 5;
+  struct.ExPeer ex_peer = 6;
+  struct.SendTypeValue send_type = 7;
+  int64 chunk_size = 8;
+}
