@@ -295,6 +295,12 @@ class EditGroupAbout(_message.Message):
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., about: _Optional[str] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
 
+class RevokeInviteUrl(_message.Message):
+    __slots__ = ("group_peer",)
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...
+
 class UnBanUser(_message.Message):
     __slots__ = ("group_peer", "user", "optimizations")
     GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
@@ -342,3 +348,21 @@ class SetMemberPermissions(_message.Message):
     user: _struct_pb2.UserOutPeer
     permissions: _struct_pb2.Permissions
     def __init__(self, group: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ..., permissions: _Optional[_Union[_struct_pb2.Permissions, _Mapping]] = ...) -> None: ...
+
+class LoadMembers(_message.Message):
+    __slots__ = ("group", "limit", "next", "condition")
+    GROUP_FIELD_NUMBER: _ClassVar[int]
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    NEXT_FIELD_NUMBER: _ClassVar[int]
+    CONDITION_FIELD_NUMBER: _ClassVar[int]
+    group: _struct_pb2.GroupOutPeer
+    limit: int
+    next: bytes
+    condition: _struct_pb2.LoadMembersCondition
+    def __init__(self, group: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., limit: _Optional[int] = ..., next: _Optional[bytes] = ..., condition: _Optional[_Union[_struct_pb2.LoadMembersCondition, _Mapping]] = ...) -> None: ...
+
+class GetGroupMembersCount(_message.Message):
+    __slots__ = ("group",)
+    GROUP_FIELD_NUMBER: _ClassVar[int]
+    group: _struct_pb2.GroupOutPeer
+    def __init__(self, group: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...

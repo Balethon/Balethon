@@ -2,6 +2,7 @@ from typing import Union
 
 import balethon
 from ...objects import InviteLink
+from balethon.proto import request_pb2, struct_pb2, response_pb2
 
 
 class RevokeChatInviteLink:
@@ -11,5 +12,18 @@ class RevokeChatInviteLink:
             chat_id: Union[int, str],
             invite_link: str
     ) -> InviteLink:
+        if self.is_userbot():
+            peer_id, peer_type = map(int, chat_id.split("|"))
+            response = await self.invoke(
+                service_name="bale.groups.v1.Groups",
+                method="RevokeInviteURL",
+                payload=request_pb2.RevokeInviteUrl(
+                    group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1)
+                )
+            )
+            result = response_pb2.RevokeInviteUrl()
+            result.ParseFromString(response)
+            return InviteLink(link=result.url)
+
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("revokeChatInviteLink", locals())

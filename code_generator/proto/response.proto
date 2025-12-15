@@ -104,8 +104,30 @@ message GetGroupInviteUrl {
 }
 
 // ----------------------------------------------------------
+// Revoke Invite Url
+
+message RevokeInviteUrl {
+  string url = 1;
+}
+
+// ----------------------------------------------------------
 // Invite Users
 
 message InviteUsers {
   repeated struct.UserOutPeer not_added_user_peers = 1;
+}
+
+// ----------------------------------------------------------
+// Load Members
+
+message LoadMembers {
+  repeated struct.Member members = 1;
+  bytes next = 2;
+}
+
+// ----------------------------------------------------------
+// Get Chat Members Count
+
+message GetGroupMembersCount {
+    int32 members_count = 1;
 }
