@@ -19,9 +19,7 @@ class GetChatMembersCount:
                     group=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
                 )
             )
-            result = response_pb2.GetGroupMembersCount()
-            result.ParseFromString(response)
-            return result.members_count
+            return response.members_count
         
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("getChatMembersCount", locals())

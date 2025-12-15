@@ -28,10 +28,8 @@ class GetChatHistory:
                 limit=limit
             )
         )
-        result = response_pb2.LoadHistory()
-        result.ParseFromString(response)
         history = BalethonList()
-        for message_container in result.history:
+        for message_container in response.history:
             fields = [field.name for field in message_container.DESCRIPTOR.fields]
             data = {field: getattr(message_container, field) for field in fields}
             update_message = response_pb2.UpdateMessage(peer=peer, **data)

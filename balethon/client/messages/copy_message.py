@@ -28,9 +28,7 @@ class CopyMessage:
                     limit=1
                 )
             )
-            result = response_pb2.LoadHistory()
-            result.ParseFromString(response)
-            result = result.history
+            result = response.history
             if not result:
                 return
             result = result[0]

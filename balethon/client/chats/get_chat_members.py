@@ -15,7 +15,7 @@ class GetChatMembers:
             query: str = None
     ) -> LoadMembers:
         peer_id, peer_type = map(int, chat_id.split("|"))
-        response = await self.invoke(
+        return await self.invoke(
             service_name="bale.groups.v1.Groups",
             method="LoadMembers",
             payload=request_pb2.LoadMembers(
@@ -29,6 +29,3 @@ class GetChatMembers:
                 )
             )
         )
-        result = LoadMembers()
-        result.ParseFromString(response)
-        return result

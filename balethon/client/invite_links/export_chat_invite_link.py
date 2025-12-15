@@ -19,9 +19,7 @@ class ExportChatInviteLink:
                     group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1)
                 )
             )
-            result = response_pb2.GetGroupInviteUrl()
-            result.ParseFromString(response)
-            return result.url
+            return response.url
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("exportChatInviteLink", locals())

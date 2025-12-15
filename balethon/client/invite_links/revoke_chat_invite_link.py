@@ -21,9 +21,7 @@ class RevokeChatInviteLink:
                     group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1)
                 )
             )
-            result = response_pb2.RevokeInviteUrl()
-            result.ParseFromString(response)
-            return InviteLink(link=result.url)
+            return InviteLink(link=response.url)
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("revokeChatInviteLink", locals())
