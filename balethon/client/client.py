@@ -22,6 +22,7 @@ from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 from ..sync_support import add_sync_support_to_object
+from ..proto import response_pb2
 
 
 @add_sync_support_to_object
@@ -132,7 +133,14 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         return result
 
     async def invoke(self, service_name: str, method: str, payload: ProtobufMessage):
-        return await self.connection.request(service_name, method, payload)
+        response = await self.connection.request(service_name, method, payload)
+        payload_class_name = type(payload).__name__
+        response_class = getattr(response_pb2, payload_class_name, None)
+        if response_class is None:
+            return response
+        result = response_class()
+        result.ParseFromString(response)
+        return result
 
     async def initialize(self):
         await self.dispatcher.start()
