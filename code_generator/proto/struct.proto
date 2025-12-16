@@ -173,3 +173,20 @@ message Member {
   Permissions permissions = 7;
   string title = 8;
 }
+
+enum SendType {
+  UNKNOWN = 0;
+  PHOTO = 1;
+  VIDEO = 2;
+  VOICE = 3;
+  GIF = 4;
+  AUDIO = 5;
+  DOCUMENT = 6;
+  STICKER = 7;
+  CROWDFUNDING = 8;
+  SPONSORED = 9;
+}
+
+message SendTypeValue {
+  SendType type = 1;
+}
