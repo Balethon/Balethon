@@ -23,8 +23,9 @@ class Object:
                 continue
             expected_type = expected_types[key]
             if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
-                expected_type = get_args(expected_type)[0]
-            if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
+                args = get_args(expected_type)
+                expected_type = args[0] if args else expected_type
+            if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list():
                 if isinstance(value, list):
                     raw_object[key] = wrap(expected_type, value)
                 continue
@@ -112,14 +113,14 @@ class Object:
 
 
 def wrap(expected_type, raw_object):
-    if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
+    if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list():
         if isinstance(raw_object, list):
             expected_type = get_args(expected_type)[0]
             raw_object = copy(raw_object)
             for i, element in enumerate(raw_object):
                 if element is None:
                     continue
-                if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
+                if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list():
                     if isinstance(element, list):
                         raw_object[i] = wrap(expected_type, element)
                     continue
