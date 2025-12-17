@@ -6,7 +6,11 @@ from typing import Callable
 
 
 def add_sync_support_to_function(coroutine_function) -> Callable:
-    main_loop = get_event_loop()
+    try:
+        main_loop = get_event_loop()
+    except RuntimeError:
+        main_loop = new_event_loop()
+        set_event_loop(main_loop)
 
     @wraps(coroutine_function)
     def dual_purpose_function(*args, **kwargs):
