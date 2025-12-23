@@ -152,3 +152,17 @@ class GetGroupMembersCount(_message.Message):
     MEMBERS_COUNT_FIELD_NUMBER: _ClassVar[int]
     members_count: int
     def __init__(self, members_count: _Optional[int] = ...) -> None: ...
+
+class GetNasimFileUploadUrl(_message.Message):
+    __slots__ = ("file_id", "url", "duplicate", "chunk_size", "block_size")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    URL_FIELD_NUMBER: _ClassVar[int]
+    DUPLICATE_FIELD_NUMBER: _ClassVar[int]
+    CHUNK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    BLOCK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    url: str
+    duplicate: bool
+    chunk_size: int
+    block_size: int
+    def __init__(self, file_id: _Optional[int] = ..., url: _Optional[str] = ..., duplicate: bool = ..., chunk_size: _Optional[int] = ..., block_size: _Optional[int] = ...) -> None: ...

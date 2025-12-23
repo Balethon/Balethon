@@ -366,3 +366,23 @@ class GetGroupMembersCount(_message.Message):
     GROUP_FIELD_NUMBER: _ClassVar[int]
     group: _struct_pb2.GroupOutPeer
     def __init__(self, group: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...
+
+class GetNasimFileUploadUrl(_message.Message):
+    __slots__ = ("expected_size", "crc", "uid", "name", "mime_type", "ex_peer", "send_type", "chunk_size")
+    EXPECTED_SIZE_FIELD_NUMBER: _ClassVar[int]
+    CRC_FIELD_NUMBER: _ClassVar[int]
+    UID_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    MIME_TYPE_FIELD_NUMBER: _ClassVar[int]
+    EX_PEER_FIELD_NUMBER: _ClassVar[int]
+    SEND_TYPE_FIELD_NUMBER: _ClassVar[int]
+    CHUNK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    expected_size: int
+    crc: int
+    uid: int
+    name: str
+    mime_type: str
+    ex_peer: _struct_pb2.ExPeer
+    send_type: _struct_pb2.SendTypeValue
+    chunk_size: int
+    def __init__(self, expected_size: _Optional[int] = ..., crc: _Optional[int] = ..., uid: _Optional[int] = ..., name: _Optional[str] = ..., mime_type: _Optional[str] = ..., ex_peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., send_type: _Optional[_Union[_struct_pb2.SendTypeValue, _Mapping]] = ..., chunk_size: _Optional[int] = ...) -> None: ...

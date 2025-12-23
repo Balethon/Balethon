@@ -9,6 +9,7 @@ from .send_location import SendLocation
 from .send_contact import SendContact
 from .send_media_group import SendMediaGroup
 from .get_file import GetFile
+from .upload_file import UploadFile
 
 
 class Attachments(
@@ -22,6 +23,7 @@ class Attachments(
     SendLocation,
     SendContact,
     SendMediaGroup,
-    GetFile
+    GetFile,
+    UploadFile
 ):
     pass

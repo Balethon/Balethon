@@ -131,3 +131,14 @@ message LoadMembers {
 message GetGroupMembersCount {
     int32 members_count = 1;
 }
+
+// ----------------------------------------------------------
+// Get Nasim File Upload Url
+
+message GetNasimFileUploadUrl {
+  int64 file_id = 1;
+  string url = 2;
+  bool duplicate = 3;
+  int32 chunk_size = 4;
+  int64 block_size = 5;
+}
