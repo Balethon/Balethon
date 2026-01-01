@@ -52,6 +52,125 @@ message MessageId {
   int64 seq = 3;
 }
 
+message IntroPhoto {
+  FastThumb thumb = 1;
+  int32 width = 2;
+  int32 height = 3;
+}
+
+message IntroGif {
+  FastThumb thumb = 1;
+  int32 width = 2;
+  int32 height = 3;
+}
+
+message MediaExt {
+  oneof trait {
+    IntroGif intro_gif = 1;
+    IntroPhoto intro_photo = 2;
+  }
+}
+
+message IntroMedia {
+  FileLocation file_location = 1;
+  int32 file_size = 2;
+  string mime_type = 3;
+  string file_name = 4;
+  MediaExt media_extra = 5;
+}
+
+message IntroMessage {
+  StringValue text = 1;
+  IntroMedia media = 2;
+}
+
+message Intro {
+  StringValue text = 1;
+  FileLocation file_location = 2;
+  int32 width = 3;
+  int32 height = 4;
+  int32 file_size = 5;
+  string mime_type = 6;
+  string file_name = 7;
+  FastThumb thumb = 8;
+}
+
+message BotExInfo {
+  StringValue bot_active_users = 1;
+  BoolValue has_main_mini_app = 2;
+  Intro intro = 3;
+  IntroMessage intro_message = 4;
+  BoolValue has_timche_profile = 5;
+}
+
+enum ExPeerType {
+  EX_PEER_TYPE_UNKNOWN = 0;
+  EX_PEER_TYPE_PRIVATE = 1;
+  EX_PEER_TYPE_GROUP = 2;
+  EX_PEER_TYPE_CHANNEL = 3;
+  EX_PEER_TYPE_BOT = 4;
+  EX_PEER_TYPE_SUPERGROUP = 5;
+  EX_PEER_TYPE_THREAD = 6;
+}
+
+message ExInfo {
+  ExPeerType ex_peer_type = 1;
+}
+
+message Int64Value {
+  int64 value = 1;
+}
+
+message BoolValue {
+  bool value = 1;
+}
+
+message FileLocation {
+  int64 file_id = 1;
+  int64 access_hash = 2;
+  int32 file_storage_version = 3;
+}
+
+message AvatarImage {
+  FileLocation file_location = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 file_size = 4;
+}
+
+message Avatar {
+  AvatarImage small_image = 1;
+  AvatarImage large_image = 2;
+  AvatarImage full_image = 3;
+  int64 id = 4;
+  int64 date = 5;
+}
+
+enum Sex {
+  SEX_UNKNOWN = 0;
+  SEX_MALE = 1;
+  SEX_FEMALE = 2;
+}
+
+message StringValue {
+  string value = 1;
+}
+
+message User {
+  int32 id = 1;
+  int64 access_hash = 2;
+  string name = 3;
+  StringValue local_name = 4;
+  Sex sex = 5;
+  Avatar avatar = 6;
+  BoolValue is_bot = 7;
+  StringValue nick = 9;
+  BoolValue is_deleted = 16;
+  Int64Value created_at = 19;
+  ExInfo ex_info = 20;
+  BotExInfo bot_ex_info = 21;
+}
+
 message OutPeer {
   int32 type = 1;
   int64 id = 2;
@@ -91,41 +210,48 @@ message Group {
   repeated string available_reactions = 33;
 }
 
+enum Restriction {
+  RESTRICTION_PRIVATE = 0;
+  RESTRICTION_PUBLIC = 1;
+}
+
+message Int32Value {
+  int32 value = 1;
+}
+
+enum GroupType {
+  GROUP_TYPE_GROUP = 0;
+  GROUP_TYPE_CHANNEL = 1;
+  GROUP_TYPE_SUPER_GROUP = 2;
+}
+
 message FullGroup {
   int32 id = 1;
   string title = 3;
-  int32 members_count = 10;
+  Avatar avatar = 4;
+  int32 owner_uid = 5;
+  int64 create_date = 6;
+  GroupType group_type = 7;
+  BoolValue is_member = 8;
+  Int32Value members_count = 10;
+  StringValue nick = 11;
+  Permissions permissions = 13;
+  Permissions default_permissions = 14;
+  StringValue theme = 15;
+  StringValue about = 16;
+  repeated Member members = 17;
+  ExInfo ex_info = 18;
+  MessageContainer pin = 19;
+  Restriction restriction = 20;
   repeated string available_reactions = 24;
+  BoolValue is_suspend = 25;
+  Int32Value linked_group_peer_id = 26;
+  BoolValue discussion_group_enabled = 27;
 }
 
 message MessagesViews {
   MessageId mid = 1;
   repeated int64 views = 2;
-}
-
-message Avatar {
-  AvatarImage small_image = 1;
-  AvatarImage large_image = 2;
-  AvatarImage full_image = 3;
-  int64 id = 4;
-  int64 date = 5;
-}
-
-message AvatarImage {
-  FileLocation file_location = 1;
-  int32 width = 2;
-  int32 height = 3;
-  int32 file_size = 4;
-}
-
-message FileLocation {
-  int64 file_id = 1;
-  int64 access_hash = 2;
-  int32 file_storage_version = 3;
-}
-
-message Int64Value {
-  int64 date = 1;
 }
 
 message HistoryMessageIdentifier {
@@ -175,16 +301,16 @@ message Member {
 }
 
 enum SendType {
-  UNKNOWN = 0;
-  PHOTO = 1;
-  VIDEO = 2;
-  VOICE = 3;
-  GIF = 4;
-  AUDIO = 5;
-  DOCUMENT = 6;
-  STICKER = 7;
-  CROWDFUNDING = 8;
-  SPONSORED = 9;
+  SEND_TYPE_UNKNOWN = 0;
+  SEND_TYPE_PHOTO = 1;
+  SEND_TYPE_VIDEO = 2;
+  SEND_TYPE_VOICE = 3;
+  SEND_TYPE_GIF = 4;
+  SEND_TYPE_AUDIO = 5;
+  SEND_TYPE_DOCUMENT = 6;
+  SEND_TYPE_STICKER = 7;
+  SEND_TYPE_CROWDFUNDING = 8;
+  SEND_TYPE_SPONSORED = 9;
 }
 
 message SendTypeValue {

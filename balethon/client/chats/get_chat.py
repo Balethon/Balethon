@@ -2,8 +2,7 @@ from typing import Union
 
 import balethon
 from ...objects import Chat
-from ...errors import RPCError
-from ...enums import ChatType
+from ...proto import request_pb2, struct_pb2
 
 
 class GetChat:
@@ -12,51 +11,71 @@ class GetChat:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> Chat:
-        # 1234567890 | "1234567890"
-        if isinstance(chat_id, int) or (isinstance(chat_id, str) and chat_id.isnumeric()):
+        if self.is_userbot():
+            peer_id, peer_type = chat_id.split("|")
+
+            if not peer_id.isnumeric():
+                # "@username"
+                if peer_id.startswith("@"):
+                    peer_id = peer_id[1:]
+
+                # "+9*********" | "+09*********" | "+989*********"
+                elif peer_id.startswith("+"):
+                    peer_id =  peer_id[1:]
+
+                # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
+                elif peer_id.startswith("https://ble.ir/"):
+                    peer_id = peer_id[15:]
+
+                # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
+                elif peer_id.startswith("ble.ir/"):
+                    peer_id = peer_id[7:]
+
+                response = await self.invoke(
+                    service_name="bale.users.v1.Users",
+                    method="SearchContacts",
+                    payload=request_pb2.SearchContacts(
+                        request=peer_id
+                    )
+                )
+
+                if response.user_peers:
+                    result = response.user_peers[0]
+                    peer_id = result.uid
+
+                elif response.group_peers:
+                    result = response.group_peers[0]
+                    peer_id = result.group_id
+
+                else:
+                    return
+
+            peer_id, peer_type = map(int, (peer_id, peer_type))
+
+            if peer_type in (1, 4):
+                return await self.invoke(
+                    service_name="bale.users.v1.Users",
+                    method="LoadUsers",
+                    payload=request_pb2.LoadUsers(
+                        user_peers=[struct_pb2.UserOutPeer(
+                                uid=peer_id,
+                                access_hash=1
+                            )
+                        ]
+                    )
+                )
+
+            if peer_type in (2, 3, 5):
+                return await self.invoke(
+                    service_name="bale.groups.v1.Groups",
+                    method="GetFullGroup",
+                    payload=request_pb2.GetFullGroup(
+                        peer=struct_pb2.GroupOutPeer(
+                            group_id=peer_id,
+                            access_hash=1
+                        )
+                    )
+                )
+
+        else:
             return await self.auto_execute("getChat", locals())
-
-        # "@username"
-        if chat_id.startswith("@"):
-            chat_id = chat_id.lstrip("@")
-
-        # "+9*********" | "+09*********" | "+989*********"
-        elif chat_id.startswith("+"):
-            chat_id = "@" + chat_id.lstrip("+")
-
-        # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
-        elif chat_id.startswith(f"{self.connection.SHORT_URL}/"):
-            chat_id = chat_id.replace(f"{self.connection.SHORT_URL}/", "")
-
-        # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
-        elif chat_id.startswith("ble.ir/"):
-            chat_id = chat_id.replace("ble.ir/", "")
-
-        info = await self.connection.get_peer_info(chat_id)
-
-        result = Chat()
-
-        if info["query"].get("token"):
-            token = info["query"]["token"]
-            result.invite_link = f"{self.connection.SHORT_URL}/join/{token}"
-
-        info = info["props"]["pageProps"]
-
-        if info["peer"]["type"] == 0:
-            raise RPCError.create(code=404, description="no such group or user", reason="getChat")
-
-        elif info["peer"]["type"] == 1:
-            result.type = ChatType.PRIVATE
-            result.username = info["user"]["nick"] if info["user"].get("nick") else None
-            result.first_name = info["user"]["title"]
-            result.description = info["user"]["description"]
-
-        elif info["peer"]["type"] == 2:
-            result.type = ChatType.CHANNEL if info["group"]["isChannel"] else ChatType.GROUP
-            result.username = info["group"]["nick"] if info["group"].get("nick") else None
-            result.title = info["group"]["title"]
-            result.description = info["group"]["description"]
-
-        result.id = info["peer"]["id"]
-        result.bind(self)
-        return result

@@ -70,6 +70,13 @@ message JoinPublicGroup {
 }
 
 // ----------------------------------------------------------
+// Load Users
+
+message LoadUsers {
+  repeated struct.User users = 1;
+}
+
+// ----------------------------------------------------------
 // Get Full Group
 
 message GetFullGroup {
@@ -80,9 +87,9 @@ message GetFullGroup {
 // Search Contacts
 
 message SearchContacts {
-  repeated int32 users = 1;
-  repeated int32 user_peers = 2;
-  repeated int32 groups = 4;
+  repeated struct.User users = 1;
+  repeated struct.UserOutPeer user_peers = 2;
+  repeated struct.Group groups = 4;
   repeated struct.GroupOutPeer group_peers = 5;
 }
 
