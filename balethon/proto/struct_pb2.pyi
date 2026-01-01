@@ -7,28 +7,90 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class ExPeerType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    EX_PEER_TYPE_UNKNOWN: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_PRIVATE: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_GROUP: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_CHANNEL: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_BOT: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_SUPERGROUP: _ClassVar[ExPeerType]
+    EX_PEER_TYPE_THREAD: _ClassVar[ExPeerType]
+
+class Sex(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    SEX_UNKNOWN: _ClassVar[Sex]
+    SEX_MALE: _ClassVar[Sex]
+    SEX_FEMALE: _ClassVar[Sex]
+
+class PrivacyBarMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    PRIVACY_BAR_MODE_UNKNOWN: _ClassVar[PrivacyBarMode]
+    PRIVACY_BAR_MODE_NONE: _ClassVar[PrivacyBarMode]
+    PRIVACY_BAR_MODE_SPAM: _ClassVar[PrivacyBarMode]
+
+class AdvertisementType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    ADVERTISEMENT_TYPE_NONE: _ClassVar[AdvertisementType]
+    ADVERTISEMENT_TYPE_BANNER: _ClassVar[AdvertisementType]
+    ADVERTISEMENT_TYPE_NATIVE: _ClassVar[AdvertisementType]
+    ADVERTISEMENT_TYPE_BANNER_AND_NATIVE: _ClassVar[AdvertisementType]
+
+class Restriction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    RESTRICTION_PRIVATE: _ClassVar[Restriction]
+    RESTRICTION_PUBLIC: _ClassVar[Restriction]
+
+class GroupType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    GROUP_TYPE_GROUP: _ClassVar[GroupType]
+    GROUP_TYPE_CHANNEL: _ClassVar[GroupType]
+    GROUP_TYPE_SUPER_GROUP: _ClassVar[GroupType]
+
 class SendType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
-    UNKNOWN: _ClassVar[SendType]
-    PHOTO: _ClassVar[SendType]
-    VIDEO: _ClassVar[SendType]
-    VOICE: _ClassVar[SendType]
-    GIF: _ClassVar[SendType]
-    AUDIO: _ClassVar[SendType]
-    DOCUMENT: _ClassVar[SendType]
-    STICKER: _ClassVar[SendType]
-    CROWDFUNDING: _ClassVar[SendType]
-    SPONSORED: _ClassVar[SendType]
-UNKNOWN: SendType
-PHOTO: SendType
-VIDEO: SendType
-VOICE: SendType
-GIF: SendType
-AUDIO: SendType
-DOCUMENT: SendType
-STICKER: SendType
-CROWDFUNDING: SendType
-SPONSORED: SendType
+    SEND_TYPE_UNKNOWN: _ClassVar[SendType]
+    SEND_TYPE_PHOTO: _ClassVar[SendType]
+    SEND_TYPE_VIDEO: _ClassVar[SendType]
+    SEND_TYPE_VOICE: _ClassVar[SendType]
+    SEND_TYPE_GIF: _ClassVar[SendType]
+    SEND_TYPE_AUDIO: _ClassVar[SendType]
+    SEND_TYPE_DOCUMENT: _ClassVar[SendType]
+    SEND_TYPE_STICKER: _ClassVar[SendType]
+    SEND_TYPE_CROWDFUNDING: _ClassVar[SendType]
+    SEND_TYPE_SPONSORED: _ClassVar[SendType]
+EX_PEER_TYPE_UNKNOWN: ExPeerType
+EX_PEER_TYPE_PRIVATE: ExPeerType
+EX_PEER_TYPE_GROUP: ExPeerType
+EX_PEER_TYPE_CHANNEL: ExPeerType
+EX_PEER_TYPE_BOT: ExPeerType
+EX_PEER_TYPE_SUPERGROUP: ExPeerType
+EX_PEER_TYPE_THREAD: ExPeerType
+SEX_UNKNOWN: Sex
+SEX_MALE: Sex
+SEX_FEMALE: Sex
+PRIVACY_BAR_MODE_UNKNOWN: PrivacyBarMode
+PRIVACY_BAR_MODE_NONE: PrivacyBarMode
+PRIVACY_BAR_MODE_SPAM: PrivacyBarMode
+ADVERTISEMENT_TYPE_NONE: AdvertisementType
+ADVERTISEMENT_TYPE_BANNER: AdvertisementType
+ADVERTISEMENT_TYPE_NATIVE: AdvertisementType
+ADVERTISEMENT_TYPE_BANNER_AND_NATIVE: AdvertisementType
+RESTRICTION_PRIVATE: Restriction
+RESTRICTION_PUBLIC: Restriction
+GROUP_TYPE_GROUP: GroupType
+GROUP_TYPE_CHANNEL: GroupType
+GROUP_TYPE_SUPER_GROUP: GroupType
+SEND_TYPE_UNKNOWN: SendType
+SEND_TYPE_PHOTO: SendType
+SEND_TYPE_VIDEO: SendType
+SEND_TYPE_VOICE: SendType
+SEND_TYPE_GIF: SendType
+SEND_TYPE_AUDIO: SendType
+SEND_TYPE_DOCUMENT: SendType
+SEND_TYPE_STICKER: SendType
+SEND_TYPE_CROWDFUNDING: SendType
+SEND_TYPE_SPONSORED: SendType
 
 class Peer(_message.Message):
     __slots__ = ("type", "id")
@@ -108,6 +170,228 @@ class MessageId(_message.Message):
     seq: int
     def __init__(self, date: _Optional[int] = ..., rid: _Optional[int] = ..., seq: _Optional[int] = ...) -> None: ...
 
+class IntroPhoto(_message.Message):
+    __slots__ = ("thumb", "width", "height")
+    THUMB_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    thumb: FastThumb
+    width: int
+    height: int
+    def __init__(self, thumb: _Optional[_Union[FastThumb, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ...) -> None: ...
+
+class IntroGif(_message.Message):
+    __slots__ = ("thumb", "width", "height")
+    THUMB_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    thumb: FastThumb
+    width: int
+    height: int
+    def __init__(self, thumb: _Optional[_Union[FastThumb, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ...) -> None: ...
+
+class MediaExt(_message.Message):
+    __slots__ = ("intro_gif", "intro_photo")
+    INTRO_GIF_FIELD_NUMBER: _ClassVar[int]
+    INTRO_PHOTO_FIELD_NUMBER: _ClassVar[int]
+    intro_gif: IntroGif
+    intro_photo: IntroPhoto
+    def __init__(self, intro_gif: _Optional[_Union[IntroGif, _Mapping]] = ..., intro_photo: _Optional[_Union[IntroPhoto, _Mapping]] = ...) -> None: ...
+
+class IntroMedia(_message.Message):
+    __slots__ = ("file_location", "file_size", "mime_type", "file_name", "media_extra")
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    MIME_TYPE_FIELD_NUMBER: _ClassVar[int]
+    FILE_NAME_FIELD_NUMBER: _ClassVar[int]
+    MEDIA_EXTRA_FIELD_NUMBER: _ClassVar[int]
+    file_location: FileLocation
+    file_size: int
+    mime_type: str
+    file_name: str
+    media_extra: MediaExt
+    def __init__(self, file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., file_size: _Optional[int] = ..., mime_type: _Optional[str] = ..., file_name: _Optional[str] = ..., media_extra: _Optional[_Union[MediaExt, _Mapping]] = ...) -> None: ...
+
+class IntroMessage(_message.Message):
+    __slots__ = ("text", "media")
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    MEDIA_FIELD_NUMBER: _ClassVar[int]
+    text: StringValue
+    media: IntroMedia
+    def __init__(self, text: _Optional[_Union[StringValue, _Mapping]] = ..., media: _Optional[_Union[IntroMedia, _Mapping]] = ...) -> None: ...
+
+class Intro(_message.Message):
+    __slots__ = ("text", "file_location", "width", "height", "file_size", "mime_type", "file_name", "thumb")
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    MIME_TYPE_FIELD_NUMBER: _ClassVar[int]
+    FILE_NAME_FIELD_NUMBER: _ClassVar[int]
+    THUMB_FIELD_NUMBER: _ClassVar[int]
+    text: StringValue
+    file_location: FileLocation
+    width: int
+    height: int
+    file_size: int
+    mime_type: str
+    file_name: str
+    thumb: FastThumb
+    def __init__(self, text: _Optional[_Union[StringValue, _Mapping]] = ..., file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ..., file_size: _Optional[int] = ..., mime_type: _Optional[str] = ..., file_name: _Optional[str] = ..., thumb: _Optional[_Union[FastThumb, _Mapping]] = ...) -> None: ...
+
+class BotExInfo(_message.Message):
+    __slots__ = ("bot_active_users", "has_main_mini_app", "intro", "intro_message", "has_timche_profile")
+    BOT_ACTIVE_USERS_FIELD_NUMBER: _ClassVar[int]
+    HAS_MAIN_MINI_APP_FIELD_NUMBER: _ClassVar[int]
+    INTRO_FIELD_NUMBER: _ClassVar[int]
+    INTRO_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    HAS_TIMCHE_PROFILE_FIELD_NUMBER: _ClassVar[int]
+    bot_active_users: StringValue
+    has_main_mini_app: BoolValue
+    intro: Intro
+    intro_message: IntroMessage
+    has_timche_profile: BoolValue
+    def __init__(self, bot_active_users: _Optional[_Union[StringValue, _Mapping]] = ..., has_main_mini_app: _Optional[_Union[BoolValue, _Mapping]] = ..., intro: _Optional[_Union[Intro, _Mapping]] = ..., intro_message: _Optional[_Union[IntroMessage, _Mapping]] = ..., has_timche_profile: _Optional[_Union[BoolValue, _Mapping]] = ...) -> None: ...
+
+class ExInfo(_message.Message):
+    __slots__ = ("ex_peer_type",)
+    EX_PEER_TYPE_FIELD_NUMBER: _ClassVar[int]
+    ex_peer_type: ExPeerType
+    def __init__(self, ex_peer_type: _Optional[_Union[ExPeerType, str]] = ...) -> None: ...
+
+class Int64Value(_message.Message):
+    __slots__ = ("value",)
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    value: int
+    def __init__(self, value: _Optional[int] = ...) -> None: ...
+
+class BoolValue(_message.Message):
+    __slots__ = ("value",)
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    value: bool
+    def __init__(self, value: bool = ...) -> None: ...
+
+class FileLocation(_message.Message):
+    __slots__ = ("file_id", "access_hash", "file_storage_version")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    FILE_STORAGE_VERSION_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    access_hash: int
+    file_storage_version: int
+    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...
+
+class AvatarImage(_message.Message):
+    __slots__ = ("file_location", "width", "height", "file_size")
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_location: FileLocation
+    width: int
+    height: int
+    file_size: int
+    def __init__(self, file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ..., file_size: _Optional[int] = ...) -> None: ...
+
+class Avatar(_message.Message):
+    __slots__ = ("small_image", "large_image", "full_image", "id", "date")
+    SMALL_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    LARGE_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    FULL_IMAGE_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    small_image: AvatarImage
+    large_image: AvatarImage
+    full_image: AvatarImage
+    id: int
+    date: int
+    def __init__(self, small_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., large_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., full_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., id: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
+
+class StringValue(_message.Message):
+    __slots__ = ("value",)
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    value: str
+    def __init__(self, value: _Optional[str] = ...) -> None: ...
+
+class User(_message.Message):
+    __slots__ = ("id", "access_hash", "name", "local_name", "sex", "avatar", "is_bot", "nick", "is_deleted", "created_at", "ex_info", "bot_ex_info")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    LOCAL_NAME_FIELD_NUMBER: _ClassVar[int]
+    SEX_FIELD_NUMBER: _ClassVar[int]
+    AVATAR_FIELD_NUMBER: _ClassVar[int]
+    IS_BOT_FIELD_NUMBER: _ClassVar[int]
+    NICK_FIELD_NUMBER: _ClassVar[int]
+    IS_DELETED_FIELD_NUMBER: _ClassVar[int]
+    CREATED_AT_FIELD_NUMBER: _ClassVar[int]
+    EX_INFO_FIELD_NUMBER: _ClassVar[int]
+    BOT_EX_INFO_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    access_hash: int
+    name: str
+    local_name: StringValue
+    sex: Sex
+    avatar: Avatar
+    is_bot: BoolValue
+    nick: StringValue
+    is_deleted: BoolValue
+    created_at: Int64Value
+    ex_info: ExInfo
+    bot_ex_info: BotExInfo
+    def __init__(self, id: _Optional[int] = ..., access_hash: _Optional[int] = ..., name: _Optional[str] = ..., local_name: _Optional[_Union[StringValue, _Mapping]] = ..., sex: _Optional[_Union[Sex, str]] = ..., avatar: _Optional[_Union[Avatar, _Mapping]] = ..., is_bot: _Optional[_Union[BoolValue, _Mapping]] = ..., nick: _Optional[_Union[StringValue, _Mapping]] = ..., is_deleted: _Optional[_Union[BoolValue, _Mapping]] = ..., created_at: _Optional[_Union[Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[ExInfo, _Mapping]] = ..., bot_ex_info: _Optional[_Union[BotExInfo, _Mapping]] = ...) -> None: ...
+
+class BotCommand(_message.Message):
+    __slots__ = ("slash_command", "description")
+    SLASH_COMMAND_FIELD_NUMBER: _ClassVar[int]
+    DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+    slash_command: str
+    description: str
+    def __init__(self, slash_command: _Optional[str] = ..., description: _Optional[str] = ...) -> None: ...
+
+class ContactRecord(_message.Message):
+    __slots__ = ("phone_number", "title")
+    PHONE_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    TITLE_FIELD_NUMBER: _ClassVar[int]
+    phone_number: Int64Value
+    title: str
+    def __init__(self, phone_number: _Optional[_Union[Int64Value, _Mapping]] = ..., title: _Optional[str] = ...) -> None: ...
+
+class FullUserLegacy(_message.Message):
+    __slots__ = ("id", "contact_info", "about", "preferred_languages", "time_zone", "bot_commands", "is_blocked", "ex_info", "default_bank_account", "default_card_number", "is_deleted", "is_contact", "created_at", "privacy_bar_mode", "privacy_allowed_to_invite")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    CONTACT_INFO_FIELD_NUMBER: _ClassVar[int]
+    ABOUT_FIELD_NUMBER: _ClassVar[int]
+    PREFERRED_LANGUAGES_FIELD_NUMBER: _ClassVar[int]
+    TIME_ZONE_FIELD_NUMBER: _ClassVar[int]
+    BOT_COMMANDS_FIELD_NUMBER: _ClassVar[int]
+    IS_BLOCKED_FIELD_NUMBER: _ClassVar[int]
+    EX_INFO_FIELD_NUMBER: _ClassVar[int]
+    DEFAULT_BANK_ACCOUNT_FIELD_NUMBER: _ClassVar[int]
+    DEFAULT_CARD_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    IS_DELETED_FIELD_NUMBER: _ClassVar[int]
+    IS_CONTACT_FIELD_NUMBER: _ClassVar[int]
+    CREATED_AT_FIELD_NUMBER: _ClassVar[int]
+    PRIVACY_BAR_MODE_FIELD_NUMBER: _ClassVar[int]
+    PRIVACY_ALLOWED_TO_INVITE_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    contact_info: _containers.RepeatedCompositeFieldContainer[ContactRecord]
+    about: StringValue
+    preferred_languages: _containers.RepeatedScalarFieldContainer[str]
+    time_zone: StringValue
+    bot_commands: _containers.RepeatedCompositeFieldContainer[BotCommand]
+    is_blocked: BoolValue
+    ex_info: ExInfo
+    default_bank_account: StringValue
+    default_card_number: StringValue
+    is_deleted: BoolValue
+    is_contact: BoolValue
+    created_at: Int64Value
+    privacy_bar_mode: PrivacyBarMode
+    privacy_allowed_to_invite: BoolValue
+    def __init__(self, id: _Optional[int] = ..., contact_info: _Optional[_Iterable[_Union[ContactRecord, _Mapping]]] = ..., about: _Optional[_Union[StringValue, _Mapping]] = ..., preferred_languages: _Optional[_Iterable[str]] = ..., time_zone: _Optional[_Union[StringValue, _Mapping]] = ..., bot_commands: _Optional[_Iterable[_Union[BotCommand, _Mapping]]] = ..., is_blocked: _Optional[_Union[BoolValue, _Mapping]] = ..., ex_info: _Optional[_Union[ExInfo, _Mapping]] = ..., default_bank_account: _Optional[_Union[StringValue, _Mapping]] = ..., default_card_number: _Optional[_Union[StringValue, _Mapping]] = ..., is_deleted: _Optional[_Union[BoolValue, _Mapping]] = ..., is_contact: _Optional[_Union[BoolValue, _Mapping]] = ..., created_at: _Optional[_Union[Int64Value, _Mapping]] = ..., privacy_bar_mode: _Optional[_Union[PrivacyBarMode, str]] = ..., privacy_allowed_to_invite: _Optional[_Union[BoolValue, _Mapping]] = ...) -> None: ...
+
 class OutPeer(_message.Message):
     __slots__ = ("type", "id", "access_hash")
     TYPE_FIELD_NUMBER: _ClassVar[int]
@@ -174,17 +458,69 @@ class Group(_message.Message):
     available_reactions: _containers.RepeatedScalarFieldContainer[str]
     def __init__(self, id: _Optional[int] = ..., title: _Optional[str] = ..., members_count: _Optional[int] = ..., available_reactions: _Optional[_Iterable[str]] = ...) -> None: ...
 
+class Int32Value(_message.Message):
+    __slots__ = ("value",)
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    value: int
+    def __init__(self, value: _Optional[int] = ...) -> None: ...
+
 class FullGroup(_message.Message):
-    __slots__ = ("id", "title", "members_count", "available_reactions")
+    __slots__ = ("id", "access_hash", "title", "avatar", "owner_uid", "create_date", "group_type", "is_member", "members_count", "nick", "became_orphaned", "permissions", "default_permissions", "theme", "about", "members", "ex_info", "pin", "restriction", "advertisement_type", "channel_native_ad_tag_id", "channel_banner_ad_tag_id", "available_reactions", "is_suspend", "linked_group_peer_id", "discussion_group_enabled", "privacy_bar_mode")
     ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
     TITLE_FIELD_NUMBER: _ClassVar[int]
+    AVATAR_FIELD_NUMBER: _ClassVar[int]
+    OWNER_UID_FIELD_NUMBER: _ClassVar[int]
+    CREATE_DATE_FIELD_NUMBER: _ClassVar[int]
+    GROUP_TYPE_FIELD_NUMBER: _ClassVar[int]
+    IS_MEMBER_FIELD_NUMBER: _ClassVar[int]
     MEMBERS_COUNT_FIELD_NUMBER: _ClassVar[int]
+    NICK_FIELD_NUMBER: _ClassVar[int]
+    BECAME_ORPHANED_FIELD_NUMBER: _ClassVar[int]
+    PERMISSIONS_FIELD_NUMBER: _ClassVar[int]
+    DEFAULT_PERMISSIONS_FIELD_NUMBER: _ClassVar[int]
+    THEME_FIELD_NUMBER: _ClassVar[int]
+    ABOUT_FIELD_NUMBER: _ClassVar[int]
+    MEMBERS_FIELD_NUMBER: _ClassVar[int]
+    EX_INFO_FIELD_NUMBER: _ClassVar[int]
+    PIN_FIELD_NUMBER: _ClassVar[int]
+    RESTRICTION_FIELD_NUMBER: _ClassVar[int]
+    ADVERTISEMENT_TYPE_FIELD_NUMBER: _ClassVar[int]
+    CHANNEL_NATIVE_AD_TAG_ID_FIELD_NUMBER: _ClassVar[int]
+    CHANNEL_BANNER_AD_TAG_ID_FIELD_NUMBER: _ClassVar[int]
     AVAILABLE_REACTIONS_FIELD_NUMBER: _ClassVar[int]
+    IS_SUSPEND_FIELD_NUMBER: _ClassVar[int]
+    LINKED_GROUP_PEER_ID_FIELD_NUMBER: _ClassVar[int]
+    DISCUSSION_GROUP_ENABLED_FIELD_NUMBER: _ClassVar[int]
+    PRIVACY_BAR_MODE_FIELD_NUMBER: _ClassVar[int]
     id: int
+    access_hash: int
     title: str
-    members_count: int
+    avatar: Avatar
+    owner_uid: int
+    create_date: int
+    group_type: GroupType
+    is_member: BoolValue
+    members_count: Int32Value
+    nick: StringValue
+    became_orphaned: BoolValue
+    permissions: Permissions
+    default_permissions: Permissions
+    theme: StringValue
+    about: StringValue
+    members: _containers.RepeatedCompositeFieldContainer[Member]
+    ex_info: ExInfo
+    pin: MessageContainer
+    restriction: Restriction
+    advertisement_type: AdvertisementType
+    channel_native_ad_tag_id: StringValue
+    channel_banner_ad_tag_id: StringValue
     available_reactions: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, id: _Optional[int] = ..., title: _Optional[str] = ..., members_count: _Optional[int] = ..., available_reactions: _Optional[_Iterable[str]] = ...) -> None: ...
+    is_suspend: BoolValue
+    linked_group_peer_id: Int32Value
+    discussion_group_enabled: BoolValue
+    privacy_bar_mode: PrivacyBarMode
+    def __init__(self, id: _Optional[int] = ..., access_hash: _Optional[int] = ..., title: _Optional[str] = ..., avatar: _Optional[_Union[Avatar, _Mapping]] = ..., owner_uid: _Optional[int] = ..., create_date: _Optional[int] = ..., group_type: _Optional[_Union[GroupType, str]] = ..., is_member: _Optional[_Union[BoolValue, _Mapping]] = ..., members_count: _Optional[_Union[Int32Value, _Mapping]] = ..., nick: _Optional[_Union[StringValue, _Mapping]] = ..., became_orphaned: _Optional[_Union[BoolValue, _Mapping]] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., default_permissions: _Optional[_Union[Permissions, _Mapping]] = ..., theme: _Optional[_Union[StringValue, _Mapping]] = ..., about: _Optional[_Union[StringValue, _Mapping]] = ..., members: _Optional[_Iterable[_Union[Member, _Mapping]]] = ..., ex_info: _Optional[_Union[ExInfo, _Mapping]] = ..., pin: _Optional[_Union[MessageContainer, _Mapping]] = ..., restriction: _Optional[_Union[Restriction, str]] = ..., advertisement_type: _Optional[_Union[AdvertisementType, str]] = ..., channel_native_ad_tag_id: _Optional[_Union[StringValue, _Mapping]] = ..., channel_banner_ad_tag_id: _Optional[_Union[StringValue, _Mapping]] = ..., available_reactions: _Optional[_Iterable[str]] = ..., is_suspend: _Optional[_Union[BoolValue, _Mapping]] = ..., linked_group_peer_id: _Optional[_Union[Int32Value, _Mapping]] = ..., discussion_group_enabled: _Optional[_Union[BoolValue, _Mapping]] = ..., privacy_bar_mode: _Optional[_Union[PrivacyBarMode, str]] = ...) -> None: ...
 
 class MessagesViews(_message.Message):
     __slots__ = ("mid", "views")
@@ -193,48 +529,6 @@ class MessagesViews(_message.Message):
     mid: MessageId
     views: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, mid: _Optional[_Union[MessageId, _Mapping]] = ..., views: _Optional[_Iterable[int]] = ...) -> None: ...
-
-class Avatar(_message.Message):
-    __slots__ = ("small_image", "large_image", "full_image", "id", "date")
-    SMALL_IMAGE_FIELD_NUMBER: _ClassVar[int]
-    LARGE_IMAGE_FIELD_NUMBER: _ClassVar[int]
-    FULL_IMAGE_FIELD_NUMBER: _ClassVar[int]
-    ID_FIELD_NUMBER: _ClassVar[int]
-    DATE_FIELD_NUMBER: _ClassVar[int]
-    small_image: AvatarImage
-    large_image: AvatarImage
-    full_image: AvatarImage
-    id: int
-    date: int
-    def __init__(self, small_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., large_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., full_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., id: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
-
-class AvatarImage(_message.Message):
-    __slots__ = ("file_location", "width", "height", "file_size")
-    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
-    WIDTH_FIELD_NUMBER: _ClassVar[int]
-    HEIGHT_FIELD_NUMBER: _ClassVar[int]
-    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
-    file_location: FileLocation
-    width: int
-    height: int
-    file_size: int
-    def __init__(self, file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ..., file_size: _Optional[int] = ...) -> None: ...
-
-class FileLocation(_message.Message):
-    __slots__ = ("file_id", "access_hash", "file_storage_version")
-    FILE_ID_FIELD_NUMBER: _ClassVar[int]
-    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
-    FILE_STORAGE_VERSION_FIELD_NUMBER: _ClassVar[int]
-    file_id: int
-    access_hash: int
-    file_storage_version: int
-    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...
-
-class Int64Value(_message.Message):
-    __slots__ = ("date",)
-    DATE_FIELD_NUMBER: _ClassVar[int]
-    date: int
-    def __init__(self, date: _Optional[int] = ...) -> None: ...
 
 class HistoryMessageIdentifier(_message.Message):
     __slots__ = ("peer", "random_id", "date")
