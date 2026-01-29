@@ -8,6 +8,8 @@ class Equals(Condition):
         self.values = values
 
     async def __call__(self, client, event) -> bool:
+        if self.is_not_processable(event):
+            return False
         if isinstance(event, Message):
             return event.content in self.values
         elif isinstance(event, CallbackQuery):

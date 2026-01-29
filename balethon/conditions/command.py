@@ -11,6 +11,8 @@ class Command(Condition):
         self.max_arguments = max_arguments
 
     async def __call__(self, client, event) -> bool:
+        if self.is_not_processable(event):
+            return False
         if not event.text:
             return False
         name, *arguments = event.text.split()

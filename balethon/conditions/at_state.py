@@ -10,6 +10,8 @@ class AtState(Condition):
         self.state_machine = state_machine
 
     async def __call__(self, client, event) -> bool:
+        if self.is_not_processable(event):
+            return False
         if not event.author:
             return False
         if self.state_machine is None:

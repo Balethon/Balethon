@@ -10,6 +10,8 @@ class Regex(Condition):
         self.pattern = compile(pattern, flags)
 
     async def __call__(self, client, event) -> bool:
+        if self.is_not_processable(event):
+            return False
         if isinstance(event, Message):
             event = event.content
         elif isinstance(event, CallbackQuery):

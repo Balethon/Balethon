@@ -8,8 +8,11 @@ class Condition:
         self.function = function
         self.can_process = can_process
 
+    def is_not_processable(self, event):
+        return self.can_process is not None and not isinstance(event, self.can_process)
+
     async def __call__(self, client, event) -> bool:
-        if self.can_process is not None and not isinstance(event, self.can_process):
+        if self.is_not_processable(event):
             return False
         kwargs = dict(condition=self, client=client, event=event)
         kwargs = remove_unwanted_keyword_parameters(self.function, **kwargs)

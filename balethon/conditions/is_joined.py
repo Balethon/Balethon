@@ -40,6 +40,8 @@ class IsJoined(Condition):
         return chat
 
     async def __call__(self, client, event) -> bool:
+        if self.is_not_processable(event):
+            return False
         if self.chat_ids and not self.chats:
             await self.update_chats(client)
         if not event.author:
