@@ -91,6 +91,12 @@ class JoinPublicGroup(_message.Message):
     seq: int
     def __init__(self, group: _Optional[_Union[_struct_pb2.Group, _Mapping]] = ..., seq: _Optional[int] = ...) -> None: ...
 
+class LoadUsers(_message.Message):
+    __slots__ = ("users",)
+    USERS_FIELD_NUMBER: _ClassVar[int]
+    users: _containers.RepeatedCompositeFieldContainer[_struct_pb2.User]
+    def __init__(self, users: _Optional[_Iterable[_Union[_struct_pb2.User, _Mapping]]] = ...) -> None: ...
+
 class GetFullGroup(_message.Message):
     __slots__ = ("full_group",)
     FULL_GROUP_FIELD_NUMBER: _ClassVar[int]
@@ -103,11 +109,11 @@ class SearchContacts(_message.Message):
     USER_PEERS_FIELD_NUMBER: _ClassVar[int]
     GROUPS_FIELD_NUMBER: _ClassVar[int]
     GROUP_PEERS_FIELD_NUMBER: _ClassVar[int]
-    users: _containers.RepeatedScalarFieldContainer[int]
-    user_peers: _containers.RepeatedScalarFieldContainer[int]
-    groups: _containers.RepeatedScalarFieldContainer[int]
+    users: _containers.RepeatedCompositeFieldContainer[_struct_pb2.User]
+    user_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
+    groups: _containers.RepeatedCompositeFieldContainer[_struct_pb2.Group]
     group_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.GroupOutPeer]
-    def __init__(self, users: _Optional[_Iterable[int]] = ..., user_peers: _Optional[_Iterable[int]] = ..., groups: _Optional[_Iterable[int]] = ..., group_peers: _Optional[_Iterable[_Union[_struct_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...
+    def __init__(self, users: _Optional[_Iterable[_Union[_struct_pb2.User, _Mapping]]] = ..., user_peers: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ..., groups: _Optional[_Iterable[_Union[_struct_pb2.Group, _Mapping]]] = ..., group_peers: _Optional[_Iterable[_Union[_struct_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...
 
 class EditGroupAvatar(_message.Message):
     __slots__ = ("avatar", "seq", "state", "date")
@@ -152,3 +158,17 @@ class GetGroupMembersCount(_message.Message):
     MEMBERS_COUNT_FIELD_NUMBER: _ClassVar[int]
     members_count: int
     def __init__(self, members_count: _Optional[int] = ...) -> None: ...
+
+class GetNasimFileUploadUrl(_message.Message):
+    __slots__ = ("file_id", "url", "duplicate", "chunk_size", "block_size")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    URL_FIELD_NUMBER: _ClassVar[int]
+    DUPLICATE_FIELD_NUMBER: _ClassVar[int]
+    CHUNK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    BLOCK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    url: str
+    duplicate: bool
+    chunk_size: int
+    block_size: int
+    def __init__(self, file_id: _Optional[int] = ..., url: _Optional[str] = ..., duplicate: bool = ..., chunk_size: _Optional[int] = ..., block_size: _Optional[int] = ...) -> None: ...
