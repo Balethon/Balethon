@@ -1,5 +1,5 @@
 import balethon
-from ...network import HTTP2Conection
+from ...network import HTTP2Connection
 from balethon.proto import request_pb2, struct_pb2
 
 
@@ -36,7 +36,7 @@ class UploadFile:
         )
         if not result:
             return
-        connection = HTTP2Conection()
+        connection = HTTP2Connection()
         is_uploaded = await connection.upload_file(result.url, file)
         if is_uploaded:
             return result.file_id

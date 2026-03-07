@@ -2,7 +2,7 @@ from httpx import AsyncClient
 from httpx._types import ProxyTypes
 
 
-class HTTP2Conection:
+class HTTP2Connection:
     TIMEOUT = 300
 
     def __init__(
