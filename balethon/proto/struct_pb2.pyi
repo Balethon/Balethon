@@ -525,12 +525,12 @@ class Member(_message.Message):
     uid: int
     inviter_uid: int
     date: int
-    is_admin: bool
+    is_admin: BoolValue
     promoter_user_id: int
     promoted_at: int
     permissions: Permissions
     title: str
-    def __init__(self, uid: _Optional[int] = ..., inviter_uid: _Optional[int] = ..., date: _Optional[int] = ..., is_admin: bool = ..., promoter_user_id: _Optional[int] = ..., promoted_at: _Optional[int] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., title: _Optional[str] = ...) -> None: ...
+    def __init__(self, uid: _Optional[int] = ..., inviter_uid: _Optional[int] = ..., date: _Optional[int] = ..., is_admin: _Optional[_Union[BoolValue, _Mapping]] = ..., promoter_user_id: _Optional[int] = ..., promoted_at: _Optional[int] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., title: _Optional[str] = ...) -> None: ...
 
 class SendTypeValue(_message.Message):
     __slots__ = ("type",)

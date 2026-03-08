@@ -293,7 +293,7 @@ message Member {
   int32 uid = 1;
   int32 inviter_uid = 2;
   int64 date = 3;
-  bool is_admin = 4;
+  BoolValue is_admin = 4;
   int32 promoter_user_id = 5;
   int64 promoted_at = 6;
   Permissions permissions = 7;
