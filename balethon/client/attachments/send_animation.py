@@ -20,7 +20,6 @@ class SendAnimation:
         chat_id = await self.resolve_peer_id(chat_id)
         animation = resolve_media(animation)
         return await self.auto_execute(
-            "post",
             "sendAnimation",
             locals(),
             json=False,  # The sendAnimation method only works with multipart/form-data
