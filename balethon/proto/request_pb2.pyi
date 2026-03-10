@@ -386,3 +386,29 @@ class GetNasimFileUploadUrl(_message.Message):
     send_type: _struct_pb2.SendTypeValue
     chunk_size: int
     def __init__(self, expected_size: _Optional[int] = ..., crc: _Optional[int] = ..., uid: _Optional[int] = ..., name: _Optional[str] = ..., mime_type: _Optional[str] = ..., ex_peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., send_type: _Optional[_Union[_struct_pb2.SendTypeValue, _Mapping]] = ..., chunk_size: _Optional[int] = ...) -> None: ...
+
+class StartPhoneAuth(_message.Message):
+    __slots__ = ("phone_number", "app_id", "api_key", "device_hash", "device_title", "send_code_type")
+    PHONE_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    APP_ID_FIELD_NUMBER: _ClassVar[int]
+    API_KEY_FIELD_NUMBER: _ClassVar[int]
+    DEVICE_HASH_FIELD_NUMBER: _ClassVar[int]
+    DEVICE_TITLE_FIELD_NUMBER: _ClassVar[int]
+    SEND_CODE_TYPE_FIELD_NUMBER: _ClassVar[int]
+    phone_number: int
+    app_id: int
+    api_key: str
+    device_hash: str
+    device_title: str
+    send_code_type: int
+    def __init__(self, phone_number: _Optional[int] = ..., app_id: _Optional[int] = ..., api_key: _Optional[str] = ..., device_hash: _Optional[str] = ..., device_title: _Optional[str] = ..., send_code_type: _Optional[int] = ...) -> None: ...
+
+class ValidateCode(_message.Message):
+    __slots__ = ("transaction_hash", "code", "is_jwt")
+    TRANSACTION_HASH_FIELD_NUMBER: _ClassVar[int]
+    CODE_FIELD_NUMBER: _ClassVar[int]
+    IS_JWT_FIELD_NUMBER: _ClassVar[int]
+    transaction_hash: str
+    code: str
+    is_jwt: _struct_pb2.BoolValue
+    def __init__(self, transaction_hash: _Optional[str] = ..., code: _Optional[str] = ..., is_jwt: _Optional[_Union[_struct_pb2.BoolValue, _Mapping]] = ...) -> None: ...

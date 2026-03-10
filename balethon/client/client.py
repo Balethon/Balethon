@@ -15,6 +15,7 @@ from .chats import Chats
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
+from .auth import Auth
 from ..objects import Object, wrap, unwrap, Chat, User, Message
 from ..errors import TooManyRequestsError
 from ..network import HTTPConnection, WSConnection
@@ -26,7 +27,7 @@ from ..proto import response_pb2
 
 
 @add_sync_support_to_object
-class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers):
+class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
 
     def __init__(
             self,

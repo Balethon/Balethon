@@ -149,3 +149,24 @@ message GetNasimFileUploadUrl {
   int32 chunk_size = 4;
   int64 block_size = 5;
 }
+
+// ----------------------------------------------------------
+// Start Phone Auth
+
+message StartPhoneAuth {
+  string transaction_hash = 1;
+  bool is_registered = 2;
+  int32 sent_code_type = 5;
+  struct.Int64Value code_expiration_date = 6;
+  int32 next_send_code_type = 7;
+  struct.Int64Value next_send_code_wait_time = 8;
+  struct.Int32Value code_timeout = 9;
+}
+
+// ----------------------------------------------------------
+// Auth
+
+message Auth {
+  struct.User user = 2;
+  struct.StringValue jwt = 4;
+}

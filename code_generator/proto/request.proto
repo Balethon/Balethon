@@ -318,7 +318,7 @@ message LoadMembers {
 // Get Chat Members Count
 
 message GetGroupMembersCount {
-    struct.GroupOutPeer group = 1;
+  struct.GroupOutPeer group = 1;
 }
 
 // ----------------------------------------------------------
@@ -333,4 +333,25 @@ message GetNasimFileUploadUrl {
   struct.ExPeer ex_peer = 6;
   struct.SendTypeValue send_type = 7;
   int64 chunk_size = 8;
+}
+
+// ----------------------------------------------------------
+// Start Phone Auth
+
+message StartPhoneAuth {
+  int64 phone_number = 1;
+  int32 app_id = 2;
+  string api_key = 3;
+  string device_hash = 4;
+  string device_title = 5;
+  int32 send_code_type = 9;
+}
+
+// ----------------------------------------------------------
+// Validate Code
+
+message ValidateCode {
+  string transaction_hash = 1;
+  string code = 2;
+  struct.BoolValue is_jwt = 3;
 }
