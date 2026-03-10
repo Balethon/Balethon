@@ -48,6 +48,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
+        self.last_update_id = None
 
     def is_userbot(self):
         return not isinstance(self.connection, HTTPConnection)
@@ -150,16 +151,20 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         await self.dispatcher.dispatch_event(self, ShutdownHandler)
         await self.dispatcher.stop()
 
-    async def start_polling(self):
+    async def start_polling(self, clear_pending_updates: bool = True):
         await self.delete_webhook()
         await self.initialize()
-        last_update_id = None
         while True:
             try:
-                if last_update_id is None:
-                    updates = await self.get_updates()
+                if self.last_update_id is None:
+                    try:
+                        if not clear_pending_updates:
+                            raise Exception()
+                        updates = await self.get_updates(offset=-1)
+                    except Exception:
+                        updates = await self.get_updates()
                 else:
-                    updates = await self.get_updates(last_update_id + 1)
+                    updates = await self.get_updates(offset=self.last_update_id + 1)
             except ConnectError:
                 if not self.is_disconnected:
                     self.is_disconnected = True
@@ -171,9 +176,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     self.is_disconnected = False
                     await self.dispatcher.dispatch_event(self, ConnectHandler)
                 for update in updates:
-                    if last_update_id is not None and last_update_id >= update.id:
+                    if self.last_update_id is not None and self.last_update_id >= update.id:
                         continue
-                    last_update_id = update.id
+                    self.last_update_id = update.id
                     await self.dispatcher.dispatch_event(self, update.get_effective_update())
 
     async def start_websocket(self):
@@ -191,23 +196,23 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             except Exception as error:
                 await self.dispatcher.dispatch_event(self, error)
 
-    def run(self, function=None):
+    def run(self, function=None, **kwargs):
         try:
             self.connect()
             if function is None:
                 if self.is_userbot():
                     self.start_websocket()
                 else:
-                    self.start_polling()
+                    self.start_polling(**kwargs)
             elif iscoroutine(function):
                 loop = get_event_loop()
                 loop.run_until_complete(function)
             elif iscoroutinefunction(function):
-                kwargs = remove_unwanted_keyword_parameters(function, client=self)
+                kwargs = remove_unwanted_keyword_parameters(function, client=self, **kwargs)
                 loop = get_event_loop()
                 loop.run_until_complete(function(**kwargs))
             else:
-                kwargs = remove_unwanted_keyword_parameters(function, client=self)
+                kwargs = remove_unwanted_keyword_parameters(function, client=self, **kwargs)
                 function(**kwargs)
         except KeyboardInterrupt:
             return
