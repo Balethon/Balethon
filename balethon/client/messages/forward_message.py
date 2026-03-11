@@ -25,11 +25,11 @@ class ForwardMessage:
                         type=peer_type,
                         id=peer_id
                     ),
-                    rid=[self.connection.create_rid()],
+                    rid=[self.ws_connection.create_rid()],
                     forwarded_messages=[struct_pb2.HistoryMessageIdentifier(
                         peer=struct_pb2.Peer(type=message_peer_type, id=message_peer_id),
                         random_id=rid,
-                        date=struct_pb2.Int64Value(date=date)
+                        date=struct_pb2.Int64Value(value=date)
                     )]
                 )
             )

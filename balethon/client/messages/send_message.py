@@ -25,7 +25,7 @@ class SendMessage:
                         type=peer_type,
                         id=peer_id
                     ),
-                    rid=self.connection.create_rid(),
+                    rid=self.ws_connection.create_rid(),
                     message=struct_pb2.Message(
                         text_message=struct_pb2.TextMessage(
                             text=text

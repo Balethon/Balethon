@@ -19,7 +19,7 @@ class SetChatTitle:
                 payload=request_pb2.EditGroupTitle(
                     group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
                     title=title,
-                    rid=self.connection.create_rid()
+                    rid=self.ws_connection.create_rid()
                 )
             )
 

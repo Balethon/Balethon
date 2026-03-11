@@ -28,7 +28,7 @@ class SendPhoto:
                         type=peer_type,
                         id=peer_id
                     ),
-                    rid=self.connection.create_rid(),
+                    rid=self.ws_connection.create_rid(),
                     message=struct_pb2.Message(
                         document_message=struct_pb2.DocumentMessage(
                             file_id=file.id,

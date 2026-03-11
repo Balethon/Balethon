@@ -18,7 +18,7 @@ class SetChatDescription:
                 method="EditGroupAbout",
                 payload=request_pb2.EditGroupAbout(
                     group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
-                    rid=self.connection.create_rid(),
+                    rid=self.ws_connection.create_rid(),
                     about=description
                 )
             )

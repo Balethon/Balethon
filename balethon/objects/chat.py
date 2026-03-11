@@ -56,7 +56,7 @@ class Chat(Object):
         if self.invite_link:
             return f"https://{self.invite_link}"
         if self.username:
-            return f"{self.client.connection.short_url}/{self.username}"
+            return f"{self.client.http_connection.short_url}/{self.username}"
 
     @property
     def full_name(self):

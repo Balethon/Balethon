@@ -33,7 +33,7 @@ class User(Object):
     @property
     def link(self):
         if self.username:
-            return f"{self.client.connection.short_url}/{self.username}"
+            return f"{self.client.http_connection.short_url}/{self.username}"
 
     @property
     def full_name(self):

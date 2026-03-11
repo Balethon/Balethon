@@ -18,7 +18,7 @@ from .stickers import Stickers
 from .auth import Auth
 from ..objects import Object, wrap, unwrap, Chat, User, Message
 from ..errors import TooManyRequestsError
-from ..network import HTTPConnection, WSConnection
+from ..network import HTTPConnection, WSConnection, HTTP2Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
@@ -43,16 +43,20 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         super().__init__("default", None, PrintingChain())
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
         if len(token) > 100:
-            self.connection = WSConnection(token, time_out)
+            self.ws_connection = WSConnection(token, time_out)
+            self.http2_connection = HTTP2Connection()
+            self.http_connection = None
         else:
-            self.connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
+            self.ws_connection = None
+            self.http2_connection = None
+            self.http_connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
         self.last_update_id = None
 
     def is_userbot(self):
-        return not isinstance(self.connection, HTTPConnection)
+        return self.http_connection is None
 
     def __repr__(self):
         client_name = type(self).__name__
@@ -63,12 +67,17 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         return f"{client_name}({name})"
 
     async def connect(self):
-        await self.connection.start()
-        if not self.is_userbot():
+        if self.is_userbot():
+            await self.ws_connection.start()
+        else:
+            await self.http_connection.start()
             self.user = await self.get_me()
 
     async def disconnect(self):
-        await self.connection.stop()
+        if self.is_userbot():
+            await self.ws_connection.stop()
+        else:
+            await self.http_connection.stop()
 
     async def __aenter__(self):
         await self.connect()
@@ -112,8 +121,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         while True:
             try:
                 if json:
-                    return await self.connection.request(service, json=data)
-                return await self.connection.request(service, data=data, files=files)
+                    return await self.http_connection.request(service, json=data)
+                return await self.http_connection.request(service, data=data, files=files)
             except TooManyRequestsError as error:
                 if error.seconds <= self.sleep_threshold:
                     print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
@@ -135,7 +144,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         return result
 
     async def invoke(self, service_name: str, method: str, payload: ProtobufMessage):
-        response = await self.connection.request(service_name, method, payload)
+        response = await self.ws_connection.request(service_name, method, payload)
         payload_class_name = type(payload).__name__
         response_class = getattr(response_pb2, payload_class_name, None)
         if response_class is None:
@@ -186,7 +195,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         await self.initialize()
         while True:
             try:
-                raw_update = await self.connection.recv()
+                raw_update = await self.ws_connection.recv()
                 if raw_update.update and raw_update.update.composed_update and raw_update.update.composed_update.message:
                     raw_message = raw_update.update.composed_update.message
                     if raw_message.rid == 0:
@@ -223,7 +232,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             self.disconnect()
 
     async def download(self, file_id: str):
-        return await self.connection.download_file(file_id)
+        return await self.http_connection.download_file(file_id)
 
     async def resolve_peer_id(self, chat_id):
         if isinstance(chat_id, str) and not chat_id.isnumeric():
@@ -234,4 +243,4 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         return chat_id
 
     def create_referral_link(self, name, value) -> str:
-        return f"{self.connection.short_url}/{self.user.username}?{name}={value}"
+        return f"{self.http_connection.short_url}/{self.user.username}?{name}={value}"

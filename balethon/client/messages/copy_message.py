@@ -40,7 +40,7 @@ class CopyMessage:
                         type=peer_type,
                         id=peer_id
                     ),
-                    rid=self.connection.create_rid(),
+                    rid=self.ws_connection.create_rid(),
                     message=result.message,
                     ex_peer=struct_pb2.Peer(
                         type=peer_type,

@@ -18,7 +18,7 @@ class InviteUser:
                 method="InviteUsers",
                 payload=request_pb2.InviteUsers(
                     group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
-                    rid=self.connection.create_rid(),
+                    rid=self.ws_connection.create_rid(),
                     users=[struct_pb2.UserOutPeer(uid=user_id, access_hash=1)]
                 )
             )
