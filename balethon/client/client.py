@@ -3,6 +3,7 @@ from asyncio import get_event_loop, sleep
 from inspect import iscoroutine, iscoroutinefunction, stack
 from io import BufferedReader, BytesIO
 from typing import get_type_hints
+import re
 
 from httpx import ConnectError
 from google.protobuf.message import Message as ProtobufMessage
@@ -31,7 +32,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     def __init__(
             self,
-            token: str,
+            token_or_phone_number: str,
             async_workers: int = None,
             sync_workers: int = None,
             time_out: int = None,
@@ -41,15 +42,16 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             short_url: str = None
     ):
         super().__init__("default", None, PrintingChain())
+        self.token_or_phone_number = token_or_phone_number
         self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
-        if len(token) > 100:
-            self.ws_connection = WSConnection(token, time_out)
-            self.http2_connection = HTTP2Connection()
-            self.http_connection = None
-        else:
+        if re.match(r"^(\d+):(.+)$", token_or_phone_number):
             self.ws_connection = None
             self.http2_connection = None
-            self.http_connection = HTTPConnection(token, time_out, proxy, base_url, short_url)
+            self.http_connection = HTTPConnection(token_or_phone_number, time_out, proxy, base_url, short_url)
+        else:
+            self.ws_connection = None
+            self.http2_connection = HTTP2Connection()
+            self.http_connection = None
         self.sleep_threshold = sleep_threshold
         self.user = None
         self.is_disconnected = False
