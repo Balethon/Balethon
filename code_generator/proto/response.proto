@@ -177,3 +177,10 @@ message Auth {
 message LoadGroupAvatars {
   struct.Avatars avatars = 1;
 }
+
+// ----------------------------------------------------------
+// Load Pinned Messages
+
+message LoadPinnedMessages {
+  repeated struct.MessageContainer pinned_messages = 1;
+}

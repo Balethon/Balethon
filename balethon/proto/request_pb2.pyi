@@ -418,3 +418,25 @@ class ValidateCode(_message.Message):
     code: str
     is_jwt: _struct_pb2.BoolValue
     def __init__(self, transaction_hash: _Optional[str] = ..., code: _Optional[str] = ..., is_jwt: _Optional[_Union[_struct_pb2.BoolValue, _Mapping]] = ...) -> None: ...
+
+class LoadPinnedMessages(_message.Message):
+    __slots__ = ("peer",)
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.ExPeer
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ...) -> None: ...
+
+class RemoveSinglePin(_message.Message):
+    __slots__ = ("group_peer", "rid", "date")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    rid: int
+    date: int
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
+
+class RemovePin(_message.Message):
+    __slots__ = ("group_peer",)
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...

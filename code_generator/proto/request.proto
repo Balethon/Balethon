@@ -362,3 +362,26 @@ message ValidateCode {
   string code = 2;
   struct.BoolValue is_jwt = 3;
 }
+
+// ----------------------------------------------------------
+// Load Pinned Messages
+
+message LoadPinnedMessages {
+  struct.ExPeer peer = 1;
+}
+
+// ----------------------------------------------------------
+// Remove Single Pin
+
+message RemoveSinglePin {
+  struct.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  int64 date = 3;
+}
+
+// ----------------------------------------------------------
+// Remove Pin
+
+message RemovePin {
+  struct.GroupOutPeer group_peer = 1;
+}

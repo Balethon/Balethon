@@ -204,3 +204,9 @@ class LoadGroupAvatars(_message.Message):
     AVATARS_FIELD_NUMBER: _ClassVar[int]
     avatars: _struct_pb2.Avatars
     def __init__(self, avatars: _Optional[_Union[_struct_pb2.Avatars, _Mapping]] = ...) -> None: ...
+
+class LoadPinnedMessages(_message.Message):
+    __slots__ = ("pinned_messages",)
+    PINNED_MESSAGES_FIELD_NUMBER: _ClassVar[int]
+    pinned_messages: _containers.RepeatedCompositeFieldContainer[_struct_pb2.MessageContainer]
+    def __init__(self, pinned_messages: _Optional[_Iterable[_Union[_struct_pb2.MessageContainer, _Mapping]]] = ...) -> None: ...
