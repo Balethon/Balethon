@@ -46,6 +46,22 @@ class SendType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     SEND_TYPE_STICKER: _ClassVar[SendType]
     SEND_TYPE_CROWDFUNDING: _ClassVar[SendType]
     SEND_TYPE_SPONSORED: _ClassVar[SendType]
+
+class TypingType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    TYPING_TYPE_UNKNOWN: _ClassVar[TypingType]
+    TYPING_TYPE_TEXT: _ClassVar[TypingType]
+    TYPING_TYPE_VOICE_RECORDING: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_VOICE: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_FILE: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_PHOTO: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_VIDEO: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_MUSIC: _ClassVar[TypingType]
+    TYPING_TYPE_CHOOSING_STICKER: _ClassVar[TypingType]
+    TYPING_TYPE_CHOOSING_GIF: _ClassVar[TypingType]
+    TYPING_TYPE_CREATING_GIFT_PACKET: _ClassVar[TypingType]
+    TYPING_TYPE_SENDING_ALBUM: _ClassVar[TypingType]
+    TYPING_TYPE_CHOOSING_EMOJI: _ClassVar[TypingType]
 EX_PEER_TYPE_UNKNOWN: ExPeerType
 EX_PEER_TYPE_PRIVATE: ExPeerType
 EX_PEER_TYPE_GROUP: ExPeerType
@@ -71,6 +87,19 @@ SEND_TYPE_DOCUMENT: SendType
 SEND_TYPE_STICKER: SendType
 SEND_TYPE_CROWDFUNDING: SendType
 SEND_TYPE_SPONSORED: SendType
+TYPING_TYPE_UNKNOWN: TypingType
+TYPING_TYPE_TEXT: TypingType
+TYPING_TYPE_VOICE_RECORDING: TypingType
+TYPING_TYPE_SENDING_VOICE: TypingType
+TYPING_TYPE_SENDING_FILE: TypingType
+TYPING_TYPE_SENDING_PHOTO: TypingType
+TYPING_TYPE_SENDING_VIDEO: TypingType
+TYPING_TYPE_SENDING_MUSIC: TypingType
+TYPING_TYPE_CHOOSING_STICKER: TypingType
+TYPING_TYPE_CHOOSING_GIF: TypingType
+TYPING_TYPE_CREATING_GIFT_PACKET: TypingType
+TYPING_TYPE_SENDING_ALBUM: TypingType
+TYPING_TYPE_CHOOSING_EMOJI: TypingType
 
 class Peer(_message.Message):
     __slots__ = ("type", "id")

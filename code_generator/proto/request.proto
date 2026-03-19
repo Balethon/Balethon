@@ -385,3 +385,11 @@ message RemoveSinglePin {
 message RemovePin {
   struct.GroupOutPeer group_peer = 1;
 }
+
+// ----------------------------------------------------------
+// Typing
+
+message Typing {
+    struct.OutPeer peer = 1;
+    struct.TypingType typing_type = 3;
+}

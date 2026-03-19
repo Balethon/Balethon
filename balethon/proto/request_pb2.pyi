@@ -440,3 +440,11 @@ class RemovePin(_message.Message):
     GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
     group_peer: _struct_pb2.GroupOutPeer
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...
+
+class Typing(_message.Message):
+    __slots__ = ("peer", "typing_type")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    TYPING_TYPE_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.OutPeer
+    typing_type: _struct_pb2.TypingType
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.OutPeer, _Mapping]] = ..., typing_type: _Optional[_Union[_struct_pb2.TypingType, str]] = ...) -> None: ...
