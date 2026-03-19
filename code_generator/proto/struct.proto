@@ -37,8 +37,13 @@ message TextMessage {
   repeated int64 mentions = 2;
 }
 
+message JsonMessage {
+    string raw_json = 1;
+}
+
 message Message {
   DocumentMessage document_message = 4;
+  JsonMessage json_message = 7;
   TextMessage text_message = 15;
 }
 

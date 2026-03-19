@@ -155,13 +155,21 @@ class TextMessage(_message.Message):
     mentions: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, text: _Optional[str] = ..., mentions: _Optional[_Iterable[int]] = ...) -> None: ...
 
+class JsonMessage(_message.Message):
+    __slots__ = ("raw_json",)
+    RAW_JSON_FIELD_NUMBER: _ClassVar[int]
+    raw_json: str
+    def __init__(self, raw_json: _Optional[str] = ...) -> None: ...
+
 class Message(_message.Message):
-    __slots__ = ("document_message", "text_message")
+    __slots__ = ("document_message", "json_message", "text_message")
     DOCUMENT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    JSON_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     TEXT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     document_message: DocumentMessage
+    json_message: JsonMessage
     text_message: TextMessage
-    def __init__(self, document_message: _Optional[_Union[DocumentMessage, _Mapping]] = ..., text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
+    def __init__(self, document_message: _Optional[_Union[DocumentMessage, _Mapping]] = ..., json_message: _Optional[_Union[JsonMessage, _Mapping]] = ..., text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
 
 class DeleteDates(_message.Message):
     __slots__ = ("dates",)
