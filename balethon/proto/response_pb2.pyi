@@ -198,3 +198,9 @@ class Auth(_message.Message):
     user: _struct_pb2.User
     jwt: _struct_pb2.StringValue
     def __init__(self, user: _Optional[_Union[_struct_pb2.User, _Mapping]] = ..., jwt: _Optional[_Union[_struct_pb2.StringValue, _Mapping]] = ...) -> None: ...
+
+class LoadGroupAvatars(_message.Message):
+    __slots__ = ("avatars",)
+    AVATARS_FIELD_NUMBER: _ClassVar[int]
+    avatars: _struct_pb2.Avatars
+    def __init__(self, avatars: _Optional[_Union[_struct_pb2.Avatars, _Mapping]] = ...) -> None: ...

@@ -224,13 +224,20 @@ message EditGroupAvatar {
 }
 
 // ----------------------------------------------------------
+// Load Group Avatars
+
+message LoadGroupAvatars {
+  struct.GroupOutPeer peer = 1;
+}
+
+// ----------------------------------------------------------
 // Remove Group Avatar
 
 message RemoveGroupAvatar {
   struct.GroupOutPeer group_peer = 1;
   int64 rid = 4;
   repeated int32 optimizations = 5;
-  int64 avater_id = 6;
+  struct.Int64Value avatar_id = 6;
 }
 
 // ----------------------------------------------------------

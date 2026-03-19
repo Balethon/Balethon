@@ -142,8 +142,8 @@ message Avatar {
   AvatarImage small_image = 1;
   AvatarImage large_image = 2;
   AvatarImage full_image = 3;
-  int64 id = 4;
-  int64 date = 5;
+  Int64Value id = 4;
+  Int64Value date = 5;
 }
 
 enum Sex {
@@ -315,4 +315,8 @@ enum SendType {
 
 message SendTypeValue {
   SendType type = 1;
+}
+
+message Avatars {
+  repeated Avatar avatars = 1;
 }

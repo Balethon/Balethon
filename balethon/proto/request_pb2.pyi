@@ -259,17 +259,23 @@ class EditGroupAvatar(_message.Message):
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., file_location: _Optional[_Union[_struct_pb2.FileLocation, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
 
+class LoadGroupAvatars(_message.Message):
+    __slots__ = ("peer",)
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.GroupOutPeer
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ...) -> None: ...
+
 class RemoveGroupAvatar(_message.Message):
-    __slots__ = ("group_peer", "rid", "optimizations", "avater_id")
+    __slots__ = ("group_peer", "rid", "optimizations", "avatar_id")
     GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
     RID_FIELD_NUMBER: _ClassVar[int]
     OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
-    AVATER_ID_FIELD_NUMBER: _ClassVar[int]
+    AVATAR_ID_FIELD_NUMBER: _ClassVar[int]
     group_peer: _struct_pb2.GroupOutPeer
     rid: int
     optimizations: _containers.RepeatedScalarFieldContainer[int]
-    avater_id: int
-    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ..., avater_id: _Optional[int] = ...) -> None: ...
+    avatar_id: _struct_pb2.Int64Value
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ..., avatar_id: _Optional[_Union[_struct_pb2.Int64Value, _Mapping]] = ...) -> None: ...
 
 class EditGroupTitle(_message.Message):
     __slots__ = ("group_peer", "title", "rid", "optimizations")

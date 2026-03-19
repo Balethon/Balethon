@@ -284,9 +284,9 @@ class Avatar(_message.Message):
     small_image: AvatarImage
     large_image: AvatarImage
     full_image: AvatarImage
-    id: int
-    date: int
-    def __init__(self, small_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., large_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., full_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., id: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
+    id: Int64Value
+    date: Int64Value
+    def __init__(self, small_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., large_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., full_image: _Optional[_Union[AvatarImage, _Mapping]] = ..., id: _Optional[_Union[Int64Value, _Mapping]] = ..., date: _Optional[_Union[Int64Value, _Mapping]] = ...) -> None: ...
 
 class StringValue(_message.Message):
     __slots__ = ("value",)
@@ -537,3 +537,9 @@ class SendTypeValue(_message.Message):
     TYPE_FIELD_NUMBER: _ClassVar[int]
     type: SendType
     def __init__(self, type: _Optional[_Union[SendType, str]] = ...) -> None: ...
+
+class Avatars(_message.Message):
+    __slots__ = ("avatars",)
+    AVATARS_FIELD_NUMBER: _ClassVar[int]
+    avatars: _containers.RepeatedCompositeFieldContainer[Avatar]
+    def __init__(self, avatars: _Optional[_Iterable[_Union[Avatar, _Mapping]]] = ...) -> None: ...

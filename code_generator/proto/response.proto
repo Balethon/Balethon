@@ -170,3 +170,10 @@ message Auth {
   struct.User user = 2;
   struct.StringValue jwt = 4;
 }
+
+// ----------------------------------------------------------
+// Load Group Avatars
+
+message LoadGroupAvatars {
+  struct.Avatars avatars = 1;
+}
