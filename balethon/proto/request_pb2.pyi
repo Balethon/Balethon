@@ -448,3 +448,11 @@ class Typing(_message.Message):
     peer: _struct_pb2.OutPeer
     typing_type: _struct_pb2.TypingType
     def __init__(self, peer: _Optional[_Union[_struct_pb2.OutPeer, _Mapping]] = ..., typing_type: _Optional[_Union[_struct_pb2.TypingType, str]] = ...) -> None: ...
+
+class RemoveUserAdmin(_message.Message):
+    __slots__ = ("group_peer", "user_peer")
+    GROUP_PEER_FIELD_NUMBER: _ClassVar[int]
+    USER_PEER_FIELD_NUMBER: _ClassVar[int]
+    group_peer: _struct_pb2.GroupOutPeer
+    user_peer: _struct_pb2.UserOutPeer
+    def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user_peer: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ...) -> None: ...

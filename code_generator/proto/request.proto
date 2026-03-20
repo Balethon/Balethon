@@ -393,3 +393,11 @@ message Typing {
     struct.OutPeer peer = 1;
     struct.TypingType typing_type = 3;
 }
+
+// ----------------------------------------------------------
+// Remove User Admin
+
+message RemoveUserAdmin {
+    struct.GroupOutPeer group_peer = 1;
+    struct.UserOutPeer user_peer = 2;
+}
