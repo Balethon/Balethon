@@ -456,3 +456,9 @@ class RemoveUserAdmin(_message.Message):
     group_peer: _struct_pb2.GroupOutPeer
     user_peer: _struct_pb2.UserOutPeer
     def __init__(self, group_peer: _Optional[_Union[_struct_pb2.GroupOutPeer, _Mapping]] = ..., user_peer: _Optional[_Union[_struct_pb2.UserOutPeer, _Mapping]] = ...) -> None: ...
+
+class GetNasimFileUrl(_message.Message):
+    __slots__ = ("file",)
+    FILE_FIELD_NUMBER: _ClassVar[int]
+    file: _struct_pb2.FileLocation
+    def __init__(self, file: _Optional[_Union[_struct_pb2.FileLocation, _Mapping]] = ...) -> None: ...

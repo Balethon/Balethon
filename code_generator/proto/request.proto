@@ -401,3 +401,10 @@ message RemoveUserAdmin {
     struct.GroupOutPeer group_peer = 1;
     struct.UserOutPeer user_peer = 2;
 }
+
+// ----------------------------------------------------------
+// Get Nasim File URL
+
+message GetNasimFileUrl {
+    struct.FileLocation file = 1;
+}

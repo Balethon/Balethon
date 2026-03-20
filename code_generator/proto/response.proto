@@ -184,3 +184,8 @@ message LoadGroupAvatars {
 message LoadPinnedMessages {
   repeated struct.MessageContainer pinned_messages = 1;
 }
+
+// Get Nasim File Url
+message GetNasimFileUrl {
+    struct.FileUrlDescription file_url = 1;
+}

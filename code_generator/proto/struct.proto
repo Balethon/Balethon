@@ -341,3 +341,12 @@ enum TypingType {
     TYPING_TYPE_SENDING_ALBUM = 11;
     TYPING_TYPE_CHOOSING_EMOJI = 12;
 }
+
+message FileUrlDescription {
+    int64 file_id = 1;
+    string url = 2;
+    int32 timeout = 3;
+    //repeated string unsigned_url_headers = 5;
+    string unsigned_url = 6;
+    struct.Int32Value chunk_size = 7;
+}

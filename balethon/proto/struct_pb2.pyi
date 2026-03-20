@@ -580,3 +580,17 @@ class Avatars(_message.Message):
     AVATARS_FIELD_NUMBER: _ClassVar[int]
     avatars: _containers.RepeatedCompositeFieldContainer[Avatar]
     def __init__(self, avatars: _Optional[_Iterable[_Union[Avatar, _Mapping]]] = ...) -> None: ...
+
+class FileUrlDescription(_message.Message):
+    __slots__ = ("file_id", "url", "timeout", "unsigned_url", "chunk_size")
+    FILE_ID_FIELD_NUMBER: _ClassVar[int]
+    URL_FIELD_NUMBER: _ClassVar[int]
+    TIMEOUT_FIELD_NUMBER: _ClassVar[int]
+    UNSIGNED_URL_FIELD_NUMBER: _ClassVar[int]
+    CHUNK_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_id: int
+    url: str
+    timeout: int
+    unsigned_url: str
+    chunk_size: Int32Value
+    def __init__(self, file_id: _Optional[int] = ..., url: _Optional[str] = ..., timeout: _Optional[int] = ..., unsigned_url: _Optional[str] = ..., chunk_size: _Optional[_Union[Int32Value, _Mapping]] = ...) -> None: ...

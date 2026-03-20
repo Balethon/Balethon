@@ -210,3 +210,9 @@ class LoadPinnedMessages(_message.Message):
     PINNED_MESSAGES_FIELD_NUMBER: _ClassVar[int]
     pinned_messages: _containers.RepeatedCompositeFieldContainer[_struct_pb2.MessageContainer]
     def __init__(self, pinned_messages: _Optional[_Iterable[_Union[_struct_pb2.MessageContainer, _Mapping]]] = ...) -> None: ...
+
+class GetNasimFileUrl(_message.Message):
+    __slots__ = ("file_url",)
+    FILE_URL_FIELD_NUMBER: _ClassVar[int]
+    file_url: _struct_pb2.FileUrlDescription
+    def __init__(self, file_url: _Optional[_Union[_struct_pb2.FileUrlDescription, _Mapping]] = ...) -> None: ...
