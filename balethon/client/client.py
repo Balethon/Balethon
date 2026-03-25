@@ -35,6 +35,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             token_or_phone_number: str,
             async_workers: int = None,
             sync_workers: int = None,
+            use_concurrency: bool = True,
             time_out: int = None,
             sleep_threshold: int = 60,
             proxy=None,
@@ -45,7 +46,12 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         self.token_or_phone_number = token_or_phone_number
         self.time_out = time_out
         self.session = None
-        self.dispatcher = Dispatcher(self, async_workers=async_workers, sync_workers=sync_workers)
+        self.dispatcher = Dispatcher(
+            self,
+            async_workers=async_workers,
+            sync_workers=sync_workers,
+            use_concurrency=use_concurrency
+        )
         if re.match(r"^(\d+):(.+)$", token_or_phone_number):
             self.ws_connection = None
             self.http2_connection = None

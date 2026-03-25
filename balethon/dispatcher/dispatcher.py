@@ -22,7 +22,8 @@ class Dispatcher:
             self,
             *clients,
             async_workers: int = None,
-            sync_workers: int = None
+            sync_workers: int = None,
+            use_concurrency: bool = True
     ):
         self.clients = clients
         try:
@@ -31,28 +32,31 @@ class Dispatcher:
             self.event_loop = new_event_loop()
         self.events_queue = Queue()
         self.is_started = False
-        self.async_workers_count = self.reasonable_async_workers or async_workers
+        self.async_workers_count = async_workers or self.reasonable_async_workers
         self.async_workers = []
-        self.sync_workers_count = self.reasonable_sync_workers or sync_workers
+        self.sync_workers_count = sync_workers or self.reasonable_sync_workers
         self.sync_workers = None
+        self.use_concurrency = use_concurrency
 
     async def start(self):
         if self.is_started:
             raise RuntimeError("Dispatcher is already started")
         self.is_started = True
-        self.async_workers = [self.event_loop.create_task(self.worker()) for _ in range(self.async_workers_count)]
-        self.sync_workers = ThreadPoolExecutor(self.sync_workers_count, thread_name_prefix="Event Handler")
+        if self.use_concurrency:
+            self.async_workers = [self.event_loop.create_task(self.worker()) for _ in range(self.async_workers_count)]
+            self.sync_workers = ThreadPoolExecutor(self.sync_workers_count, thread_name_prefix="Event Handler")
 
     async def stop(self):
         if not self.is_started:
             raise RuntimeError("Dispatcher is already stopped")
         self.is_started = False
-        for _ in self.async_workers:
-            self.events_queue.put_nowait(None)
-        for async_worker in self.async_workers:
-            await async_worker
-        self.async_workers.clear()
-        self.sync_workers.shutdown()
+        if self.use_concurrency:
+            for _ in self.async_workers:
+                self.events_queue.put_nowait(None)
+            for async_worker in self.async_workers:
+                await async_worker
+            self.async_workers.clear()
+            self.sync_workers.shutdown()
 
     async def propagate_chain(self, chain, client, event):
         for child in chain.children:
@@ -111,7 +115,10 @@ class Dispatcher:
 
     async def dispatch_event(self, client, event):
         if self.is_started:
-            self.events_queue.put_nowait((client, event))
+            if self.use_concurrency:
+                self.events_queue.put_nowait((client, event))
+            else:
+                await self.propagate_chain(client, client, event)
 
     async def dispatch_raw_update(self, client, update):
         update = Update.wrap(update).get_effective_update()
