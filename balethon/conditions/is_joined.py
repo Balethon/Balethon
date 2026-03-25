@@ -39,9 +39,7 @@ class IsJoined(Condition):
         self.chat_ids.remove(chat.id)
         return chat
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if self.chat_ids and not self.chats:
             await self.update_chats(client)
         if not event.author:

@@ -7,9 +7,7 @@ class Chat(Condition):
         super().__init__(can_process=(Message, CallbackQuery))
         self.chats = set(chats)
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if isinstance(event, Message):
             return event.chat.id in self.chats
         elif isinstance(event, CallbackQuery):

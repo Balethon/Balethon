@@ -10,9 +10,7 @@ class Command(Condition):
         self.min_arguments = min_arguments
         self.max_arguments = max_arguments
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if not event.text:
             return False
         name, *arguments = event.text.split()

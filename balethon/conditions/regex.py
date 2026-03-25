@@ -9,9 +9,7 @@ class Regex(Condition):
         super().__init__(can_process=(Message, CallbackQuery))
         self.pattern = compile(pattern, flags)
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if isinstance(event, Message):
             event = event.content
         elif isinstance(event, CallbackQuery):

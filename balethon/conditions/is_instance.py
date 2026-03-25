@@ -6,7 +6,5 @@ class IsInstance(Condition):
         super().__init__()
         self.classes = classes
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         return isinstance(event, self.classes)

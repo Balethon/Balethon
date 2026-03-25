@@ -9,9 +9,7 @@ class AtState(Condition):
         self.state = str(state) if isinstance(state, State) else state
         self.state_machine = state_machine
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if not event.author:
             return False
         if self.state_machine is None:

@@ -9,9 +9,7 @@ class Click(Condition):
         self.row_index = row_index
         self.button_index = button_index
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if isinstance(self.keyboard, ReplyKeyboard) and isinstance(event, Message):
             button = self.keyboard.keyboard[self.row_index][self.button_index]
             return event.text == button.text

@@ -14,6 +14,9 @@ class Condition:
     async def __call__(self, client, event) -> bool:
         if self.is_not_processable(event):
             return False
+        return await self.process(client, event)
+
+    async def process(self, client, event) -> bool:
         kwargs = dict(condition=self, client=client, event=event)
         kwargs = remove_unwanted_keyword_parameters(self.function, **kwargs)
         if iscoroutinefunction(self.function):

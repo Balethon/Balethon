@@ -7,9 +7,7 @@ class Author(Condition):
         super().__init__(can_process=(Message, CallbackQuery))
         self.authors = set(authors)
 
-    async def __call__(self, client, event) -> bool:
-        if self.is_not_processable(event):
-            return False
+    async def process(self, client, event) -> bool:
         if not event.author:
             return False
         return event.author.id in self.authors
