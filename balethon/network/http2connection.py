@@ -1,3 +1,4 @@
+from typing import AsyncGenerator
 from datetime import datetime
 from math import modf
 
@@ -61,6 +62,13 @@ class HTTP2Connection:
         )
         return self.strip_grpc_frame(response.content)
 
-    async def upload_file(self, url: str, file: bytes) -> bool:
-        response = await self.client.put(url, content=file)
+    @staticmethod
+    async def generate_chunks(file: bytes, chunk_size: int) -> AsyncGenerator[bytes, None]:
+        file_size = len(file)
+        for i in range(0, file_size, chunk_size):
+            yield file[i : i + chunk_size]
+
+    async def upload_file(self, url: str, file: bytes, chunk_size: int = None) -> bool:
+        content = self.generate_chunks(file, chunk_size) if chunk_size else file
+        response = await self.client.put(url, content=content)
         return response.is_success

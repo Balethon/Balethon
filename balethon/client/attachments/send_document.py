@@ -32,7 +32,7 @@ class SendDocument:
                     message=struct_pb2.Message(
                         document_message=struct_pb2.DocumentMessage(
                             file_id=file.id,
-                            access_hash=1,
+                            access_hash=peer_id,
                             file_size=file.size,
                             name=file.name,
                             mime_type=file.mime_type,

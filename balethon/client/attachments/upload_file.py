@@ -81,5 +81,5 @@ class UploadFile:
             )
         )
         connection = HTTP2Connection()
-        await connection.upload_file(result.url, file)
+        await connection.upload_file(result.url, file, result.chunk_size)
         return File(id=result.file_id, size=expected_size, name=name, mime_type=mime_type)
