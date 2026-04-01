@@ -72,3 +72,8 @@ class HTTP2Connection:
         content = self.generate_chunks(file, chunk_size) if chunk_size else file
         response = await self.client.put(url, content=content)
         return response.is_success
+
+    async def download_file(self, url: str, timeout: int = None):
+        response = await self.client.get(url, timeout=timeout)
+        response.raise_for_status()
+        return response.read()

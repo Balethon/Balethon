@@ -264,6 +264,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             self.disconnect()
 
     async def download(self, file_id: str):
+        if self.is_userbot():
+            file = await self.get_file(file_id)
+            file_url_description = file.file_url
+            return await self.http2_connection.download_file(file_url_description.url, file_url_description.timeout)
         return await self.http_connection.download_file(file_id)
 
     async def resolve_peer_id(self, chat_id):
