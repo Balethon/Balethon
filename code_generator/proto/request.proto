@@ -37,7 +37,6 @@ message Metadata {
 }
 
 // ----------------------------------------------------------
-// Keep Alive
 
 message KeepAliveRequest {
   KeepAlive payloads = 2;
@@ -48,22 +47,15 @@ message KeepAlive {
 }
 
 // ----------------------------------------------------------
-// Set Online
 
 message SetOnline {
   uint32 is_online = 1;
   uint32 duration = 2;
 }
 
-// ----------------------------------------------------------
-// Edit Name
-
 message EditName {
   string name = 1;
 }
-
-// ----------------------------------------------------------
-// Send Message
 
 message SendMessage {
   struct.Peer peer = 1;
@@ -72,17 +64,11 @@ message SendMessage {
   struct.Peer ex_peer = 6;
 }
 
-// ----------------------------------------------------------
-// Update Message
-
 message UpdateMessage {
   struct.Peer peer = 1;
   int64 rid = 2;
   struct.Message updated_message = 3;
 }
-
-// ----------------------------------------------------------
-// Delete Message
 
 message DeleteMessage {
   struct.Peer peer = 1;
@@ -91,17 +77,11 @@ message DeleteMessage {
   bool just_mine = 4;
 }
 
-// ----------------------------------------------------------
-// Forward Messages
-
 message ForwardMessages {
   struct.Peer peer = 1;
   repeated int64 rid = 2;
   repeated struct.HistoryMessageIdentifier forwarded_messages = 3;
 }
-
-// ----------------------------------------------------------
-// Get Message Views
 
 message GetMessageViews {
   struct.Peer peer = 1;
@@ -109,18 +89,12 @@ message GetMessageViews {
   bool increment = 3;
 }
 
-// ----------------------------------------------------------
-// Message Set Reaction
-
 message MessageSetReaction {
   struct.Peer peer = 1;
   int64 rid = 2;
   string code = 3;
   int64 date = 4;
 }
-
-// ----------------------------------------------------------
-// Load History
 
 message LoadHistory {
   struct.Peer peer = 1;
@@ -130,24 +104,15 @@ message LoadHistory {
   repeated int32 optimizations = 6;
 }
 
-// ----------------------------------------------------------
-// Join Group
-
 message JoinGroup {
   string token = 1;
   repeated int32 optimizations = 2;
 }
 
-// ----------------------------------------------------------
-// Join Public Group
-
 message JoinPublicGroup {
   struct.Peer peer = 1;
   repeated int32 optimizations = 2;
 }
-
-// ----------------------------------------------------------
-// Leave Group
 
 message LeaveGroup {
   struct.GroupOutPeer group_peer = 1;
@@ -156,38 +121,24 @@ message LeaveGroup {
   bool make_orphan = 4;
 }
 
-// ----------------------------------------------------------
-// Load Users
-
 message LoadUsers {
   repeated struct.UserOutPeer user_peers = 1;
 }
-
-// ----------------------------------------------------------
-// Load Full Users
 
 message LoadFullUsers {
   repeated struct.UserOutPeer user_peers = 1;
 }
 
-// ----------------------------------------------------------
-// Get Full Group
-
 message GetFullGroup {
   struct.GroupOutPeer peer = 1;
 }
-
-// ----------------------------------------------------------
-// Search Contacts
 
 message SearchContacts {
   string request = 1;
   repeated int32 optimizations = 2;
 }
 
-// ----------------------------------------------------------
 // Pin Message (Group)
-
 message PinMessage {
   int32 sender_user_id = 1;
   struct.GroupOutPeer group_peer = 2;
@@ -195,26 +146,18 @@ message PinMessage {
   int64 msg_rid = 4;
 }
 
-// ----------------------------------------------------------
 // Pin Messages (Messaging)
-
 message PinMessages {
   struct.Peer peer = 1;
   struct.MessageId message_id = 2;
   bool just_mine = 3;
 }
 
-// ----------------------------------------------------------
-// UnPin Messages
-
 message UnPinMessages {
   struct.ExPeer peer = 1;
   repeated struct.MessageId message_ids = 2;
   bool all = 3;
 }
-
-// ----------------------------------------------------------
-// Edit Group Avatar
 
 message EditGroupAvatar {
   struct.GroupOutPeer group_peer = 1;
@@ -223,15 +166,9 @@ message EditGroupAvatar {
   repeated int32 optimizations = 5;
 }
 
-// ----------------------------------------------------------
-// Load Group Avatars
-
 message LoadGroupAvatars {
   struct.GroupOutPeer peer = 1;
 }
-
-// ----------------------------------------------------------
-// Remove Group Avatar
 
 message RemoveGroupAvatar {
   struct.GroupOutPeer group_peer = 1;
@@ -240,18 +177,12 @@ message RemoveGroupAvatar {
   struct.Int64Value avatar_id = 6;
 }
 
-// ----------------------------------------------------------
-// Edit Group Title
-
 message EditGroupTitle {
   struct.GroupOutPeer group_peer = 1;
   string title = 3;
   int64 rid = 4;
   repeated int32 optimizations = 5;
 }
-
-// ----------------------------------------------------------
-// Edit Group About
 
 message EditGroupAbout {
   struct.GroupOutPeer group_peer = 1;
@@ -260,24 +191,15 @@ message EditGroupAbout {
   repeated int32 optimizations = 5;
 }
 
-// ----------------------------------------------------------
-// Revoke Invite Url
-
 message RevokeInviteUrl {
   struct.GroupOutPeer group_peer = 1;
 }
-
-// ----------------------------------------------------------
-// UnBan User
 
 message UnBanUser {
   struct.GroupOutPeer group_peer = 1;
   struct.UserOutPeer user = 2;
   repeated int32 optimizations = 3;
 }
-
-// ----------------------------------------------------------
-// Kick User
 
 message KickUser {
   struct.GroupOutPeer group_peer = 1;
@@ -286,15 +208,9 @@ message KickUser {
   repeated int32 optimizations = 5;
 }
 
-// ----------------------------------------------------------
-// Get Group Invite Url
-
 message GetGroupInviteUrl {
   struct.GroupOutPeer group_peer = 1;
 }
-
-// ----------------------------------------------------------
-// Invite Users
 
 message InviteUsers {
   struct.GroupOutPeer group_peer = 1;
@@ -302,17 +218,11 @@ message InviteUsers {
   repeated struct.UserOutPeer users = 3;
 }
 
-// ----------------------------------------------------------
-// Set Member Permissions
-
 message SetMemberPermissions {
   struct.GroupOutPeer group = 1;
   struct.UserOutPeer user = 2;
   struct.Permissions permissions = 3;
 }
-
-// ----------------------------------------------------------
-// LoadMembers
 
 message LoadMembers {
   struct.GroupOutPeer group = 1;
@@ -321,15 +231,9 @@ message LoadMembers {
   struct.LoadMembersCondition condition = 4;
 }
 
-// ----------------------------------------------------------
-// Get Chat Members Count
-
 message GetGroupMembersCount {
   struct.GroupOutPeer group = 1;
 }
-
-// ----------------------------------------------------------
-// Get Nasim File Url
 
 message GetNasimFileUploadUrl {
   int32 expected_size = 1;
@@ -342,9 +246,6 @@ message GetNasimFileUploadUrl {
   int64 chunk_size = 8;
 }
 
-// ----------------------------------------------------------
-// Start Phone Auth
-
 message StartPhoneAuth {
   int64 phone_number = 1;
   int32 app_id = 2;
@@ -354,24 +255,15 @@ message StartPhoneAuth {
   int32 send_code_type = 9;
 }
 
-// ----------------------------------------------------------
-// Validate Code
-
 message ValidateCode {
   string transaction_hash = 1;
   string code = 2;
   struct.BoolValue is_jwt = 3;
 }
 
-// ----------------------------------------------------------
-// Load Pinned Messages
-
 message LoadPinnedMessages {
   struct.ExPeer peer = 1;
 }
-
-// ----------------------------------------------------------
-// Remove Single Pin
 
 message RemoveSinglePin {
   struct.GroupOutPeer group_peer = 1;
@@ -379,32 +271,27 @@ message RemoveSinglePin {
   int64 date = 3;
 }
 
-// ----------------------------------------------------------
-// Remove Pin
-
 message RemovePin {
   struct.GroupOutPeer group_peer = 1;
 }
-
-// ----------------------------------------------------------
-// Typing
 
 message Typing {
     struct.OutPeer peer = 1;
     struct.TypingType typing_type = 3;
 }
 
-// ----------------------------------------------------------
-// Remove User Admin
-
 message RemoveUserAdmin {
     struct.GroupOutPeer group_peer = 1;
     struct.UserOutPeer user_peer = 2;
 }
 
-// ----------------------------------------------------------
-// Get Nasim File URL
-
 message GetNasimFileUrl {
     struct.FileLocation file = 1;
+}
+
+message SendMultiMediaMessage {
+    struct.ExPeer peer = 1;
+    repeated struct.SingleMedia multi_media = 2;
+    //struct.MessageOutReference replied_message = 3;
+    uint64 grouped_id = 4;
 }

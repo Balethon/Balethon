@@ -698,3 +698,11 @@ class FileUrlDescription(_message.Message):
     unsigned_url: str
     chunk_size: Int32Value
     def __init__(self, file_id: _Optional[int] = ..., url: _Optional[str] = ..., timeout: _Optional[int] = ..., unsigned_url: _Optional[str] = ..., chunk_size: _Optional[_Union[Int32Value, _Mapping]] = ...) -> None: ...
+
+class SingleMedia(_message.Message):
+    __slots__ = ("random_id", "media")
+    RANDOM_ID_FIELD_NUMBER: _ClassVar[int]
+    MEDIA_FIELD_NUMBER: _ClassVar[int]
+    random_id: int
+    media: DocumentMessage
+    def __init__(self, random_id: _Optional[int] = ..., media: _Optional[_Union[DocumentMessage, _Mapping]] = ...) -> None: ...

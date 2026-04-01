@@ -462,3 +462,13 @@ class GetNasimFileUrl(_message.Message):
     FILE_FIELD_NUMBER: _ClassVar[int]
     file: _struct_pb2.FileLocation
     def __init__(self, file: _Optional[_Union[_struct_pb2.FileLocation, _Mapping]] = ...) -> None: ...
+
+class SendMultiMediaMessage(_message.Message):
+    __slots__ = ("peer", "multi_media", "grouped_id")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    MULTI_MEDIA_FIELD_NUMBER: _ClassVar[int]
+    GROUPED_ID_FIELD_NUMBER: _ClassVar[int]
+    peer: _struct_pb2.ExPeer
+    multi_media: _containers.RepeatedCompositeFieldContainer[_struct_pb2.SingleMedia]
+    grouped_id: int
+    def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., multi_media: _Optional[_Iterable[_Union[_struct_pb2.SingleMedia, _Mapping]]] = ..., grouped_id: _Optional[int] = ...) -> None: ...

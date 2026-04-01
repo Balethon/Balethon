@@ -408,3 +408,8 @@ message FileUrlDescription {
     string unsigned_url = 6;
     struct.Int32Value chunk_size = 7;
 }
+
+message SingleMedia {
+    int64 random_id = 1;
+    DocumentMessage media = 2;
+}
