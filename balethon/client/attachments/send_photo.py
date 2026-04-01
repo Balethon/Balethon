@@ -36,6 +36,12 @@ class SendPhoto:
                             file_size=file.size,
                             name=file.name,
                             mime_type=file.mime_type,
+                            ext=struct_pb2.DocumentEx(
+                                document_ex_photo=struct_pb2.DocumentExPhoto(
+                                    w=100,
+                                    h=100
+                                )
+                            ),
                             caption=struct_pb2.TextMessage(text=caption)
                         )
                     ),

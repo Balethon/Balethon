@@ -129,14 +129,81 @@ class FastThumb(_message.Message):
     thumb: bytes
     def __init__(self, w: _Optional[int] = ..., h: _Optional[int] = ..., thumb: _Optional[bytes] = ...) -> None: ...
 
+class DocumentExPhoto(_message.Message):
+    __slots__ = ("w", "h")
+    W_FIELD_NUMBER: _ClassVar[int]
+    H_FIELD_NUMBER: _ClassVar[int]
+    w: int
+    h: int
+    def __init__(self, w: _Optional[int] = ..., h: _Optional[int] = ...) -> None: ...
+
+class DocumentExVideo(_message.Message):
+    __slots__ = ("w", "h", "duration")
+    W_FIELD_NUMBER: _ClassVar[int]
+    H_FIELD_NUMBER: _ClassVar[int]
+    DURATION_FIELD_NUMBER: _ClassVar[int]
+    w: int
+    h: int
+    duration: int
+    def __init__(self, w: _Optional[int] = ..., h: _Optional[int] = ..., duration: _Optional[int] = ...) -> None: ...
+
+class DocumentExVoice(_message.Message):
+    __slots__ = ("duration", "transcript")
+    DURATION_FIELD_NUMBER: _ClassVar[int]
+    TRANSCRIPT_FIELD_NUMBER: _ClassVar[int]
+    duration: int
+    transcript: StringValue
+    def __init__(self, duration: _Optional[int] = ..., transcript: _Optional[_Union[StringValue, _Mapping]] = ...) -> None: ...
+
+class DocumentExGif(_message.Message):
+    __slots__ = ("w", "h", "duration")
+    W_FIELD_NUMBER: _ClassVar[int]
+    H_FIELD_NUMBER: _ClassVar[int]
+    DURATION_FIELD_NUMBER: _ClassVar[int]
+    w: int
+    h: int
+    duration: int
+    def __init__(self, w: _Optional[int] = ..., h: _Optional[int] = ..., duration: _Optional[int] = ...) -> None: ...
+
+class DocumentExAudio(_message.Message):
+    __slots__ = ("duration", "album", "artist", "genre", "track", "cover")
+    DURATION_FIELD_NUMBER: _ClassVar[int]
+    ALBUM_FIELD_NUMBER: _ClassVar[int]
+    ARTIST_FIELD_NUMBER: _ClassVar[int]
+    GENRE_FIELD_NUMBER: _ClassVar[int]
+    TRACK_FIELD_NUMBER: _ClassVar[int]
+    COVER_FIELD_NUMBER: _ClassVar[int]
+    duration: int
+    album: str
+    artist: str
+    genre: str
+    track: str
+    cover: BytesValue
+    def __init__(self, duration: _Optional[int] = ..., album: _Optional[str] = ..., artist: _Optional[str] = ..., genre: _Optional[str] = ..., track: _Optional[str] = ..., cover: _Optional[_Union[BytesValue, _Mapping]] = ...) -> None: ...
+
+class DocumentEx(_message.Message):
+    __slots__ = ("document_ex_photo", "document_ex_video", "document_ex_voice", "document_ex_gif", "document_ex_audio")
+    DOCUMENT_EX_PHOTO_FIELD_NUMBER: _ClassVar[int]
+    DOCUMENT_EX_VIDEO_FIELD_NUMBER: _ClassVar[int]
+    DOCUMENT_EX_VOICE_FIELD_NUMBER: _ClassVar[int]
+    DOCUMENT_EX_GIF_FIELD_NUMBER: _ClassVar[int]
+    DOCUMENT_EX_AUDIO_FIELD_NUMBER: _ClassVar[int]
+    document_ex_photo: DocumentExPhoto
+    document_ex_video: DocumentExVideo
+    document_ex_voice: DocumentExVoice
+    document_ex_gif: DocumentExGif
+    document_ex_audio: DocumentExAudio
+    def __init__(self, document_ex_photo: _Optional[_Union[DocumentExPhoto, _Mapping]] = ..., document_ex_video: _Optional[_Union[DocumentExVideo, _Mapping]] = ..., document_ex_voice: _Optional[_Union[DocumentExVoice, _Mapping]] = ..., document_ex_gif: _Optional[_Union[DocumentExGif, _Mapping]] = ..., document_ex_audio: _Optional[_Union[DocumentExAudio, _Mapping]] = ...) -> None: ...
+
 class DocumentMessage(_message.Message):
-    __slots__ = ("file_id", "access_hash", "file_size", "name", "mime_type", "thumb", "caption")
+    __slots__ = ("file_id", "access_hash", "file_size", "name", "mime_type", "thumb", "ext", "caption")
     FILE_ID_FIELD_NUMBER: _ClassVar[int]
     ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
     FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     MIME_TYPE_FIELD_NUMBER: _ClassVar[int]
     THUMB_FIELD_NUMBER: _ClassVar[int]
+    EXT_FIELD_NUMBER: _ClassVar[int]
     CAPTION_FIELD_NUMBER: _ClassVar[int]
     file_id: int
     access_hash: int
@@ -144,8 +211,9 @@ class DocumentMessage(_message.Message):
     name: str
     mime_type: str
     thumb: FastThumb
+    ext: DocumentEx
     caption: TextMessage
-    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_size: _Optional[int] = ..., name: _Optional[str] = ..., mime_type: _Optional[str] = ..., thumb: _Optional[_Union[FastThumb, _Mapping]] = ..., caption: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
+    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_size: _Optional[int] = ..., name: _Optional[str] = ..., mime_type: _Optional[str] = ..., thumb: _Optional[_Union[FastThumb, _Mapping]] = ..., ext: _Optional[_Union[DocumentEx, _Mapping]] = ..., caption: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
 
 class TextMessage(_message.Message):
     __slots__ = ("text", "mentions")
