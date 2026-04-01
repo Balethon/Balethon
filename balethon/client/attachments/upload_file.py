@@ -5,7 +5,6 @@ import os
 
 import balethon
 from ...objects import File
-from ...network import HTTP2Connection
 from balethon.proto import request_pb2, struct_pb2
 
 
@@ -80,6 +79,5 @@ class UploadFile:
                 )
             )
         )
-        connection = HTTP2Connection()
-        await connection.upload_file(result.url, file, result.chunk_size)
+        await self.http2_connection.upload_file(result.url, file, result.chunk_size)
         return File(id=result.file_id, size=expected_size, name=name, mime_type=mime_type)
