@@ -18,7 +18,7 @@ class GetFile:
                     file=struct_pb2.FileLocation(
                         file_id=file_id,
                         access_hash=access_hash,
-                        file_storage_version=file_storage_version
+                        file_storage_version=struct_pb2.Int32Value(value=file_storage_version)
                     )
                 )
             )

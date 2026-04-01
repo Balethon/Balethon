@@ -161,15 +161,45 @@ class JsonMessage(_message.Message):
     raw_json: str
     def __init__(self, raw_json: _Optional[str] = ...) -> None: ...
 
+class ImageLocation(_message.Message):
+    __slots__ = ("file_location", "width", "height", "file_size")
+    FILE_LOCATION_FIELD_NUMBER: _ClassVar[int]
+    WIDTH_FIELD_NUMBER: _ClassVar[int]
+    HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    FILE_SIZE_FIELD_NUMBER: _ClassVar[int]
+    file_location: FileLocation
+    width: int
+    height: int
+    file_size: int
+    def __init__(self, file_location: _Optional[_Union[FileLocation, _Mapping]] = ..., width: _Optional[int] = ..., height: _Optional[int] = ..., file_size: _Optional[int] = ...) -> None: ...
+
+class StickerMessage(_message.Message):
+    __slots__ = ("sticker_id", "fast_preview", "image512", "image256", "sticker_collection_id", "sticker_collection_access_hash")
+    STICKER_ID_FIELD_NUMBER: _ClassVar[int]
+    FAST_PREVIEW_FIELD_NUMBER: _ClassVar[int]
+    IMAGE512_FIELD_NUMBER: _ClassVar[int]
+    IMAGE256_FIELD_NUMBER: _ClassVar[int]
+    STICKER_COLLECTION_ID_FIELD_NUMBER: _ClassVar[int]
+    STICKER_COLLECTION_ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    sticker_id: Int32Value
+    fast_preview: BytesValue
+    image512: ImageLocation
+    image256: ImageLocation
+    sticker_collection_id: Int32Value
+    sticker_collection_access_hash: Int64Value
+    def __init__(self, sticker_id: _Optional[_Union[Int32Value, _Mapping]] = ..., fast_preview: _Optional[_Union[BytesValue, _Mapping]] = ..., image512: _Optional[_Union[ImageLocation, _Mapping]] = ..., image256: _Optional[_Union[ImageLocation, _Mapping]] = ..., sticker_collection_id: _Optional[_Union[Int32Value, _Mapping]] = ..., sticker_collection_access_hash: _Optional[_Union[Int64Value, _Mapping]] = ...) -> None: ...
+
 class Message(_message.Message):
-    __slots__ = ("document_message", "json_message", "text_message")
+    __slots__ = ("document_message", "json_message", "sticker_message", "text_message")
     DOCUMENT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     JSON_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    STICKER_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     TEXT_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     document_message: DocumentMessage
     json_message: JsonMessage
+    sticker_message: StickerMessage
     text_message: TextMessage
-    def __init__(self, document_message: _Optional[_Union[DocumentMessage, _Mapping]] = ..., json_message: _Optional[_Union[JsonMessage, _Mapping]] = ..., text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
+    def __init__(self, document_message: _Optional[_Union[DocumentMessage, _Mapping]] = ..., json_message: _Optional[_Union[JsonMessage, _Mapping]] = ..., sticker_message: _Optional[_Union[StickerMessage, _Mapping]] = ..., text_message: _Optional[_Union[TextMessage, _Mapping]] = ...) -> None: ...
 
 class DeleteDates(_message.Message):
     __slots__ = ("dates",)
@@ -296,8 +326,8 @@ class FileLocation(_message.Message):
     FILE_STORAGE_VERSION_FIELD_NUMBER: _ClassVar[int]
     file_id: int
     access_hash: int
-    file_storage_version: int
-    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[int] = ...) -> None: ...
+    file_storage_version: Int32Value
+    def __init__(self, file_id: _Optional[int] = ..., access_hash: _Optional[int] = ..., file_storage_version: _Optional[_Union[Int32Value, _Mapping]] = ...) -> None: ...
 
 class AvatarImage(_message.Message):
     __slots__ = ("file_location", "width", "height", "file_size")
@@ -330,6 +360,12 @@ class StringValue(_message.Message):
     VALUE_FIELD_NUMBER: _ClassVar[int]
     value: str
     def __init__(self, value: _Optional[str] = ...) -> None: ...
+
+class BytesValue(_message.Message):
+    __slots__ = ("Value",)
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    Value: str
+    def __init__(self, Value: _Optional[str] = ...) -> None: ...
 
 class User(_message.Message):
     __slots__ = ("id", "access_hash", "name", "local_name", "sex", "avatar", "is_bot", "nick", "is_deleted", "created_at", "ex_info", "bot_ex_info")
