@@ -39,52 +39,31 @@ message UpdateMessage {
   struct.MessageId previous_message_id = 9;
 }
 
-// ----------------------------------------------------------
-// Get Message Views
-
 message GetMessageViews {
   repeated struct.MessagesViews containers = 1;
 }
 
-// ----------------------------------------------------------
-// Load History
-
 message LoadHistory {
   repeated struct.MessageContainer history = 1;
 }
-
-// ----------------------------------------------------------
-// Join Group
 
 message JoinGroup {
   struct.Group group = 1;
   int32 seq = 2;
 }
 
-// ----------------------------------------------------------
-// Join Public Group
-
 message JoinPublicGroup {
   struct.Group group = 1;
   int32 seq = 2;
 }
 
-// ----------------------------------------------------------
-// Load Users
-
 message LoadUsers {
   repeated struct.User users = 1;
 }
 
-// ----------------------------------------------------------
-// Get Full Group
-
 message GetFullGroup {
   struct.FullGroup full_group = 1;
 }
-
-// ----------------------------------------------------------
-// Search Contacts
 
 message SearchContacts {
   repeated struct.User users = 1;
@@ -93,9 +72,6 @@ message SearchContacts {
   repeated struct.GroupOutPeer group_peers = 5;
 }
 
-// ----------------------------------------------------------
-// Edit Group Avatar
-
 message EditGroupAvatar {
   struct.Avatar avatar = 1;
   int32 seq = 2;
@@ -103,44 +79,26 @@ message EditGroupAvatar {
   int64 date = 4;
 }
 
-// ----------------------------------------------------------
-// Get Group Invite Url
-
 message GetGroupInviteUrl {
   string url = 1;
 }
-
-// ----------------------------------------------------------
-// Revoke Invite Url
 
 message RevokeInviteUrl {
   string url = 1;
 }
 
-// ----------------------------------------------------------
-// Invite Users
-
 message InviteUsers {
   repeated struct.UserOutPeer not_added_user_peers = 1;
 }
-
-// ----------------------------------------------------------
-// Load Members
 
 message LoadMembers {
   repeated struct.Member members = 1;
   bytes next = 2;
 }
 
-// ----------------------------------------------------------
-// Get Chat Members Count
-
 message GetGroupMembersCount {
     int32 members_count = 1;
 }
-
-// ----------------------------------------------------------
-// Get Nasim File Upload Url
 
 message GetNasimFileUploadUrl {
   int64 file_id = 1;
@@ -149,9 +107,6 @@ message GetNasimFileUploadUrl {
   int32 chunk_size = 4;
   int64 block_size = 5;
 }
-
-// ----------------------------------------------------------
-// Start Phone Auth
 
 message StartPhoneAuth {
   string transaction_hash = 1;
@@ -163,29 +118,19 @@ message StartPhoneAuth {
   struct.Int32Value code_timeout = 9;
 }
 
-// ----------------------------------------------------------
-// Auth
-
 message Auth {
   struct.User user = 2;
   struct.StringValue jwt = 4;
 }
 
-// ----------------------------------------------------------
-// Load Group Avatars
-
 message LoadGroupAvatars {
   struct.Avatars avatars = 1;
 }
-
-// ----------------------------------------------------------
-// Load Pinned Messages
 
 message LoadPinnedMessages {
   repeated struct.MessageContainer pinned_messages = 1;
 }
 
-// Get Nasim File Url
 message GetNasimFileUrl {
     struct.FileUrlDescription file_url = 1;
 }

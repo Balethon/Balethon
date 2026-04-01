@@ -16,7 +16,6 @@ message WsRequest {
   int64 index = 5;
 }
 
-// ----------------------------------------------------------
 
 message MetadataComplexValues {
   fixed64 fixed64_value = 6;
@@ -36,7 +35,6 @@ message Metadata {
   repeated MetadataKeyValues key_values = 1;
 }
 
-// ----------------------------------------------------------
 
 message KeepAliveRequest {
   KeepAlive payloads = 2;
@@ -46,7 +44,6 @@ message KeepAlive {
   uint32 value_should_2 = 1;
 }
 
-// ----------------------------------------------------------
 
 message SetOnline {
   uint32 is_online = 1;
