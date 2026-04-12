@@ -1,4 +1,4 @@
-from json import dumps, dump, load
+from json import dumps
 from asyncio import get_event_loop, sleep
 from inspect import iscoroutine, iscoroutinefunction, stack
 from io import BufferedReader, BytesIO
@@ -45,7 +45,6 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         super().__init__("default", None, PrintingChain())
         self.token_or_phone_number = token_or_phone_number
         self.time_out = time_out
-        self.session = None
         self.dispatcher = Dispatcher(
             self,
             async_workers=async_workers,
@@ -57,8 +56,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             self.http2_connection = None
             self.http_connection = HTTPConnection(token_or_phone_number, time_out, proxy, base_url, short_url)
         else:
-            self.session = self.load_session()
-            self.ws_connection = None if self.session is None else WSConnection(self.session["jwt"], time_out)
+            session = self.load_session()
+            self.ws_connection = None if session is None else WSConnection(session[1], time_out)
             self.http2_connection = HTTP2Connection()
             self.http_connection = None
         self.sleep_threshold = sleep_threshold
@@ -79,7 +78,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def connect(self):
         if self.is_userbot():
-            if self.session is None:
+            if self.ws_connection is None:
                 await self.auth()
             await self.ws_connection.start()
         else:
@@ -174,16 +173,25 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         await self.dispatcher.dispatch_event(self, ShutdownHandler)
         await self.dispatcher.stop()
 
-    def save_session(self, auth):
-        session = dict(id=auth.user.id, jwt=auth.jwt.value)
-        with open(f"{self.token_or_phone_number}.json", "w", encoding="utf-8") as f:
-            dump(session, f, indent=4)
-        return session
+    def create_session_string(self, user_id=None, jwt=None):
+        user_id = user_id or self.user.id
+        jwt = jwt or self.ws_connection.access_token
+        return f"{user_id}:{jwt}"
+
+    @staticmethod
+    def parse_session_string(session_string):
+        return session_string.split(":", maxsplit=1)
+
+    def save_session(self, user_id=None, jwt=None):
+        session_string = self.create_session_string(user_id, jwt)
+        with open(f"{self.token_or_phone_number}.session", "w", encoding="utf-8") as f:
+            f.write(session_string)
+        return session_string
 
     def load_session(self):
         try:
-            with open(f"{self.token_or_phone_number}.json", encoding="utf-8") as f:
-                return load(f)
+            with open(f"{self.token_or_phone_number}.session", encoding="utf-8") as f:
+                return self.parse_session_string(f.read())
         except FileNotFoundError:
             return None
 
@@ -220,7 +228,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
     async def auth(self):
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
         auth = await self.validate_code(sent_code.transaction_hash, input("Enter phone code: "))
-        self.session = self.save_session(auth)
+        self.save_session(auth.user.id, auth.jwt.value)
         self.ws_connection = WSConnection(auth.jwt.value, self.time_out)
 
     async def start_websocket(self):
