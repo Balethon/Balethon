@@ -8,7 +8,7 @@ class GetMe:
             self: "balethon.Client"
     ) -> User:
         if self.is_userbot():
-            my_id = self.session["id"]
+            my_id, _ = self.load_session()
             return await self.get_chat(f"{my_id}|1")
 
         return await self.auto_execute("getMe", locals())
