@@ -22,7 +22,8 @@ class Object:
             if value is None:
                 continue
             expected_type = expected_types[key]
-            if isinstance(expected_type, (type(Union), type(Union[str, int]))) and get_origin(expected_type) in (Union, None):
+            union_type = Union if type(Union) is type else (type(Union), type(Union[str, int]))
+            if isinstance(expected_type, union_type) and get_origin(expected_type) in (Union, None):
                 expected_type = get_args(expected_type)[0]
             if isinstance(expected_type, (type(List), type(List[str]))) and get_origin(expected_type) == list:
                 if isinstance(value, list):
