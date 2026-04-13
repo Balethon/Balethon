@@ -419,6 +419,18 @@ class ValidateCode(_message.Message):
     is_jwt: _struct_pb2.BoolValue
     def __init__(self, transaction_hash: _Optional[str] = ..., code: _Optional[str] = ..., is_jwt: _Optional[_Union[_struct_pb2.BoolValue, _Mapping]] = ...) -> None: ...
 
+class SignUp(_message.Message):
+    __slots__ = ("transaction_hash", "name", "sex", "password")
+    TRANSACTION_HASH_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    SEX_FIELD_NUMBER: _ClassVar[int]
+    PASSWORD_FIELD_NUMBER: _ClassVar[int]
+    transaction_hash: str
+    name: str
+    sex: int
+    password: _struct_pb2.StringValue
+    def __init__(self, transaction_hash: _Optional[str] = ..., name: _Optional[str] = ..., sex: _Optional[int] = ..., password: _Optional[_Union[_struct_pb2.StringValue, _Mapping]] = ...) -> None: ...
+
 class LoadPinnedMessages(_message.Message):
     __slots__ = ("peer",)
     PEER_FIELD_NUMBER: _ClassVar[int]

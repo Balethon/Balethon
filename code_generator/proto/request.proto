@@ -258,6 +258,13 @@ message ValidateCode {
   struct.BoolValue is_jwt = 3;
 }
 
+message SignUp {
+  string transaction_hash = 1;
+  string name = 2;
+  int32 sex = 3;
+  struct.StringValue password = 4;
+}
+
 message LoadPinnedMessages {
   struct.ExPeer peer = 1;
 }
