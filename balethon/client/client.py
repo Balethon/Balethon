@@ -18,7 +18,7 @@ from .payments import Payments
 from .stickers import Stickers
 from .auth import Auth
 from ..objects import Object, wrap, unwrap, Chat, User, Message
-from ..errors import TooManyRequestsError
+from ..errors import TooManyRequestsError, RPCError
 from ..network import HTTPConnection, WSConnection, HTTP2Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
@@ -227,7 +227,19 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def auth(self):
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
-        auth = await self.validate_code(sent_code.transaction_hash, input("Enter phone code: "))
+        while True:
+            try:
+                auth = await self.validate_code(sent_code.transaction_hash, input("Enter phone code: "))
+            except RPCError as error:
+                if error.description == "PHONE_NUMBER_UNOCCUPIED":
+                    auth = await self.sign_up(sent_code.transaction_hash, input("Enter a name for your account: "))
+                    break
+                elif error.description == "PHONE_CODE_INVALID":
+                    print("The phone code is invalid, try again")
+                else:
+                    raise error
+            else:
+                break
         self.save_session(auth.user.id, auth.jwt.value)
         self.ws_connection = WSConnection(auth.jwt.value, self.time_out)
 
