@@ -419,6 +419,16 @@ class ValidateCode(_message.Message):
     is_jwt: _struct_pb2.BoolValue
     def __init__(self, transaction_hash: _Optional[str] = ..., code: _Optional[str] = ..., is_jwt: _Optional[_Union[_struct_pb2.BoolValue, _Mapping]] = ...) -> None: ...
 
+class ValidatePassword(_message.Message):
+    __slots__ = ("transaction_hash", "password", "is_jwt")
+    TRANSACTION_HASH_FIELD_NUMBER: _ClassVar[int]
+    PASSWORD_FIELD_NUMBER: _ClassVar[int]
+    IS_JWT_FIELD_NUMBER: _ClassVar[int]
+    transaction_hash: str
+    password: str
+    is_jwt: _struct_pb2.BoolValue
+    def __init__(self, transaction_hash: _Optional[str] = ..., password: _Optional[str] = ..., is_jwt: _Optional[_Union[_struct_pb2.BoolValue, _Mapping]] = ...) -> None: ...
+
 class SignUp(_message.Message):
     __slots__ = ("transaction_hash", "name", "sex", "password")
     TRANSACTION_HASH_FIELD_NUMBER: _ClassVar[int]

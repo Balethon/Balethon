@@ -258,6 +258,12 @@ message ValidateCode {
   struct.BoolValue is_jwt = 3;
 }
 
+message ValidatePassword {
+  string transaction_hash = 1;
+  string password = 2;
+  struct.BoolValue is_jwt = 3;
+}
+
 message SignUp {
   string transaction_hash = 1;
   string name = 2;
