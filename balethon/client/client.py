@@ -4,6 +4,9 @@ from inspect import iscoroutine, iscoroutinefunction, stack
 from io import BufferedReader, BytesIO
 from typing import get_type_hints
 import re
+from pathlib import Path
+import sys
+from typing import Union
 
 from httpx import ConnectError
 from google.protobuf.message import Message as ProtobufMessage
@@ -29,6 +32,7 @@ from ..proto import response_pb2
 
 @add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
+    WORKDIR = Path(sys.argv[0]).parent
 
     def __init__(
             self,
@@ -37,6 +41,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             sync_workers: int = None,
             use_concurrency: bool = True,
             time_out: int = None,
+            workdir: Union[Path, str] = None,
             sleep_threshold: int = 60,
             proxy=None,
             base_url: str = None,
@@ -45,6 +50,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         super().__init__("default", None, PrintingChain())
         self.token_or_phone_number = token_or_phone_number
         self.time_out = time_out
+        if workdir is None:
+            self.workdir = self.WORKDIR
+        else:
+            self.workdir = workdir if isinstance(workdir, Path) else Path(workdir)
         self.dispatcher = Dispatcher(
             self,
             async_workers=async_workers,
@@ -184,13 +193,13 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     def save_session(self, user_id=None, jwt=None):
         session_string = self.create_session_string(user_id, jwt)
-        with open(f"{self.token_or_phone_number}.session", "w", encoding="utf-8") as f:
+        with open(self.workdir / f"{self.token_or_phone_number}.session", "w", encoding="utf-8") as f:
             f.write(session_string)
         return session_string
 
     def load_session(self):
         try:
-            with open(f"{self.token_or_phone_number}.session", encoding="utf-8") as f:
+            with open(self.workdir / f"{self.token_or_phone_number}.session", encoding="utf-8") as f:
                 return self.parse_session_string(f.read())
         except FileNotFoundError:
             return None
