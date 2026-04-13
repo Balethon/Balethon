@@ -53,17 +53,17 @@ class GetChat:
             peer_id, peer_type = map(int, (peer_id, peer_type))
 
             if peer_type in (1, 4):
-                return await self.invoke(
+                users = await self.invoke(
                     service_name="bale.users.v1.Users",
                     method="LoadUsers",
                     payload=request_pb2.LoadUsers(
                         user_peers=[struct_pb2.UserOutPeer(
-                                uid=peer_id,
-                                access_hash=1
-                            )
-                        ]
+                            uid=peer_id,
+                            access_hash=1
+                        )]
                     )
                 )
+                return users.users[0]
 
             if peer_type in (2, 3, 5):
                 return await self.invoke(
