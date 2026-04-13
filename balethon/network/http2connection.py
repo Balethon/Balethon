@@ -5,6 +5,8 @@ from math import modf
 from httpx import AsyncClient
 from httpx._types import ProxyTypes
 
+from ..errors import RPCError
+
 
 class HTTP2Connection:
     TIMEOUT = 300
@@ -53,13 +55,16 @@ class HTTP2Connection:
         length = int.from_bytes(data[1:5], "big")
         return data[5:5 + length]
 
-    async def request(self, method: str, service: str, content: bytes):
-        response = await self.client.request(
-            method,
+    async def request(self, service: str, content: bytes):
+        response = await self.client.post(
             url=f"{self.BASE_URL}/{service}",
             content=self.add_grpc_frame(content),
             headers=self.build_request_headers()
         )
+        status = response.headers.get("grpc-status")
+        if status is not None and status != 0:
+            description = response.headers.get("grpc-message")
+            raise RPCError(status, description, reason=service)
         return self.strip_grpc_frame(response.content)
 
     @staticmethod

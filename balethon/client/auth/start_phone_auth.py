@@ -22,7 +22,6 @@ class StartPhoneAuth:
         del kwargs["self"]
         start_phone_auth = request_pb2.StartPhoneAuth(**kwargs)
         response = await self.http2_connection.request(
-            "POST",
             service="bale.auth.v1.Auth/StartPhoneAuth",
             content=start_phone_auth.SerializeToString()
         )

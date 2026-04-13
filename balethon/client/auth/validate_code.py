@@ -15,7 +15,6 @@ class ValidateCode:
         del kwargs["self"]
         validate_code = request_pb2.ValidateCode(**kwargs)
         response = await self.http2_connection.request(
-            "POST",
             service="bale.auth.v1.Auth/ValidateCode",
             content=validate_code.SerializeToString()
         )
