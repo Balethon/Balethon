@@ -494,3 +494,19 @@ class SendMultiMediaMessage(_message.Message):
     multi_media: _containers.RepeatedCompositeFieldContainer[_struct_pb2.SingleMedia]
     grouped_id: int
     def __init__(self, peer: _Optional[_Union[_struct_pb2.ExPeer, _Mapping]] = ..., multi_media: _Optional[_Iterable[_Union[_struct_pb2.SingleMedia, _Mapping]]] = ..., grouped_id: _Optional[int] = ...) -> None: ...
+
+class LoadDialogs(_message.Message):
+    __slots__ = ("min_date", "limit", "optimizations", "dialog_type", "exclude_pinned_dialogs", "archive_filter")
+    MIN_DATE_FIELD_NUMBER: _ClassVar[int]
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    DIALOG_TYPE_FIELD_NUMBER: _ClassVar[int]
+    EXCLUDE_PINNED_DIALOGS_FIELD_NUMBER: _ClassVar[int]
+    ARCHIVE_FILTER_FIELD_NUMBER: _ClassVar[int]
+    min_date: int
+    limit: int
+    optimizations: _containers.RepeatedScalarFieldContainer[int]
+    dialog_type: int
+    exclude_pinned_dialogs: bool
+    archive_filter: int
+    def __init__(self, min_date: _Optional[int] = ..., limit: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ..., dialog_type: _Optional[int] = ..., exclude_pinned_dialogs: bool = ..., archive_filter: _Optional[int] = ...) -> None: ...

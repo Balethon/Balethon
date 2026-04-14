@@ -97,7 +97,7 @@ message LoadMembers {
 }
 
 message GetGroupMembersCount {
-    int32 members_count = 1;
+  int32 members_count = 1;
 }
 
 message GetNasimFileUploadUrl {
@@ -132,5 +132,13 @@ message LoadPinnedMessages {
 }
 
 message GetNasimFileUrl {
-    struct.FileUrlDescription file_url = 1;
+  struct.FileUrlDescription file_url = 1;
+}
+
+message LoadDialogs {
+  repeated struct.Group groups = 1;
+  repeated struct.User users = 2;
+  repeated struct.Dialog dialogs = 3;
+  repeated struct.UserOutPeer user_peers = 4;
+  repeated struct.GroupOutPeer group_peers = 5;
 }

@@ -216,3 +216,17 @@ class GetNasimFileUrl(_message.Message):
     FILE_URL_FIELD_NUMBER: _ClassVar[int]
     file_url: _struct_pb2.FileUrlDescription
     def __init__(self, file_url: _Optional[_Union[_struct_pb2.FileUrlDescription, _Mapping]] = ...) -> None: ...
+
+class LoadDialogs(_message.Message):
+    __slots__ = ("groups", "users", "dialogs", "user_peers", "group_peers")
+    GROUPS_FIELD_NUMBER: _ClassVar[int]
+    USERS_FIELD_NUMBER: _ClassVar[int]
+    DIALOGS_FIELD_NUMBER: _ClassVar[int]
+    USER_PEERS_FIELD_NUMBER: _ClassVar[int]
+    GROUP_PEERS_FIELD_NUMBER: _ClassVar[int]
+    groups: _containers.RepeatedCompositeFieldContainer[_struct_pb2.Group]
+    users: _containers.RepeatedCompositeFieldContainer[_struct_pb2.User]
+    dialogs: _containers.RepeatedCompositeFieldContainer[_struct_pb2.Dialog]
+    user_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
+    group_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.GroupOutPeer]
+    def __init__(self, groups: _Optional[_Iterable[_Union[_struct_pb2.Group, _Mapping]]] = ..., users: _Optional[_Iterable[_Union[_struct_pb2.User, _Mapping]]] = ..., dialogs: _Optional[_Iterable[_Union[_struct_pb2.Dialog, _Mapping]]] = ..., user_peers: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ..., group_peers: _Optional[_Iterable[_Union[_struct_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...

@@ -75,23 +75,23 @@ message TextMessage {
 }
 
 message JsonMessage {
-    string raw_json = 1;
+  string raw_json = 1;
 }
 
 message ImageLocation {
-    FileLocation file_location = 1;
-    int32 width = 2;
-    int32 height = 3;
-    int32 file_size = 4;
+  FileLocation file_location = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 file_size = 4;
 }
 
 message StickerMessage {
-    Int32Value sticker_id = 1;
-    BytesValue fast_preview = 2;
-    ImageLocation image512 = 3;
-    ImageLocation image256 = 4;
-    Int32Value sticker_collection_id = 5;
-    Int64Value sticker_collection_access_hash = 6;
+  Int32Value sticker_id = 1;
+  BytesValue fast_preview = 2;
+  ImageLocation image512 = 3;
+  ImageLocation image256 = 4;
+  Int32Value sticker_collection_id = 5;
+  Int64Value sticker_collection_access_hash = 6;
 }
 
 message Message {
@@ -385,31 +385,47 @@ message Avatars {
 }
 
 enum TypingType {
-    TYPING_TYPE_UNKNOWN = 0;
-    TYPING_TYPE_TEXT = 1;
-    TYPING_TYPE_VOICE_RECORDING = 2;
-    TYPING_TYPE_SENDING_VOICE = 3;
-    TYPING_TYPE_SENDING_FILE = 4;
-    TYPING_TYPE_SENDING_PHOTO = 5;
-    TYPING_TYPE_SENDING_VIDEO = 6;
-    TYPING_TYPE_SENDING_MUSIC = 7;
-    TYPING_TYPE_CHOOSING_STICKER = 8;
-    TYPING_TYPE_CHOOSING_GIF = 9;
-    TYPING_TYPE_CREATING_GIFT_PACKET = 10;
-    TYPING_TYPE_SENDING_ALBUM = 11;
-    TYPING_TYPE_CHOOSING_EMOJI = 12;
+  TYPING_TYPE_UNKNOWN = 0;
+  TYPING_TYPE_TEXT = 1;
+  TYPING_TYPE_VOICE_RECORDING = 2;
+  TYPING_TYPE_SENDING_VOICE = 3;
+  TYPING_TYPE_SENDING_FILE = 4;
+  TYPING_TYPE_SENDING_PHOTO = 5;
+  TYPING_TYPE_SENDING_VIDEO = 6;
+  TYPING_TYPE_SENDING_MUSIC = 7;
+  TYPING_TYPE_CHOOSING_STICKER = 8;
+  TYPING_TYPE_CHOOSING_GIF = 9;
+  TYPING_TYPE_CREATING_GIFT_PACKET = 10;
+  TYPING_TYPE_SENDING_ALBUM = 11;
+  TYPING_TYPE_CHOOSING_EMOJI = 12;
 }
 
 message FileUrlDescription {
-    int64 file_id = 1;
-    string url = 2;
-    int32 timeout = 3;
-    //repeated string unsigned_url_headers = 5;
-    string unsigned_url = 6;
-    struct.Int32Value chunk_size = 7;
+  int64 file_id = 1;
+  string url = 2;
+  int32 timeout = 3;
+  //repeated string unsigned_url_headers = 5;
+  string unsigned_url = 6;
+  Int32Value chunk_size = 7;
 }
 
 message SingleMedia {
-    int64 random_id = 1;
-    DocumentMessage media = 2;
+  int64 random_id = 1;
+  DocumentMessage media = 2;
+}
+
+message Dialog {
+  Peer peer = 1;
+  int32 unread_count = 2;
+  int64 sort_date = 3;
+  int32 sender_uid = 4;
+  int64 rid = 5;
+  int64 date = 6;
+  Message message = 7;
+  int32 state = 8;
+  Int64Value first_unread_date = 9;
+  ExInfo ex_info = 13;
+  bool is_message_forwarded = 14;
+  bool marked_as_unread = 17;
+  bool is_mute = 18;
 }

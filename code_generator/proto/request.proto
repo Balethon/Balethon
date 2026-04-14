@@ -286,22 +286,36 @@ message RemovePin {
 }
 
 message Typing {
-    struct.OutPeer peer = 1;
-    struct.TypingType typing_type = 3;
+  struct.OutPeer peer = 1;
+  struct.TypingType typing_type = 3;
 }
 
 message RemoveUserAdmin {
-    struct.GroupOutPeer group_peer = 1;
-    struct.UserOutPeer user_peer = 2;
+  struct.GroupOutPeer group_peer = 1;
+  struct.UserOutPeer user_peer = 2;
 }
 
 message GetNasimFileUrl {
-    struct.FileLocation file = 1;
+  struct.FileLocation file = 1;
 }
 
 message SendMultiMediaMessage {
-    struct.ExPeer peer = 1;
-    repeated struct.SingleMedia multi_media = 2;
-    //struct.MessageOutReference replied_message = 3;
-    uint64 grouped_id = 4;
+  struct.ExPeer peer = 1;
+  repeated struct.SingleMedia multi_media = 2;
+  //struct.MessageOutReference replied_message = 3;
+  uint64 grouped_id = 4;
+}
+
+message LoadDialogs {
+  int64 min_date = 1;
+  int32 limit = 2;
+  repeated int32 optimizations = 3;
+  int32 dialog_type = 4;
+  bool exclude_pinned_dialogs = 5;
+  int32 archive_filter = 6;
+}
+
+message EditParameter {
+  string key = 1;
+  struct.StringValue value = 2;
 }

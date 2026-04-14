@@ -706,3 +706,33 @@ class SingleMedia(_message.Message):
     random_id: int
     media: DocumentMessage
     def __init__(self, random_id: _Optional[int] = ..., media: _Optional[_Union[DocumentMessage, _Mapping]] = ...) -> None: ...
+
+class Dialog(_message.Message):
+    __slots__ = ("peer", "unread_count", "sort_date", "sender_uid", "rid", "date", "message", "state", "first_unread_date", "ex_info", "is_message_forwarded", "marked_as_unread", "is_mute")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    UNREAD_COUNT_FIELD_NUMBER: _ClassVar[int]
+    SORT_DATE_FIELD_NUMBER: _ClassVar[int]
+    SENDER_UID_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    STATE_FIELD_NUMBER: _ClassVar[int]
+    FIRST_UNREAD_DATE_FIELD_NUMBER: _ClassVar[int]
+    EX_INFO_FIELD_NUMBER: _ClassVar[int]
+    IS_MESSAGE_FORWARDED_FIELD_NUMBER: _ClassVar[int]
+    MARKED_AS_UNREAD_FIELD_NUMBER: _ClassVar[int]
+    IS_MUTE_FIELD_NUMBER: _ClassVar[int]
+    peer: Peer
+    unread_count: int
+    sort_date: int
+    sender_uid: int
+    rid: int
+    date: int
+    message: Message
+    state: int
+    first_unread_date: Int64Value
+    ex_info: ExInfo
+    is_message_forwarded: bool
+    marked_as_unread: bool
+    is_mute: bool
+    def __init__(self, peer: _Optional[_Union[Peer, _Mapping]] = ..., unread_count: _Optional[int] = ..., sort_date: _Optional[int] = ..., sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ..., state: _Optional[int] = ..., first_unread_date: _Optional[_Union[Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[ExInfo, _Mapping]] = ..., is_message_forwarded: bool = ..., marked_as_unread: bool = ..., is_mute: bool = ...) -> None: ...
