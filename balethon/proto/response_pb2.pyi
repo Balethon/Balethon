@@ -20,10 +20,20 @@ class WsResponse(_message.Message):
     ERROR_FIELD_NUMBER: _ClassVar[int]
     RESPONSE_FIELD_NUMBER: _ClassVar[int]
     INDEX_FIELD_NUMBER: _ClassVar[int]
-    error: bytes
+    error: WsError
     response: bytes
     index: int
-    def __init__(self, error: _Optional[bytes] = ..., response: _Optional[bytes] = ..., index: _Optional[int] = ...) -> None: ...
+    def __init__(self, error: _Optional[_Union[WsError, _Mapping]] = ..., response: _Optional[bytes] = ..., index: _Optional[int] = ...) -> None: ...
+
+class WsError(_message.Message):
+    __slots__ = ("code", "message", "details")
+    CODE_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    DETAILS_FIELD_NUMBER: _ClassVar[int]
+    code: int
+    message: str
+    details: _struct_pb2.MapValue
+    def __init__(self, code: _Optional[int] = ..., message: _Optional[str] = ..., details: _Optional[_Union[_struct_pb2.MapValue, _Mapping]] = ...) -> None: ...
 
 class WsUpdate(_message.Message):
     __slots__ = ("update",)

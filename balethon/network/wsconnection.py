@@ -12,6 +12,7 @@ from typing import Optional
 
 from google.protobuf.message import Message
 
+from ..errors import RPCError
 from balethon.proto import request_pb2
 from balethon.proto import response_pb2
 
@@ -295,7 +296,7 @@ class WSConnection:
                     deserialized_response = self.deserialize_message(response)
                     if deserialized_response.index == index:
                         self.responses.remove(response)
-                        return deserialized_response.response
+                        return deserialized_response.response or deserialized_response.error
 
             elapsed = asyncio.get_event_loop().time() - start_time
             if elapsed >= self.timeout:
@@ -360,4 +361,7 @@ class WSConnection:
         message = await self.send(request)
         if not wait_for_response:
             return message
-        return await self.wait_for_response(request_index)
+        response = await self.wait_for_response(request_index)
+        if isinstance(response, response_pb2.WsError):
+            raise RPCError(code=response.code, description=response.message, reason=method)
+        return response

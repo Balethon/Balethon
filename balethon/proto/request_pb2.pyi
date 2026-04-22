@@ -510,3 +510,11 @@ class LoadDialogs(_message.Message):
     exclude_pinned_dialogs: bool
     archive_filter: int
     def __init__(self, min_date: _Optional[int] = ..., limit: _Optional[int] = ..., optimizations: _Optional[_Iterable[int]] = ..., dialog_type: _Optional[int] = ..., exclude_pinned_dialogs: bool = ..., archive_filter: _Optional[int] = ...) -> None: ...
+
+class EditParameter(_message.Message):
+    __slots__ = ("key", "value")
+    KEY_FIELD_NUMBER: _ClassVar[int]
+    VALUE_FIELD_NUMBER: _ClassVar[int]
+    key: str
+    value: _struct_pb2.StringValue
+    def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.StringValue, _Mapping]] = ...) -> None: ...

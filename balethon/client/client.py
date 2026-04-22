@@ -240,12 +240,12 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             try:
                 auth = await self.validate_code(sent_code.transaction_hash, input("Enter phone code: "))
             except RPCError as error:
-                if error.code == 5:
+                if error.description == "PHONE_NUMBER_UNOCCUPIED":
                     auth = await self.sign_up(sent_code.transaction_hash, input("Enter a name for your account: "))
                     break
-                elif error.code == 3:
+                elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
-                elif error.code == 4:
+                elif error.description == "":  # TODO: Add description for password requirement error
                     auth = await self.validate_password(sent_code.transaction_hash, input("Enter your password: "))
                     break
                 else:

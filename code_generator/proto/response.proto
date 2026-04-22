@@ -10,9 +10,15 @@ message Response {
 }
 
 message WsResponse {
-  bytes error = 1;
+  WsError error = 1;
   bytes response = 2;
   int64 index = 3;
+}
+
+message WsError {
+  int32 code = 1;
+  string message = 2;
+  struct.MapValue details = 3;
 }
 
 message WsUpdate {
