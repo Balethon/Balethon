@@ -57,6 +57,7 @@ class WSConnection:
         self._send_task = None
         self._recv_task = None
         self._response_lock = asyncio.Lock()
+        self.error = None
 
     async def websocket_handshake(self, host: str, path: str, port: int):
         key = base64.b64encode(hashlib.sha1().digest()[:16]).decode()
@@ -140,10 +141,29 @@ class WSConnection:
             payload = bytes(payload)
 
         if opcode == 0x8:  # Close
+            close_code = None
+            close_reason = None
+
+            if payload_len >= 2:
+                close_code_bytes = payload[:2]
+                close_reason_bytes = payload[2:]
+
+                close_code = struct.unpack(">H", close_code_bytes)[0]
+
+                try:
+                    close_reason = close_reason_bytes.decode("utf-8")
+                except UnicodeDecodeError:
+                    close_reason = None
+
+            if close_code == 4401:
+                raise RPCError(close_code, description=close_reason)
+
             raise ConnectionError("Connection closed by server")
+
         elif opcode == 0x9:  # Ping
             await self.send_frame(payload, opcode=0xA)  # Pong
             return await self.recv_frame()
+
         elif opcode == 0xA:  # Pong
             return await self.recv_frame()
 
@@ -254,12 +274,15 @@ class WSConnection:
                 if self.is_response(message):
                     async with self._response_lock:
                         self.responses.append(message)
+            except (RPCError, ConnectionError) as error:
+                self.error = error
+                self.is_started = False
+                break
             except asyncio.CancelledError:
                 break
             except Exception:
                 if not self.is_started:
                     break
-                continue
 
     @staticmethod
     def serialize_message(message):
@@ -291,12 +314,18 @@ class WSConnection:
         start_time = asyncio.get_event_loop().time()
 
         while True:
+            if self.error is not None:
+                raise self.error
+
             async with self._response_lock:
                 for response in self.responses:
                     deserialized_response = self.deserialize_message(response)
                     if deserialized_response.index == index:
                         self.responses.remove(response)
-                        return deserialized_response.response or deserialized_response.error
+                        if deserialized_response.error:
+                            error = deserialized_response.error
+                            raise RPCError(code=error.code, description=error.message, reason=None)
+                        return deserialized_response.response
 
             elapsed = asyncio.get_event_loop().time() - start_time
             if elapsed >= self.timeout:
@@ -362,6 +391,4 @@ class WSConnection:
         if not wait_for_response:
             return message
         response = await self.wait_for_response(request_index)
-        if isinstance(response, response_pb2.WsError):
-            raise RPCError(code=response.code, description=response.message, reason=method)
         return response

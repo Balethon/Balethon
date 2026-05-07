@@ -18,6 +18,6 @@ class RPCError(Exception):
 
     def __str__(self):
         code = "" if self.code is None else f" {self.code}"
-        description = "" if self.description is None else f": {self.description}"
+        description = "" if not self.description else f": {self.description}"
         reason = "" if self.reason is None else f" (caused by {self.reason})"
         return f"{self.name}{code}{description}{reason}"
