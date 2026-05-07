@@ -148,3 +148,8 @@ message LoadDialogs {
   repeated struct.UserOutPeer user_peers = 4;
   repeated struct.GroupOutPeer group_peers = 5;
 }
+
+message GetGroupPreview {
+  struct.FullGroup group = 1;
+  int32 action = 2;
+}

@@ -518,3 +518,9 @@ class EditParameter(_message.Message):
     key: str
     value: _struct_pb2.StringValue
     def __init__(self, key: _Optional[str] = ..., value: _Optional[_Union[_struct_pb2.StringValue, _Mapping]] = ...) -> None: ...
+
+class GetGroupPreview(_message.Message):
+    __slots__ = ("token",)
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    def __init__(self, token: _Optional[str] = ...) -> None: ...

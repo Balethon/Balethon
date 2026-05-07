@@ -240,3 +240,11 @@ class LoadDialogs(_message.Message):
     user_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.UserOutPeer]
     group_peers: _containers.RepeatedCompositeFieldContainer[_struct_pb2.GroupOutPeer]
     def __init__(self, groups: _Optional[_Iterable[_Union[_struct_pb2.Group, _Mapping]]] = ..., users: _Optional[_Iterable[_Union[_struct_pb2.User, _Mapping]]] = ..., dialogs: _Optional[_Iterable[_Union[_struct_pb2.Dialog, _Mapping]]] = ..., user_peers: _Optional[_Iterable[_Union[_struct_pb2.UserOutPeer, _Mapping]]] = ..., group_peers: _Optional[_Iterable[_Union[_struct_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...
+
+class GetGroupPreview(_message.Message):
+    __slots__ = ("group", "action")
+    GROUP_FIELD_NUMBER: _ClassVar[int]
+    ACTION_FIELD_NUMBER: _ClassVar[int]
+    group: _struct_pb2.FullGroup
+    action: int
+    def __init__(self, group: _Optional[_Union[_struct_pb2.FullGroup, _Mapping]] = ..., action: _Optional[int] = ...) -> None: ...

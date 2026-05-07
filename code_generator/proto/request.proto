@@ -319,3 +319,7 @@ message EditParameter {
   string key = 1;
   struct.StringValue value = 2;
 }
+
+message GetGroupPreview {
+  string token = 1;
+}
