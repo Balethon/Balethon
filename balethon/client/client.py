@@ -9,7 +9,12 @@ import sys
 from typing import Union
 
 from httpx import ConnectError
-from google.protobuf.message import Message as ProtobufMessage
+try:
+    from google.protobuf.message import Message as ProtobufMessage
+except ImportError:
+    protobuf_installed = False
+else:
+    protobuf_installed = True
 
 from .messages import Messages
 from .updates import Updates
@@ -27,7 +32,10 @@ from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
 from ..smart_call import remove_unwanted_keyword_parameters
 from ..sync_support import add_sync_support_to_object
-from ..proto import response_pb2
+try:
+    from ..proto import response_pb2
+except ImportError:
+    pass
 
 
 @add_sync_support_to_object
@@ -65,6 +73,11 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             self.http2_connection = None
             self.http_connection = HTTPConnection(token_or_phone_number, time_out, proxy, base_url, short_url)
         else:
+            if not protobuf_installed:
+                raise ImportError(
+                    "Using Balethon userbots but the required dependencies are not installed\n"
+                    "Make sure to install balethon using `pip install Balethon[userbots]`"
+                )
             session = self.load_session()
             self.ws_connection = None if session is None else WSConnection(session[1], time_out)
             self.http2_connection = HTTP2Connection()
@@ -166,7 +179,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             result.bind(self)
         return result
 
-    async def invoke(self, service_name: str, method: str, payload: ProtobufMessage):
+    async def invoke(self, service_name: str, method: str, payload: "ProtobufMessage"):
         response = await self.ws_connection.request(service_name, method, payload)
         payload_class_name = type(payload).__name__
         response_class = getattr(response_pb2, payload_class_name, None)

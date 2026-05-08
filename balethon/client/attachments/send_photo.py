@@ -2,7 +2,6 @@ from typing import Union, BinaryIO
 
 import balethon
 from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
-from ...proto import request_pb2, struct_pb2
 
 
 class SendPhoto:
@@ -18,6 +17,7 @@ class SendPhoto:
         photo = resolve_media(photo)
 
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             file = await self.upload_file(chat_id, photo, struct_pb2.SEND_TYPE_PHOTO)
             return await self.invoke(

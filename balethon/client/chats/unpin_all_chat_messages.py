@@ -1,7 +1,6 @@
 from typing import Union
 
 import balethon
-from balethon.proto import request_pb2, struct_pb2
 
 
 class UnpinAllChatMessages:
@@ -11,6 +10,7 @@ class UnpinAllChatMessages:
             chat_id: Union[int, str]
     ) -> bool:
         if self.is_userbot():
+            from balethon.proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
 
             if peer_type in (1, 4):

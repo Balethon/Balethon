@@ -1,6 +1,8 @@
 import balethon
-from ...proto.response_pb2 import LoadMembers
-from balethon.proto import request_pb2, struct_pb2
+try:
+    from balethon.proto import request_pb2, struct_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class GetChatMembers:
@@ -13,7 +15,7 @@ class GetChatMembers:
             excepted_permissions: bool = False,
             contacts: bool = False,
             query: str = None
-    ) -> LoadMembers:
+    ) -> "response_pb2.LoadMembers":
         peer_id, peer_type = map(int, chat_id.split("|"))
         return await self.invoke(
             service_name="bale.groups.v1.Groups",

@@ -2,7 +2,6 @@ from typing import Union
 
 import balethon
 from balethon import enums
-from ...proto import request_pb2, struct_pb2
 
 
 class SendChatAction:
@@ -13,6 +12,7 @@ class SendChatAction:
             action: "enums.ChatAction" = enums.ChatAction.TYPING
     ) -> bool:
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.invoke(
                 service_name="bale.presence.v1.Presence",

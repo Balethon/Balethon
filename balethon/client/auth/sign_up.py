@@ -1,5 +1,8 @@
 import balethon
-from balethon.proto import request_pb2, struct_pb2, response_pb2
+try:
+    from balethon.proto import request_pb2, struct_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class SignUp:
@@ -9,7 +12,7 @@ class SignUp:
             transaction_hash: str,
             name: str,
             password: str = None
-    ) -> response_pb2.Auth:
+    ) -> "response_pb2.Auth":
         password = struct_pb2.StringValue(value=password)
         kwargs = locals()
         del kwargs["self"]

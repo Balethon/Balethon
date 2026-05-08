@@ -3,7 +3,10 @@ from datetime import datetime
 
 import balethon
 from ...objects import Message, List as BalethonList
-from balethon.proto import request_pb2, struct_pb2, response_pb2
+try:
+    from balethon.proto import request_pb2, struct_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class GetChatHistory:

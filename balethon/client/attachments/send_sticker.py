@@ -2,7 +2,6 @@ from typing import Union, BinaryIO
 
 import balethon
 from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
-from ...proto import request_pb2, struct_pb2
 
 
 class SendSticker:
@@ -15,6 +14,7 @@ class SendSticker:
             reply_to_message_id: int = None
     ) -> Message:
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             file_id, access_hash, file_storage_version, sticker_id, collection_id = map(int, sticker.split(":"))
             return await self.invoke(

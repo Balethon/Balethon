@@ -1,6 +1,5 @@
 import balethon
 from ...objects import File
-from ...proto import request_pb2, struct_pb2
 
 
 class GetFile:
@@ -10,6 +9,7 @@ class GetFile:
             file_id: str
     ) -> File:
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             access_hash, file_id, file_storage_version = map(int, file_id.split(":"))
             return await self.invoke(
                 service_name="ai.bale.server.Files",

@@ -10,11 +10,16 @@ from math import modf
 from random import randint
 from typing import Optional
 
-from google.protobuf.message import Message
+try:
+    from google.protobuf.message import Message
+except ImportError:
+    pass
 
 from ..errors import RPCError
-from balethon.proto import request_pb2
-from balethon.proto import response_pb2
+try:
+    from balethon.proto import request_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class WSConnection:
@@ -371,7 +376,7 @@ class WSConnection:
             ]
         )
 
-    def build_request(self, service_name: str, method: str, payload: Message):
+    def build_request(self, service_name: str, method: str, payload: "Message"):
         request = request_pb2.Request(
             ws_request=request_pb2.WsRequest(
                 service_name=service_name,
@@ -383,7 +388,7 @@ class WSConnection:
         )
         return request
 
-    async def request(self, service_name: str, method: str, payload: Message, wait_for_response: bool = True):
+    async def request(self, service_name: str, method: str, payload: "Message", wait_for_response: bool = True):
         request = self.build_request(service_name, method, payload)
         request_index = self.index
         self.index += 1

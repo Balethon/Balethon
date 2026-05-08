@@ -3,7 +3,6 @@ from typing import Union
 import balethon
 from ...objects import Message
 from balethon import objects
-from balethon.proto import request_pb2, struct_pb2
 
 
 class SendMessage:
@@ -16,6 +15,7 @@ class SendMessage:
             reply_to_message_id: int = None
     ) -> Message:
         if self.is_userbot():
+            from balethon.proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",

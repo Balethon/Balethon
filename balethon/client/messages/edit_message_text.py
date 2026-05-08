@@ -3,7 +3,6 @@ from typing import Union
 import balethon
 from ...objects import Message
 from balethon import objects
-from balethon.proto import request_pb2, struct_pb2, response_pb2
 
 
 class EditMessageText:
@@ -16,6 +15,7 @@ class EditMessageText:
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
         if self.is_userbot():
+            from balethon.proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
             peer = struct_pb2.Peer(type=peer_type, id=peer_id)

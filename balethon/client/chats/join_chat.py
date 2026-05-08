@@ -1,15 +1,17 @@
 from typing import Union
 
 import balethon
-from ...proto import request_pb2, struct_pb2
-from ...proto.response_pb2 import JoinGroup, JoinPublicGroup
+try:
+    from ...proto import request_pb2, struct_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class JoinChat:
     async def join_chat(
             self: "balethon.Client",
             chat_id: str
-    ) -> Union[JoinGroup, JoinPublicGroup]:
+    ) -> Union["response_pb2.JoinGroup", "response_pb2.JoinPublicGroup"]:
         peer_id, peer_type = chat_id.split("|")
 
         # 1234567890 | "1234567890"

@@ -3,7 +3,6 @@ from json import dumps
 
 import balethon
 from ...objects import Message, ReplyMarkup
-from balethon.proto import request_pb2, struct_pb2
 
 
 class SendLocation:
@@ -17,6 +16,7 @@ class SendLocation:
             reply_to_message_id: int = None
     ) -> Message:
         if self.is_userbot():
+            from balethon.proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             raw_json = {
                 "dataType": "location",

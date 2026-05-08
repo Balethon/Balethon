@@ -1,7 +1,10 @@
 import uuid
 
 import balethon
-from balethon.proto import request_pb2, response_pb2
+try:
+    from balethon.proto import request_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class StartPhoneAuth:
@@ -14,7 +17,7 @@ class StartPhoneAuth:
             device_hash: str = None,
             device_title: str = "Chrome_137.0.0.0, Windows",
             send_code_type: int = 1
-    ) -> response_pb2.StartPhoneAuth:
+    ) -> "response_pb2.StartPhoneAuth":
         if device_hash is None:
             device_hash = str(uuid.uuid4())
         phone_number = int(phone_number)

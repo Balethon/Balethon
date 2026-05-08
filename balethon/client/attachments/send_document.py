@@ -2,7 +2,6 @@ from typing import Union, BinaryIO
 
 import balethon
 from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
-from ...proto import request_pb2, struct_pb2
 
 
 class SendDocument:
@@ -18,6 +17,7 @@ class SendDocument:
         document = resolve_media(document)
 
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             file = await self.upload_file(chat_id, document, struct_pb2.SEND_TYPE_DOCUMENT)
             return await self.invoke(

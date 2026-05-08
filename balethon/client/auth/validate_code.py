@@ -1,5 +1,8 @@
 import balethon
-from balethon.proto import request_pb2, struct_pb2, response_pb2
+try:
+    from balethon.proto import request_pb2, struct_pb2, response_pb2
+except ImportError:
+    pass
 
 
 class ValidateCode:
@@ -9,7 +12,7 @@ class ValidateCode:
             transaction_hash: str,
             code: str,
             is_jwt: bool = True
-    ) -> response_pb2.Auth:
+    ) -> "response_pb2.Auth":
         is_jwt = struct_pb2.BoolValue(value=is_jwt)
         kwargs = locals()
         del kwargs["self"]

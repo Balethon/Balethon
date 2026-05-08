@@ -5,7 +5,6 @@ from typing import List
 import balethon
 from ...objects import Message, ReplyMarkup, InputMediaPhoto, InputMediaVideo
 from balethon import objects
-from ...proto import request_pb2, struct_pb2
 
 
 class SendMediaGroup:
@@ -18,6 +17,7 @@ class SendMediaGroup:
             reply_to_message_id: int = None
     ) -> List[Message]:
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             files = []
             for content in media:

@@ -5,7 +5,10 @@ import os
 
 import balethon
 from ...objects import File
-from balethon.proto import request_pb2, struct_pb2
+try:
+    from balethon.proto import request_pb2, struct_pb2
+except ImportError:
+    pass
 
 
 class UploadFile:

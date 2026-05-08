@@ -2,7 +2,6 @@ from typing import Union
 
 import balethon
 from ...objects import Chat
-from ...proto import request_pb2, struct_pb2
 
 
 class GetChat:
@@ -12,6 +11,7 @@ class GetChat:
             chat_id: Union[int, str]
     ) -> Chat:
         if self.is_userbot():
+            from ...proto import request_pb2, struct_pb2
             peer_id, peer_type = chat_id.split("|")
 
             if not peer_id.isnumeric():

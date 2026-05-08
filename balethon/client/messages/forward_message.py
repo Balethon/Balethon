@@ -2,7 +2,6 @@ from typing import Union
 
 import balethon
 from ...objects import Message
-from balethon.proto import request_pb2, struct_pb2
 
 
 class ForwardMessage:
@@ -14,6 +13,7 @@ class ForwardMessage:
             message_id: Union[int, str]
     ) -> Message:
         if self.is_userbot():
+            from balethon.proto import request_pb2, struct_pb2
             peer_id, peer_type = map(int, chat_id.split("|"))
             message_peer_id, message_peer_type = map(int, from_chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
