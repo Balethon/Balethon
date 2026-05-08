@@ -524,3 +524,7 @@ class GetGroupPreview(_message.Message):
     TOKEN_FIELD_NUMBER: _ClassVar[int]
     token: str
     def __init__(self, token: _Optional[str] = ...) -> None: ...
+
+class TerminateAllSessions(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...

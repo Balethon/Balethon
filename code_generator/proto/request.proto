@@ -323,3 +323,6 @@ message EditParameter {
 message GetGroupPreview {
   string token = 1;
 }
+
+message TerminateAllSessions {
+}
