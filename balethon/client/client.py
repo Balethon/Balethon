@@ -87,6 +87,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def connect(self):
         if self.is_userbot():
+            await self.http2_connection.start()
             if self.ws_connection is None:
                 await self.auth()
             await self.ws_connection.start()
@@ -96,6 +97,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def disconnect(self):
         if self.is_userbot():
+            await self.http2_connection.stop()
             await self.ws_connection.stop()
         else:
             await self.http_connection.stop()

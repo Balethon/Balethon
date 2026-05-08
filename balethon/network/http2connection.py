@@ -9,7 +9,7 @@ from ..errors import RPCError
 
 
 class HTTP2Connection:
-    TIMEOUT = 300
+    TIMEOUT = 20
     BASE_URL = "https://next-ws.bale.ai"
     ORIGIN = "https://web.bale.ai"
     APP_VERSION = "147558"
@@ -19,14 +19,29 @@ class HTTP2Connection:
 
     def __init__(
             self,
+            time_out: int = None,
             proxy: ProxyTypes = None,
+            base_url: str = None,
     ):
-        self.client = AsyncClient(
-            http2=True,
-            proxy=proxy,
-            timeout=self.TIMEOUT
-        )
+        self.client = None
+        self.is_started = False
+        self.time_out = time_out or self.TIMEOUT
+        self.proxy = proxy
+        self.base_url = base_url or self.BASE_URL
         self.session_id = self.get_normalized_timestamp()
+
+    async def start(self):
+        if self.is_started:
+            raise ConnectionError("Connection is already started")
+        self.is_started = True
+        self.client = AsyncClient(http2=True, proxy=self.proxy)
+
+    async def stop(self):
+        if not self.is_started:
+            raise ConnectionError("Connection is already stopped")
+        self.is_started = False
+        await self.client.aclose()
+        self.client = None
 
     @staticmethod
     def get_normalized_timestamp() -> str:
@@ -57,9 +72,10 @@ class HTTP2Connection:
 
     async def request(self, service: str, content: bytes):
         response = await self.client.post(
-            url=f"{self.BASE_URL}/{service}",
+            url=f"{self.base_url}/{service}",
             content=self.add_grpc_frame(content),
-            headers=self.build_request_headers()
+            headers=self.build_request_headers(),
+            timeout=self.time_out
         )
         status = response.headers.get("grpc-status")
         if status is not None and status != 0:

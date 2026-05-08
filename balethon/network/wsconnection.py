@@ -322,10 +322,10 @@ class WSConnection:
                     deserialized_response = self.deserialize_message(response)
                     if deserialized_response.index == index:
                         self.responses.remove(response)
-                        if deserialized_response.error:
-                            error = deserialized_response.error
-                            raise RPCError(code=error.code, description=error.message, reason=None)
-                        return deserialized_response.response
+                        result = deserialized_response.response or deserialized_response.error
+                        if isinstance(result, response_pb2.WsError):
+                            raise RPCError(code=result.code, description=result.message, reason=None)
+                        return result
 
             elapsed = asyncio.get_event_loop().time() - start_time
             if elapsed >= self.timeout:
