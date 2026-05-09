@@ -1,3 +1,5 @@
+import re
+
 from .condition import Condition
 from ..objects import Message, CallbackQuery, ReplyKeyboard, InlineKeyboard
 
@@ -9,10 +11,14 @@ class Click(Condition):
         self.row_index = row_index
         self.button_index = button_index
 
+    @staticmethod
+    def create_regex(text):
+        return "^" + re.sub(r"{.*?}", ".*", text) + "$"
+
     async def process(self, client, event) -> bool:
         if isinstance(self.keyboard, ReplyKeyboard) and isinstance(event, Message):
             button = self.keyboard.keyboard[self.row_index][self.button_index]
-            return event.text == button.text
+            return bool(re.match(self.create_regex(button.text), event.text))
         elif isinstance(self.keyboard, InlineKeyboard) and isinstance(event, CallbackQuery):
             button = self.keyboard.inline_keyboard[self.row_index][self.button_index]
-            return event.data == button.callback_data
+            return bool(re.match(self.create_regex(button.callback_data), event.data))

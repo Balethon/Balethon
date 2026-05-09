@@ -1,4 +1,5 @@
 from typing import Union, List, Tuple
+from copy import deepcopy
 
 from . import Object, ReplyMarkup, InlineKeyboardButton
 from .list import List as BalethonList
@@ -55,3 +56,10 @@ class InlineKeyboard(ReplyMarkup):
     def on_click(self, row_index: int, button_index: int):
         from ..conditions import click
         return click(self, row_index, button_index)
+
+    def format(self, *args, **kwargs):
+        markup = deepcopy(self)
+        for i, row in enumerate(markup.inline_keyboard):
+            for j, button in enumerate(row):
+                markup.inline_keyboard[i][j] = button.format(*args, **kwargs)
+        return markup

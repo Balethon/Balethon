@@ -1,4 +1,5 @@
 from typing import Union
+from copy import deepcopy
 
 from . import Object
 from balethon import objects
@@ -27,3 +28,17 @@ class InlineKeyboardButton(Object):
         self.switch_inline_query: str = switch_inline_query
         self.switch_inline_query_current_chat: str = switch_inline_query_current_chat
         self.pay: bool = pay
+
+    def format(self, *args, **kwargs):
+        button = deepcopy(self)
+        if button.text:
+            button.text = button.text.format(*args, **kwargs)
+        if button.callback_data:
+            button.callback_data = button.callback_data.format(*args, **kwargs)
+        if button.url:
+            button.url = button.url.format(*args, **kwargs)
+        if button.web_app:
+            button.web_app = button.web_app.format(*args, **kwargs)
+        if button.copy_text:
+            button.copy_text = button.copy_text.format(*args, **kwargs)
+        return button
