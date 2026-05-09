@@ -1,4 +1,4 @@
-from asyncio import get_event_loop, new_event_loop, Queue
+from asyncio import Queue, get_running_loop
 from concurrent.futures import ThreadPoolExecutor
 from os import cpu_count
 
@@ -26,10 +26,7 @@ class Dispatcher:
             use_concurrency: bool = True
     ):
         self.clients = clients
-        try:
-            self.event_loop = get_event_loop()
-        except RuntimeError:
-            self.event_loop = new_event_loop()
+        self.event_loop = None
         self.events_queue = Queue()
         self.is_started = False
         self.async_workers_count = async_workers or self.reasonable_async_workers
@@ -41,6 +38,7 @@ class Dispatcher:
     async def start(self):
         if self.is_started:
             raise RuntimeError("Dispatcher is already started")
+        self.event_loop = get_running_loop()
         self.is_started = True
         if self.use_concurrency:
             self.async_workers = [self.event_loop.create_task(self.worker()) for _ in range(self.async_workers_count)]
