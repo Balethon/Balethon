@@ -48,4 +48,4 @@ pip install Balethon
 - [GitHub page](https://github.com/Balethon/Balethon)
 - [Pypi page](https://pypi.org/project/Balethon)
 - [Bale news channel](https://ble.ir/balethon)
-- [Bale community chat group](https://ble.ir/join/MTlhN2Q2Mz)
+- [Bale community chat group](https://ble.ir/balethon_group)

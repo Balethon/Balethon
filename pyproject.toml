@@ -30,7 +30,7 @@ version = {attr = "balethon.__version__"}
 "Download" = "https://github.com/Balethon/Balethon/releases/latest"
 "Documentation" = "https://balethon.ir"
 "Tracker" = "https://github.com/Balethon/Balethon/issues"
-"Community" = "https://ble.ir/join/MTlhN2Q2Mz"
+"Community" = "https://ble.ir/balethon_group"
 
 [tool.setuptools.packages.find]
 include = ["balethon*"]
