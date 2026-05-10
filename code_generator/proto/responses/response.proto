@@ -2,7 +2,12 @@ syntax = "proto3";
 
 package response;
 
-import "structs/struct.proto";
+import "structs/collections.proto";
+import "structs/files.proto";
+import "structs/groups.proto";
+import "structs/messaging.proto";
+import "structs/peers.proto";
+import "structs/users.proto";
 
 message Response {
   WsResponse ws_response = 1;
@@ -18,7 +23,7 @@ message WsResponse {
 message WsError {
   int32 code = 1;
   string message = 2;
-  struct.MapValue details = 3;
+  structs.MapValue details = 3;
 }
 
 message WsUpdate {
@@ -36,50 +41,50 @@ message ComposedUpdate {
 
 
 message UpdateMessage {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   int32 sender_uid = 2;
   int64 date = 3;
   int64 rid = 4;
-  struct.Message message = 5;
-  struct.QuotedMessage quoted_message = 7;
-  struct.MessageId previous_message_id = 9;
+  structs.Message message = 5;
+  structs.QuotedMessage quoted_message = 7;
+  structs.MessageId previous_message_id = 9;
 }
 
 message GetMessageViews {
-  repeated struct.MessagesViews containers = 1;
+  repeated structs.MessagesViews containers = 1;
 }
 
 message LoadHistory {
-  repeated struct.MessageContainer history = 1;
+  repeated structs.MessageContainer history = 1;
 }
 
 message JoinGroup {
-  struct.Group group = 1;
+  structs.Group group = 1;
   int32 seq = 2;
 }
 
 message JoinPublicGroup {
-  struct.Group group = 1;
+  structs.Group group = 1;
   int32 seq = 2;
 }
 
 message LoadUsers {
-  repeated struct.User users = 1;
+  repeated structs.User users = 1;
 }
 
 message GetFullGroup {
-  struct.FullGroup full_group = 1;
+  structs.FullGroup full_group = 1;
 }
 
 message SearchContacts {
-  repeated struct.User users = 1;
-  repeated struct.UserOutPeer user_peers = 2;
-  repeated struct.Group groups = 4;
-  repeated struct.GroupOutPeer group_peers = 5;
+  repeated structs.User users = 1;
+  repeated structs.UserOutPeer user_peers = 2;
+  repeated structs.Group groups = 4;
+  repeated structs.GroupOutPeer group_peers = 5;
 }
 
 message EditGroupAvatar {
-  struct.Avatar avatar = 1;
+  structs.Avatar avatar = 1;
   int32 seq = 2;
   bytes state = 3;
   int64 date = 4;
@@ -94,11 +99,11 @@ message RevokeInviteUrl {
 }
 
 message InviteUsers {
-  repeated struct.UserOutPeer not_added_user_peers = 1;
+  repeated structs.UserOutPeer not_added_user_peers = 1;
 }
 
 message LoadMembers {
-  repeated struct.Member members = 1;
+  repeated structs.Member members = 1;
   bytes next = 2;
 }
 
@@ -118,38 +123,38 @@ message StartPhoneAuth {
   string transaction_hash = 1;
   bool is_registered = 2;
   int32 sent_code_type = 5;
-  struct.Int64Value code_expiration_date = 6;
+  structs.Int64Value code_expiration_date = 6;
   int32 next_send_code_type = 7;
-  struct.Int64Value next_send_code_wait_time = 8;
-  struct.Int32Value code_timeout = 9;
+  structs.Int64Value next_send_code_wait_time = 8;
+  structs.Int32Value code_timeout = 9;
 }
 
 message Auth {
-  struct.User user = 2;
-  struct.StringValue jwt = 4;
+  structs.User user = 2;
+  structs.StringValue jwt = 4;
 }
 
 message LoadGroupAvatars {
-  struct.Avatars avatars = 1;
+  structs.Avatars avatars = 1;
 }
 
 message LoadPinnedMessages {
-  repeated struct.MessageContainer pinned_messages = 1;
+  repeated structs.MessageContainer pinned_messages = 1;
 }
 
 message GetNasimFileUrl {
-  struct.FileUrlDescription file_url = 1;
+  structs.FileUrlDescription file_url = 1;
 }
 
 message LoadDialogs {
-  repeated struct.Group groups = 1;
-  repeated struct.User users = 2;
-  repeated struct.Dialog dialogs = 3;
-  repeated struct.UserOutPeer user_peers = 4;
-  repeated struct.GroupOutPeer group_peers = 5;
+  repeated structs.Group groups = 1;
+  repeated structs.User users = 2;
+  repeated structs.Dialog dialogs = 3;
+  repeated structs.UserOutPeer user_peers = 4;
+  repeated structs.GroupOutPeer group_peers = 5;
 }
 
 message GetGroupPreview {
-  struct.FullGroup group = 1;
+  structs.FullGroup group = 1;
   int32 action = 2;
 }

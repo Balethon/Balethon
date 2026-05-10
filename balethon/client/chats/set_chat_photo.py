@@ -14,9 +14,9 @@ class SetChatPhoto:
         photo = resolve_media(photo)
 
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(f"{self.user.id}|1", photo, structs.SEND_TYPE_PHOTO)
+            file = await self.upload_file(f"{self.user.id}|1", photo, enums.SEND_TYPE_PHOTO)
             return await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="EditGroupAvatar",

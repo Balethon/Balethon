@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package structs;
+
+import "structs/collections.proto";
+import "structs/files.proto";
+import "structs/peers.proto";
+
+message DocumentExPhoto {
+  int32 w = 1;
+  int32 h = 2;
+}
+
+message DocumentExVideo {
+  int32 w = 1;
+  int32 h = 2;
+  int32 duration = 3;
+}
+
+message DocumentExVoice {
+  int32 duration = 1;
+  StringValue transcript = 2;
+}
+
+message DocumentExGif {
+  int32 w = 1;
+  int32 h = 2;
+  int32 duration = 3;
+}
+
+message DocumentExAudio {
+  int32 duration = 1;
+  string album = 2;
+  string artist = 3;
+  string genre = 4;
+  string track = 5;
+  BytesValue cover = 6;
+}
+
+message DocumentEx {
+  DocumentExPhoto document_ex_photo = 1;
+  DocumentExVideo document_ex_video = 2;
+  DocumentExVoice document_ex_voice = 3;
+  DocumentExGif document_ex_gif = 4;
+  DocumentExAudio document_ex_audio = 5;
+}
+
+message DocumentMessage {
+  int64 file_id = 1;
+  int64 access_hash = 2;
+  int32 file_size = 3;
+  string name = 4;
+  string mime_type = 5;
+  FastThumb thumb = 6;
+  DocumentEx ext = 7;
+  TextMessage caption = 8;
+}
+
+message TextMessage {
+  string text = 1;
+  repeated int64 mentions = 2;
+}
+
+message JsonMessage {
+  string raw_json = 1;
+}
+
+message StickerMessage {
+  Int32Value sticker_id = 1;
+  BytesValue fast_preview = 2;
+  ImageLocation image512 = 3;
+  ImageLocation image256 = 4;
+  Int32Value sticker_collection_id = 5;
+  Int64Value sticker_collection_access_hash = 6;
+}
+
+message Message {
+  DocumentMessage document_message = 4;
+  JsonMessage json_message = 7;
+  StickerMessage sticker_message = 12;
+  TextMessage text_message = 15;
+}
+
+message DeleteDates {
+  repeated int64 dates = 1;
+}
+
+message MessageId {
+  int64 date = 1;
+  int64 rid = 2;
+  int64 seq = 3;
+}
+
+message QuotedMessage {
+  Int64Value message_id = 1;
+  int32 sender_user_id = 3;
+  int64 message_date = 4;
+  Message quoted_message_content = 5;
+  OutPeer quoted_peer = 6;
+}
+
+message MessageContainer {
+  int32 sender_uid = 1;
+  int64 rid = 2;
+  int64 date = 3;
+  Message message = 4;
+  QuotedMessage quoted_message = 8;
+}
+
+message MessagesViews {
+  MessageId mid = 1;
+  repeated int64 views = 2;
+}
+
+message HistoryMessageIdentifier {
+  Peer peer = 1;
+  int64 random_id = 2;
+  Int64Value date = 3;
+}
+
+message SingleMedia {
+  int64 random_id = 1;
+  DocumentMessage media = 2;
+}
+
+message Dialog {
+  Peer peer = 1;
+  int32 unread_count = 2;
+  int64 sort_date = 3;
+  int32 sender_uid = 4;
+  int64 rid = 5;
+  int64 date = 6;
+  Message message = 7;
+  int32 state = 8;
+  Int64Value first_unread_date = 9;
+  ExInfo ex_info = 13;
+  bool is_message_forwarded = 14;
+  bool marked_as_unread = 17;
+  bool is_mute = 18;
+}

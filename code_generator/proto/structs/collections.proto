@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package structs;
+
+message Int64Value {
+  int64 value = 1;
+}
+
+message BoolValue {
+  bool value = 1;
+}
+
+message StringValue {
+  string value = 1;
+}
+
+message BytesValue {
+  string Value = 1;
+}
+
+message DoubleValue {
+  double value = 1;
+}
+
+message ArrayValue {
+  repeated bytes array = 1;
+}
+
+message RawValue {
+  StringValue string_value = 1;
+  BoolValue boolean_value = 2;
+  Int32Value int32_value = 3;
+  Int64Value int64_value = 4;
+  DoubleValue double_value = 5;
+  ArrayValue array_value = 6;
+}
+
+message MapValueItem {
+  string key = 1;
+  RawValue value = 2;
+}
+
+message MapValue {
+  repeated MapValueItem items = 1;
+}
+
+message Int32Value {
+  int32 value = 1;
+}

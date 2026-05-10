@@ -20,9 +20,9 @@ class SendVideo:
         video = resolve_media(video)
 
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(chat_id, video, structs.SEND_TYPE_VIDEO)
+            file = await self.upload_file(chat_id, video, enums.SEND_TYPE_VIDEO)
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",

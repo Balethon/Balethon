@@ -19,9 +19,9 @@ class SendAudio:
         audio = resolve_media(audio)
 
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(chat_id, audio, structs.SEND_TYPE_AUDIO)
+            file = await self.upload_file(chat_id, audio, enums.SEND_TYPE_AUDIO)
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",

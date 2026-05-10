@@ -18,9 +18,9 @@ class SendVoice:
         voice = resolve_media(voice)
 
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(chat_id, voice, structs.SEND_TYPE_VOICE)
+            file = await self.upload_file(chat_id, voice, enums.SEND_TYPE_VOICE)
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",

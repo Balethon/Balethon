@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package structs;
+
+import "enums/peers.proto";
+
+message Peer {
+  int32 type = 1;
+  int64 id = 2;
+}
+
+message ExPeer {
+  int32 type = 1;
+  int64 id = 2;
+  int64 access_hash = 3;
+}
+
+message ExInfo {
+  enums.ExPeerType ex_peer_type = 1;
+}
+
+message OutPeer {
+  int32 type = 1;
+  int64 id = 2;
+  int64 access_hash = 3;
+}
+
+message GroupOutPeer {
+  int64 group_id = 1;
+  int64 access_hash = 2;
+}
+
+message UserOutPeer {
+  int32 uid = 1;
+  int64 access_hash = 2;
+}

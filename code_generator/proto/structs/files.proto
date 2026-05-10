@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package structs;
+
+import "structs/collections.proto";
+import "enums/files.proto";
+
+message FastThumb {
+  int32 w = 1;
+  int32 h = 2;
+  bytes thumb = 3;
+}
+
+message ImageLocation {
+  FileLocation file_location = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 file_size = 4;
+}
+
+message FileLocation {
+  uint64 file_id = 1;
+  int64 access_hash = 2;
+  Int32Value file_storage_version = 3;
+}
+
+message AvatarImage {
+  FileLocation file_location = 1;
+  int32 width = 2;
+  int32 height = 3;
+  int32 file_size = 4;
+}
+
+message Avatar {
+  AvatarImage small_image = 1;
+  AvatarImage large_image = 2;
+  AvatarImage full_image = 3;
+  Int64Value id = 4;
+  Int64Value date = 5;
+}
+
+message SendTypeValue {
+  enums.SendType type = 1;
+}
+
+message Avatars {
+  repeated Avatar avatars = 1;
+}
+
+message FileUrlDescription {
+  int64 file_id = 1;
+  string url = 2;
+  int32 timeout = 3;
+  //repeated string unsigned_url_headers = 5;
+  string unsigned_url = 6;
+  Int32Value chunk_size = 7;
+}

@@ -34,6 +34,7 @@ def fix_compiled_files():
         for pattern in ("*_pb2*.py", "*_pb2*.pyi"):
             for file in sub_dir.glob(pattern):
                 fix_compiled_file_imports(file)
+
                 if file.name.endswith("_pb2.py"):
                     add_imports_to_init(init_file, file)
 

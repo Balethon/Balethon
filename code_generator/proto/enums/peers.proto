@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package enums;
+
+enum ExPeerType {
+  EX_PEER_TYPE_UNKNOWN = 0;
+  EX_PEER_TYPE_PRIVATE = 1;
+  EX_PEER_TYPE_GROUP = 2;
+  EX_PEER_TYPE_CHANNEL = 3;
+  EX_PEER_TYPE_BOT = 4;
+  EX_PEER_TYPE_SUPERGROUP = 5;
+  EX_PEER_TYPE_THREAD = 6;
+}

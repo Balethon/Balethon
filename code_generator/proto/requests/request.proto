@@ -2,7 +2,12 @@ syntax = "proto3";
 
 package request;
 
-import "structs/struct.proto";
+import "structs/collections.proto";
+import "structs/files.proto";
+import "structs/groups.proto";
+import "structs/messaging.proto";
+import "structs/peers.proto";
+import "enums/presence.proto";
 
 message Request {
   WsRequest ws_request = 1;
@@ -55,46 +60,46 @@ message EditName {
 }
 
 message SendMessage {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   int64 rid = 2;
-  struct.Message message = 3;
-  struct.Peer ex_peer = 6;
+  structs.Message message = 3;
+  structs.Peer ex_peer = 6;
 }
 
 message UpdateMessage {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   int64 rid = 2;
-  struct.Message updated_message = 3;
+  structs.Message updated_message = 3;
 }
 
 message DeleteMessage {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   repeated int64 rids = 2;
-  struct.DeleteDates dates = 3;
+  structs.DeleteDates dates = 3;
   bool just_mine = 4;
 }
 
 message ForwardMessages {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   repeated int64 rid = 2;
-  repeated struct.HistoryMessageIdentifier forwarded_messages = 3;
+  repeated structs.HistoryMessageIdentifier forwarded_messages = 3;
 }
 
 message GetMessageViews {
-  struct.Peer peer = 1;
-  repeated struct.MessageId mids = 2;
+  structs.Peer peer = 1;
+  repeated structs.MessageId mids = 2;
   bool increment = 3;
 }
 
 message MessageSetReaction {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   int64 rid = 2;
   string code = 3;
   int64 date = 4;
 }
 
 message LoadHistory {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   int64 date = 2;
   int32 load_mode = 4;
   int32 limit = 5;
@@ -107,27 +112,27 @@ message JoinGroup {
 }
 
 message JoinPublicGroup {
-  struct.Peer peer = 1;
+  structs.Peer peer = 1;
   repeated int32 optimizations = 2;
 }
 
 message LeaveGroup {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   int64 rid = 2;
   repeated int32 optimizations = 3;
   bool make_orphan = 4;
 }
 
 message LoadUsers {
-  repeated struct.UserOutPeer user_peers = 1;
+  repeated structs.UserOutPeer user_peers = 1;
 }
 
 message LoadFullUsers {
-  repeated struct.UserOutPeer user_peers = 1;
+  repeated structs.UserOutPeer user_peers = 1;
 }
 
 message GetFullGroup {
-  struct.GroupOutPeer peer = 1;
+  structs.GroupOutPeer peer = 1;
 }
 
 message SearchContacts {
@@ -138,98 +143,98 @@ message SearchContacts {
 // Pin Message (Group)
 message PinMessage {
   int32 sender_user_id = 1;
-  struct.GroupOutPeer group_peer = 2;
+  structs.GroupOutPeer group_peer = 2;
   int64 date = 3;
   int64 msg_rid = 4;
 }
 
 // Pin Messages (Messaging)
 message PinMessages {
-  struct.Peer peer = 1;
-  struct.MessageId message_id = 2;
+  structs.Peer peer = 1;
+  structs.MessageId message_id = 2;
   bool just_mine = 3;
 }
 
 message UnPinMessages {
-  struct.ExPeer peer = 1;
-  repeated struct.MessageId message_ids = 2;
+  structs.ExPeer peer = 1;
+  repeated structs.MessageId message_ids = 2;
   bool all = 3;
 }
 
 message EditGroupAvatar {
-  struct.GroupOutPeer group_peer = 1;
-  struct.FileLocation file_location = 3;
+  structs.GroupOutPeer group_peer = 1;
+  structs.FileLocation file_location = 3;
   int64 rid = 4;
   repeated int32 optimizations = 5;
 }
 
 message LoadGroupAvatars {
-  struct.GroupOutPeer peer = 1;
+  structs.GroupOutPeer peer = 1;
 }
 
 message RemoveGroupAvatar {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   int64 rid = 4;
   repeated int32 optimizations = 5;
-  struct.Int64Value avatar_id = 6;
+  structs.Int64Value avatar_id = 6;
 }
 
 message EditGroupTitle {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   string title = 3;
   int64 rid = 4;
   repeated int32 optimizations = 5;
 }
 
 message EditGroupAbout {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   int64 rid = 2;
   string about = 3;
   repeated int32 optimizations = 5;
 }
 
 message RevokeInviteUrl {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
 }
 
 message UnBanUser {
-  struct.GroupOutPeer group_peer = 1;
-  struct.UserOutPeer user = 2;
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user = 2;
   repeated int32 optimizations = 3;
 }
 
 message KickUser {
-  struct.GroupOutPeer group_peer = 1;
-  struct.UserOutPeer user = 3;
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user = 3;
   int64 rid = 4;
   repeated int32 optimizations = 5;
 }
 
 message GetGroupInviteUrl {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
 }
 
 message InviteUsers {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   int64 rid = 2;
-  repeated struct.UserOutPeer users = 3;
+  repeated structs.UserOutPeer users = 3;
 }
 
 message SetMemberPermissions {
-  struct.GroupOutPeer group = 1;
-  struct.UserOutPeer user = 2;
-  struct.Permissions permissions = 3;
+  structs.GroupOutPeer group = 1;
+  structs.UserOutPeer user = 2;
+  structs.Permissions permissions = 3;
 }
 
 message LoadMembers {
-  struct.GroupOutPeer group = 1;
+  structs.GroupOutPeer group = 1;
   int32 limit = 2;
   bytes next = 3;
-  struct.LoadMembersCondition condition = 4;
+  structs.LoadMembersCondition condition = 4;
 }
 
 message GetGroupMembersCount {
-  struct.GroupOutPeer group = 1;
+  structs.GroupOutPeer group = 1;
 }
 
 message GetNasimFileUploadUrl {
@@ -238,8 +243,8 @@ message GetNasimFileUploadUrl {
   int64 uid = 3;
   string name = 4;
   string mime_type = 5;
-  struct.ExPeer ex_peer = 6;
-  struct.SendTypeValue send_type = 7;
+  structs.ExPeer ex_peer = 6;
+  structs.SendTypeValue send_type = 7;
   int64 chunk_size = 8;
 }
 
@@ -255,54 +260,54 @@ message StartPhoneAuth {
 message ValidateCode {
   string transaction_hash = 1;
   string code = 2;
-  struct.BoolValue is_jwt = 3;
+  structs.BoolValue is_jwt = 3;
 }
 
 message ValidatePassword {
   string transaction_hash = 1;
   string password = 2;
-  struct.BoolValue is_jwt = 3;
+  structs.BoolValue is_jwt = 3;
 }
 
 message SignUp {
   string transaction_hash = 1;
   string name = 2;
   int32 sex = 3;
-  struct.StringValue password = 4;
+  structs.StringValue password = 4;
 }
 
 message LoadPinnedMessages {
-  struct.ExPeer peer = 1;
+  structs.ExPeer peer = 1;
 }
 
 message RemoveSinglePin {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
   int64 rid = 2;
   int64 date = 3;
 }
 
 message RemovePin {
-  struct.GroupOutPeer group_peer = 1;
+  structs.GroupOutPeer group_peer = 1;
 }
 
 message Typing {
-  struct.OutPeer peer = 1;
-  struct.TypingType typing_type = 3;
+  structs.OutPeer peer = 1;
+  enums.TypingType typing_type = 3;
 }
 
 message RemoveUserAdmin {
-  struct.GroupOutPeer group_peer = 1;
-  struct.UserOutPeer user_peer = 2;
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user_peer = 2;
 }
 
 message GetNasimFileUrl {
-  struct.FileLocation file = 1;
+  structs.FileLocation file = 1;
 }
 
 message SendMultiMediaMessage {
-  struct.ExPeer peer = 1;
-  repeated struct.SingleMedia multi_media = 2;
-  //struct.MessageOutReference replied_message = 3;
+  structs.ExPeer peer = 1;
+  repeated structs.SingleMedia multi_media = 2;
+  //structs.MessageOutReference replied_message = 3;
   uint64 grouped_id = 4;
 }
 
@@ -317,7 +322,7 @@ message LoadDialogs {
 
 message EditParameter {
   string key = 1;
-  struct.StringValue value = 2;
+  structs.StringValue value = 2;
 }
 
 message GetGroupPreview {

@@ -6,7 +6,7 @@ import os
 import balethon
 from ...objects import File
 try:
-    from balethon.proto import requests, structs
+    from balethon.proto import requests, structs, enums
 except ImportError:
     pass
 
@@ -17,7 +17,7 @@ class UploadFile:
             self: "balethon.Client",
             chat_id: str,
             file: Union[bytes, BinaryIO],
-            send_type: "structs.SendType",
+            send_type: "enums.SendType",
             expected_size: int = None,
             name: str = None,
             mime_type: str = None,
@@ -43,12 +43,12 @@ class UploadFile:
                 name = "upload"
 
         send_type_map = {
-            structs.SEND_TYPE_PHOTO: "image",
-            structs.SEND_TYPE_VIDEO: "video",
-            structs.SEND_TYPE_GIF: "video",
-            structs.SEND_TYPE_AUDIO: "audio",
-            structs.SEND_TYPE_VOICE: "audio",
-            structs.SEND_TYPE_DOCUMENT: "document",
+            enums.SEND_TYPE_PHOTO: "image",
+            enums.SEND_TYPE_VIDEO: "video",
+            enums.SEND_TYPE_GIF: "video",
+            enums.SEND_TYPE_AUDIO: "audio",
+            enums.SEND_TYPE_VOICE: "audio",
+            enums.SEND_TYPE_DOCUMENT: "document",
         }
         file_type = send_type_map.get(send_type, "application")
 

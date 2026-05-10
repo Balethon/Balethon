@@ -20,9 +20,9 @@ class SendAnimation:
         animation = resolve_media(animation)
 
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(chat_id, animation, structs.SEND_TYPE_GIF)
+            file = await self.upload_file(chat_id, animation, enums.SEND_TYPE_GIF)
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",

@@ -17,19 +17,19 @@ class SendMediaGroup:
             reply_to_message_id: int = None
     ) -> List[Message]:
         if self.is_userbot():
-            from ...proto import requests, structs
+            from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
             files = []
             for content in media:
                 if isinstance(content, InputMediaPhoto):
-                    send_type = structs.SEND_TYPE_PHOTO
+                    send_type = enums.SEND_TYPE_PHOTO
                 elif isinstance(content, InputMediaVideo):
-                    send_type = structs.SEND_TYPE_VIDEO
+                    send_type = enums.SEND_TYPE_VIDEO
                 else:
-                    send_type = structs.SEND_TYPE_DOCUMENT
+                    send_type = enums.SEND_TYPE_DOCUMENT
                 file = await self.upload_file(f"{peer_id}|{peer_type}", content.media, send_type)
 
-                if send_type == structs.SEND_TYPE_PHOTO:
+                if send_type == enums.SEND_TYPE_PHOTO:
                     ext = structs.DocumentEx(
                         document_ex_photo=structs.DocumentExPhoto(
                             w=500,
