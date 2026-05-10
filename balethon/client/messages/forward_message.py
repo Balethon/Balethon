@@ -13,23 +13,23 @@ class ForwardMessage:
             message_id: Union[int, str]
     ) -> Message:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             message_peer_id, message_peer_type = map(int, from_chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="ForwardMessages",
-                payload=request_pb2.ForwardMessages(
-                    peer=struct_pb2.Peer(
+                payload=requests.ForwardMessages(
+                    peer=structs.Peer(
                         type=peer_type,
                         id=peer_id
                     ),
                     rid=[self.ws_connection.create_rid()],
-                    forwarded_messages=[struct_pb2.HistoryMessageIdentifier(
-                        peer=struct_pb2.Peer(type=message_peer_type, id=message_peer_id),
+                    forwarded_messages=[structs.HistoryMessageIdentifier(
+                        peer=structs.Peer(type=message_peer_type, id=message_peer_id),
                         random_id=rid,
-                        date=struct_pb2.Int64Value(value=date)
+                        date=structs.Int64Value(value=date)
                     )]
                 )
             )

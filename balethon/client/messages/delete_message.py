@@ -11,19 +11,19 @@ class DeleteMessage:
             message_id: Union[int, str]
     ) -> bool:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="DeleteMessage",
-                payload=request_pb2.DeleteMessage(
-                    peer=struct_pb2.Peer(
+                payload=requests.DeleteMessage(
+                    peer=structs.Peer(
                         type=peer_type,
                         id=peer_id
                     ),
                     rids=[rid],
-                    dates=struct_pb2.DeleteDates(dates=[date]),
+                    dates=structs.DeleteDates(dates=[date]),
                     just_mine=False
                 )
             )

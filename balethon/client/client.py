@@ -33,7 +33,7 @@ from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandle
 from ..smart_call import remove_unwanted_keyword_parameters
 from ..sync_support import add_sync_support_to_object
 try:
-    from ..proto import response_pb2
+    from ..proto import responses
 except ImportError:
     pass
 
@@ -182,7 +182,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
     async def invoke(self, service_name: str, method: str, payload: "ProtobufMessage"):
         response = await self.ws_connection.request(service_name, method, payload)
         payload_class_name = type(payload).__name__
-        response_class = getattr(response_pb2, payload_class_name, None)
+        response_class = getattr(responses, payload_class_name, None)
         if response_class is None:
             return response
         result = response_class()

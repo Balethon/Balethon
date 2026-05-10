@@ -11,13 +11,13 @@ class SetChatTitle:
             title: str
     ) -> bool:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="EditGroupTitle",
-                payload=request_pb2.EditGroupTitle(
-                    group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
+                payload=requests.EditGroupTitle(
+                    group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
                     title=title,
                     rid=self.ws_connection.create_rid()
                 )

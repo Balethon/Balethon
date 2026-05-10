@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package request;
 
-import "struct.proto";
+import "structs/struct.proto";
 
 message Request {
   WsRequest ws_request = 1;

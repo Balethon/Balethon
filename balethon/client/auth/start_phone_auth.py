@@ -2,7 +2,7 @@ import uuid
 
 import balethon
 try:
-    from balethon.proto import request_pb2, response_pb2
+    from balethon.proto import requests, responses
 except ImportError:
     pass
 
@@ -17,17 +17,17 @@ class StartPhoneAuth:
             device_hash: str = None,
             device_title: str = "Chrome_137.0.0.0, Windows",
             send_code_type: int = 1
-    ) -> "response_pb2.StartPhoneAuth":
+    ) -> "responses.StartPhoneAuth":
         if device_hash is None:
             device_hash = str(uuid.uuid4())
         phone_number = int(phone_number)
         kwargs = locals()
         del kwargs["self"]
-        start_phone_auth = request_pb2.StartPhoneAuth(**kwargs)
+        start_phone_auth = requests.StartPhoneAuth(**kwargs)
         response = await self.http2_connection.request(
             service="bale.auth.v1.Auth/StartPhoneAuth",
             content=start_phone_auth.SerializeToString()
         )
-        result = response_pb2.StartPhoneAuth()
+        result = responses.StartPhoneAuth()
         result.ParseFromString(response)
         return result

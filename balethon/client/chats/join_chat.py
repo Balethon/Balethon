@@ -2,7 +2,7 @@ from typing import Union
 
 import balethon
 try:
-    from ...proto import request_pb2, struct_pb2, response_pb2
+    from ...proto import requests, structs, responses
 except ImportError:
     pass
 
@@ -11,7 +11,7 @@ class JoinChat:
     async def join_chat(
             self: "balethon.Client",
             chat_id: str
-    ) -> Union["response_pb2.JoinGroup", "response_pb2.JoinPublicGroup"]:
+    ) -> Union["responses.JoinGroup", "responses.JoinPublicGroup"]:
         peer_id, peer_type = chat_id.split("|")
 
         # 1234567890 | "1234567890"
@@ -19,8 +19,8 @@ class JoinChat:
             return await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="JoinPublicGroup",
-                payload=request_pb2.JoinPublicGroup(
-                    peer=struct_pb2.Peer(
+                payload=requests.JoinPublicGroup(
+                    peer=structs.Peer(
                         type=int(peer_type),
                         id=int(peer_id)
                     )
@@ -33,7 +33,7 @@ class JoinChat:
         return await self.invoke(
             service_name="bale.groups.v1.Groups",
             method="JoinGroup",
-            payload=request_pb2.JoinGroup(
+            payload=requests.JoinGroup(
                 token=token
             )
         )

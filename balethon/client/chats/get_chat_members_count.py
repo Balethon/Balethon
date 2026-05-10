@@ -10,13 +10,13 @@ class GetChatMembersCount:
             chat_id: Union[int, str]
     ) -> int:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             response = await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="GetGroupMembersCount",
-                payload=request_pb2.GetGroupMembersCount(
-                    group=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
+                payload=requests.GetGroupMembersCount(
+                    group=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
                 )
             )
             return response.members_count

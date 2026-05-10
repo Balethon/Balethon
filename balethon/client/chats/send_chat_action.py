@@ -12,13 +12,13 @@ class SendChatAction:
             action: "enums.ChatAction" = enums.ChatAction.TYPING
     ) -> bool:
         if self.is_userbot():
-            from ...proto import request_pb2, struct_pb2
+            from ...proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.invoke(
                 service_name="bale.presence.v1.Presence",
                 method="Typing",
-                payload=request_pb2.Typing(
-                    peer=struct_pb2.OutPeer(
+                payload=requests.Typing(
+                    peer=structs.OutPeer(
                         type=peer_type,
                         id=peer_id,
                     ),

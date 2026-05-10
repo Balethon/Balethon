@@ -11,7 +11,7 @@ class GetChat:
             chat_id: Union[int, str]
     ) -> Chat:
         if self.is_userbot():
-            from ...proto import request_pb2, struct_pb2
+            from ...proto import requests, structs
             peer_id, peer_type = chat_id.split("|")
 
             if not peer_id.isnumeric():
@@ -34,7 +34,7 @@ class GetChat:
                 response = await self.invoke(
                     service_name="bale.users.v1.Users",
                     method="SearchContacts",
-                    payload=request_pb2.SearchContacts(
+                    payload=requests.SearchContacts(
                         request=peer_id
                     )
                 )
@@ -56,8 +56,8 @@ class GetChat:
                 users = await self.invoke(
                     service_name="bale.users.v1.Users",
                     method="LoadUsers",
-                    payload=request_pb2.LoadUsers(
-                        user_peers=[struct_pb2.UserOutPeer(
+                    payload=requests.LoadUsers(
+                        user_peers=[structs.UserOutPeer(
                             uid=peer_id,
                             access_hash=1
                         )]
@@ -69,8 +69,8 @@ class GetChat:
                 return await self.invoke(
                     service_name="bale.groups.v1.Groups",
                     method="GetFullGroup",
-                    payload=request_pb2.GetFullGroup(
-                        peer=struct_pb2.GroupOutPeer(
+                    payload=requests.GetFullGroup(
+                        peer=structs.GroupOutPeer(
                             group_id=peer_id,
                             access_hash=1
                         )

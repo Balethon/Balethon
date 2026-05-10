@@ -10,28 +10,28 @@ class UnpinAllChatMessages:
             chat_id: Union[int, str]
     ) -> bool:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
 
             if peer_type in (1, 4):
                 response = await self.invoke(
                     service_name="bale.messaging.v2.Messaging",
                     method="LoadPinnedMessages",
-                    payload=request_pb2.LoadPinnedMessages(
-                        peer=struct_pb2.ExPeer(type=peer_type, id=peer_id)
+                    payload=requests.LoadPinnedMessages(
+                        peer=structs.ExPeer(type=peer_type, id=peer_id)
                     )
                 )
 
                 message_ids = [
-                    struct_pb2.MessageId(date=pinned_message.date, rid=pinned_message.rid)
+                    structs.MessageId(date=pinned_message.date, rid=pinned_message.rid)
                     for pinned_message in response.pinned_messages
                 ]
 
                 return await self.invoke(
                     service_name="bale.messaging.v2.Messaging",
                     method="UnPinMessages",
-                    payload=request_pb2.UnPinMessages(
-                        peer=struct_pb2.ExPeer(type=peer_type, id=peer_id),
+                    payload=requests.UnPinMessages(
+                        peer=structs.ExPeer(type=peer_type, id=peer_id),
                         message_ids=message_ids,
                         all=True
                     )
@@ -41,8 +41,8 @@ class UnpinAllChatMessages:
                 return await self.invoke(
                     service_name="bale.groups.v1.Groups",
                     method="RemovePin",
-                    payload=request_pb2.RemovePin(
-                        group_peer=struct_pb2.GroupOutPeer(group_id=peer_id)
+                    payload=requests.RemovePin(
+                        group_peer=structs.GroupOutPeer(group_id=peer_id)
                     )
                 )
 

@@ -6,7 +6,7 @@ import os
 import balethon
 from ...objects import File
 try:
-    from balethon.proto import request_pb2, struct_pb2
+    from balethon.proto import requests, structs
 except ImportError:
     pass
 
@@ -17,7 +17,7 @@ class UploadFile:
             self: "balethon.Client",
             chat_id: str,
             file: Union[bytes, BinaryIO],
-            send_type: "struct_pb2.SendType",
+            send_type: "structs.SendType",
             expected_size: int = None,
             name: str = None,
             mime_type: str = None,
@@ -43,12 +43,12 @@ class UploadFile:
                 name = "upload"
 
         send_type_map = {
-            struct_pb2.SEND_TYPE_PHOTO: "image",
-            struct_pb2.SEND_TYPE_VIDEO: "video",
-            struct_pb2.SEND_TYPE_GIF: "video",
-            struct_pb2.SEND_TYPE_AUDIO: "audio",
-            struct_pb2.SEND_TYPE_VOICE: "audio",
-            struct_pb2.SEND_TYPE_DOCUMENT: "document",
+            structs.SEND_TYPE_PHOTO: "image",
+            structs.SEND_TYPE_VIDEO: "video",
+            structs.SEND_TYPE_GIF: "video",
+            structs.SEND_TYPE_AUDIO: "audio",
+            structs.SEND_TYPE_VOICE: "audio",
+            structs.SEND_TYPE_DOCUMENT: "document",
         }
         file_type = send_type_map.get(send_type, "application")
 
@@ -66,18 +66,18 @@ class UploadFile:
         result = await self.invoke(
             service_name="ai.bale.server.Files",
             method="GetNasimFileUploadUrl",
-            payload=request_pb2.GetNasimFileUploadUrl(
+            payload=requests.GetNasimFileUploadUrl(
                 expected_size=expected_size,
                 crc=0,
                 uid=peer_id,
                 name=name,
                 mime_type=mime_type,
-                ex_peer=struct_pb2.ExPeer(
+                ex_peer=structs.ExPeer(
                     type=peer_type,
                     id=peer_id,
                     access_hash=0
                 ),
-                send_type=struct_pb2.SendTypeValue(
+                send_type=structs.SendTypeValue(
                     type=send_type
                 )
             )

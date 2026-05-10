@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package response;
 
-import "struct.proto";
+import "structs/struct.proto";
 
 message Response {
   WsResponse ws_response = 1;

@@ -9,16 +9,16 @@ class GetFile:
             file_id: str
     ) -> File:
         if self.is_userbot():
-            from ...proto import request_pb2, struct_pb2
+            from ...proto import requests, structs
             access_hash, file_id, file_storage_version = map(int, file_id.split(":"))
             return await self.invoke(
                 service_name="ai.bale.server.Files",
                 method="GetNasimFileUrl",
-                payload=request_pb2.GetNasimFileUrl(
-                    file=struct_pb2.FileLocation(
+                payload=requests.GetNasimFileUrl(
+                    file=structs.FileLocation(
                         file_id=file_id,
                         access_hash=access_hash,
-                        file_storage_version=struct_pb2.Int32Value(value=file_storage_version)
+                        file_storage_version=structs.Int32Value(value=file_storage_version)
                     )
                 )
             )

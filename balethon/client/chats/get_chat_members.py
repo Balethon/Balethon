@@ -1,6 +1,6 @@
 import balethon
 try:
-    from balethon.proto import request_pb2, struct_pb2, response_pb2
+    from balethon.proto import requests, structs, responses
 except ImportError:
     pass
 
@@ -15,16 +15,16 @@ class GetChatMembers:
             excepted_permissions: bool = False,
             contacts: bool = False,
             query: str = None
-    ) -> "response_pb2.LoadMembers":
+    ) -> "responses.LoadMembers":
         peer_id, peer_type = map(int, chat_id.split("|"))
         return await self.invoke(
             service_name="bale.groups.v1.Groups",
             method="LoadMembers",
-            payload=request_pb2.LoadMembers(
-                group=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1),
+            payload=requests.LoadMembers(
+                group=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
                 limit=limit,
                 next=next,
-                condition=struct_pb2.LoadMembersCondition(
+                condition=structs.LoadMembersCondition(
                     excepted_permissions=excepted_permissions,
                     contacts=contacts,
                     query=query

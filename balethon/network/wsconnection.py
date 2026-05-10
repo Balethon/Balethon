@@ -17,7 +17,7 @@ except ImportError:
 
 from ..errors import RPCError
 try:
-    from balethon.proto import request_pb2, response_pb2
+    from balethon.proto import requests, responses
 except ImportError:
     pass
 
@@ -185,8 +185,8 @@ class WSConnection:
         return f"{int(whole)}{int(frac * 1000)}"
 
     async def keep_alive(self):
-        return await self.send(request_pb2.KeepAliveRequest(
-            payloads=request_pb2.KeepAlive(value_should_2=2),
+        return await self.send(requests.KeepAliveRequest(
+            payloads=requests.KeepAlive(value_should_2=2),
         ))
 
     async def start(self):
@@ -263,12 +263,12 @@ class WSConnection:
     @classmethod
     def is_update(cls, message):
         deserialized_message = cls.deserialize_message(message)
-        return isinstance(deserialized_message, response_pb2.WsUpdate)
+        return isinstance(deserialized_message, responses.WsUpdate)
 
     @classmethod
     def is_response(cls, message):
         deserialized_message = cls.deserialize_message(message)
-        return isinstance(deserialized_message, response_pb2.WsResponse)
+        return isinstance(deserialized_message, responses.WsResponse)
 
     async def recv_loop(self):
         while self.is_started:
@@ -298,7 +298,7 @@ class WSConnection:
     @staticmethod
     def deserialize_message(message):
         if isinstance(message, bytes):
-            response = response_pb2.Response()
+            response = responses.Response()
             response.ParseFromString(message)
             if str(response.ws_update):
                 message = response.ws_update
@@ -328,7 +328,7 @@ class WSConnection:
                     if deserialized_response.index == index:
                         self.responses.remove(response)
                         result = deserialized_response.response or deserialized_response.error
-                        if isinstance(result, response_pb2.WsError):
+                        if isinstance(result, responses.WsError):
                             raise RPCError(code=result.code, description=result.message, reason=None)
                         return result
 
@@ -339,37 +339,37 @@ class WSConnection:
             await asyncio.sleep(0.1)
 
     def build_request_metadata(self):
-        return request_pb2.Metadata(
+        return requests.Metadata(
             key_values=[
-                request_pb2.MetadataKeyValues(
+                requests.MetadataKeyValues(
                     key="app_version",
-                    value=request_pb2.MetadataValues(
+                    value=requests.MetadataValues(
                         string_value=str(self.app_version),
                     )
                 ),
-                request_pb2.MetadataKeyValues(
+                requests.MetadataKeyValues(
                     key="browser_type",
-                    value=request_pb2.MetadataValues(
+                    value=requests.MetadataValues(
                         string_value=str(self.browser_type),
                     )
                 ),
-                request_pb2.MetadataKeyValues(
+                requests.MetadataKeyValues(
                     key="browser_version",
-                    value=request_pb2.MetadataValues(
-                        msg_value=request_pb2.MetadataComplexValues(
+                    value=requests.MetadataValues(
+                        msg_value=requests.MetadataComplexValues(
                             fixed64_value=self.browser_version,
                         ),
                     )
                 ),
-                request_pb2.MetadataKeyValues(
+                requests.MetadataKeyValues(
                     key="os_type",
-                    value=request_pb2.MetadataValues(
+                    value=requests.MetadataValues(
                         string_value=self.os_type,
                     )
                 ),
-                request_pb2.MetadataKeyValues(
+                requests.MetadataKeyValues(
                     key="session_id",
-                    value=request_pb2.MetadataValues(
+                    value=requests.MetadataValues(
                         string_value=self.session_id,
                     )
                 ),
@@ -377,8 +377,8 @@ class WSConnection:
         )
 
     def build_request(self, service_name: str, method: str, payload: "Message"):
-        request = request_pb2.Request(
-            ws_request=request_pb2.WsRequest(
+        request = requests.Request(
+            ws_request=requests.WsRequest(
                 service_name=service_name,
                 method=method,
                 payload=payload.SerializeToString(),

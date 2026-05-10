@@ -15,14 +15,14 @@ class EditMessageText:
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
-            peer = struct_pb2.Peer(type=peer_type, id=peer_id)
+            peer = structs.Peer(type=peer_type, id=peer_id)
             response = await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="LoadHistory",
-                payload=request_pb2.LoadHistory(
+                payload=requests.LoadHistory(
                     peer=peer,
                     date=date,
                     load_mode=2,
@@ -41,8 +41,8 @@ class EditMessageText:
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="UpdateMessage",
-                payload=request_pb2.UpdateMessage(
-                    peer=struct_pb2.Peer(
+                payload=requests.UpdateMessage(
+                    peer=structs.Peer(
                         type=peer_type,
                         id=peer_id
                     ),

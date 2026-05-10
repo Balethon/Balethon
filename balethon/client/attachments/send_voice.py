@@ -18,34 +18,34 @@ class SendVoice:
         voice = resolve_media(voice)
 
         if self.is_userbot():
-            from ...proto import request_pb2, struct_pb2
+            from ...proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(chat_id, voice, struct_pb2.SEND_TYPE_VOICE)
+            file = await self.upload_file(chat_id, voice, structs.SEND_TYPE_VOICE)
             return await self.invoke(
                 service_name="bale.messaging.v2.Messaging",
                 method="SendMessage",
-                payload=request_pb2.SendMessage(
-                    peer=struct_pb2.Peer(
+                payload=requests.SendMessage(
+                    peer=structs.Peer(
                         type=peer_type,
                         id=peer_id
                     ),
                     rid=self.ws_connection.create_rid(),
-                    message=struct_pb2.Message(
-                        document_message=struct_pb2.DocumentMessage(
+                    message=structs.Message(
+                        document_message=structs.DocumentMessage(
                             file_id=file.id,
                             access_hash=peer_id,
                             file_size=file.size,
                             name=file.name,
                             mime_type=file.mime_type,
-                            ext=struct_pb2.DocumentEx(
-                                document_ex_voice=struct_pb2.DocumentExVoice(
+                            ext=structs.DocumentEx(
+                                document_ex_voice=structs.DocumentExVoice(
                                     duration=duration
                                 )
                             ),
-                            caption=struct_pb2.TextMessage(text=caption)
+                            caption=structs.TextMessage(text=caption)
                         )
                     ),
-                    ex_peer=struct_pb2.Peer(
+                    ex_peer=structs.Peer(
                         type=peer_type,
                         id=peer_id
                     )

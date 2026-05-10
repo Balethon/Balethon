@@ -12,13 +12,13 @@ class RevokeChatInviteLink:
             invite_link: str
     ) -> InviteLink:
         if self.is_userbot():
-            from balethon.proto import request_pb2, struct_pb2
+            from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             response = await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="RevokeInviteURL",
-                payload=request_pb2.RevokeInviteUrl(
-                    group_peer=struct_pb2.GroupOutPeer(group_id=peer_id, access_hash=1)
+                payload=requests.RevokeInviteUrl(
+                    group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1)
                 )
             )
             return InviteLink(link=response.url)

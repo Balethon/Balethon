@@ -14,18 +14,18 @@ class SetChatPhoto:
         photo = resolve_media(photo)
 
         if self.is_userbot():
-            from ...proto import request_pb2, struct_pb2
+            from ...proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(f"{self.user.id}|1", photo, struct_pb2.SEND_TYPE_PHOTO)
+            file = await self.upload_file(f"{self.user.id}|1", photo, structs.SEND_TYPE_PHOTO)
             return await self.invoke(
                 service_name="bale.groups.v1.Groups",
                 method="EditGroupAvatar",
-                payload=request_pb2.EditGroupAvatar(
-                    group_peer=struct_pb2.GroupOutPeer(
+                payload=requests.EditGroupAvatar(
+                    group_peer=structs.GroupOutPeer(
                         group_id=peer_id,
                         access_hash=1
                     ),
-                    file_location=struct_pb2.FileLocation(
+                    file_location=structs.FileLocation(
                         file_id=file.id,
                         access_hash=self.user.id
                     ),
