@@ -31,34 +31,35 @@ def fix_compiled_files():
 
         init_file = create_init_file(sub_dir)
 
-        for file in sub_dir.glob("*_pb2*.py"):
-            fix_compiled_file_imports(file)
-            if file.name.endswith("_pb2.py"):
-                add_imports_to_init(init_file, file)
+        for pattern in ("*_pb2*.py", "*_pb2*.pyi"):
+            for file in sub_dir.glob(pattern):
+                fix_compiled_file_imports(file)
+                if file.name.endswith("_pb2.py"):
+                    add_imports_to_init(init_file, file)
 
 
 def fix_compiled_file_imports(file):
-    content = file.read_text()
+    content = file.read_text(encoding="utf-8")
     content = re.sub(
         r"^(from\s+)(\w+)(\s+import\s+.*pb2.*)$",
         r"\1..\2\3",
         content,
         flags=re.MULTILINE
     )
-    file.write_text(content)
+    file.write_text(content, encoding="utf-8")
 
 
 def create_init_file(directory):
     init_file = directory / "__init__.py"
-    init_file.write_text("")
+    init_file.write_text("", encoding="utf-8")
     return init_file
 
 
 def add_imports_to_init(init_file, file):
-    content = init_file.read_text()
+    content = init_file.read_text(encoding="utf-8")
     name = file.name.split(".")[0]
     content += f"from .{name} import *\n"
-    init_file.write_text(content)
+    init_file.write_text(content, encoding="utf-8")
 
 
 def main():
