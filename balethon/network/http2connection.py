@@ -19,10 +19,12 @@ class HTTP2Connection:
 
     def __init__(
             self,
+            access_token: str = None,
             time_out: int = None,
             proxy: ProxyTypes = None,
             base_url: str = None,
     ):
+        self.access_token = access_token
         self.client = None
         self.is_started = False
         self.time_out = time_out or self.TIMEOUT
@@ -60,6 +62,11 @@ class HTTP2Connection:
             "session_id": self.session_id
         }
 
+    def build_request_cookies(self):
+        if self.access_token is None:
+            return None
+        return {"access_token": self.access_token}
+
     @staticmethod
     def add_grpc_frame(data: bytes) -> bytes:
         header = b"\x00" + len(data).to_bytes(4, "big")
@@ -75,6 +82,7 @@ class HTTP2Connection:
             url=f"{self.base_url}/{service}",
             content=self.add_grpc_frame(content),
             headers=self.build_request_headers(),
+            cookies=self.build_request_cookies(),
             timeout=self.time_out
         )
         status = response.headers.get("grpc-status")

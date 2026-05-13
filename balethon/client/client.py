@@ -80,7 +80,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                 )
             session = self.load_session()
             self.ws_connection = None if session is None else WSConnection(session[1], time_out)
-            self.http2_connection = HTTP2Connection()
+            self.http2_connection = HTTP2Connection() if session is None else HTTP2Connection(session[1])
             self.http_connection = None
         self.sleep_threshold = sleep_threshold
         self.user = None
@@ -268,6 +268,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             else:
                 break
         self.save_session(auth.user.id, auth.jwt.value)
+        self.http2_connection.access_token = auth.jwt.value
         self.ws_connection = WSConnection(auth.jwt.value, self.time_out)
 
     async def start_websocket(self):
