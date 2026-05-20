@@ -9,10 +9,18 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class ClientPack(_message.Message):
-    __slots__ = ("ws_request",)
+    __slots__ = ("ws_request", "ping")
     WS_REQUEST_FIELD_NUMBER: _ClassVar[int]
+    PING_FIELD_NUMBER: _ClassVar[int]
     ws_request: Request
-    def __init__(self, ws_request: _Optional[_Union[Request, _Mapping]] = ...) -> None: ...
+    ping: Ping
+    def __init__(self, ws_request: _Optional[_Union[Request, _Mapping]] = ..., ping: _Optional[_Union[Ping, _Mapping]] = ...) -> None: ...
+
+class Ping(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    def __init__(self, id: _Optional[int] = ...) -> None: ...
 
 class Request(_message.Message):
     __slots__ = ("service_name", "method", "payload", "metadata", "index")

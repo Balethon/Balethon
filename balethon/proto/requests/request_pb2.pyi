@@ -6,18 +6,6 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class KeepAliveRequest(_message.Message):
-    __slots__ = ("payloads",)
-    PAYLOADS_FIELD_NUMBER: _ClassVar[int]
-    payloads: KeepAlive
-    def __init__(self, payloads: _Optional[_Union[KeepAlive, _Mapping]] = ...) -> None: ...
-
-class KeepAlive(_message.Message):
-    __slots__ = ("value_should_2",)
-    VALUE_SHOULD_2_FIELD_NUMBER: _ClassVar[int]
-    value_should_2: int
-    def __init__(self, value_should_2: _Optional[int] = ...) -> None: ...
-
 class MetadataComplexValues(_message.Message):
     __slots__ = ("fixed64_value",)
     FIXED64_VALUE_FIELD_NUMBER: _ClassVar[int]

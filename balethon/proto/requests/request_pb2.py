@@ -24,23 +24,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16requests/request.proto\x12\x08requests\"9\n\x10KeepAliveRequest\x12%\n\x08payloads\x18\x02 \x01(\x0b\x32\x13.requests.KeepAlive\"#\n\tKeepAlive\x12\x16\n\x0evalue_should_2\x18\x01 \x01(\r\".\n\x15MetadataComplexValues\x12\x15\n\rfixed64_value\x18\x06 \x01(\x06\"Z\n\x0eMetadataValues\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\x12\x32\n\tmsg_value\x18\x02 \x01(\x0b\x32\x1f.requests.MetadataComplexValues\"I\n\x11MetadataKeyValues\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.requests.MetadataValues\";\n\x08Metadata\x12/\n\nkey_values\x18\x01 \x03(\x0b\x32\x1b.requests.MetadataKeyValuesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16requests/request.proto\x12\x08requests\".\n\x15MetadataComplexValues\x12\x15\n\rfixed64_value\x18\x06 \x01(\x06\"Z\n\x0eMetadataValues\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\x12\x32\n\tmsg_value\x18\x02 \x01(\x0b\x32\x1f.requests.MetadataComplexValues\"I\n\x11MetadataKeyValues\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.requests.MetadataValues\";\n\x08Metadata\x12/\n\nkey_values\x18\x01 \x03(\x0b\x32\x1b.requests.MetadataKeyValuesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'requests.request_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_KEEPALIVEREQUEST']._serialized_start=36
-  _globals['_KEEPALIVEREQUEST']._serialized_end=93
-  _globals['_KEEPALIVE']._serialized_start=95
-  _globals['_KEEPALIVE']._serialized_end=130
-  _globals['_METADATACOMPLEXVALUES']._serialized_start=132
-  _globals['_METADATACOMPLEXVALUES']._serialized_end=178
-  _globals['_METADATAVALUES']._serialized_start=180
-  _globals['_METADATAVALUES']._serialized_end=270
-  _globals['_METADATAKEYVALUES']._serialized_start=272
-  _globals['_METADATAKEYVALUES']._serialized_end=345
-  _globals['_METADATA']._serialized_start=347
-  _globals['_METADATA']._serialized_end=406
+  _globals['_METADATACOMPLEXVALUES']._serialized_start=36
+  _globals['_METADATACOMPLEXVALUES']._serialized_end=82
+  _globals['_METADATAVALUES']._serialized_start=84
+  _globals['_METADATAVALUES']._serialized_end=174
+  _globals['_METADATAKEYVALUES']._serialized_start=176
+  _globals['_METADATAKEYVALUES']._serialized_end=249
+  _globals['_METADATA']._serialized_start=251
+  _globals['_METADATA']._serialized_end=310
 # @@protoc_insertion_point(module_scope)

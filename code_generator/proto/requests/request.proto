@@ -2,14 +2,6 @@ syntax = "proto3";
 
 package requests;
 
-message KeepAliveRequest {
-  KeepAlive payloads = 2;
-}
-
-message KeepAlive {
-  uint32 value_should_2 = 1;
-}
-
 message MetadataComplexValues {
   fixed64 fixed64_value = 6;
 }

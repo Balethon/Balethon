@@ -12,10 +12,8 @@ try:
     import websockets
     from websockets.asyncio.client import ClientConnection, connect
     from websockets import (
-        ConnectionClosed,
         ConnectionClosedOK,
-        ConnectionClosedError,
-        InvalidHandshake
+        ConnectionClosedError
     )
 except ImportError:
     pass
@@ -78,9 +76,7 @@ class WSConnection:
         return f"{int(whole)}{int(frac * 1000)}"
 
     async def keep_alive(self):
-        return await self.send(requests.KeepAliveRequest(
-            payloads=requests.KeepAlive(value_should_2=2),
-        ))
+        return await self.send(ws.ClientPack(ping=ws.Ping(id=2)))
 
     async def start(self):
         extra_headers = {
@@ -134,14 +130,24 @@ class WSConnection:
                 continue
             except asyncio.CancelledError:
                 break
-            except ConnectionClosed as error:
-                self.error = ConnectionError(f"Connection closed while sending: {error}")
+            except ConnectionClosedOK:
+                self.is_started = False
+                break
+            except ConnectionClosedError as error:
+                code = error.rcvd.code if error.rcvd else None
+                reason = error.rcvd.reason if error.rcvd else None
+                if code == 4401:
+                    self.error = RPCError(code, description=reason)
+                else:
+                    self.error = ConnectionError(f"Connection closed by server (code={code}, reason={reason})")
+                self.is_started = False
                 break
             except Exception as error:
                 if not self.is_started:
                     break
                 self.error = error
-                continue
+                self.is_started = False
+                break
 
     @classmethod
     def is_update(cls, message):

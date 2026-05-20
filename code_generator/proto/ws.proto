@@ -8,6 +8,11 @@ import "requests/request.proto";
 
 message ClientPack {
   Request ws_request = 1;
+  Ping ping = 2;
+}
+
+message Ping {
+  int64 id = 1;
 }
 
 message Request {
