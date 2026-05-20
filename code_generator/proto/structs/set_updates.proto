@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package structs;
+
+import "updates/messaging.proto";
+
+message ComposedUpdates {
+  bytes message_sent = 4;
+  updates.Message message = 55;
+}

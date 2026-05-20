@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/collections.proto";
+
+message StartPhoneAuth {
+  int64 phone_number = 1;
+  int32 app_id = 2;
+  string api_key = 3;
+  string device_hash = 4;
+  string device_title = 5;
+  int32 send_code_type = 9;
+}
+
+message ValidateCode {
+  string transaction_hash = 1;
+  string code = 2;
+  structs.BoolValue is_jwt = 3;
+}
+
+message ValidatePassword {
+  string transaction_hash = 1;
+  string password = 2;
+  structs.BoolValue is_jwt = 3;
+}
+
+message SignUp {
+  string transaction_hash = 1;
+  string name = 2;
+  int32 sex = 3;
+  structs.StringValue password = 4;
+}
+
+message TerminateAllSessions {
+}

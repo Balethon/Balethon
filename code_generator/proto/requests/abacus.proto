@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/peers.proto";
+import "structs/messaging.proto";
+
+message GetMessageViews {
+  structs.Peer peer = 1;
+  repeated structs.MessageId mids = 2;
+  bool increment = 3;
+}
+
+message MessageSetReaction {
+  structs.Peer peer = 1;
+  int64 rid = 2;
+  string code = 3;
+  int64 date = 4;
+}

@@ -2,7 +2,7 @@ from ..structs import collections_pb2 as _collections_pb2
 from ..structs import files_pb2 as _files_pb2
 from ..structs import messaging_pb2 as _messaging_pb2
 from ..structs import peers_pb2 as _peers_pb2
-from ..enums import groups_pb2 as _groups_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -51,7 +51,7 @@ class FullGroup(_message.Message):
     avatar: _files_pb2.Avatar
     owner_uid: int
     create_date: int
-    group_type: _groups_pb2.GroupType
+    group_type: _enums_pb2.GroupType
     is_member: _collections_pb2.BoolValue
     members_count: _collections_pb2.Int32Value
     nick: _collections_pb2.StringValue
@@ -62,12 +62,12 @@ class FullGroup(_message.Message):
     members: _containers.RepeatedCompositeFieldContainer[Member]
     ex_info: _peers_pb2.ExInfo
     pin: _messaging_pb2.MessageContainer
-    restriction: _groups_pb2.Restriction
+    restriction: _enums_pb2.Restriction
     available_reactions: _containers.RepeatedScalarFieldContainer[str]
     is_suspend: _collections_pb2.BoolValue
     linked_group_peer_id: _collections_pb2.Int32Value
     discussion_group_enabled: _collections_pb2.BoolValue
-    def __init__(self, id: _Optional[int] = ..., title: _Optional[str] = ..., avatar: _Optional[_Union[_files_pb2.Avatar, _Mapping]] = ..., owner_uid: _Optional[int] = ..., create_date: _Optional[int] = ..., group_type: _Optional[_Union[_groups_pb2.GroupType, str]] = ..., is_member: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., members_count: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., nick: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., default_permissions: _Optional[_Union[Permissions, _Mapping]] = ..., theme: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., about: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., members: _Optional[_Iterable[_Union[Member, _Mapping]]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., pin: _Optional[_Union[_messaging_pb2.MessageContainer, _Mapping]] = ..., restriction: _Optional[_Union[_groups_pb2.Restriction, str]] = ..., available_reactions: _Optional[_Iterable[str]] = ..., is_suspend: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., linked_group_peer_id: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., discussion_group_enabled: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: _Optional[int] = ..., title: _Optional[str] = ..., avatar: _Optional[_Union[_files_pb2.Avatar, _Mapping]] = ..., owner_uid: _Optional[int] = ..., create_date: _Optional[int] = ..., group_type: _Optional[_Union[_enums_pb2.GroupType, str]] = ..., is_member: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., members_count: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., nick: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., permissions: _Optional[_Union[Permissions, _Mapping]] = ..., default_permissions: _Optional[_Union[Permissions, _Mapping]] = ..., theme: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., about: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., members: _Optional[_Iterable[_Union[Member, _Mapping]]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., pin: _Optional[_Union[_messaging_pb2.MessageContainer, _Mapping]] = ..., restriction: _Optional[_Union[_enums_pb2.Restriction, str]] = ..., available_reactions: _Optional[_Iterable[str]] = ..., is_suspend: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., linked_group_peer_id: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., discussion_group_enabled: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ...) -> None: ...
 
 class Permissions(_message.Message):
     __slots__ = ("see_message", "delete_message", "kick_user", "pin_message", "invite_user", "add_admin", "change_info", "send_message", "see_members", "edit_message", "send_media", "send_gif_stickers", "reply_to_story", "forward_message_from", "send_gift_packet", "start_call", "send_link_message", "send_forwarded_message", "add_story", "manage_call")

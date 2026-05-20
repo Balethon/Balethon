@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package structs;
 
-import "enums/peers.proto";
+import "enums.proto";
 
 message Peer {
   int32 type = 1;

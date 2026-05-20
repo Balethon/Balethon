@@ -22,26 +22,26 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from ..enums import peers_pb2 as enums_dot_peers__pb2
+from .. import enums_pb2 as enums__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/peers.proto\x12\x07structs\x1a\x11\x65nums/peers.proto\" \n\x04Peer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\"7\n\x06\x45xPeer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x03 \x01(\x03\"1\n\x06\x45xInfo\x12\'\n\x0c\x65x_peer_type\x18\x01 \x01(\x0e\x32\x11.enums.ExPeerType\"8\n\x07OutPeer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x03 \x01(\x03\"5\n\x0cGroupOutPeer\x12\x10\n\x08group_id\x18\x01 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"/\n\x0bUserOutPeer\x12\x0b\n\x03uid\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/peers.proto\x12\x07structs\x1a\x0b\x65nums.proto\" \n\x04Peer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\"7\n\x06\x45xPeer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x03 \x01(\x03\"1\n\x06\x45xInfo\x12\'\n\x0c\x65x_peer_type\x18\x01 \x01(\x0e\x32\x11.enums.ExPeerType\"8\n\x07OutPeer\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x03 \x01(\x03\"5\n\x0cGroupOutPeer\x12\x10\n\x08group_id\x18\x01 \x01(\x03\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\"/\n\x0bUserOutPeer\x12\x0b\n\x03uid\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'structs.peers_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_PEER']._serialized_start=51
-  _globals['_PEER']._serialized_end=83
-  _globals['_EXPEER']._serialized_start=85
-  _globals['_EXPEER']._serialized_end=140
-  _globals['_EXINFO']._serialized_start=142
-  _globals['_EXINFO']._serialized_end=191
-  _globals['_OUTPEER']._serialized_start=193
-  _globals['_OUTPEER']._serialized_end=249
-  _globals['_GROUPOUTPEER']._serialized_start=251
-  _globals['_GROUPOUTPEER']._serialized_end=304
-  _globals['_USEROUTPEER']._serialized_start=306
-  _globals['_USEROUTPEER']._serialized_end=353
+  _globals['_PEER']._serialized_start=45
+  _globals['_PEER']._serialized_end=77
+  _globals['_EXPEER']._serialized_start=79
+  _globals['_EXPEER']._serialized_end=134
+  _globals['_EXINFO']._serialized_start=136
+  _globals['_EXINFO']._serialized_end=185
+  _globals['_OUTPEER']._serialized_start=187
+  _globals['_OUTPEER']._serialized_end=243
+  _globals['_GROUPOUTPEER']._serialized_start=245
+  _globals['_GROUPOUTPEER']._serialized_end=298
+  _globals['_USEROUTPEER']._serialized_start=300
+  _globals['_USEROUTPEER']._serialized_end=347
 # @@protoc_insertion_point(module_scope)

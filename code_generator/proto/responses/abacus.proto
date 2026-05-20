@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package responses;
+
+import "structs/messaging.proto";
+
+message GetMessageViews {
+  repeated structs.MessagesViews containers = 1;
+}

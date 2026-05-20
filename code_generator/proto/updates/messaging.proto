@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package updates;
+
+import "structs/peers.proto";
+import "structs/messaging.proto";
+
+message Message {
+  structs.Peer peer = 1;
+  int32 sender_uid = 2;
+  int64 date = 3;
+  int64 rid = 4;
+  structs.Message message = 5;
+  structs.QuotedMessage quoted_message = 7;
+  structs.MessageId previous_message_id = 9;
+}

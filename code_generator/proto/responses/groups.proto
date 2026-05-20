@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package responses;
+
+import "structs/groups.proto";
+import "structs/files.proto";
+import "structs/peers.proto";
+
+message GetGroupPreview {
+  structs.FullGroup group = 1;
+  int32 action = 2;
+}
+
+message LoadGroupAvatars {
+  structs.Avatars avatars = 1;
+}
+
+message JoinGroup {
+  structs.Group group = 1;
+  int32 seq = 2;
+}
+
+message JoinPublicGroup {
+  structs.Group group = 1;
+  int32 seq = 2;
+}
+
+message GetFullGroup {
+  structs.FullGroup full_group = 1;
+}
+
+message GetGroupMembersCount {
+  int32 members_count = 1;
+}
+
+message InviteUsers {
+  repeated structs.UserOutPeer not_added_user_peers = 1;
+}
+
+message LoadMembers {
+  repeated structs.Member members = 1;
+  bytes next = 2;
+}
+
+message GetGroupInviteUrl {
+  string url = 1;
+}
+
+message RevokeInviteUrl {
+  string url = 1;
+}
+
+message EditGroupAvatar {
+  structs.Avatar avatar = 1;
+  int32 seq = 2;
+  bytes state = 3;
+  int64 date = 4;
+}

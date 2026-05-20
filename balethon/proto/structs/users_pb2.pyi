@@ -1,7 +1,7 @@
 from ..structs import collections_pb2 as _collections_pb2
 from ..structs import files_pb2 as _files_pb2
 from ..structs import peers_pb2 as _peers_pb2
-from ..enums import users_pb2 as _users_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from collections.abc import Mapping as _Mapping
@@ -111,7 +111,7 @@ class User(_message.Message):
     access_hash: int
     name: str
     local_name: _collections_pb2.StringValue
-    sex: _users_pb2.Sex
+    sex: _enums_pb2.Sex
     avatar: _files_pb2.Avatar
     is_bot: _collections_pb2.BoolValue
     nick: _collections_pb2.StringValue
@@ -119,4 +119,4 @@ class User(_message.Message):
     created_at: _collections_pb2.Int64Value
     ex_info: _peers_pb2.ExInfo
     bot_ex_info: BotExInfo
-    def __init__(self, id: _Optional[int] = ..., access_hash: _Optional[int] = ..., name: _Optional[str] = ..., local_name: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., sex: _Optional[_Union[_users_pb2.Sex, str]] = ..., avatar: _Optional[_Union[_files_pb2.Avatar, _Mapping]] = ..., is_bot: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., nick: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., is_deleted: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., created_at: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., bot_ex_info: _Optional[_Union[BotExInfo, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: _Optional[int] = ..., access_hash: _Optional[int] = ..., name: _Optional[str] = ..., local_name: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., sex: _Optional[_Union[_enums_pb2.Sex, str]] = ..., avatar: _Optional[_Union[_files_pb2.Avatar, _Mapping]] = ..., is_bot: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., nick: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., is_deleted: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., created_at: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., bot_ex_info: _Optional[_Union[BotExInfo, _Mapping]] = ...) -> None: ...

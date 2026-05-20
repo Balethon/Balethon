@@ -17,7 +17,7 @@ except ImportError:
 
 from ..errors import RPCError
 try:
-    from balethon.proto import requests, responses
+    from balethon.proto import requests, ws
 except ImportError:
     pass
 
@@ -263,12 +263,12 @@ class WSConnection:
     @classmethod
     def is_update(cls, message):
         deserialized_message = cls.deserialize_message(message)
-        return isinstance(deserialized_message, responses.WsUpdate)
+        return isinstance(deserialized_message, ws.Update)
 
     @classmethod
     def is_response(cls, message):
         deserialized_message = cls.deserialize_message(message)
-        return isinstance(deserialized_message, responses.WsResponse)
+        return isinstance(deserialized_message, ws.Response)
 
     async def recv_loop(self):
         while self.is_started:
@@ -298,12 +298,12 @@ class WSConnection:
     @staticmethod
     def deserialize_message(message):
         if isinstance(message, bytes):
-            response = responses.Response()
+            response = ws.ServerPack()
             response.ParseFromString(message)
-            if str(response.ws_update):
-                message = response.ws_update
-            elif str(response.ws_response):
-                message = response.ws_response
+            if str(response.update):
+                message = response.update
+            elif str(response.response):
+                message = response.response
         return message
 
     async def send(self, message):
@@ -328,7 +328,7 @@ class WSConnection:
                     if deserialized_response.index == index:
                         self.responses.remove(response)
                         result = deserialized_response.response or deserialized_response.error
-                        if isinstance(result, responses.WsError):
+                        if isinstance(result, ws.Error):
                             raise RPCError(code=result.code, description=result.message, reason=None)
                         return result
 
@@ -377,8 +377,8 @@ class WSConnection:
         )
 
     def build_request(self, service_name: str, method: str, payload: "Message"):
-        request = requests.Request(
-            ws_request=requests.WsRequest(
+        request = ws.ClientPack(
+            ws_request=ws.Request(
                 service_name=service_name,
                 method=method,
                 payload=payload.SerializeToString(),

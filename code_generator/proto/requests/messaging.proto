@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/peers.proto";
+import "structs/messaging.proto";
+
+message SendMessage {
+  structs.Peer peer = 1;
+  int64 rid = 2;
+  structs.Message message = 3;
+  structs.Peer ex_peer = 6;
+}
+
+message UpdateMessage {
+  structs.Peer peer = 1;
+  int64 rid = 2;
+  structs.Message updated_message = 3;
+}
+
+message DeleteMessage {
+  structs.Peer peer = 1;
+  repeated int64 rids = 2;
+  structs.DeleteDates dates = 3;
+  bool just_mine = 4;
+}
+
+message ForwardMessages {
+  structs.Peer peer = 1;
+  repeated int64 rid = 2;
+  repeated structs.HistoryMessageIdentifier forwarded_messages = 3;
+}
+
+message LoadHistory {
+  structs.Peer peer = 1;
+  int64 date = 2;
+  int32 load_mode = 4;
+  int32 limit = 5;
+  repeated int32 optimizations = 6;
+}
+
+message PinMessages {
+  structs.Peer peer = 1;
+  structs.MessageId message_id = 2;
+  bool just_mine = 3;
+}
+
+message UnPinMessages {
+  structs.ExPeer peer = 1;
+  repeated structs.MessageId message_ids = 2;
+  bool all = 3;
+}
+
+message LoadPinnedMessages {
+  structs.ExPeer peer = 1;
+}
+
+message SendMultiMediaMessage {
+  structs.ExPeer peer = 1;
+  repeated structs.SingleMedia multi_media = 2;
+  //structs.MessageOutReference replied_message = 3;
+  uint64 grouped_id = 4;
+}
+
+message LoadDialogs {
+  int64 min_date = 1;
+  int32 limit = 2;
+  repeated int32 optimizations = 3;
+  int32 dialog_type = 4;
+  bool exclude_pinned_dialogs = 5;
+  int32 archive_filter = 6;
+}

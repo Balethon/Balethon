@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/peers.proto";
+
+message EditName {
+  string name = 1;
+}
+
+message LoadUsers {
+  repeated structs.UserOutPeer user_peers = 1;
+}
+
+message LoadFullUsers {
+  repeated structs.UserOutPeer user_peers = 1;
+}
+
+message SearchContacts {
+  string request = 1;
+  repeated int32 optimizations = 2;
+}

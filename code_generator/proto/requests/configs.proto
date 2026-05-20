@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/collections.proto";
+
+message EditParameter {
+  string key = 1;
+  structs.StringValue value = 2;
+}

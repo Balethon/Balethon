@@ -1,4 +1,4 @@
-from ..enums import peers_pb2 as _peers_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
@@ -26,8 +26,8 @@ class ExPeer(_message.Message):
 class ExInfo(_message.Message):
     __slots__ = ("ex_peer_type",)
     EX_PEER_TYPE_FIELD_NUMBER: _ClassVar[int]
-    ex_peer_type: _peers_pb2.ExPeerType
-    def __init__(self, ex_peer_type: _Optional[_Union[_peers_pb2.ExPeerType, str]] = ...) -> None: ...
+    ex_peer_type: _enums_pb2.ExPeerType
+    def __init__(self, ex_peer_type: _Optional[_Union[_enums_pb2.ExPeerType, str]] = ...) -> None: ...
 
 class OutPeer(_message.Message):
     __slots__ = ("type", "id", "access_hash")

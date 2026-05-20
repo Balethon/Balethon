@@ -6,7 +6,7 @@ import "structs/collections.proto";
 import "structs/files.proto";
 import "structs/messaging.proto";
 import "structs/peers.proto";
-import "enums/groups.proto";
+import "enums.proto";
 
 message Group {
   int32 id = 1;

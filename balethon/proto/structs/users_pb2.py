@@ -25,30 +25,30 @@ _sym_db = _symbol_database.Default()
 from ..structs import collections_pb2 as structs_dot_collections__pb2
 from ..structs import files_pb2 as structs_dot_files__pb2
 from ..structs import peers_pb2 as structs_dot_peers__pb2
-from ..enums import users_pb2 as enums_dot_users__pb2
+from .. import enums_pb2 as enums__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/users.proto\x12\x07structs\x1a\x19structs/collections.proto\x1a\x13structs/files.proto\x1a\x13structs/peers.proto\x1a\x11\x65nums/users.proto\"N\n\nIntroPhoto\x12!\n\x05thumb\x18\x01 \x01(\x0b\x32\x12.structs.FastThumb\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"L\n\x08IntroGif\x12!\n\x05thumb\x18\x01 \x01(\x0b\x32\x12.structs.FastThumb\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"g\n\x08MediaExt\x12&\n\tintro_gif\x18\x01 \x01(\x0b\x32\x11.structs.IntroGifH\x00\x12*\n\x0bintro_photo\x18\x02 \x01(\x0b\x32\x13.structs.IntroPhotoH\x00\x42\x07\n\x05trait\"\x9b\x01\n\nIntroMedia\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\x11\n\tfile_size\x18\x02 \x01(\x05\x12\x11\n\tmime_type\x18\x03 \x01(\t\x12\x11\n\tfile_name\x18\x04 \x01(\t\x12&\n\x0bmedia_extra\x18\x05 \x01(\x0b\x32\x11.structs.MediaExt\"V\n\x0cIntroMessage\x12\"\n\x04text\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12\"\n\x05media\x18\x02 \x01(\x0b\x32\x13.structs.IntroMedia\"\xd4\x01\n\x05Intro\x12\"\n\x04text\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12,\n\rfile_location\x18\x02 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0e\n\x06height\x18\x04 \x01(\x05\x12\x11\n\tfile_size\x18\x05 \x01(\x05\x12\x11\n\tmime_type\x18\x06 \x01(\t\x12\x11\n\tfile_name\x18\x07 \x01(\t\x12!\n\x05thumb\x18\x08 \x01(\x0b\x32\x12.structs.FastThumb\"\xe7\x01\n\tBotExInfo\x12.\n\x10\x62ot_active_users\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12-\n\x11has_main_mini_app\x18\x02 \x01(\x0b\x32\x12.structs.BoolValue\x12\x1d\n\x05intro\x18\x03 \x01(\x0b\x32\x0e.structs.Intro\x12,\n\rintro_message\x18\x04 \x01(\x0b\x32\x15.structs.IntroMessage\x12.\n\x12has_timche_profile\x18\x05 \x01(\x0b\x32\x12.structs.BoolValue\"\xfd\x02\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12(\n\nlocal_name\x18\x04 \x01(\x0b\x32\x14.structs.StringValue\x12\x17\n\x03sex\x18\x05 \x01(\x0e\x32\n.enums.Sex\x12\x1f\n\x06\x61vatar\x18\x06 \x01(\x0b\x32\x0f.structs.Avatar\x12\"\n\x06is_bot\x18\x07 \x01(\x0b\x32\x12.structs.BoolValue\x12\"\n\x04nick\x18\t \x01(\x0b\x32\x14.structs.StringValue\x12&\n\nis_deleted\x18\x10 \x01(\x0b\x32\x12.structs.BoolValue\x12\'\n\ncreated_at\x18\x13 \x01(\x0b\x32\x13.structs.Int64Value\x12 \n\x07\x65x_info\x18\x14 \x01(\x0b\x32\x0f.structs.ExInfo\x12\'\n\x0b\x62ot_ex_info\x18\x15 \x01(\x0b\x32\x12.structs.BotExInfob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/users.proto\x12\x07structs\x1a\x19structs/collections.proto\x1a\x13structs/files.proto\x1a\x13structs/peers.proto\x1a\x0b\x65nums.proto\"N\n\nIntroPhoto\x12!\n\x05thumb\x18\x01 \x01(\x0b\x32\x12.structs.FastThumb\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"L\n\x08IntroGif\x12!\n\x05thumb\x18\x01 \x01(\x0b\x32\x12.structs.FastThumb\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"g\n\x08MediaExt\x12&\n\tintro_gif\x18\x01 \x01(\x0b\x32\x11.structs.IntroGifH\x00\x12*\n\x0bintro_photo\x18\x02 \x01(\x0b\x32\x13.structs.IntroPhotoH\x00\x42\x07\n\x05trait\"\x9b\x01\n\nIntroMedia\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\x11\n\tfile_size\x18\x02 \x01(\x05\x12\x11\n\tmime_type\x18\x03 \x01(\t\x12\x11\n\tfile_name\x18\x04 \x01(\t\x12&\n\x0bmedia_extra\x18\x05 \x01(\x0b\x32\x11.structs.MediaExt\"V\n\x0cIntroMessage\x12\"\n\x04text\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12\"\n\x05media\x18\x02 \x01(\x0b\x32\x13.structs.IntroMedia\"\xd4\x01\n\x05Intro\x12\"\n\x04text\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12,\n\rfile_location\x18\x02 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0e\n\x06height\x18\x04 \x01(\x05\x12\x11\n\tfile_size\x18\x05 \x01(\x05\x12\x11\n\tmime_type\x18\x06 \x01(\t\x12\x11\n\tfile_name\x18\x07 \x01(\t\x12!\n\x05thumb\x18\x08 \x01(\x0b\x32\x12.structs.FastThumb\"\xe7\x01\n\tBotExInfo\x12.\n\x10\x62ot_active_users\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12-\n\x11has_main_mini_app\x18\x02 \x01(\x0b\x32\x12.structs.BoolValue\x12\x1d\n\x05intro\x18\x03 \x01(\x0b\x32\x0e.structs.Intro\x12,\n\rintro_message\x18\x04 \x01(\x0b\x32\x15.structs.IntroMessage\x12.\n\x12has_timche_profile\x18\x05 \x01(\x0b\x32\x12.structs.BoolValue\"\xfd\x02\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12(\n\nlocal_name\x18\x04 \x01(\x0b\x32\x14.structs.StringValue\x12\x17\n\x03sex\x18\x05 \x01(\x0e\x32\n.enums.Sex\x12\x1f\n\x06\x61vatar\x18\x06 \x01(\x0b\x32\x0f.structs.Avatar\x12\"\n\x06is_bot\x18\x07 \x01(\x0b\x32\x12.structs.BoolValue\x12\"\n\x04nick\x18\t \x01(\x0b\x32\x14.structs.StringValue\x12&\n\nis_deleted\x18\x10 \x01(\x0b\x32\x12.structs.BoolValue\x12\'\n\ncreated_at\x18\x13 \x01(\x0b\x32\x13.structs.Int64Value\x12 \n\x07\x65x_info\x18\x14 \x01(\x0b\x32\x0f.structs.ExInfo\x12\'\n\x0b\x62ot_ex_info\x18\x15 \x01(\x0b\x32\x12.structs.BotExInfob\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'structs.users_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_INTROPHOTO']._serialized_start=120
-  _globals['_INTROPHOTO']._serialized_end=198
-  _globals['_INTROGIF']._serialized_start=200
-  _globals['_INTROGIF']._serialized_end=276
-  _globals['_MEDIAEXT']._serialized_start=278
-  _globals['_MEDIAEXT']._serialized_end=381
-  _globals['_INTROMEDIA']._serialized_start=384
-  _globals['_INTROMEDIA']._serialized_end=539
-  _globals['_INTROMESSAGE']._serialized_start=541
-  _globals['_INTROMESSAGE']._serialized_end=627
-  _globals['_INTRO']._serialized_start=630
-  _globals['_INTRO']._serialized_end=842
-  _globals['_BOTEXINFO']._serialized_start=845
-  _globals['_BOTEXINFO']._serialized_end=1076
-  _globals['_USER']._serialized_start=1079
-  _globals['_USER']._serialized_end=1460
+  _globals['_INTROPHOTO']._serialized_start=114
+  _globals['_INTROPHOTO']._serialized_end=192
+  _globals['_INTROGIF']._serialized_start=194
+  _globals['_INTROGIF']._serialized_end=270
+  _globals['_MEDIAEXT']._serialized_start=272
+  _globals['_MEDIAEXT']._serialized_end=375
+  _globals['_INTROMEDIA']._serialized_start=378
+  _globals['_INTROMEDIA']._serialized_end=533
+  _globals['_INTROMESSAGE']._serialized_start=535
+  _globals['_INTROMESSAGE']._serialized_end=621
+  _globals['_INTRO']._serialized_start=624
+  _globals['_INTRO']._serialized_end=836
+  _globals['_BOTEXINFO']._serialized_start=839
+  _globals['_BOTEXINFO']._serialized_end=1070
+  _globals['_USER']._serialized_start=1073
+  _globals['_USER']._serialized_end=1454
 # @@protoc_insertion_point(module_scope)

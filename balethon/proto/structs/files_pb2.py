@@ -23,30 +23,30 @@ _sym_db = _symbol_database.Default()
 
 
 from ..structs import collections_pb2 as structs_dot_collections__pb2
-from ..enums import files_pb2 as enums_dot_files__pb2
+from .. import enums_pb2 as enums__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/files.proto\x12\x07structs\x1a\x19structs/collections.proto\x1a\x11\x65nums/files.proto\"0\n\tFastThumb\x12\t\n\x01w\x18\x01 \x01(\x05\x12\t\n\x01h\x18\x02 \x01(\x05\x12\r\n\x05thumb\x18\x03 \x01(\x0c\"o\n\rImageLocation\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x11\n\tfile_size\x18\x04 \x01(\x05\"g\n\x0c\x46ileLocation\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x12\x31\n\x14\x66ile_storage_version\x18\x03 \x01(\x0b\x32\x13.structs.Int32Value\"m\n\x0b\x41vatarImage\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x11\n\tfile_size\x18\x04 \x01(\x05\"\xcc\x01\n\x06\x41vatar\x12)\n\x0bsmall_image\x18\x01 \x01(\x0b\x32\x14.structs.AvatarImage\x12)\n\x0blarge_image\x18\x02 \x01(\x0b\x32\x14.structs.AvatarImage\x12(\n\nfull_image\x18\x03 \x01(\x0b\x32\x14.structs.AvatarImage\x12\x1f\n\x02id\x18\x04 \x01(\x0b\x32\x13.structs.Int64Value\x12!\n\x04\x64\x61te\x18\x05 \x01(\x0b\x32\x13.structs.Int64Value\".\n\rSendTypeValue\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.enums.SendType\"+\n\x07\x41vatars\x12 \n\x07\x61vatars\x18\x01 \x03(\x0b\x32\x0f.structs.Avatar\"\x82\x01\n\x12\x46ileUrlDescription\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x0f\n\x07timeout\x18\x03 \x01(\x05\x12\x14\n\x0cunsigned_url\x18\x06 \x01(\t\x12\'\n\nchunk_size\x18\x07 \x01(\x0b\x32\x13.structs.Int32Valueb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13structs/files.proto\x12\x07structs\x1a\x19structs/collections.proto\x1a\x0b\x65nums.proto\"0\n\tFastThumb\x12\t\n\x01w\x18\x01 \x01(\x05\x12\t\n\x01h\x18\x02 \x01(\x05\x12\r\n\x05thumb\x18\x03 \x01(\x0c\"o\n\rImageLocation\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x11\n\tfile_size\x18\x04 \x01(\x05\"g\n\x0c\x46ileLocation\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x61\x63\x63\x65ss_hash\x18\x02 \x01(\x03\x12\x31\n\x14\x66ile_storage_version\x18\x03 \x01(\x0b\x32\x13.structs.Int32Value\"m\n\x0b\x41vatarImage\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\x12\x11\n\tfile_size\x18\x04 \x01(\x05\"\xcc\x01\n\x06\x41vatar\x12)\n\x0bsmall_image\x18\x01 \x01(\x0b\x32\x14.structs.AvatarImage\x12)\n\x0blarge_image\x18\x02 \x01(\x0b\x32\x14.structs.AvatarImage\x12(\n\nfull_image\x18\x03 \x01(\x0b\x32\x14.structs.AvatarImage\x12\x1f\n\x02id\x18\x04 \x01(\x0b\x32\x13.structs.Int64Value\x12!\n\x04\x64\x61te\x18\x05 \x01(\x0b\x32\x13.structs.Int64Value\".\n\rSendTypeValue\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.enums.SendType\"+\n\x07\x41vatars\x12 \n\x07\x61vatars\x18\x01 \x03(\x0b\x32\x0f.structs.Avatar\"\x82\x01\n\x12\x46ileUrlDescription\x12\x0f\n\x07\x66ile_id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x0f\n\x07timeout\x18\x03 \x01(\x05\x12\x14\n\x0cunsigned_url\x18\x06 \x01(\t\x12\'\n\nchunk_size\x18\x07 \x01(\x0b\x32\x13.structs.Int32Valueb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'structs.files_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_FASTTHUMB']._serialized_start=78
-  _globals['_FASTTHUMB']._serialized_end=126
-  _globals['_IMAGELOCATION']._serialized_start=128
-  _globals['_IMAGELOCATION']._serialized_end=239
-  _globals['_FILELOCATION']._serialized_start=241
-  _globals['_FILELOCATION']._serialized_end=344
-  _globals['_AVATARIMAGE']._serialized_start=346
-  _globals['_AVATARIMAGE']._serialized_end=455
-  _globals['_AVATAR']._serialized_start=458
-  _globals['_AVATAR']._serialized_end=662
-  _globals['_SENDTYPEVALUE']._serialized_start=664
-  _globals['_SENDTYPEVALUE']._serialized_end=710
-  _globals['_AVATARS']._serialized_start=712
-  _globals['_AVATARS']._serialized_end=755
-  _globals['_FILEURLDESCRIPTION']._serialized_start=758
-  _globals['_FILEURLDESCRIPTION']._serialized_end=888
+  _globals['_FASTTHUMB']._serialized_start=72
+  _globals['_FASTTHUMB']._serialized_end=120
+  _globals['_IMAGELOCATION']._serialized_start=122
+  _globals['_IMAGELOCATION']._serialized_end=233
+  _globals['_FILELOCATION']._serialized_start=235
+  _globals['_FILELOCATION']._serialized_end=338
+  _globals['_AVATARIMAGE']._serialized_start=340
+  _globals['_AVATARIMAGE']._serialized_end=449
+  _globals['_AVATAR']._serialized_start=452
+  _globals['_AVATAR']._serialized_end=656
+  _globals['_SENDTYPEVALUE']._serialized_start=658
+  _globals['_SENDTYPEVALUE']._serialized_end=704
+  _globals['_AVATARS']._serialized_start=706
+  _globals['_AVATARS']._serialized_end=749
+  _globals['_FILEURLDESCRIPTION']._serialized_start=752
+  _globals['_FILEURLDESCRIPTION']._serialized_end=882
 # @@protoc_insertion_point(module_scope)

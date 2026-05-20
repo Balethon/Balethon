@@ -4,7 +4,7 @@ from datetime import datetime
 import balethon
 from ...objects import Message, List as BalethonList
 try:
-    from balethon.proto import requests, structs, responses
+    from balethon.proto import requests, structs, updates
 except ImportError:
     pass
 
@@ -35,7 +35,7 @@ class GetChatHistory:
         for message_container in response.history:
             fields = [field.name for field in message_container.DESCRIPTOR.fields]
             data = {field: getattr(message_container, field) for field in fields}
-            update_message = responses.UpdateMessage(peer=peer, **data)
+            update_message = updates.Message(peer=peer, **data)
             message = Message.from_protobuf(update_message)
             history.append(message)
         return history

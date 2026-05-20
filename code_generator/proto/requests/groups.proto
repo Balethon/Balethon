@@ -1,0 +1,131 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/peers.proto";
+import "structs/files.proto";
+import "structs/collections.proto";
+import "structs/groups.proto";
+
+message JoinGroup {
+  string token = 1;
+  repeated int32 optimizations = 2;
+}
+
+message JoinPublicGroup {
+  structs.Peer peer = 1;
+  repeated int32 optimizations = 2;
+}
+
+message LeaveGroup {
+  structs.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  repeated int32 optimizations = 3;
+  bool make_orphan = 4;
+}
+
+message GetFullGroup {
+  structs.GroupOutPeer peer = 1;
+}
+
+message PinMessage {
+  int32 sender_user_id = 1;
+  structs.GroupOutPeer group_peer = 2;
+  int64 date = 3;
+  int64 msg_rid = 4;
+}
+
+message EditGroupAvatar {
+  structs.GroupOutPeer group_peer = 1;
+  structs.FileLocation file_location = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}
+
+message LoadGroupAvatars {
+  structs.GroupOutPeer peer = 1;
+}
+
+message RemoveGroupAvatar {
+  structs.GroupOutPeer group_peer = 1;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+  structs.Int64Value avatar_id = 6;
+}
+
+message EditGroupTitle {
+  structs.GroupOutPeer group_peer = 1;
+  string title = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}
+
+message EditGroupAbout {
+  structs.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  string about = 3;
+  repeated int32 optimizations = 5;
+}
+
+message RevokeInviteUrl {
+  structs.GroupOutPeer group_peer = 1;
+}
+
+message UnBanUser {
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user = 2;
+  repeated int32 optimizations = 3;
+}
+
+message KickUser {
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user = 3;
+  int64 rid = 4;
+  repeated int32 optimizations = 5;
+}
+
+message GetGroupInviteUrl {
+  structs.GroupOutPeer group_peer = 1;
+}
+
+message InviteUsers {
+  structs.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  repeated structs.UserOutPeer users = 3;
+}
+
+message SetMemberPermissions {
+  structs.GroupOutPeer group = 1;
+  structs.UserOutPeer user = 2;
+  structs.Permissions permissions = 3;
+}
+
+message LoadMembers {
+  structs.GroupOutPeer group = 1;
+  int32 limit = 2;
+  bytes next = 3;
+  structs.LoadMembersCondition condition = 4;
+}
+
+message GetGroupMembersCount {
+  structs.GroupOutPeer group = 1;
+}
+
+message RemoveSinglePin {
+  structs.GroupOutPeer group_peer = 1;
+  int64 rid = 2;
+  int64 date = 3;
+}
+
+message RemovePin {
+  structs.GroupOutPeer group_peer = 1;
+}
+
+message RemoveUserAdmin {
+  structs.GroupOutPeer group_peer = 1;
+  structs.UserOutPeer user_peer = 2;
+}
+
+message GetGroupPreview {
+  string token = 1;
+}

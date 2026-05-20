@@ -3,7 +3,7 @@ syntax = "proto3";
 package structs;
 
 import "structs/collections.proto";
-import "enums/files.proto";
+import "enums.proto";
 
 message FastThumb {
   int32 w = 1;

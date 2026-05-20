@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package requests;
+
+import "structs/peers.proto";
+import "enums.proto";
+
+message SetOnline {
+  uint32 is_online = 1;
+  uint32 duration = 2;
+}
+
+message Typing {
+  structs.OutPeer peer = 1;
+  enums.TypingType typing_type = 3;
+}

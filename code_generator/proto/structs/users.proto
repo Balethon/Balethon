@@ -5,7 +5,7 @@ package structs;
 import "structs/collections.proto";
 import "structs/files.proto";
 import "structs/peers.proto";
-import "enums/users.proto";
+import "enums.proto";
 
 message IntroPhoto {
   FastThumb thumb = 1;

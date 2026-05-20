@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package responses;
+
+import "structs/users.proto";
+import "structs/peers.proto";
+import "structs/groups.proto";
+
+message LoadUsers {
+  repeated structs.User users = 1;
+}
+
+message SearchContacts {
+  repeated structs.User users = 1;
+  repeated structs.UserOutPeer user_peers = 2;
+  repeated structs.Group groups = 4;
+  repeated structs.GroupOutPeer group_peers = 5;
+}

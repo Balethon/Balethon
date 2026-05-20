@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package enums;
-
-enum Sex {
-  SEX_UNKNOWN = 0;
-  SEX_MALE = 1;
-  SEX_FEMALE = 2;
-}

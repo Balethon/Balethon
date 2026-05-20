@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package ws;
+
+import "structs/collections.proto";
+import "structs/set_updates.proto";
+import "requests/request.proto";
+
+message ClientPack {
+  Request ws_request = 1;
+}
+
+message Request {
+  string service_name = 1;
+  string method = 2;
+  bytes payload = 3;
+  requests.Metadata metadata = 4;
+  int64 index = 5;
+}
+
+message Response {
+  Error error = 1;
+  bytes response = 2;
+  int64 index = 3;
+}
+
+message Error {
+  int32 code = 1;
+  string message = 2;
+  structs.MapValue details = 3;
+}
+
+message Update {
+  Event update = 1;
+}
+
+message ServerPack {
+  Response response = 1;
+  Update update = 2;
+}
+
+message Event {
+  structs.ComposedUpdates composed_update = 1;
+}

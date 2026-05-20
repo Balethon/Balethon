@@ -1,5 +1,5 @@
 from ..structs import collections_pb2 as _collections_pb2
-from ..enums import files_pb2 as _files_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -69,8 +69,8 @@ class Avatar(_message.Message):
 class SendTypeValue(_message.Message):
     __slots__ = ("type",)
     TYPE_FIELD_NUMBER: _ClassVar[int]
-    type: _files_pb2.SendType
-    def __init__(self, type: _Optional[_Union[_files_pb2.SendType, str]] = ...) -> None: ...
+    type: _enums_pb2.SendType
+    def __init__(self, type: _Optional[_Union[_enums_pb2.SendType, str]] = ...) -> None: ...
 
 class Avatars(_message.Message):
     __slots__ = ("avatars",)
