@@ -19,7 +19,7 @@ classifiers = [
 dependencies = ["httpx==0.28.1"]
 
 [project.optional-dependencies]
-userbots = ["protobuf==6.33.6", "httpx[http2]==0.28.1"]
+userbots = ["protobuf==6.33.6", "httpx[http2]==0.28.1", "websockets==16.0"]
 dev = ["grpcio-tools==1.80.0"]
 
 [tool.setuptools.dynamic]
