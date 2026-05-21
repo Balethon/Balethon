@@ -43,3 +43,5 @@ from .list import List
 from .web_app_data import WebAppData
 from .web_app_info import WebAppInfo
 from .copy_text_button import CopyTextButton
+from .poll import Poll
+from .poll_option import PollOption

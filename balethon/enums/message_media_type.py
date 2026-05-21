@@ -13,3 +13,4 @@ class MessageMediaType(NameEnum):
     LOCATION = auto()
     STICKER = auto()
     DOCUMENT = auto()
+    POLL = auto()
