@@ -9,7 +9,6 @@ try:
 except ImportError:
     pass
 try:
-    import websockets
     from websockets.asyncio.client import ClientConnection, connect
     from websockets import (
         ConnectionClosedOK,
@@ -29,7 +28,7 @@ class WSConnection:
     TIMEOUT = 20
     WEBSOCKET_URI = "wss://next-ws.bale.ai/ws/"
     ORIGIN = "https://web.bale.ai"
-    APP_VERSION = 86550
+    APP_VERSION = "86550"
     BROWSER_TYPE = "1"
     BROWSER_VERSION = 3471765337684194354
     OS_TYPE = "3"
@@ -40,7 +39,7 @@ class WSConnection:
             timeout: int = None,
             websocket_uri: str = None,
             origin: str = None,
-            app_version: int = None,
+            app_version: str = None,
             browser_type: str = None,
             browser_version: int = None,
             os_type: str = None
@@ -57,12 +56,12 @@ class WSConnection:
         self.is_started = False
         self.send_queue = asyncio.Queue()
         self.recv_queue = asyncio.Queue()
-        self.responses = []
+        self.pending: dict[int, asyncio.Future] = {}
+        self.pending_lock = asyncio.Lock()
         self.session_id: Optional[str] = None
         self.index = 1
         self.send_task = None
         self.recv_task = None
-        self.response_lock = asyncio.Lock()
         self.error = None
 
     @staticmethod
@@ -166,8 +165,11 @@ class WSConnection:
                 if self.is_update(raw):
                     await self.recv_queue.put(raw)
                 if self.is_response(raw):
-                    async with self.response_lock:
-                        self.responses.append(raw)
+                    response = self.deserialize_message(raw)
+                    async with self.pending_lock:
+                        future = self.pending.pop(response.index, None)
+                    if future and not future.done():
+                        future.set_result(raw)
             except ConnectionClosedOK:
                 self.is_started = False
                 break
@@ -216,23 +218,23 @@ class WSConnection:
         return self.deserialize_message(message)
 
     async def wait_for_response(self, index: int):
-        deadline = asyncio.get_event_loop().time() + self.timeout
+        if self.error is not None:
+            raise self.error
 
-        while True:
-            if self.error is not None:
-                raise self.error
+        future = asyncio.get_running_loop().create_future()
+        async with self.pending_lock:
+            self.pending[index] = future
 
-            async with self.response_lock:
-                for raw in self.responses:
-                    response = self.deserialize_message(raw)
-                    if response.index == index:
-                        self.responses.remove(raw)
-                        return response.error if response.HasField("error") else response.response
+        try:
+            raw = await asyncio.wait_for(future, timeout=self.timeout)
 
-            if asyncio.get_event_loop().time() >= deadline:
-                raise asyncio.TimeoutError(f"Response with index {index} not received within {self.timeout}s")
+        except asyncio.TimeoutError:
+            async with self.pending_lock:
+                self.pending.pop(index, None)
+            raise
 
-            await asyncio.sleep(0.1)
+        response = self.deserialize_message(raw)
+        return response.error if response.HasField("error") else response.response
 
     def build_request_metadata(self):
         return requests.Metadata(
@@ -240,13 +242,13 @@ class WSConnection:
                 requests.MetadataKeyValues(
                     key="app_version",
                     value=requests.MetadataValues(
-                        string_value=str(self.app_version),
+                        string_value=self.app_version,
                     )
                 ),
                 requests.MetadataKeyValues(
                     key="browser_type",
                     value=requests.MetadataValues(
-                        string_value=str(self.browser_type),
+                        string_value=self.browser_type,
                     )
                 ),
                 requests.MetadataKeyValues(
