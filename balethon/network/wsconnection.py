@@ -227,10 +227,7 @@ class WSConnection:
                     response = self.deserialize_message(raw)
                     if response.index == index:
                         self.responses.remove(raw)
-                        result = response.response or response.error
-                        if isinstance(result, ws.Error):
-                            raise RPCError(code=result.code, description=result.message, reason=None)
-                        return result
+                        return response.error if response.HasField("error") else response.response
 
             if asyncio.get_event_loop().time() >= deadline:
                 raise asyncio.TimeoutError(f"Response with index {index} not received within {self.timeout}s")
@@ -294,4 +291,7 @@ class WSConnection:
         message = await self.send(request)
         if not wait_for_response:
             return message
-        return await self.wait_for_response(request_index)
+        result = await self.wait_for_response(request_index)
+        if isinstance(result, ws.Error):
+            raise RPCError(code=result.code, description=result.message, reason=f"{service_name}/{method}")
+        return result
