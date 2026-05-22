@@ -8,6 +8,10 @@ from ..sync_support import add_sync_support_to_object
 @add_sync_support_to_object
 class User(Object):
 
+    @classmethod
+    def from_protobuf(cls, id: int):
+        return cls(id=id)
+
     def __init__(
             self,
             id: int = None,

@@ -1,7 +1,16 @@
-from typing import List, Union, BinaryIO
+from typing import BinaryIO, List, Union
 
-from . import Object
 from balethon import objects
+from . import Object
+from .audio import Audio
+from .chat import Chat
+from .date import Date
+from .document import Document
+from .photo import Photo
+from .sticker import Sticker
+from .user import User
+from .video import Video
+from .voice import Voice
 from ..enums import MessageMediaType
 from ..sync_support import add_sync_support_to_object
 
@@ -29,19 +38,55 @@ class Message(Object):
 
     @classmethod
     def from_protobuf(cls, protobuf_data):
+        message = protobuf_data.message
         return cls(
             id=f"{protobuf_data.rid}|{protobuf_data.date}",
-            author=objects.User(id=protobuf_data.sender_uid),
-            chat=objects.Chat(id=f"{protobuf_data.peer.id}|{protobuf_data.peer.type}"),
-            date=objects.Date.wrap(protobuf_data.date / 1000),
-            text=protobuf_data.message.text_message.text,
-            document=objects.Document(
-                id=protobuf_data.message.document_message.file_id,
-                name=protobuf_data.message.document_message.name,
-                size=protobuf_data.message.document_message.file_size,
-                mime_type=protobuf_data.message.document_message.mime_type
+            author=User.from_protobuf(protobuf_data.sender_uid),
+            chat=Chat.from_protobuf(protobuf_data.peer),
+            date=Date.from_protobuf(protobuf_data.date),
+            text=(
+                message.text_message.text
+                if message.HasField("text_message") else None
             ),
-            caption=protobuf_data.message.document_message.caption.text
+            document=(
+                Document.from_protobuf(message.document_message)
+                if message.HasField("document_message") else None
+            ),
+            photo=(
+                Photo.from_protobuf(message.document_message)
+                if message.HasField("document_message")
+                and message.document_message.ext.HasField("document_ex_photo")
+                else None
+            ),
+            video=(
+                Video.from_protobuf(message.document_message)
+                if message.HasField("document_message")
+                and message.document_message.ext.HasField("document_ex_video")
+                else None
+            ),
+            voice=(
+                Voice.from_protobuf(message.document_message)
+                if message.HasField("document_message")
+                and message.document_message.ext.HasField("document_ex_voice")
+                else None
+            ),
+            audio=(
+                Audio.from_protobuf(message.document_message)
+                if message.HasField("document_message")
+                and message.document_message.ext.HasField("document_ex_audio")
+                else None
+            ),
+            sticker=(
+                Sticker.from_protobuf(message.sticker_message)
+                if message.HasField("sticker_message")
+                else None
+            ),
+            caption=(
+                message.document_message.caption.text
+                if message.HasField("document_message")
+                and message.document_message.HasField("caption")
+                else None
+            )
         )
 
     def __init__(

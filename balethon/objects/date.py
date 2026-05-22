@@ -10,6 +10,10 @@ class Date(Object, datetime):
         date_time = datetime.fromtimestamp(raw_object)
         return super().__new__(cls, *date_time.timetuple()[:6])
 
+    @classmethod
+    def from_protobuf(cls, timestamp_ms: int):
+        return cls.wrap(timestamp_ms // 1000)
+
     def __new__(
             cls,
             *args,
