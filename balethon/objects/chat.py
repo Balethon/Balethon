@@ -1,12 +1,18 @@
 from typing import Union, BinaryIO
 
-from . import Object
 from balethon import enums, objects
+from . import Object
 from ..sync_support import add_sync_support_to_object
 
 
 @add_sync_support_to_object
 class Chat(Object):
+
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=f"{protobuf_data.id}|{protobuf_data.type}"
+        )
 
     def __init__(
             self,

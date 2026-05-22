@@ -6,13 +6,13 @@ from .. import objects
 class ForwardOrigin(Object):
 
     def __init__(
-        self,
-        type: "enums.PeerType" = None,
-        date: "objects.Date" = None,
-        sender_user: "objects.User" = None,
-        chat: "objects.Chat" = None,
-        message_id: int = None,
-        **kwargs
+            self,
+            type: "enums.PeerType" = None,
+            date: "objects.Date" = None,
+            sender_user: "objects.User" = None,
+            chat: "objects.Chat" = None,
+            message_id: int = None,
+            **kwargs
     ):
         super().__init__(**kwargs)
         self.type: "enums.PeerType" = type
