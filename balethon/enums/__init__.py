@@ -4,4 +4,5 @@ from .chat_action import ChatAction
 from .message_media_type import MessageMediaType
 from .chat_member_status import ChatMemberStatus
 from .transaction_status import TransactionStatus
+from .poll_type import PollType
 from .peer_type import PeerType
