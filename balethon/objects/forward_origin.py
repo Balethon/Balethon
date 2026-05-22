@@ -7,7 +7,7 @@ class ForwardOrigin(Object):
 
     def __init__(
         self,
-        type: "enums.ForwardOriginType" = None,
+        type: "enums.PeerType" = None,
         date: "objects.Date" = None,
         sender_user: "objects.User" = None,
         chat: "objects.Chat" = None,
@@ -15,7 +15,7 @@ class ForwardOrigin(Object):
         **kwargs
     ):
         super().__init__(**kwargs)
-        self.type: "enums.ForwardOriginType" = type
+        self.type: "enums.PeerType" = type
         self.date: "objects.Date" = date
         self.sender_user: "objects.User" = sender_user
         self.chat: "objects.Chat" = chat
