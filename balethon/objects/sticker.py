@@ -1,5 +1,5 @@
-from . import Object
 from balethon import objects
+from . import Object
 
 
 class Sticker(Object):
@@ -8,6 +8,22 @@ class Sticker(Object):
         ("unique_id", "file_unique_id"),
         ("size", "file_size")
     ]
+
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=protobuf_data.image512.file_location.file_id,
+            unique_id=str(protobuf_data.sticker_id.value),
+            width=protobuf_data.image512.width,
+            height=protobuf_data.image512.height,
+            size=protobuf_data.image512.file_size,
+            thumb=objects.Photo(
+                id=protobuf_data.image256.file_location.file_id,
+                width=protobuf_data.image256.width,
+                height=protobuf_data.image256.height,
+                size=protobuf_data.image256.file_size
+            )
+        )
 
     def __init__(
             self,

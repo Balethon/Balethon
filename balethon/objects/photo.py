@@ -7,6 +7,15 @@ class Photo(Object):
         ("size", "file_size")
     ]
 
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=protobuf_data.file_id,
+            width=protobuf_data.ext.document_ex_photo.w,
+            height=protobuf_data.ext.document_ex_photo.h,
+            size=protobuf_data.file_size
+        )
+
     def __init__(
             self,
             id: str = None,

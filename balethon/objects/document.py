@@ -1,5 +1,6 @@
-from . import Object
 from balethon import objects
+
+from . import Object
 
 
 class Document(Object):
@@ -8,6 +9,15 @@ class Document(Object):
         ("size", "file_size"),
         ("name", "file_name")
     ]
+
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=protobuf_data.file_id,
+            name=protobuf_data.name,
+            size=protobuf_data.file_size,
+            mime_type=protobuf_data.mime_type
+        )
 
     def __init__(
             self,
