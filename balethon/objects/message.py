@@ -84,6 +84,7 @@ class Message(Object):
             successful_payment: "objects.SuccessfulPayment" = None,
             media_group_id: int = None,
             web_app_data: "objects.WebAppData" = None,
+            poll: "objects.Poll" = None,
             reply_markup: "objects.ReplyMarkup" = None,
             **kwargs
     ):
@@ -126,6 +127,7 @@ class Message(Object):
         self.successful_payment: "objects.SuccessfulPayment" = successful_payment
         self.media_group_id: int = media_group_id
         self.web_app_data: "objects.WebAppData" = web_app_data
+        self.poll: "objects.Poll" = poll
         self.reply_markup: "objects.ReplyMarkup" = reply_markup
 
     @property
