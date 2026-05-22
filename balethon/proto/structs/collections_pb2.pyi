@@ -50,13 +50,13 @@ class RawValue(_message.Message):
     INT64_VALUE_FIELD_NUMBER: _ClassVar[int]
     DOUBLE_VALUE_FIELD_NUMBER: _ClassVar[int]
     ARRAY_VALUE_FIELD_NUMBER: _ClassVar[int]
-    string_value: StringValue
-    boolean_value: BoolValue
-    int32_value: Int32Value
-    int64_value: Int64Value
-    double_value: DoubleValue
+    string_value: str
+    boolean_value: bool
+    int32_value: int
+    int64_value: int
+    double_value: float
     array_value: ArrayValue
-    def __init__(self, string_value: _Optional[_Union[StringValue, _Mapping]] = ..., boolean_value: _Optional[_Union[BoolValue, _Mapping]] = ..., int32_value: _Optional[_Union[Int32Value, _Mapping]] = ..., int64_value: _Optional[_Union[Int64Value, _Mapping]] = ..., double_value: _Optional[_Union[DoubleValue, _Mapping]] = ..., array_value: _Optional[_Union[ArrayValue, _Mapping]] = ...) -> None: ...
+    def __init__(self, string_value: _Optional[str] = ..., boolean_value: bool = ..., int32_value: _Optional[int] = ..., int64_value: _Optional[int] = ..., double_value: _Optional[float] = ..., array_value: _Optional[_Union[ArrayValue, _Mapping]] = ...) -> None: ...
 
 class MapValueItem(_message.Message):
     __slots__ = ("key", "value")

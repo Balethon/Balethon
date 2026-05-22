@@ -19,7 +19,7 @@ except ImportError:
 
 from ..errors import RPCError
 try:
-    from balethon.proto import requests, ws
+    from balethon.proto import structs, ws
 except ImportError:
     pass
 
@@ -30,7 +30,7 @@ class WSConnection:
     ORIGIN = "https://web.bale.ai"
     APP_VERSION = "86550"
     BROWSER_TYPE = "1"
-    BROWSER_VERSION = 3471765337684194354
+    BROWSER_VERSION = "137.0.0.0"
     OS_TYPE = "3"
 
     def __init__(
@@ -237,42 +237,28 @@ class WSConnection:
         return response.error if response.HasField("error") else response.response
 
     def build_request_metadata(self):
-        return requests.Metadata(
-            key_values=[
-                requests.MetadataKeyValues(
-                    key="app_version",
-                    value=requests.MetadataValues(
-                        string_value=self.app_version,
-                    )
-                ),
-                requests.MetadataKeyValues(
-                    key="browser_type",
-                    value=requests.MetadataValues(
-                        string_value=self.browser_type,
-                    )
-                ),
-                requests.MetadataKeyValues(
-                    key="browser_version",
-                    value=requests.MetadataValues(
-                        msg_value=requests.MetadataComplexValues(
-                            fixed64_value=self.browser_version,
-                        ),
-                    )
-                ),
-                requests.MetadataKeyValues(
-                    key="os_type",
-                    value=requests.MetadataValues(
-                        string_value=self.os_type,
-                    )
-                ),
-                requests.MetadataKeyValues(
-                    key="session_id",
-                    value=requests.MetadataValues(
-                        string_value=self.session_id,
-                    )
-                ),
-            ]
-        )
+        return structs.MapValue(items=[
+            structs.MapValueItem(
+                key="app_version",
+                value=structs.RawValue(string_value=self.app_version)
+            ),
+            structs.MapValueItem(
+                key="browser_type",
+                value=structs.RawValue(string_value=self.browser_type)
+            ),
+            structs.MapValueItem(
+                key="browser_version",
+                value=structs.RawValue(string_value=self.browser_version)
+            ),
+            structs.MapValueItem(
+                key="os_type",
+                value=structs.RawValue(string_value=self.os_type)
+            ),
+            structs.MapValueItem(
+                key="session_id",
+                value=structs.RawValue(string_value=self.session_id)
+            ),
+        ])
 
     def build_request(self, service_name: str, method: str, payload: "Message"):
         request = ws.ClientPack(

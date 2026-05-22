@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19structs/collections.proto\x12\x07structs\"\x1b\n\nInt64Value\x12\r\n\x05value\x18\x01 \x01(\x03\"\x1a\n\tBoolValue\x12\r\n\x05value\x18\x01 \x01(\x08\"\x1c\n\x0bStringValue\x12\r\n\x05value\x18\x01 \x01(\t\"\x1b\n\nBytesValue\x12\r\n\x05Value\x18\x01 \x01(\t\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x1b\n\nArrayValue\x12\r\n\x05\x61rray\x18\x01 \x03(\x0c\"\x8b\x02\n\x08RawValue\x12*\n\x0cstring_value\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\x12)\n\rboolean_value\x18\x02 \x01(\x0b\x32\x12.structs.BoolValue\x12(\n\x0bint32_value\x18\x03 \x01(\x0b\x32\x13.structs.Int32Value\x12(\n\x0bint64_value\x18\x04 \x01(\x0b\x32\x13.structs.Int64Value\x12*\n\x0c\x64ouble_value\x18\x05 \x01(\x0b\x32\x14.structs.DoubleValue\x12(\n\x0b\x61rray_value\x18\x06 \x01(\x0b\x32\x13.structs.ArrayValue\"=\n\x0cMapValueItem\x12\x0b\n\x03key\x18\x01 \x01(\t\x12 \n\x05value\x18\x02 \x01(\x0b\x32\x11.structs.RawValue\"0\n\x08MapValue\x12$\n\x05items\x18\x01 \x03(\x0b\x32\x15.structs.MapValueItem\"\x1b\n\nInt32Value\x12\r\n\x05value\x18\x01 \x01(\x05\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19structs/collections.proto\x12\x07structs\"\x1b\n\nInt64Value\x12\r\n\x05value\x18\x01 \x01(\x03\"\x1a\n\tBoolValue\x12\r\n\x05value\x18\x01 \x01(\x08\"\x1c\n\x0bStringValue\x12\r\n\x05value\x18\x01 \x01(\t\"\x1b\n\nBytesValue\x12\r\n\x05Value\x18\x01 \x01(\t\"\x1c\n\x0b\x44oubleValue\x12\r\n\x05value\x18\x01 \x01(\x01\"\x1b\n\nArrayValue\x12\r\n\x05\x61rray\x18\x01 \x03(\x0c\"\xa1\x01\n\x08RawValue\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\x12\x15\n\rboolean_value\x18\x02 \x01(\x08\x12\x13\n\x0bint32_value\x18\x03 \x01(\x05\x12\x13\n\x0bint64_value\x18\x04 \x01(\x03\x12\x14\n\x0c\x64ouble_value\x18\x05 \x01(\x01\x12(\n\x0b\x61rray_value\x18\x06 \x01(\x0b\x32\x13.structs.ArrayValue\"=\n\x0cMapValueItem\x12\x0b\n\x03key\x18\x01 \x01(\t\x12 \n\x05value\x18\x02 \x01(\x0b\x32\x11.structs.RawValue\"0\n\x08MapValue\x12$\n\x05items\x18\x01 \x03(\x0b\x32\x15.structs.MapValueItem\"\x1b\n\nInt32Value\x12\r\n\x05value\x18\x01 \x01(\x05\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -44,11 +44,11 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ARRAYVALUE']._serialized_start=184
   _globals['_ARRAYVALUE']._serialized_end=211
   _globals['_RAWVALUE']._serialized_start=214
-  _globals['_RAWVALUE']._serialized_end=481
-  _globals['_MAPVALUEITEM']._serialized_start=483
-  _globals['_MAPVALUEITEM']._serialized_end=544
-  _globals['_MAPVALUE']._serialized_start=546
-  _globals['_MAPVALUE']._serialized_end=594
-  _globals['_INT32VALUE']._serialized_start=596
-  _globals['_INT32VALUE']._serialized_end=623
+  _globals['_RAWVALUE']._serialized_end=375
+  _globals['_MAPVALUEITEM']._serialized_start=377
+  _globals['_MAPVALUEITEM']._serialized_end=438
+  _globals['_MAPVALUE']._serialized_start=440
+  _globals['_MAPVALUE']._serialized_end=488
+  _globals['_INT32VALUE']._serialized_start=490
+  _globals['_INT32VALUE']._serialized_end=517
 # @@protoc_insertion_point(module_scope)

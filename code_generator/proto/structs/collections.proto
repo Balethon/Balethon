@@ -27,11 +27,11 @@ message ArrayValue {
 }
 
 message RawValue {
-  StringValue string_value = 1;
-  BoolValue boolean_value = 2;
-  Int32Value int32_value = 3;
-  Int64Value int64_value = 4;
-  DoubleValue double_value = 5;
+  string string_value = 1;
+  bool boolean_value = 2;
+  int32 int32_value = 3;
+  int64 int64_value = 4;
+  double double_value = 5;
   ArrayValue array_value = 6;
 }
 

@@ -1,6 +1,5 @@
 from .structs import collections_pb2 as _collections_pb2
 from .structs import set_updates_pb2 as _set_updates_pb2
-from .requests import request_pb2 as _request_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from collections.abc import Mapping as _Mapping
@@ -32,9 +31,9 @@ class Request(_message.Message):
     service_name: str
     method: str
     payload: bytes
-    metadata: _request_pb2.Metadata
+    metadata: _collections_pb2.MapValue
     index: int
-    def __init__(self, service_name: _Optional[str] = ..., method: _Optional[str] = ..., payload: _Optional[bytes] = ..., metadata: _Optional[_Union[_request_pb2.Metadata, _Mapping]] = ..., index: _Optional[int] = ...) -> None: ...
+    def __init__(self, service_name: _Optional[str] = ..., method: _Optional[str] = ..., payload: _Optional[bytes] = ..., metadata: _Optional[_Union[_collections_pb2.MapValue, _Mapping]] = ..., index: _Optional[int] = ...) -> None: ...
 
 class Response(_message.Message):
     __slots__ = ("error", "response", "index")

@@ -4,7 +4,6 @@ package ws;
 
 import "structs/collections.proto";
 import "structs/set_updates.proto";
-import "requests/request.proto";
 
 message ClientPack {
   Request ws_request = 1;
@@ -19,7 +18,7 @@ message Request {
   string service_name = 1;
   string method = 2;
   bytes payload = 3;
-  requests.Metadata metadata = 4;
+  structs.MapValue metadata = 4;
   int64 index = 5;
 }
 
