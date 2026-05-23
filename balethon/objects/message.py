@@ -38,12 +38,55 @@ class Message(Object):
 
     @classmethod
     def from_protobuf(cls, protobuf_data):
-        message = protobuf_data.message
+        is_forward_message = (
+            not isinstance(protobuf_data, QuotedMessage) and
+            not protobuf_data.message.ListFields() and
+            protobuf_data.HasField("quoted_message")
+        )
+        if isinstance(protobuf_data, QuotedMessage):
+            id = f"{protobuf_data.message_id.value}|{protobuf_data.message_date}"
+            author = User.from_protobuf(protobuf_data.sender_user_id)
+            chat = Chat.from_protobuf(protobuf_data.quoted_peer)
+            date = Date.from_protobuf(protobuf_data.message_date)
+            message = protobuf_data.quoted_message_content
+        else:
+            id = f"{protobuf_data.rid}|{protobuf_data.date}"
+            author = User.from_protobuf(protobuf_data.sender_uid)
+            chat = Chat.from_protobuf(protobuf_data.peer)
+            date = Date.from_protobuf(protobuf_data.date)
+            message = protobuf_data.quoted_message.quoted_message_content \
+                if protobuf_data.HasField("quoted_message") else protobuf_data.message
+
         return cls(
-            id=f"{protobuf_data.rid}|{protobuf_data.date}",
-            author=User.from_protobuf(protobuf_data.sender_uid),
-            chat=Chat.from_protobuf(protobuf_data.peer),
-            date=Date.from_protobuf(protobuf_data.date),
+            id=id,
+            author=author,
+            chat=chat,
+            date=date,
+            forward_from=(
+                User.from_protobuf(protobuf_data.quoted_message.sender_user_id)
+                if is_forward_message else None
+            ),
+            forward_from_chat=(
+                Chat(id=f"{protobuf_data.quoted_message.public_group_id.value}|2")
+                if is_forward_message
+                   and protobuf_data.quoted_message.HasField("public_group_id")
+                else None
+            ),
+            forward_from_message_id=(
+                f"{protobuf_data.quoted_message.message_id.value}|{protobuf_data.quoted_message.message_date}"
+                if is_forward_message else None
+            ),
+            forward_date=(
+                Date.from_protobuf(protobuf_data.quoted_message.message_date)
+                if is_forward_message else None
+            ),
+            reply_to_message=(
+                cls.from_protobuf(protobuf_data.quoted_message)
+                if not isinstance(protobuf_data, QuotedMessage)
+                   and protobuf_data.message.ListFields()
+                   and protobuf_data.HasField("quoted_message")
+                else None
+            ),
             text=(
                 message.text_message.text
                 if message.HasField("text_message") else None
@@ -55,25 +98,25 @@ class Message(Object):
             photo=(
                 Photo.from_protobuf(message.document_message)
                 if message.HasField("document_message")
-                and message.document_message.ext.HasField("document_ex_photo")
+                   and message.document_message.ext.HasField("document_ex_photo")
                 else None
             ),
             video=(
                 Video.from_protobuf(message.document_message)
                 if message.HasField("document_message")
-                and message.document_message.ext.HasField("document_ex_video")
+                   and message.document_message.ext.HasField("document_ex_video")
                 else None
             ),
             voice=(
                 Voice.from_protobuf(message.document_message)
                 if message.HasField("document_message")
-                and message.document_message.ext.HasField("document_ex_voice")
+                   and message.document_message.ext.HasField("document_ex_voice")
                 else None
             ),
             audio=(
                 Audio.from_protobuf(message.document_message)
                 if message.HasField("document_message")
-                and message.document_message.ext.HasField("document_ex_audio")
+                   and message.document_message.ext.HasField("document_ex_audio")
                 else None
             ),
             sticker=(
@@ -84,7 +127,7 @@ class Message(Object):
             caption=(
                 message.document_message.caption.text
                 if message.HasField("document_message")
-                and message.document_message.HasField("caption")
+                   and message.document_message.HasField("caption")
                 else None
             )
         )

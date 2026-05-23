@@ -153,33 +153,91 @@ class MessageId(_message.Message):
     seq: int
     def __init__(self, date: _Optional[int] = ..., rid: _Optional[int] = ..., seq: _Optional[int] = ...) -> None: ...
 
+class MessageAttributes(_message.Message):
+    __slots__ = ("is_mentioned", "is_highlighted", "is_notified", "is_only_for_you")
+    IS_MENTIONED_FIELD_NUMBER: _ClassVar[int]
+    IS_HIGHLIGHTED_FIELD_NUMBER: _ClassVar[int]
+    IS_NOTIFIED_FIELD_NUMBER: _ClassVar[int]
+    IS_ONLY_FOR_YOU_FIELD_NUMBER: _ClassVar[int]
+    is_mentioned: bool
+    is_highlighted: bool
+    is_notified: bool
+    is_only_for_you: bool
+    def __init__(self, is_mentioned: bool = ..., is_highlighted: bool = ..., is_notified: bool = ..., is_only_for_you: bool = ...) -> None: ...
+
+class Replies(_message.Message):
+    __slots__ = ("replies_count", "recent_repliers", "last_message")
+    REPLIES_COUNT_FIELD_NUMBER: _ClassVar[int]
+    RECENT_REPLIERS_FIELD_NUMBER: _ClassVar[int]
+    LAST_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    replies_count: int
+    recent_repliers: _containers.RepeatedCompositeFieldContainer[_peers_pb2.UserOutPeer]
+    last_message: MessageId
+    def __init__(self, replies_count: _Optional[int] = ..., recent_repliers: _Optional[_Iterable[_Union[_peers_pb2.UserOutPeer, _Mapping]]] = ..., last_message: _Optional[_Union[MessageId, _Mapping]] = ...) -> None: ...
+
+class MessageReaction(_message.Message):
+    __slots__ = ("users", "code", "cardinality")
+    USERS_FIELD_NUMBER: _ClassVar[int]
+    CODE_FIELD_NUMBER: _ClassVar[int]
+    CARDINALITY_FIELD_NUMBER: _ClassVar[int]
+    users: _containers.RepeatedScalarFieldContainer[int]
+    code: str
+    cardinality: _collections_pb2.Int64Value
+    def __init__(self, users: _Optional[_Iterable[int]] = ..., code: _Optional[str] = ..., cardinality: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ...) -> None: ...
+
 class QuotedMessage(_message.Message):
-    __slots__ = ("message_id", "sender_user_id", "message_date", "quoted_message_content", "quoted_peer")
+    __slots__ = ("message_id", "public_group_id", "sender_user_id", "message_date", "quoted_message_content", "quoted_peer")
     MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    PUBLIC_GROUP_ID_FIELD_NUMBER: _ClassVar[int]
     SENDER_USER_ID_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_DATE_FIELD_NUMBER: _ClassVar[int]
     QUOTED_MESSAGE_CONTENT_FIELD_NUMBER: _ClassVar[int]
     QUOTED_PEER_FIELD_NUMBER: _ClassVar[int]
     message_id: _collections_pb2.Int64Value
+    public_group_id: _collections_pb2.Int32Value
     sender_user_id: int
     message_date: int
     quoted_message_content: Message
     quoted_peer: _peers_pb2.OutPeer
-    def __init__(self, message_id: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., sender_user_id: _Optional[int] = ..., message_date: _Optional[int] = ..., quoted_message_content: _Optional[_Union[Message, _Mapping]] = ..., quoted_peer: _Optional[_Union[_peers_pb2.OutPeer, _Mapping]] = ...) -> None: ...
+    def __init__(self, message_id: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., public_group_id: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., sender_user_id: _Optional[int] = ..., message_date: _Optional[int] = ..., quoted_message_content: _Optional[_Union[Message, _Mapping]] = ..., quoted_peer: _Optional[_Union[_peers_pb2.OutPeer, _Mapping]] = ...) -> None: ...
 
 class MessageContainer(_message.Message):
-    __slots__ = ("sender_uid", "rid", "date", "message", "quoted_message")
+    __slots__ = ("sender_uid", "rid", "date", "message", "state", "reactions", "attribute", "quoted_message", "seq", "previous_message_id", "next_message_id", "edited_at", "editor_user_id", "grouped_id", "has_comment", "replies", "reply_to_top_id")
     SENDER_UID_FIELD_NUMBER: _ClassVar[int]
     RID_FIELD_NUMBER: _ClassVar[int]
     DATE_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    STATE_FIELD_NUMBER: _ClassVar[int]
+    REACTIONS_FIELD_NUMBER: _ClassVar[int]
+    ATTRIBUTE_FIELD_NUMBER: _ClassVar[int]
     QUOTED_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    SEQ_FIELD_NUMBER: _ClassVar[int]
+    PREVIOUS_MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    NEXT_MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    EDITED_AT_FIELD_NUMBER: _ClassVar[int]
+    EDITOR_USER_ID_FIELD_NUMBER: _ClassVar[int]
+    GROUPED_ID_FIELD_NUMBER: _ClassVar[int]
+    HAS_COMMENT_FIELD_NUMBER: _ClassVar[int]
+    REPLIES_FIELD_NUMBER: _ClassVar[int]
+    REPLY_TO_TOP_ID_FIELD_NUMBER: _ClassVar[int]
     sender_uid: int
     rid: int
     date: int
     message: Message
+    state: int
+    reactions: _containers.RepeatedCompositeFieldContainer[MessageReaction]
+    attribute: MessageAttributes
     quoted_message: QuotedMessage
-    def __init__(self, sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ..., quoted_message: _Optional[_Union[QuotedMessage, _Mapping]] = ...) -> None: ...
+    seq: _collections_pb2.Int64Value
+    previous_message_id: MessageId
+    next_message_id: MessageId
+    edited_at: _collections_pb2.Int64Value
+    editor_user_id: _collections_pb2.Int32Value
+    grouped_id: _collections_pb2.Int64Value
+    has_comment: bool
+    replies: Replies
+    reply_to_top_id: MessageId
+    def __init__(self, sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ..., state: _Optional[int] = ..., reactions: _Optional[_Iterable[_Union[MessageReaction, _Mapping]]] = ..., attribute: _Optional[_Union[MessageAttributes, _Mapping]] = ..., quoted_message: _Optional[_Union[QuotedMessage, _Mapping]] = ..., seq: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., previous_message_id: _Optional[_Union[MessageId, _Mapping]] = ..., next_message_id: _Optional[_Union[MessageId, _Mapping]] = ..., edited_at: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., editor_user_id: _Optional[_Union[_collections_pb2.Int32Value, _Mapping]] = ..., grouped_id: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., has_comment: bool = ..., replies: _Optional[_Union[Replies, _Mapping]] = ..., reply_to_top_id: _Optional[_Union[MessageId, _Mapping]] = ...) -> None: ...
 
 class MessagesViews(_message.Message):
     __slots__ = ("mid", "views")

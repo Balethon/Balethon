@@ -98,8 +98,21 @@ message MessageAttributes {
   bool is_only_for_you = 4;
 }
 
+message Replies {
+  int32 replies_count = 1;
+  repeated UserOutPeer recent_repliers = 2;
+  MessageId last_message = 3;
+}
+
+message MessageReaction {
+  repeated int32 users = 1;
+  string code = 2;
+  Int64Value cardinality = 3;
+}
+
 message QuotedMessage {
   Int64Value message_id = 1;
+  Int32Value public_group_id = 2;
   int32 sender_user_id = 3;
   int64 message_date = 4;
   Message quoted_message_content = 5;
@@ -111,7 +124,19 @@ message MessageContainer {
   int64 rid = 2;
   int64 date = 3;
   Message message = 4;
+  int32 state = 5;
+  repeated MessageReaction reactions = 6;
+  MessageAttributes attribute = 7;
   QuotedMessage quoted_message = 8;
+  Int64Value seq = 9;
+  MessageId previous_message_id = 10;
+  MessageId next_message_id = 11;
+  Int64Value edited_at = 12;
+  Int32Value editor_user_id = 13;
+  Int64Value grouped_id = 14;
+  bool has_comment = 15;
+  Replies replies = 16;
+  MessageId reply_to_top_id = 17;
 }
 
 message MessagesViews {
