@@ -11,8 +11,10 @@ from .sticker import Sticker
 from .user import User
 from .video import Video
 from .voice import Voice
+from .message_id import MessageId
 from ..enums import MessageMediaType
 from ..sync_support import add_sync_support_to_object
+from ..proto import structs
 
 
 @add_sync_support_to_object
@@ -39,18 +41,18 @@ class Message(Object):
     @classmethod
     def from_protobuf(cls, protobuf_data):
         is_forward_message = (
-            not isinstance(protobuf_data, QuotedMessage) and
+            not isinstance(protobuf_data, structs.QuotedMessage) and
             not protobuf_data.message.ListFields() and
             protobuf_data.HasField("quoted_message")
         )
-        if isinstance(protobuf_data, QuotedMessage):
-            id = f"{protobuf_data.message_id.value}|{protobuf_data.message_date}"
+        if isinstance(protobuf_data, structs.QuotedMessage):
+            id = MessageId(rid=protobuf_data.message_id.value, date=protobuf_data.message_date)
             author = User.from_protobuf(protobuf_data.sender_user_id)
             chat = Chat.from_protobuf(protobuf_data.quoted_peer)
             date = Date.from_protobuf(protobuf_data.message_date)
             message = protobuf_data.quoted_message_content
         else:
-            id = f"{protobuf_data.rid}|{protobuf_data.date}"
+            id = MessageId(rid=protobuf_data.rid, date=protobuf_data.date)
             author = User.from_protobuf(protobuf_data.sender_uid)
             chat = Chat.from_protobuf(protobuf_data.peer)
             date = Date.from_protobuf(protobuf_data.date)
@@ -73,7 +75,10 @@ class Message(Object):
                 else None
             ),
             forward_from_message_id=(
-                f"{protobuf_data.quoted_message.message_id.value}|{protobuf_data.quoted_message.message_date}"
+                MessageId(
+                    rid=protobuf_data.quoted_message.message_id.value,
+                    date=protobuf_data.quoted_message.message_date
+                )
                 if is_forward_message else None
             ),
             forward_date=(
@@ -82,7 +87,7 @@ class Message(Object):
             ),
             reply_to_message=(
                 cls.from_protobuf(protobuf_data.quoted_message)
-                if not isinstance(protobuf_data, QuotedMessage)
+                if not isinstance(protobuf_data, structs.QuotedMessage)
                    and protobuf_data.message.ListFields()
                    and protobuf_data.HasField("quoted_message")
                 else None

@@ -1,6 +1,7 @@
 from typing import Union
 
 import balethon
+from ...objects import resolve_message_id
 
 
 class DeleteMessage:
@@ -13,14 +14,14 @@ class DeleteMessage:
         if self.is_userbot():
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
-            rid, date = map(int, message_id.split("|"))
+            message_id = resolve_message_id(message_id)
             return await self.execute(requests.DeleteMessage(
                 peer=structs.Peer(
                     type=peer_type,
                     id=peer_id
                 ),
-                rids=[rid],
-                dates=structs.DeleteDates(dates=[date]),
+                rids=[message_id.rid],
+                dates=structs.DeleteDates(dates=[message_id.date]),
                 just_mine=False
             ))
 

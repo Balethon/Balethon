@@ -29,7 +29,9 @@ class GetChatHistory:
         ))
         history = BalethonList()
         for message_container in response.history:
-            fields = [field.name for field in message_container.DESCRIPTOR.fields]
+            message_container_fields = [field.name for field in message_container.DESCRIPTOR.fields]
+            message_fields = [field.name for field in updates.Message.DESCRIPTOR.fields]
+            fields = [field for field in message_container_fields if field in message_fields]
             data = {field: getattr(message_container, field) for field in fields}
             update_message = updates.Message(peer=peer, **data)
             message = Message.from_protobuf(update_message)

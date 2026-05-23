@@ -46,4 +46,5 @@ from .copy_text_button import CopyTextButton
 from .poll_option import PollOption
 from .poll import Poll
 from .forward_origin import ForwardOrigin
+from .message_id import MessageId, resolve_message_id
 from .chat_permissions import ChatPermissions

@@ -1,7 +1,7 @@
 from typing import Union
 
 import balethon
-from ...objects import Message
+from ...objects import Message, resolve_message_id
 
 
 class CopyMessage:
@@ -16,18 +16,15 @@ class CopyMessage:
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             from_peer_id, from_peer_type = map(int, from_chat_id.split("|"))
-            rid, date = map(int, message_id.split("|"))
+            message_id = resolve_message_id(message_id)
             peer = structs.Peer(type=from_peer_type, id=from_peer_id)
             response = await self.execute(requests.LoadHistory(
                 peer=peer,
-                date=date,
+                date=message_id.date,
                 load_mode=2,
                 limit=1
             ))
-            result = response.history
-            if not result:
-                return
-            result = result[0]
+            result = response.history[0]
             return await self.execute(requests.SendMessage(
                 peer=structs.Peer(
                     type=peer_type,
