@@ -1,6 +1,7 @@
 from typing import Union
 
 import balethon
+from balethon import objects
 
 
 class RestrictChatMember:
@@ -8,7 +9,8 @@ class RestrictChatMember:
     async def restrict_chat_member(
             self: "balethon.Client",
             chat_id: Union[int, str],
-            user_id: Union[int, str]
+            user_id: Union[int, str],
+            permissions: "objects.ChatPermissions"
     ) -> bool:
         if self.is_userbot():
             from ...proto import requests, structs
