@@ -81,13 +81,6 @@ message Message {
   TextMessage text_message = 15;
 }
 
-message MessageAttributes {
-    bool is_mentioned = 1;
-    bool is_highlighted = 2;
-    bool is_notified = 3;
-    bool is_only_for_you = 4;
-}
-
 message DeleteDates {
   repeated int64 dates = 1;
 }
@@ -96,6 +89,13 @@ message MessageId {
   int64 date = 1;
   int64 rid = 2;
   int64 seq = 3;
+}
+
+message MessageAttributes {
+    bool is_mentioned = 1;
+    bool is_highlighted = 2;
+    bool is_notified = 3;
+    bool is_only_for_you = 4;
 }
 
 message QuotedMessage {
