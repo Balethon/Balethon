@@ -135,7 +135,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         except ConnectionError:
             return
 
-    async def execute(self, service: str, json: bool = None, **data):
+    async def execute_http(self, service: str, json: bool = None, **data):
         data = {k: v for k, v in data.items() if v is not None}
         files = {}
         if json is None:
@@ -166,6 +166,13 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                 else:
                     raise error
 
+    async def execute(self, service: Union[str, "ProtobufMessage"], json: bool = None, **data):
+        if not self.is_userbot():
+            return await self.execute_http(service, json=json, **data)
+        if service.http2:
+            return await self.execute_http2(service)
+        return await self.execute_ws(service)
+
     async def auto_execute(self, service: str, data: dict, json: bool = None):
         bound_method_name = stack()[1].function
         bound_method = getattr(self, bound_method_name)
@@ -179,8 +186,18 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             result.bind(self)
         return result
 
-    async def invoke(self, service_name: str, method: str, payload: "ProtobufMessage"):
-        response = await self.ws_connection.request(service_name, method, payload)
+    async def execute_ws(self, payload: "ProtobufMessage"):
+        response = await self.ws_connection.request(payload.service_name, payload.method, payload)
+        payload_class_name = type(payload).__name__
+        response_class = getattr(responses, payload_class_name, None)
+        if response_class is None:
+            return response
+        result = response_class()
+        result.ParseFromString(response)
+        return result
+
+    async def execute_http2(self, payload: "ProtobufMessage"):
+        response = await self.http2_connection.request(f"{payload.service_name}/{payload.method}", payload)
         payload_class_name = type(payload).__name__
         response_class = getattr(responses, payload_class_name, None)
         if response_class is None:

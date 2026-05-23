@@ -25,26 +25,22 @@ class SendContact:
                     "contact": {"name": first_name, "emails": [""], "phones": [phone_number]},
                 }
             }
-            return await self.invoke(
-                service_name="bale.messaging.v2.Messaging",
-                method="SendMessage",
-                payload=requests.SendMessage(
-                    peer=structs.Peer(
-                        type=peer_type,
-                        id=peer_id
-                    ),
-                    rid=self.ws_connection.create_rid(),
-                    message=structs.Message(
-                        json_message=structs.JsonMessage(
-                            raw_json=dumps(raw_json)
-                        )
-                    ),
-                    ex_peer=structs.Peer(
-                        type=peer_type,
-                        id=peer_id
+            return await self.execute(requests.SendMessage(
+                peer=structs.Peer(
+                    type=peer_type,
+                    id=peer_id
+                ),
+                rid=self.ws_connection.create_rid(),
+                message=structs.Message(
+                    json_message=structs.JsonMessage(
+                        raw_json=dumps(raw_json)
                     )
+                ),
+                ex_peer=structs.Peer(
+                    type=peer_type,
+                    id=peer_id
                 )
-            )
+            ))
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("sendContact", locals())

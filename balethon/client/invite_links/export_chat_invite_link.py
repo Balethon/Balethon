@@ -12,13 +12,9 @@ class ExportChatInviteLink:
         if self.is_userbot():
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
-            response = await self.invoke(
-                service_name="bale.groups.v1.Groups",
-                method="GetGroupInviteURL",
-                payload=requests.GetGroupInviteUrl(
-                    group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1)
-                )
-            )
+            response = await self.execute(requests.GetGroupInviteUrl(
+                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1)
+            ))
             return response.url
 
         chat_id = await self.resolve_peer_id(chat_id)

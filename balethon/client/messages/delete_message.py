@@ -14,19 +14,15 @@ class DeleteMessage:
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
             rid, date = map(int, message_id.split("|"))
-            return await self.invoke(
-                service_name="bale.messaging.v2.Messaging",
-                method="DeleteMessage",
-                payload=requests.DeleteMessage(
-                    peer=structs.Peer(
-                        type=peer_type,
-                        id=peer_id
-                    ),
-                    rids=[rid],
-                    dates=structs.DeleteDates(dates=[date]),
-                    just_mine=False
-                )
-            )
+            return await self.execute(requests.DeleteMessage(
+                peer=structs.Peer(
+                    type=peer_type,
+                    id=peer_id
+                ),
+                rids=[rid],
+                dates=structs.DeleteDates(dates=[date]),
+                just_mine=False
+            ))
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("deleteMessage", locals())

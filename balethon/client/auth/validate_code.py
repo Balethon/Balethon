@@ -16,11 +16,7 @@ class ValidateCode:
         is_jwt = structs.BoolValue(value=is_jwt)
         kwargs = locals()
         del kwargs["self"]
-        validate_code = requests.ValidateCode(**kwargs)
-        response = await self.http2_connection.request(
-            service="bale.auth.v1.Auth/ValidateCode",
-            content=validate_code.SerializeToString()
-        )
+        response = await self.execute(requests.ValidateCode(**kwargs))
         result = responses.Auth()
         result.ParseFromString(response)
         return result

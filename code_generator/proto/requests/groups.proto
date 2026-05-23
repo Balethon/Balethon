@@ -7,6 +7,8 @@ import "structs/files.proto";
 import "structs/collections.proto";
 import "structs/groups.proto";
 
+// Service name: bale.groups.v1.Groups
+
 message JoinGroup {
   string token = 1;
   repeated int32 optimizations = 2;

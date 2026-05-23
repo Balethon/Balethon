@@ -59,18 +59,14 @@ class SendMediaGroup:
                 )
                 files.append(single_media)
 
-            return await self.invoke(
-                service_name="bale.messaging.v2.Messaging",
-                method="SendMultiMediaMessage",
-                payload=requests.SendMultiMediaMessage(
-                    peer=structs.ExPeer(
-                        type=peer_type,
-                        id=peer_id,
-                    ),
-                    multi_media=files,
-                    grouped_id=self.ws_connection.create_rid(),
-                )
-            )
+            return await self.execute(requests.SendMultiMediaMessage(
+                peer=structs.ExPeer(
+                    type=peer_type,
+                    id=peer_id,
+                ),
+                multi_media=files,
+                grouped_id=self.ws_connection.create_rid(),
+            ))
 
         chat_id = await self.resolve_peer_id(chat_id)
         data = locals()

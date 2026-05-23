@@ -13,28 +13,20 @@ class DeleteChatPhoto:
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
 
-            response = await self.invoke(
-                service_name="bale.groups.v1.Groups",
-                method="LoadGroupAvatars",
-                payload=requests.LoadGroupAvatars(
-                    peer=structs.GroupOutPeer(group_id=peer_id)
-                )
-            )
+            response = await self.execute(requests.LoadGroupAvatars(
+                peer=structs.GroupOutPeer(group_id=peer_id)
+            ))
 
             avatars = response.avatars.avatars
             if not avatars:
                 return
             last_avatar = avatars[0]
 
-            return await self.invoke(
-                service_name="bale.groups.v1.Groups",
-                method="RemoveGroupAvatar",
-                payload=requests.RemoveGroupAvatar(
-                    group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
-                    rid=self.ws_connection.create_rid(),
-                    avatar_id=last_avatar.id
-                )
-            )
+            return await self.execute(requests.RemoveGroupAvatar(
+                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                rid=self.ws_connection.create_rid(),
+                avatar_id=last_avatar.id
+            ))
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("deleteChatPhoto", locals())

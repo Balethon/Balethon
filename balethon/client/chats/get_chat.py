@@ -31,13 +31,9 @@ class GetChat:
                 elif peer_id.startswith("ble.ir/"):
                     peer_id = peer_id[7:]
 
-                response = await self.invoke(
-                    service_name="bale.users.v1.Users",
-                    method="SearchContacts",
-                    payload=requests.SearchContacts(
-                        request=peer_id
-                    )
-                )
+                response = await self.execute(requests.SearchContacts(
+                    request=peer_id
+                ))
 
                 if response.user_peers:
                     result = response.user_peers[0]
@@ -53,29 +49,21 @@ class GetChat:
             peer_id, peer_type = map(int, (peer_id, peer_type))
 
             if peer_type in (1, 4):
-                users = await self.invoke(
-                    service_name="bale.users.v1.Users",
-                    method="LoadUsers",
-                    payload=requests.LoadUsers(
-                        user_peers=[structs.UserOutPeer(
-                            uid=peer_id,
-                            access_hash=1
-                        )]
-                    )
-                )
+                users = await self.execute(requests.LoadUsers(
+                    user_peers=[structs.UserOutPeer(
+                        uid=peer_id,
+                        access_hash=1
+                    )]
+                ))
                 return users.users[0]
 
             if peer_type in (2, 3, 5):
-                return await self.invoke(
-                    service_name="bale.groups.v1.Groups",
-                    method="GetFullGroup",
-                    payload=requests.GetFullGroup(
-                        peer=structs.GroupOutPeer(
-                            group_id=peer_id,
-                            access_hash=1
-                        )
+                return await self.execute(requests.GetFullGroup(
+                    peer=structs.GroupOutPeer(
+                        group_id=peer_id,
+                        access_hash=1
                     )
-                )
+                ))
 
         else:
             return await self.auto_execute("getChat", locals())

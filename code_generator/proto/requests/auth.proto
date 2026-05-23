@@ -4,6 +4,9 @@ package requests;
 
 import "structs/collections.proto";
 
+// Service name: bale.auth.v1.Auth
+
+// HTTP2
 message StartPhoneAuth {
   int64 phone_number = 1;
   int32 app_id = 2;
@@ -13,18 +16,21 @@ message StartPhoneAuth {
   int32 send_code_type = 9;
 }
 
+// HTTP2
 message ValidateCode {
   string transaction_hash = 1;
   string code = 2;
   structs.BoolValue is_jwt = 3;
 }
 
+// HTTP2
 message ValidatePassword {
   string transaction_hash = 1;
   string password = 2;
   structs.BoolValue is_jwt = 3;
 }
 
+// HTTP2
 message SignUp {
   string transaction_hash = 1;
   string name = 2;
@@ -32,5 +38,6 @@ message SignUp {
   structs.StringValue password = 4;
 }
 
+// HTTP2
 message TerminateAllSessions {
 }

@@ -16,11 +16,7 @@ class SignUp:
         password = structs.StringValue(value=password)
         kwargs = locals()
         del kwargs["self"]
-        sign_up = requests.SignUp(**kwargs)
-        response = await self.http2_connection.request(
-            service="bale.auth.v1.Auth/SignUp",
-            content=sign_up.SerializeToString()
-        )
+        response = await self.execute(requests.SignUp(**kwargs))
         result = responses.Auth()
         result.ParseFromString(response)
         return result

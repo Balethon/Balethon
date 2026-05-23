@@ -4,6 +4,8 @@ package requests;
 
 import "structs/collections.proto";
 
+// Service name: bale.v1.Configs
+
 message EditParameter {
   string key = 1;
   structs.StringValue value = 2;

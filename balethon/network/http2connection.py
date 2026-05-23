@@ -4,6 +4,10 @@ from math import modf
 
 from httpx import AsyncClient
 from httpx._types import ProxyTypes
+try:
+    from google.protobuf.message import Message
+except ImportError:
+    pass
 
 from ..errors import RPCError
 
@@ -77,10 +81,10 @@ class HTTP2Connection:
         length = int.from_bytes(data[1:5], "big")
         return data[5:5 + length]
 
-    async def request(self, service: str, content: bytes):
+    async def request(self, service: str, payload: "Message"):
         response = await self.client.post(
             url=f"{self.base_url}/{service}",
-            content=self.add_grpc_frame(content),
+            content=self.add_grpc_frame(payload.SerializeToString()),
             headers=self.build_request_headers(),
             cookies=self.build_request_cookies(),
             timeout=self.time_out

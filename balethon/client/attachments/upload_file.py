@@ -63,24 +63,20 @@ class UploadFile:
             file.seek(0)
             file = file.read()
 
-        result = await self.invoke(
-            service_name="ai.bale.server.Files",
-            method="GetNasimFileUploadUrl",
-            payload=requests.GetNasimFileUploadUrl(
-                expected_size=expected_size,
-                crc=0,
-                uid=peer_id,
-                name=name,
-                mime_type=mime_type,
-                ex_peer=structs.ExPeer(
-                    type=peer_type,
-                    id=peer_id,
-                    access_hash=0
-                ),
-                send_type=structs.SendTypeValue(
-                    type=send_type
-                )
+        result = await self.execute(requests.GetNasimFileUploadUrl(
+            expected_size=expected_size,
+            crc=0,
+            uid=peer_id,
+            name=name,
+            mime_type=mime_type,
+            ex_peer=structs.ExPeer(
+                type=peer_type,
+                id=peer_id,
+                access_hash=0
+            ),
+            send_type=structs.SendTypeValue(
+                type=send_type
             )
-        )
+        ))
         await self.http2_connection.upload_file(result.url, file, result.chunk_size)
         return File(id=result.file_id, size=expected_size, name=name, mime_type=mime_type)

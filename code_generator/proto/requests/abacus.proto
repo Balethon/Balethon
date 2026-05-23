@@ -5,6 +5,9 @@ package requests;
 import "structs/peers.proto";
 import "structs/messaging.proto";
 
+// Service name: bale.abacus.v1.Abacus
+
+// Method: GetMessagesViews
 message GetMessageViews {
   structs.Peer peer = 1;
   repeated structs.MessageId mids = 2;

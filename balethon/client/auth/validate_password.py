@@ -16,11 +16,7 @@ class ValidatePassword:
         is_jwt = structs.BoolValue(value=is_jwt)
         kwargs = locals()
         del kwargs["self"]
-        validate_password = requests.ValidatePassword(**kwargs)
-        response = await self.http2_connection.request(
-            service="bale.auth.v1.Auth/ValidatePassword",
-            content=validate_password.SerializeToString()
-        )
+        response = await self.execute(requests.ValidatePassword(**kwargs))
         result = responses.Auth()
         result.ParseFromString(response)
         return result

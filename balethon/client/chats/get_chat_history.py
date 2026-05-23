@@ -21,16 +21,12 @@ class GetChatHistory:
         if isinstance(date, datetime):
             date = date.timestamp() * 1000
         peer = structs.Peer(type=peer_type, id=peer_id)
-        response = await self.invoke(
-            service_name="bale.messaging.v2.Messaging",
-            method="LoadHistory",
-            payload=requests.LoadHistory(
-                peer=peer,
-                date=date,
-                load_mode=2,
-                limit=limit
-            )
-        )
+        response = await self.execute(requests.LoadHistory(
+            peer=peer,
+            date=date,
+            load_mode=2,
+            limit=limit
+        ))
         history = BalethonList()
         for message_container in response.history:
             fields = [field.name for field in message_container.DESCRIPTOR.fields]

@@ -14,37 +14,25 @@ class UnpinAllChatMessages:
             peer_id, peer_type = map(int, chat_id.split("|"))
 
             if peer_type in (1, 4):
-                response = await self.invoke(
-                    service_name="bale.messaging.v2.Messaging",
-                    method="LoadPinnedMessages",
-                    payload=requests.LoadPinnedMessages(
-                        peer=structs.ExPeer(type=peer_type, id=peer_id)
-                    )
-                )
+                response = await self.execute(requests.LoadPinnedMessages(
+                    peer=structs.ExPeer(type=peer_type, id=peer_id)
+                ))
 
                 message_ids = [
                     structs.MessageId(date=pinned_message.date, rid=pinned_message.rid)
                     for pinned_message in response.pinned_messages
                 ]
 
-                return await self.invoke(
-                    service_name="bale.messaging.v2.Messaging",
-                    method="UnPinMessages",
-                    payload=requests.UnPinMessages(
-                        peer=structs.ExPeer(type=peer_type, id=peer_id),
-                        message_ids=message_ids,
-                        all=True
-                    )
-                )
+                return await self.execute(requests.UnPinMessages(
+                    peer=structs.ExPeer(type=peer_type, id=peer_id),
+                    message_ids=message_ids,
+                    all=True
+                ))
 
             elif peer_type in (2, 3, 5):
-                return await self.invoke(
-                    service_name="bale.groups.v1.Groups",
-                    method="RemovePin",
-                    payload=requests.RemovePin(
-                        group_peer=structs.GroupOutPeer(group_id=peer_id)
-                    )
-                )
+                return await self.execute(requests.RemovePin(
+                    group_peer=structs.GroupOutPeer(group_id=peer_id)
+                ))
 
         chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("unpinAllChatMessages", locals())

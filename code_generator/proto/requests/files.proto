@@ -5,6 +5,8 @@ package requests;
 import "structs/peers.proto";
 import "structs/files.proto";
 
+// Service name: ai.bale.server.Files
+
 message GetNasimFileUploadUrl {
   int32 expected_size = 1;
   int64 crc = 2;

@@ -16,24 +16,16 @@ class JoinChat:
 
         # 1234567890 | "1234567890"
         if isinstance(peer_id, int) or (isinstance(peer_id, str) and peer_id.isnumeric()):
-            return await self.invoke(
-                service_name="bale.groups.v1.Groups",
-                method="JoinPublicGroup",
-                payload=requests.JoinPublicGroup(
-                    peer=structs.Peer(
-                        type=int(peer_type),
-                        id=int(peer_id)
-                    )
+            return await self.execute(requests.JoinPublicGroup(
+                peer=structs.Peer(
+                    type=int(peer_type),
+                    id=int(peer_id)
                 )
-            )
+            ))
 
         # "https://ble.ir/join/ABCDEEFGHI" | "ble.ir/join/ABCDEEFGHI" 
         token = peer_id.replace("https://", "").replace("ble.ir/join/", "")
 
-        return await self.invoke(
-            service_name="bale.groups.v1.Groups",
-            method="JoinGroup",
-            payload=requests.JoinGroup(
-                token=token
-            )
-        )
+        return await self.execute(requests.JoinGroup(
+            token=token
+        ))

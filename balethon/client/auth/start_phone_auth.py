@@ -23,11 +23,4 @@ class StartPhoneAuth:
         phone_number = int(phone_number)
         kwargs = locals()
         del kwargs["self"]
-        start_phone_auth = requests.StartPhoneAuth(**kwargs)
-        response = await self.http2_connection.request(
-            service="bale.auth.v1.Auth/StartPhoneAuth",
-            content=start_phone_auth.SerializeToString()
-        )
-        result = responses.StartPhoneAuth()
-        result.ParseFromString(response)
-        return result
+        return await self.execute(requests.StartPhoneAuth(**kwargs))

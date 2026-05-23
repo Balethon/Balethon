@@ -4,6 +4,8 @@ package requests;
 
 import "structs/peers.proto";
 
+// Service name: bale.users.v1.Users
+
 message EditName {
   string name = 1;
 }

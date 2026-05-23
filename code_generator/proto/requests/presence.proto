@@ -5,6 +5,8 @@ package requests;
 import "structs/peers.proto";
 import "enums.proto";
 
+// Service name: bale.presence.v1.Presence
+
 message SetOnline {
   uint32 is_online = 1;
   uint32 duration = 2;
