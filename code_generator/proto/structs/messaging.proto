@@ -92,10 +92,10 @@ message MessageId {
 }
 
 message MessageAttributes {
-    bool is_mentioned = 1;
-    bool is_highlighted = 2;
-    bool is_notified = 3;
-    bool is_only_for_you = 4;
+  bool is_mentioned = 1;
+  bool is_highlighted = 2;
+  bool is_notified = 3;
+  bool is_only_for_you = 4;
 }
 
 message QuotedMessage {
