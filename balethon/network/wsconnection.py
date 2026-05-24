@@ -32,6 +32,7 @@ class WSConnection:
     BROWSER_TYPE = "1"
     BROWSER_VERSION = "137.0.0.0"
     OS_TYPE = "3"
+    RETRIES = 3
 
     def __init__(
             self,
@@ -41,8 +42,9 @@ class WSConnection:
             origin: str = None,
             app_version: str = None,
             browser_type: str = None,
-            browser_version: int = None,
-            os_type: str = None
+            browser_version: str = None,
+            os_type: str = None,
+            retries: int = None
     ):
         self.access_token = access_token
         self.timeout = timeout or self.TIMEOUT
@@ -63,6 +65,7 @@ class WSConnection:
         self.send_task = None
         self.recv_task = None
         self.error = None
+        self.retries = retries or self.RETRIES
 
     @staticmethod
     def create_rid():
@@ -273,13 +276,24 @@ class WSConnection:
         return request
 
     async def request(self, service_name: str, method: str, payload: "Message", wait_for_response: bool = True):
-        request = self.build_request(service_name, method, payload)
-        request_index = self.index
-        self.index += 1
-        message = await self.send(request)
-        if not wait_for_response:
-            return message
-        result = await self.wait_for_response(request_index)
+        max_attempts = max(1, self.retries + 1)
+        result = None
+
+        for attempt in range(max_attempts):
+            request = self.build_request(service_name, method, payload)
+            request_index = self.index
+            self.index += 1
+            message = await self.send(request)
+            if not wait_for_response:
+                return message
+            try:
+                result = await self.wait_for_response(request_index)
+            except Exception:
+                if attempt == max_attempts - 1:
+                    raise
+            else:
+                break
+
         if isinstance(result, ws.Error):
             raise RPCError(code=result.code, description=result.message, reason=f"{service_name}/{method}")
         return result
