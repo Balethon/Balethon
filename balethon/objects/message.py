@@ -46,13 +46,13 @@ class Message(Object):
             protobuf_data.HasField("quoted_message")
         )
         if isinstance(protobuf_data, structs.QuotedMessage):
-            id = MessageId(rid=protobuf_data.message_id.value, date=protobuf_data.message_date)
+            id = str(MessageId(rid=protobuf_data.message_id.value, date=protobuf_data.message_date))
             author = User.from_protobuf(protobuf_data.sender_user_id)
             chat = Chat.from_protobuf(protobuf_data.quoted_peer)
             date = Date.from_protobuf(protobuf_data.message_date)
             message = protobuf_data.quoted_message_content
         else:
-            id = MessageId(rid=protobuf_data.rid, date=protobuf_data.date)
+            id = str(MessageId(rid=protobuf_data.rid, date=protobuf_data.date))
             author = User.from_protobuf(protobuf_data.sender_uid)
             chat = Chat.from_protobuf(protobuf_data.peer)
             date = Date.from_protobuf(protobuf_data.date)
@@ -75,10 +75,10 @@ class Message(Object):
                 else None
             ),
             forward_from_message_id=(
-                MessageId(
+                str(MessageId(
                     rid=protobuf_data.quoted_message.message_id.value,
                     date=protobuf_data.quoted_message.message_date
-                )
+                ))
                 if is_forward_message else None
             ),
             forward_date=(
