@@ -3,6 +3,7 @@ from typing import BinaryIO, List, Union
 from balethon import objects
 from . import Object
 from .audio import Audio
+from .animation import Animation
 from .chat import Chat
 from .date import Date
 from .document import Document
@@ -43,7 +44,7 @@ class Message(Object):
         is_forward_message = (
             not isinstance(protobuf_data, structs.QuotedMessage) and
             not protobuf_data.message.ListFields() and
-            protobuf_data.HasField("quoted_message")
+            protobuf_data.quoted_message.ListFields()
         )
         if isinstance(protobuf_data, structs.QuotedMessage):
             id = str(MessageId(rid=protobuf_data.message_id.value, date=protobuf_data.message_date))
@@ -56,8 +57,8 @@ class Message(Object):
             author = User.from_protobuf(protobuf_data.sender_uid)
             chat = Chat.from_protobuf(protobuf_data.peer)
             date = Date.from_protobuf(protobuf_data.date)
-            message = protobuf_data.quoted_message.quoted_message_content \
-                if protobuf_data.HasField("quoted_message") else protobuf_data.message
+            message = protobuf_data.message if protobuf_data.message.ListFields() \
+                else protobuf_data.quoted_message.quoted_message_content
 
         return cls(
             id=id,
@@ -89,7 +90,7 @@ class Message(Object):
                 cls.from_protobuf(protobuf_data.quoted_message)
                 if not isinstance(protobuf_data, structs.QuotedMessage)
                    and protobuf_data.message.ListFields()
-                   and protobuf_data.HasField("quoted_message")
+                   and protobuf_data.quoted_message.ListFields()
                 else None
             ),
             text=(
@@ -110,6 +111,12 @@ class Message(Object):
                 Video.from_protobuf(message.document_message)
                 if message.HasField("document_message")
                    and message.document_message.ext.HasField("document_ex_video")
+                else None
+            ),
+            animation=(
+                Animation.from_protobuf(message.document_message)
+                if message.HasField("document_message")
+                   and message.document_message.ext.HasField("document_ex_gif")
                 else None
             ),
             voice=(

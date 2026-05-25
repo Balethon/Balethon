@@ -9,6 +9,18 @@ class Animation(Object):
         ("size", "file_size")
     ]
 
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=protobuf_data.file_id,
+            width=protobuf_data.ext.document_ex_gif.w,
+            height=protobuf_data.ext.document_ex_gif.h,
+            duration=protobuf_data.ext.document_ex_gif.duration,
+            name=protobuf_data.name,
+            mime_type=protobuf_data.mime_type,
+            size=protobuf_data.file_size
+        )
+
     def __init__(
             self,
             id: str = None,
