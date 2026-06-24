@@ -1,4 +1,4 @@
-from json import dumps
+from json import dumps, loads
 from asyncio import get_event_loop, sleep
 from inspect import iscoroutine, iscoroutinefunction, stack
 from io import BufferedReader, BytesIO
@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 import sys
 from typing import Union
+import base64
 
 from httpx import ConnectError
 try:
@@ -78,9 +79,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     "Using Balethon userbots but the required dependencies are not installed\n"
                     "Make sure to install balethon using `pip install Balethon[userbots]`"
                 )
-            session = self.load_session()
-            self.ws_connection = None if session is None else WSConnection(session[1], time_out)
-            self.http2_connection = HTTP2Connection() if session is None else HTTP2Connection(session[1])
+            jwt = self.load_session()
+            self.ws_connection = None if jwt is None else WSConnection(jwt, time_out)
+            self.http2_connection = HTTP2Connection() if jwt is None else HTTP2Connection(jwt)
             self.http_connection = None
         self.sleep_threshold = sleep_threshold
         self.user = None
@@ -214,27 +215,31 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         await self.dispatcher.dispatch_event(self, ShutdownHandler)
         await self.dispatcher.stop()
 
-    def create_session_string(self, user_id=None, jwt=None):
-        user_id = user_id or self.user.id
-        jwt = jwt or self.ws_connection.access_token
-        return f"{user_id}:{jwt}"
-
-    @staticmethod
-    def parse_session_string(session_string):
-        return session_string.split(":", maxsplit=1)
-
-    def save_session(self, user_id=None, jwt=None):
-        session_string = self.create_session_string(user_id, jwt)
+    def save_session(self, jwt):
         with open(self.workdir / f"{self.token_or_phone_number}.session", "w", encoding="utf-8") as f:
-            f.write(session_string)
-        return session_string
+            f.write(jwt)
 
     def load_session(self):
         try:
             with open(self.workdir / f"{self.token_or_phone_number}.session", encoding="utf-8") as f:
-                return self.parse_session_string(f.read())
+                return f.read()
         except FileNotFoundError:
             return None
+
+    @staticmethod
+    def decode_jwt(jwt: str) -> dict:
+        header, payload, signature = jwt.split(".", maxsplit=2)
+
+        def decode_part(part: str) -> dict:
+            padded = part + "=" * (4 - len(part) % 4)
+            decoded = base64.urlsafe_b64decode(padded)
+            return loads(decoded)
+
+        return {
+            "header": decode_part(header),
+            "payload": decode_part(payload),
+            "signature": signature
+        }
 
     async def start_polling(self, clear_pending_updates: bool = True):
         await self.delete_webhook()
@@ -284,7 +289,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     raise error
             else:
                 break
-        self.save_session(auth.user.id, auth.jwt.value)
+        self.save_session(auth.jwt.value)
         self.http2_connection.access_token = auth.jwt.value
         self.ws_connection = WSConnection(auth.jwt.value, self.time_out)
 
