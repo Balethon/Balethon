@@ -89,6 +89,7 @@ class HTTP2Connection:
             cookies=self.build_request_cookies(),
             timeout=self.time_out
         )
+        response.raise_for_status()
         status = response.headers.get("grpc-status")
         if status is not None and status != 0:
             description = response.headers.get("grpc-message")
