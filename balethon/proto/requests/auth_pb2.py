@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from ..structs import collections_pb2 as structs_dot_collections__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13requests/auth.proto\x12\x08requests\x1a\x19structs/collections.proto\"\x8a\x01\n\x0eStartPhoneAuth\x12\x14\n\x0cphone_number\x18\x01 \x01(\x03\x12\x0e\n\x06\x61pp_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x61pi_key\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65vice_hash\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65vice_title\x18\x05 \x01(\t\x12\x16\n\x0esend_code_type\x18\t \x01(\x05\"Z\n\x0cValidateCode\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\"\n\x06is_jwt\x18\x03 \x01(\x0b\x32\x12.structs.BoolValue\"b\n\x10ValidatePassword\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\"\n\x06is_jwt\x18\x03 \x01(\x0b\x32\x12.structs.BoolValue\"e\n\x06SignUp\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03sex\x18\x03 \x01(\x05\x12&\n\x08password\x18\x04 \x01(\x0b\x32\x14.structs.StringValue\"\x16\n\x14TerminateAllSessionsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13requests/auth.proto\x12\x08requests\x1a\x19structs/collections.proto\"\x8a\x01\n\x0eStartPhoneAuth\x12\x14\n\x0cphone_number\x18\x01 \x01(\x03\x12\x0e\n\x06\x61pp_id\x18\x02 \x01(\x05\x12\x0f\n\x07\x61pi_key\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65vice_hash\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65vice_title\x18\x05 \x01(\t\x12\x16\n\x0esend_code_type\x18\t \x01(\x05\"Z\n\x0cValidateCode\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\"\n\x06is_jwt\x18\x03 \x01(\x0b\x32\x12.structs.BoolValue\"b\n\x10ValidatePassword\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\"\n\x06is_jwt\x18\x03 \x01(\x0b\x32\x12.structs.BoolValue\"e\n\x06SignUp\x12\x18\n\x10transaction_hash\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03sex\x18\x03 \x01(\x05\x12&\n\x08password\x18\x04 \x01(\x0b\x32\x14.structs.StringValue\"\x16\n\x14TerminateAllSessions\"\r\n\x0bGetJWTTokenb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -42,4 +42,6 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_SIGNUP']._serialized_end=494
   _globals['_TERMINATEALLSESSIONS']._serialized_start=496
   _globals['_TERMINATEALLSESSIONS']._serialized_end=518
+  _globals['_GETJWTTOKEN']._serialized_start=520
+  _globals['_GETJWTTOKEN']._serialized_end=533
 # @@protoc_insertion_point(module_scope)

@@ -41,3 +41,7 @@ message SignUp {
 // HTTP2
 message TerminateAllSessions {
 }
+
+// HTTP2
+message GetJWTToken {
+}

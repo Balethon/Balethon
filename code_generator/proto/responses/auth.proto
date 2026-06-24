@@ -19,3 +19,7 @@ message Auth {
   structs.User user = 2;
   structs.StringValue jwt = 4;
 }
+
+message GetJWTToken {
+  structs.StringValue jwt = 1;
+}

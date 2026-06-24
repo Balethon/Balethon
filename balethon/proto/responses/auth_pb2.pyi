@@ -32,3 +32,9 @@ class Auth(_message.Message):
     user: _users_pb2.User
     jwt: _collections_pb2.StringValue
     def __init__(self, user: _Optional[_Union[_users_pb2.User, _Mapping]] = ..., jwt: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ...) -> None: ...
+
+class GetJWTToken(_message.Message):
+    __slots__ = ("jwt",)
+    JWT_FIELD_NUMBER: _ClassVar[int]
+    jwt: _collections_pb2.StringValue
+    def __init__(self, jwt: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ...) -> None: ...

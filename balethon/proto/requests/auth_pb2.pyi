@@ -57,3 +57,7 @@ class SignUp(_message.Message):
 class TerminateAllSessions(_message.Message):
     __slots__ = ()
     def __init__(self) -> None: ...
+
+class GetJWTToken(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
