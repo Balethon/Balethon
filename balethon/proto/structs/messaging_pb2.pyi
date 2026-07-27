@@ -252,10 +252,10 @@ class HistoryMessageIdentifier(_message.Message):
     PEER_FIELD_NUMBER: _ClassVar[int]
     RANDOM_ID_FIELD_NUMBER: _ClassVar[int]
     DATE_FIELD_NUMBER: _ClassVar[int]
-    peer: _peers_pb2.Peer
+    peer: _peers_pb2.OutPeer
     random_id: int
-    date: _collections_pb2.Int64Value
-    def __init__(self, peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ...) -> None: ...
+    date: int
+    def __init__(self, peer: _Optional[_Union[_peers_pb2.OutPeer, _Mapping]] = ..., random_id: _Optional[int] = ..., date: _Optional[int] = ...) -> None: ...
 
 class SingleMedia(_message.Message):
     __slots__ = ("random_id", "media")

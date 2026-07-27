@@ -24,9 +24,9 @@ class ForwardMessage:
                 ),
                 rid=[self.ws_connection.create_rid()],
                 forwarded_messages=[structs.HistoryMessageIdentifier(
-                    peer=structs.Peer(type=message_peer_type, id=message_peer_id),
+                    peer=structs.OutPeer(type=message_peer_type, id=message_peer_id),
                     random_id=message_id.rid,
-                    date=structs.Int64Value(value=message_id.date)
+                    date=message_id.date
                 )]
             ))
 
