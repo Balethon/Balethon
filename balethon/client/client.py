@@ -42,9 +42,6 @@ except ImportError:
 @add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
     WORKDIR = Path(sys.argv[0]).parent
-    PHONE_CODE_CALLBACK = lambda: input("Enter phone code: ")
-    NAME_CALLBACK = lambda: input("Enter a name for your account: ")
-    PASSWORD_CALLBACK = lambda: input("Enter your password: ")
 
     def __init__(
             self,
@@ -93,9 +90,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         self.user = None
         self.is_disconnected = False
         self.last_update_id = None
-        self.phone_code_callback = phone_code_callback or self.PHONE_CODE_CALLBACK
-        self.name_callback = name_callback or self.NAME_CALLBACK
-        self.password_callback = password_callback or self.PASSWORD_CALLBACK
+        self.phone_code_callback = phone_code_callback or (lambda: input("Enter phone code: "))
+        self.name_callback = name_callback or (lambda: input("Enter a name for your account: "))
+        self.password_callback = password_callback or (lambda: input("Enter your password: "))
 
     def is_userbot(self):
         return self.http_connection is None
