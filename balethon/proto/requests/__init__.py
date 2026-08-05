@@ -40,6 +40,10 @@ GetJWTToken.service_name = "bale.auth.v1.Auth"
 GetJWTToken.method = "GetJWTToken"
 GetJWTToken.http2 = True
 
+SignOut.service_name = "bale.auth.v1.Auth"
+SignOut.method = "SignOut"
+SignOut.http2 = True
+
 EditParameter.service_name = "bale.v1.Configs"
 EditParameter.method = "EditParameter"
 EditParameter.http2 = False

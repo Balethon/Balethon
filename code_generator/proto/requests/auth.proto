@@ -45,3 +45,7 @@ message TerminateAllSessions {
 // HTTP2
 message GetJWTToken {
 }
+
+// HTTP2
+message SignOut {
+}
