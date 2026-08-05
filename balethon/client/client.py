@@ -42,6 +42,9 @@ except ImportError:
 @add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
     WORKDIR = Path(sys.argv[0]).parent
+    PHONE_CODE_CALLBACK = input("Enter phone code: ")
+    NAME_CALLBACK = input("Enter a name for your account: ")
+    PASSWORD_CALLBACK = input("Enter your password: ")
 
     def __init__(
             self,
@@ -99,15 +102,17 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             name = "Not initialized yet"
         return f"{client_name}({name})"
 
-    async def connect(self):
+    async def connect(self, auth: bool = True, get_me: bool = True):
         if self.is_userbot():
             await self.http2_connection.start()
-            if self.ws_connection is None:
+            if self.ws_connection is None and auth:
                 await self.auth()
-            await self.ws_connection.start()
+            if self.ws_connection is not None:
+                await self.ws_connection.start()
         else:
             await self.http_connection.start()
-        self.user = await self.get_me()
+        if get_me:
+            self.user = await self.get_me()
 
     async def disconnect(self):
         if self.is_userbot():
@@ -271,19 +276,24 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     self.last_update_id = update.id
                     await self.dispatcher.dispatch_event(self, update.get_effective_update())
 
-    async def auth(self):
+    async def auth(
+            self,
+            phone_code_callback=PHONE_CODE_CALLBACK,
+            name_callback=PHONE_CODE_CALLBACK,
+            password_callback=PASSWORD_CALLBACK,
+    ):
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
         while True:
             try:
-                auth = await self.validate_code(sent_code.transaction_hash, input("Enter phone code: "))
+                auth = await self.validate_code(sent_code.transaction_hash, phone_code_callback)
             except RPCError as error:
                 if error.description == "PHONE_NUMBER_UNOCCUPIED":
-                    auth = await self.sign_up(sent_code.transaction_hash, input("Enter a name for your account: "))
+                    auth = await self.sign_up(sent_code.transaction_hash, name_callback)
                     break
                 elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
                 elif error.description == "":  # TODO: Add description for password requirement error
-                    auth = await self.validate_password(sent_code.transaction_hash, input("Enter your password: "))
+                    auth = await self.validate_password(sent_code.transaction_hash, password_callback)
                     break
                 else:
                     raise error
