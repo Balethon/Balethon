@@ -31,7 +31,7 @@ from ..errors import TooManyRequestsError, RPCError
 from ..network import HTTPConnection, WSConnection, HTTP2Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
-from ..smart_call import remove_unwanted_keyword_parameters
+from ..smart_call import remove_unwanted_keyword_parameters, run_asynchronously
 from ..sync_support import add_sync_support_to_object
 try:
     from ..proto import responses
@@ -285,21 +285,21 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             name_callback=None,
             password_callback=None,
     ):
-        phone_code_callback = phone_code_callback or self.phone_code_callback
-        name_callback = name_callback or self.name_callback
-        password_callback = password_callback or self.password_callback
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
         while True:
             try:
-                auth = await self.validate_code(sent_code.transaction_hash, phone_code_callback())
+                phone_code = await run_asynchronously(phone_code_callback or self.phone_code_callback)
+                auth = await self.validate_code(sent_code.transaction_hash, phone_code)
             except RPCError as error:
                 if error.description == "PHONE_NUMBER_UNOCCUPIED":
-                    auth = await self.sign_up(sent_code.transaction_hash, name_callback())
+                    name = await run_asynchronously(name_callback or self.name_callback)
+                    auth = await self.sign_up(sent_code.transaction_hash, name)
                     break
                 elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
                 elif error.description == "":  # TODO: Add description for password requirement error
-                    auth = await self.validate_password(sent_code.transaction_hash, password_callback())
+                    password = await run_asynchronously(password_callback or self.password_callback)
+                    auth = await self.validate_password(sent_code.transaction_hash, password)
                     break
                 else:
                     raise error
