@@ -57,7 +57,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
             sleep_threshold: int = 60,
             proxy=None,
             base_url: str = None,
-            short_url: str = None
+            short_url: str = None,
+            phone_code_callback=None,
+            name_callback=None,
+            password_callback=None
     ):
         super().__init__("default", None, PrintingChain())
         self.token_or_phone_number = token_or_phone_number
@@ -90,6 +93,9 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         self.user = None
         self.is_disconnected = False
         self.last_update_id = None
+        self.phone_code_callback = phone_code_callback or self.PHONE_CODE_CALLBACK
+        self.name_callback = name_callback or self.NAME_CALLBACK
+        self.password_callback = password_callback or self.PASSWORD_CALLBACK
 
     def is_userbot(self):
         return self.http_connection is None
@@ -278,10 +284,13 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
 
     async def auth(
             self,
-            phone_code_callback=PHONE_CODE_CALLBACK,
-            name_callback=PHONE_CODE_CALLBACK,
-            password_callback=PASSWORD_CALLBACK,
+            phone_code_callback=None,
+            name_callback=None,
+            password_callback=None,
     ):
+        phone_code_callback = phone_code_callback or self.phone_code_callback
+        name_callback = name_callback or self.name_callback
+        password_callback = password_callback or self.password_callback
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
         while True:
             try:
