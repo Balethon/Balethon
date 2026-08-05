@@ -42,9 +42,9 @@ except ImportError:
 @add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
     WORKDIR = Path(sys.argv[0]).parent
-    PHONE_CODE_CALLBACK = input("Enter phone code: ")
-    NAME_CALLBACK = input("Enter a name for your account: ")
-    PASSWORD_CALLBACK = input("Enter your password: ")
+    PHONE_CODE_CALLBACK = lambda: input("Enter phone code: ")
+    NAME_CALLBACK = lambda: input("Enter a name for your account: ")
+    PASSWORD_CALLBACK = lambda: input("Enter your password: ")
 
     def __init__(
             self,
@@ -294,15 +294,15 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
         sent_code = await self.start_phone_auth(self.token_or_phone_number)
         while True:
             try:
-                auth = await self.validate_code(sent_code.transaction_hash, phone_code_callback)
+                auth = await self.validate_code(sent_code.transaction_hash, phone_code_callback())
             except RPCError as error:
                 if error.description == "PHONE_NUMBER_UNOCCUPIED":
-                    auth = await self.sign_up(sent_code.transaction_hash, name_callback)
+                    auth = await self.sign_up(sent_code.transaction_hash, name_callback())
                     break
                 elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
                 elif error.description == "":  # TODO: Add description for password requirement error
-                    auth = await self.validate_password(sent_code.transaction_hash, password_callback)
+                    auth = await self.validate_password(sent_code.transaction_hash, password_callback())
                     break
                 else:
                     raise error
