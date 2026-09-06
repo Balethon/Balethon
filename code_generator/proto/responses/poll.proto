@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package responses;
+import "structs/poll.proto";
+
+message Vote {
+  structs.PollResult poll_result = 1;
+}

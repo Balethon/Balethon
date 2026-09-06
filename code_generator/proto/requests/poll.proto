@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package requests;
+
+// Service name: bale.poll.v1.Poll
+
+message Vote {
+  int64 poll_id = 1;
+  bool is_retract = 2;
+  int64 vote_at = 3;
+  repeated int32 option_ids = 4;
+}

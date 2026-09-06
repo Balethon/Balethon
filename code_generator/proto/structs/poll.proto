@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package structs;
+
+message OptionResult {
+  int32 option_id = 1;
+  int32 votes_count = 2;
+}
+
+message PollResult {
+  repeated OptionResult option_results = 1;
+  repeated int64 recent_voters = 2;
+  repeated int64 chosen_option_ids = 3;
+  bool is_closed = 4;
+  int64 poll_id = 5;
+  int32 voters_count = 6;
+}

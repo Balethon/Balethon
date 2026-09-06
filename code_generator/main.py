@@ -66,12 +66,11 @@ def create_init_file(directory: Path) -> Path:
 
 def add_import_to_init(init_file: Path, file: Path, main_package: bool = False):
     content = init_file.read_text(encoding="utf-8")
-    name = file.name.split(".")[0]
     if main_package:
-        alias = name.replace("_pb2", "")
-        content += f"from . import {name} as {alias}\n"
+        alias = file.stem.replace("_pb2", "")
+        content += f"from . import {file.stem} as {alias}\n"
     else:
-        content += f"from .{name} import *\n"
+        content += f"from .{file.stem} import *\n"
     init_file.write_text(content, encoding="utf-8")
 
 

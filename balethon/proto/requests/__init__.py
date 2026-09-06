@@ -4,6 +4,7 @@ from .configs_pb2 import *
 from .files_pb2 import *
 from .groups_pb2 import *
 from .messaging_pb2 import *
+from .poll_pb2 import *
 from .presence_pb2 import *
 from .request_pb2 import *
 from .users_pb2 import *
@@ -183,6 +184,10 @@ SendMultiMediaMessage.http2 = False
 LoadDialogs.service_name = "bale.messaging.v2.Messaging"
 LoadDialogs.method = "LoadDialogs"
 LoadDialogs.http2 = False
+
+Vote.service_name = "bale.poll.v1.Poll"
+Vote.method = "Vote"
+Vote.http2 = False
 
 SetOnline.service_name = "bale.presence.v1.Presence"
 SetOnline.method = "SetOnline"
