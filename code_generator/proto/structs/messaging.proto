@@ -5,6 +5,7 @@ package structs;
 import "structs/collections.proto";
 import "structs/files.proto";
 import "structs/peers.proto";
+import "structs/poll.proto";
 
 message DocumentExPhoto {
   int32 w = 1;
@@ -72,6 +73,15 @@ message StickerMessage {
   ImageLocation image256 = 4;
   Int32Value sticker_collection_id = 5;
   Int64Value sticker_collection_access_hash = 6;
+}
+
+message PollMessage {
+  string question = 1;
+  repeated PollOption options = 2;
+  bool is_anonymous = 3;
+  int32 type = 4;
+  PollResult result = 5;
+  int64 poll_id = 6;
 }
 
 message Message {

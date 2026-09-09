@@ -6,6 +6,14 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class PollOption(_message.Message):
+    __slots__ = ("id", "text")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    text: str
+    def __init__(self, id: _Optional[int] = ..., text: _Optional[str] = ...) -> None: ...
+
 class OptionResult(_message.Message):
     __slots__ = ("option_id", "votes_count")
     OPTION_ID_FIELD_NUMBER: _ClassVar[int]

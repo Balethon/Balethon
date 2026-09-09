@@ -24,15 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12structs/poll.proto\x12\x07structs\"6\n\x0cOptionResult\x12\x11\n\toption_id\x18\x01 \x01(\x05\x12\x13\n\x0bvotes_count\x18\x02 \x01(\x05\"\xa7\x01\n\nPollResult\x12-\n\x0eoption_results\x18\x01 \x03(\x0b\x32\x15.structs.OptionResult\x12\x15\n\rrecent_voters\x18\x02 \x03(\x03\x12\x19\n\x11\x63hosen_option_ids\x18\x03 \x03(\x03\x12\x11\n\tis_closed\x18\x04 \x01(\x08\x12\x0f\n\x07poll_id\x18\x05 \x01(\x03\x12\x14\n\x0cvoters_count\x18\x06 \x01(\x05\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12structs/poll.proto\x12\x07structs\"&\n\nPollOption\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\"6\n\x0cOptionResult\x12\x11\n\toption_id\x18\x01 \x01(\x05\x12\x13\n\x0bvotes_count\x18\x02 \x01(\x05\"\xa7\x01\n\nPollResult\x12-\n\x0eoption_results\x18\x01 \x03(\x0b\x32\x15.structs.OptionResult\x12\x15\n\rrecent_voters\x18\x02 \x03(\x03\x12\x19\n\x11\x63hosen_option_ids\x18\x03 \x03(\x03\x12\x11\n\tis_closed\x18\x04 \x01(\x08\x12\x0f\n\x07poll_id\x18\x05 \x01(\x03\x12\x14\n\x0cvoters_count\x18\x06 \x01(\x05\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'structs.poll_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_OPTIONRESULT']._serialized_start=31
-  _globals['_OPTIONRESULT']._serialized_end=85
-  _globals['_POLLRESULT']._serialized_start=88
-  _globals['_POLLRESULT']._serialized_end=255
+  _globals['_POLLOPTION']._serialized_start=31
+  _globals['_POLLOPTION']._serialized_end=69
+  _globals['_OPTIONRESULT']._serialized_start=71
+  _globals['_OPTIONRESULT']._serialized_end=125
+  _globals['_POLLRESULT']._serialized_start=128
+  _globals['_POLLRESULT']._serialized_end=295
 # @@protoc_insertion_point(module_scope)
