@@ -201,6 +201,22 @@ EditName.service_name = "bale.users.v1.Users"
 EditName.method = "EditName"
 EditName.http2 = False
 
+EditAbout.service_name = "bale.users.v1.Users"
+EditAbout.method = "EditAbout"
+EditAbout.http2 = False
+
+LoadAvatars.service_name = "bale.users.v1.Users"
+LoadAvatars.method = "LoadAvatars"
+LoadAvatars.http2 = False
+
+EditAvatar.service_name = "bale.users.v1.Users"
+EditAvatar.method = "EditAvatar"
+EditAvatar.http2 = False
+
+RemoveAvatar.service_name = "bale.users.v1.Users"
+RemoveAvatar.method = "RemoveAvatar"
+RemoveAvatar.http2 = False
+
 LoadUsers.service_name = "bale.users.v1.Users"
 LoadUsers.method = "LoadUsers"
 LoadUsers.http2 = False

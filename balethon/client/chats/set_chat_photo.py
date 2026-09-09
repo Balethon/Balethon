@@ -17,15 +17,14 @@ class SetChatPhoto:
             from ...proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
             file = await self.upload_file(f"{self.user.id}|1", photo, enums.SEND_TYPE_PHOTO)
+            file_location = structs.FileLocation(file_id=file.id, access_hash=self.user.id)
+
+            if peer_id == self.user.id and peer_type == 1:
+                return await self.execute(requests.EditAvatar(file_location=file_location))
+
             return await self.execute(requests.EditGroupAvatar(
-                group_peer=structs.GroupOutPeer(
-                    group_id=peer_id,
-                    access_hash=1
-                ),
-                file_location=structs.FileLocation(
-                    file_id=file.id,
-                    access_hash=self.user.id
-                ),
+                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                file_location=file_location,
                 rid=self.ws_connection.create_rid()
             ))
 

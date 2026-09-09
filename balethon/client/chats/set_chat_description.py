@@ -13,6 +13,10 @@ class SetChatDescription:
         if self.is_userbot():
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
+
+            if peer_id == self.user.id and peer_type == 1:
+                return await self.execute(requests.EditAbout(about=structs.StringValue(value=description)))
+
             return await self.execute(requests.EditGroupAbout(
                 group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
                 rid=self.ws_connection.create_rid(),

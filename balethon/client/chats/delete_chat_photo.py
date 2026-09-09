@@ -13,14 +13,19 @@ class DeleteChatPhoto:
             from balethon.proto import requests, structs
             peer_id, peer_type = map(int, chat_id.split("|"))
 
-            response = await self.execute(requests.LoadGroupAvatars(
-                peer=structs.GroupOutPeer(group_id=peer_id)
-            ))
+            if peer_id == self.user.id and peer_type == 1:
+                response = await self.execute(requests.LoadAvatars(
+                    peer=structs.UserOutPeer(uid=peer_id, access_hash=1))
+                )
+            else:
+                response = await self.execute(requests.LoadGroupAvatars(
+                    peer=structs.GroupOutPeer(group_id=peer_id)
+                ))
 
-            avatars = response.avatars.avatars
-            if not avatars:
-                return
-            last_avatar = avatars[0]
+            last_avatar = response.avatars.avatars[0]
+
+            if peer_id == self.user.id and peer_type == 1:
+                return await self.execute(requests.RemoveAvatar(avatar_id=last_avatar.id))
 
             return await self.execute(requests.RemoveGroupAvatar(
                 group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),

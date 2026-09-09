@@ -3,11 +3,29 @@ syntax = "proto3";
 package requests;
 
 import "structs/peers.proto";
+import "structs/collections.proto";
+import "structs/files.proto";
 
 // Service name: bale.users.v1.Users
 
 message EditName {
   string name = 1;
+}
+
+message EditAbout {
+  structs.StringValue about = 1;
+}
+
+message LoadAvatars {
+  structs.UserOutPeer peer = 1;
+}
+
+message EditAvatar {
+  structs.FileLocation file_location = 1;
+}
+
+message RemoveAvatar {
+  structs.Int64Value avatar_id = 1;
 }
 
 message LoadUsers {

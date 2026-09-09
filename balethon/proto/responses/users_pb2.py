@@ -25,17 +25,20 @@ _sym_db = _symbol_database.Default()
 from ..structs import users_pb2 as structs_dot_users__pb2
 from ..structs import peers_pb2 as structs_dot_peers__pb2
 from ..structs import groups_pb2 as structs_dot_groups__pb2
+from ..structs import files_pb2 as structs_dot_files__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15responses/users.proto\x12\tresponses\x1a\x13structs/users.proto\x1a\x13structs/peers.proto\x1a\x14structs/groups.proto\")\n\tLoadUsers\x12\x1c\n\x05users\x18\x01 \x03(\x0b\x32\r.structs.User\"\xa4\x01\n\x0eSearchContacts\x12\x1c\n\x05users\x18\x01 \x03(\x0b\x32\r.structs.User\x12(\n\nuser_peers\x18\x02 \x03(\x0b\x32\x14.structs.UserOutPeer\x12\x1e\n\x06groups\x18\x04 \x03(\x0b\x32\x0e.structs.Group\x12*\n\x0bgroup_peers\x18\x05 \x03(\x0b\x32\x15.structs.GroupOutPeerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15responses/users.proto\x12\tresponses\x1a\x13structs/users.proto\x1a\x13structs/peers.proto\x1a\x14structs/groups.proto\x1a\x13structs/files.proto\"0\n\x0bLoadAvatars\x12!\n\x07\x61vatars\x18\x01 \x01(\x0b\x32\x10.structs.Avatars\")\n\tLoadUsers\x12\x1c\n\x05users\x18\x01 \x03(\x0b\x32\r.structs.User\"\xa4\x01\n\x0eSearchContacts\x12\x1c\n\x05users\x18\x01 \x03(\x0b\x32\r.structs.User\x12(\n\nuser_peers\x18\x02 \x03(\x0b\x32\x14.structs.UserOutPeer\x12\x1e\n\x06groups\x18\x04 \x03(\x0b\x32\x0e.structs.Group\x12*\n\x0bgroup_peers\x18\x05 \x03(\x0b\x32\x15.structs.GroupOutPeerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'responses.users_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_LOADUSERS']._serialized_start=100
-  _globals['_LOADUSERS']._serialized_end=141
-  _globals['_SEARCHCONTACTS']._serialized_start=144
-  _globals['_SEARCHCONTACTS']._serialized_end=308
+  _globals['_LOADAVATARS']._serialized_start=121
+  _globals['_LOADAVATARS']._serialized_end=169
+  _globals['_LOADUSERS']._serialized_start=171
+  _globals['_LOADUSERS']._serialized_end=212
+  _globals['_SEARCHCONTACTS']._serialized_start=215
+  _globals['_SEARCHCONTACTS']._serialized_end=379
 # @@protoc_insertion_point(module_scope)

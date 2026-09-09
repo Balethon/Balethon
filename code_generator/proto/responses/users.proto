@@ -5,6 +5,11 @@ package responses;
 import "structs/users.proto";
 import "structs/peers.proto";
 import "structs/groups.proto";
+import "structs/files.proto";
+
+message LoadAvatars {
+  structs.Avatars avatars = 1;
+}
 
 message LoadUsers {
   repeated structs.User users = 1;

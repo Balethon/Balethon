@@ -19,7 +19,7 @@ message ImageLocation {
 }
 
 message FileLocation {
-  uint64 file_id = 1;
+  int64 file_id = 1;
   int64 access_hash = 2;
   Int32Value file_storage_version = 3;
 }

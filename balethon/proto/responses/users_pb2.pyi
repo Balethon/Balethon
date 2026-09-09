@@ -1,6 +1,7 @@
 from ..structs import users_pb2 as _users_pb2
 from ..structs import peers_pb2 as _peers_pb2
 from ..structs import groups_pb2 as _groups_pb2
+from ..structs import files_pb2 as _files_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -8,6 +9,12 @@ from collections.abc import Iterable as _Iterable, Mapping as _Mapping
 from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+
+class LoadAvatars(_message.Message):
+    __slots__ = ("avatars",)
+    AVATARS_FIELD_NUMBER: _ClassVar[int]
+    avatars: _files_pb2.Avatars
+    def __init__(self, avatars: _Optional[_Union[_files_pb2.Avatars, _Mapping]] = ...) -> None: ...
 
 class LoadUsers(_message.Message):
     __slots__ = ("users",)
