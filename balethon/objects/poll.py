@@ -3,9 +3,18 @@ from typing import List
 from balethon import enums
 from . import Object
 from .poll_option import PollOption
+from .list import List as BalethonList
 
 
 class Poll(Object):
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            id=protobuf_data.poll_id,
+            options=BalethonList(PollOption.from_protobuf(option) for option in protobuf_data.options),
+            question=protobuf_data.question,
+            is_anonymous=protobuf_data.is_anonymous
+        )
 
     def __init__(
             self,

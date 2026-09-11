@@ -2,6 +2,12 @@ from . import Object
 
 
 class PollOption(Object):
+    @classmethod
+    def from_protobuf(cls, protobuf_data):
+        return cls(
+            persistent_id=protobuf_data.id,
+            text=protobuf_data.text
+        )
 
     def __init__(
             self,

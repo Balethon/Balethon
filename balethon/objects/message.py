@@ -12,6 +12,7 @@ from .sticker import Sticker
 from .user import User
 from .video import Video
 from .voice import Voice
+from .poll import Poll
 from .message_id import MessageId
 from ..enums import MessageMediaType
 from ..sync_support import add_sync_support_to_object
@@ -140,6 +141,11 @@ class Message(Object):
                 message.document_message.caption.text
                 if message.HasField("document_message")
                    and message.document_message.HasField("caption")
+                else None
+            ),
+            poll=(
+                Poll.from_protobuf(message.poll_message)
+                if message.HasField("poll_message")
                 else None
             )
         )

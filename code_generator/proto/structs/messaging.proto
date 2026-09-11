@@ -90,6 +90,7 @@ message Message {
   JsonMessage json_message = 7;
   StickerMessage sticker_message = 12;
   TextMessage text_message = 15;
+  PollMessage poll_message = 29;
 }
 
 message DeleteDates {
