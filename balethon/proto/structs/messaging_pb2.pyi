@@ -2,6 +2,7 @@ from ..structs import collections_pb2 as _collections_pb2
 from ..structs import files_pb2 as _files_pb2
 from ..structs import peers_pb2 as _peers_pb2
 from ..structs import poll_pb2 as _poll_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -137,10 +138,10 @@ class PollMessage(_message.Message):
     question: str
     options: _containers.RepeatedCompositeFieldContainer[_poll_pb2.PollOption]
     is_anonymous: bool
-    type: int
+    type: _enums_pb2.PollType
     result: _poll_pb2.PollResult
     poll_id: int
-    def __init__(self, question: _Optional[str] = ..., options: _Optional[_Iterable[_Union[_poll_pb2.PollOption, _Mapping]]] = ..., is_anonymous: bool = ..., type: _Optional[int] = ..., result: _Optional[_Union[_poll_pb2.PollResult, _Mapping]] = ..., poll_id: _Optional[int] = ...) -> None: ...
+    def __init__(self, question: _Optional[str] = ..., options: _Optional[_Iterable[_Union[_poll_pb2.PollOption, _Mapping]]] = ..., is_anonymous: bool = ..., type: _Optional[_Union[_enums_pb2.PollType, str]] = ..., result: _Optional[_Union[_poll_pb2.PollResult, _Mapping]] = ..., poll_id: _Optional[int] = ...) -> None: ...
 
 class Message(_message.Message):
     __slots__ = ("document_message", "json_message", "sticker_message", "text_message")

@@ -19,7 +19,7 @@ class SetChatPhoto:
             file = await self.upload_file(f"{self.user.id}|1", photo, enums.SEND_TYPE_PHOTO)
             file_location = structs.FileLocation(file_id=file.id, access_hash=self.user.id)
 
-            if peer_id == self.user.id and peer_type == 1:
+            if peer_id == self.user.id and peer_type == enums.ExPeerType.EX_PEER_TYPE_PRIVATE:
                 return await self.execute(requests.EditAvatar(file_location=file_location))
 
             return await self.execute(requests.EditGroupAvatar(

@@ -57,3 +57,8 @@ enum Sex {
   SEX_MALE = 1;
   SEX_FEMALE = 2;
 }
+
+enum PollType {
+  POLL_TYPE_SINGLE_CHOICE = 0;
+  POLL_TYPE_MULTIPLE_CHOICE = 1;
+}

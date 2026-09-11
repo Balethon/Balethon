@@ -59,6 +59,11 @@ class Sex(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     SEX_UNKNOWN: _ClassVar[Sex]
     SEX_MALE: _ClassVar[Sex]
     SEX_FEMALE: _ClassVar[Sex]
+
+class PollType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    POLL_TYPE_SINGLE_CHOICE: _ClassVar[PollType]
+    POLL_TYPE_MULTIPLE_CHOICE: _ClassVar[PollType]
 SEND_TYPE_UNKNOWN: SendType
 SEND_TYPE_PHOTO: SendType
 SEND_TYPE_VIDEO: SendType
@@ -97,3 +102,5 @@ TYPING_TYPE_CHOOSING_EMOJI: TypingType
 SEX_UNKNOWN: Sex
 SEX_MALE: Sex
 SEX_FEMALE: Sex
+POLL_TYPE_SINGLE_CHOICE: PollType
+POLL_TYPE_MULTIPLE_CHOICE: PollType

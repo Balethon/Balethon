@@ -6,6 +6,7 @@ import "structs/collections.proto";
 import "structs/files.proto";
 import "structs/peers.proto";
 import "structs/poll.proto";
+import "enums.proto";
 
 message DocumentExPhoto {
   int32 w = 1;
@@ -79,7 +80,7 @@ message PollMessage {
   string question = 1;
   repeated PollOption options = 2;
   bool is_anonymous = 3;
-  int32 type = 4;
+  enums.PollType type = 4;
   PollResult result = 5;
   int64 poll_id = 6;
 }

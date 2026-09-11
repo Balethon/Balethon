@@ -11,10 +11,10 @@ class SetChatDescription:
             description: str
     ) -> bool:
         if self.is_userbot():
-            from balethon.proto import requests, structs
+            from balethon.proto import requests, structs, enums
             peer_id, peer_type = map(int, chat_id.split("|"))
 
-            if peer_id == self.user.id and peer_type == 1:
+            if peer_id == self.user.id and peer_type == enums.ExPeerType.EX_PEER_TYPE_PRIVATE:
                 return await self.execute(requests.EditAbout(about=structs.StringValue(value=description)))
 
             return await self.execute(requests.EditGroupAbout(
