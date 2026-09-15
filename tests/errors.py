@@ -1,8 +1,8 @@
-from balethon.errors import RPCError
+from balethon.errors import HTTPError
 
 
 def main():
-    raise RPCError.create(400, "something went wrong", "SendMessage")
+    raise HTTPError.create(400, "something went wrong", "SendMessage")
 
 
 if __name__ == "__main__":

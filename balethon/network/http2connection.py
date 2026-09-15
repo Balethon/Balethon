@@ -9,7 +9,7 @@ try:
 except ImportError:
     pass
 
-from ..errors import RPCError
+from ..errors import GRPCError
 
 
 class HTTP2Connection:
@@ -93,7 +93,7 @@ class HTTP2Connection:
         status = response.headers.get("grpc-status")
         if status is not None and status != 0:
             description = response.headers.get("grpc-message")
-            raise RPCError(status, description, reason=service)
+            raise GRPCError(status, description, reason=service)
         return self.strip_grpc_frame(response.content)
 
     @staticmethod

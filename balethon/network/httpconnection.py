@@ -3,7 +3,7 @@ from logging import getLogger
 from httpx import AsyncClient
 from httpx._types import ProxyTypes
 
-from ..errors import RPCError
+from ..errors import HTTPError
 
 log = getLogger(__name__)
 
@@ -63,12 +63,12 @@ class HTTPConnection:
         response_json = response.json()
         if response.status_code != 200:
             code = response.status_code or response_json.get("error_code")
-            raise RPCError.create(code, response_json.get("description"), service, response_json.get("parameters"))
+            raise HTTPError.create(code, response_json.get("description"), service, response_json.get("parameters"))
         return response_json.get("result")
 
     async def download_file(self, file_id: str):
         response = await self.client.get(self.file_url(file_id))
         if response.status_code != 200:
             response_json = response.json()
-            raise RPCError.create(response.status_code, response_json.get("description"), "downloadFile")
+            raise HTTPError.create(response.status_code, response_json.get("description"), "downloadFile")
         return response.read()

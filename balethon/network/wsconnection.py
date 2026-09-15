@@ -17,7 +17,7 @@ try:
 except ImportError:
     pass
 
-from ..errors import RPCError
+from ..errors import GRPCError, WSError
 try:
     from balethon.proto import structs, ws
 except ImportError:
@@ -136,12 +136,9 @@ class WSConnection:
                 self.is_started = False
                 break
             except ConnectionClosedError as error:
-                code = error.rcvd.code if error.rcvd else None
-                reason = error.rcvd.reason if error.rcvd else None
-                if code == 4401:
-                    self.error = RPCError(code, description=reason)
-                else:
-                    self.error = ConnectionError(f"Connection closed by server (code={code}, reason={reason})")
+                code = error.rcvd.code if error.rcvd.code else None
+                reason = error.rcvd.reason if error.rcvd.reason else "Connection closed by server"
+                self.error = WSError.create(code, description=reason)
                 self.is_started = False
                 break
             except Exception as error:
@@ -177,12 +174,9 @@ class WSConnection:
                 self.is_started = False
                 break
             except ConnectionClosedError as error:
-                code = error.rcvd.code if error.rcvd else None
-                reason = error.rcvd.reason if error.rcvd else None
-                if code == 4401:
-                    self.error = RPCError(code, description=reason)
-                else:
-                    self.error = ConnectionError(f"Connection closed by server (code={code}, reason={reason})")
+                code = error.rcvd.code if error.rcvd.code else None
+                reason = error.rcvd.reason if error.rcvd.reason else "Connection closed by server"
+                self.error = WSError.create(code, description=reason)
                 self.is_started = False
                 break
             except asyncio.CancelledError:
@@ -295,5 +289,5 @@ class WSConnection:
                 break
 
         if isinstance(result, ws.Error):
-            raise RPCError(code=result.code, description=result.message, reason=f"{service_name}/{method}")
+            raise GRPCError.create(code=result.code, description=result.message, reason=f"{service_name}/{method}")
         return result
