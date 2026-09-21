@@ -8,17 +8,17 @@ class MessageId(Object):
             self,
             message_id: Union[str, tuple] = None,
             *,
-            rid: int = None,
-            date: int = None,
+            rid: Union[int, str] = None,
+            date: Union[int, str] = None,
             **kwargs
     ):
         super().__init__(**kwargs)
         if message_id is not None and isinstance(message_id, str):
-            rid, date = map(int, message_id.split(":"))
+            rid, date = message_id.split(":")
         elif message_id is not None:
             rid, date = message_id
-        self.rid = rid
-        self.date = date
+        self.rid = int(rid)
+        self.date = int(date)
 
     def __str__(self):
         return f"{self.rid}:{self.date}"

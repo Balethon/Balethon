@@ -47,4 +47,5 @@ from .poll_option import PollOption
 from .poll import Poll
 from .forward_origin import ForwardOrigin
 from .message_id import MessageId, resolve_message_id
+from .chat_id import ChatId
 from .chat_permissions import ChatPermissions
