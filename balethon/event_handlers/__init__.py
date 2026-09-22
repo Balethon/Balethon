@@ -4,6 +4,7 @@ from .disconnect_handler import DisconnectHandler
 from .error_handler import ErrorHandler
 from .update_handler import UpdateHandler
 from .message_handler import MessageHandler
+from .raw_message_handler import RawMessageHandler
 from .callback_query_handler import CallbackQueryHandler
 from .command_handler import CommandHandler
 from .shipping_query_handler import ShippingQueryHandler

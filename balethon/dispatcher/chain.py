@@ -5,6 +5,7 @@ from ..event_handlers import (
     ErrorHandler,
     UpdateHandler,
     MessageHandler,
+    RawMessageHandler,
     EditedMessageHandler,
     CommandHandler,
     CallbackQueryHandler,
@@ -89,6 +90,13 @@ class Chain:
 
     def on_message(self, condition=None):
         return self.add_event_handler(MessageHandler, condition)
+
+    @classmethod
+    def raw_message_handler(cls, condition=None):
+        return cls.create_event_handler(RawMessageHandler, condition)
+
+    def on_raw_message(self, condition=None):
+        return self.add_event_handler(RawMessageHandler, condition)
 
     @classmethod
     def edited_message_handler(cls, condition=None):

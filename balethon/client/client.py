@@ -318,6 +318,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     raw_message = raw_update.update.composed_update.message
                     if raw_message.rid == 0:
                         continue
+                    await self.dispatcher.dispatch_event(self, raw_message)
                     message = Message.from_protobuf(raw_message)
                     message.bind(self)
                     await self.dispatcher.dispatch_event(self, message)
