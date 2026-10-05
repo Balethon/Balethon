@@ -297,7 +297,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, P
                     break
                 elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
-                elif error.description == "":  # TODO: Add description for password requirement error
+                elif error.code == 7:
                     password = await run_asynchronously(password_callback or self.password_callback)
                     auth = await self.validate_password(sent_code.transaction_hash, password)
                     break
