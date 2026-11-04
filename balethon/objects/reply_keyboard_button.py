@@ -2,7 +2,7 @@ from typing import Union
 from copy import deepcopy
 
 from . import Object
-from balethon import objects
+from balethon import enums, objects
 
 
 class ReplyKeyboardButton(Object):
@@ -13,6 +13,7 @@ class ReplyKeyboardButton(Object):
             request_contact: bool = None,
             request_location: bool = None,
             web_app: Union["objects.WebAppInfo", str] = None,
+            style: "enums.ButtonStyle" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -20,6 +21,7 @@ class ReplyKeyboardButton(Object):
         self.request_contact: bool = request_contact
         self.request_location: bool = request_location
         self.web_app = objects.WebAppInfo(web_app) if isinstance(web_app, str) else web_app
+        self.style: "enums.ButtonStyle" = style
 
     def format(self, *args, **kwargs):
         button = deepcopy(self)
