@@ -22,6 +22,7 @@ from .updates import Updates
 from .users import Users
 from .attachments import Attachments
 from .chats import Chats
+from .bot_commands import BotCommands
 from .invite_links import InviteLinks
 from .payments import Payments
 from .stickers import Stickers
@@ -40,7 +41,7 @@ except ImportError:
 
 
 @add_sync_support_to_object
-class Client(Chain, Messages, Updates, Users, Attachments, Chats, InviteLinks, Payments, Stickers, Auth):
+class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, InviteLinks, Payments, Stickers, Auth):
     WORKDIR = Path(sys.argv[0]).parent
 
     def __init__(

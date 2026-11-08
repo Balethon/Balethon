@@ -1,5 +1,8 @@
 from .ban_chat_member import BanChatMember
+from .create_forum_topic import CreateForumTopic
 from .delete_chat_photo import DeleteChatPhoto
+from .delete_forum_topic import DeleteForumTopic
+from .edit_forum_topic import EditForumTopic
 from .get_chat import GetChat
 from .get_chat_administrators import GetChatAdministrators
 from .get_chat_history import GetChatHistory
@@ -22,7 +25,10 @@ from .unpin_chat_message import UnpinChatMessage
 
 class Chats(
     BanChatMember,
+    CreateForumTopic,
     DeleteChatPhoto,
+    DeleteForumTopic,
+    EditForumTopic,
     GetChat,
     GetChatAdministrators,
     GetChatHistory,
