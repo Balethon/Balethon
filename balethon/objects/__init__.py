@@ -1,4 +1,5 @@
 from .object import Object, wrap, unwrap
+from .disabled_button import DisabledButton
 from .user import User
 from .date import Date
 from .chat import Chat
