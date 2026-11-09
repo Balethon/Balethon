@@ -153,6 +153,7 @@ class Message(Object):
     def __init__(
             self,
             id: int = None,
+            message_thread_id: int = None,
             author: "objects.User" = None,
             date: "objects.Date" = None,
             chat: "objects.Chat" = None,
@@ -196,6 +197,7 @@ class Message(Object):
     ):
         super().__init__(**kwargs)
         self.id: int = id
+        self.message_thread_id: int = message_thread_id
         self.author: "objects.User" = author
         self.date: "objects.Date" = date
         self.chat: "objects.Chat" = chat
