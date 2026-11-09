@@ -12,7 +12,8 @@ class SendMessage:
             chat_id: Union[int, str],
             text: str,
             reply_markup: "objects.ReplyMarkup" = None,
-            reply_to_message_id: int = None
+            reply_to_message_id: int = None,
+            message_thread_id: int = None
     ) -> Message:
         if self.is_userbot():
             from balethon.proto import requests, structs
