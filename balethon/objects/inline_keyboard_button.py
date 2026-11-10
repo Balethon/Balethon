@@ -18,6 +18,7 @@ class InlineKeyboardButton(Object):
             switch_inline_query_current_chat: str = None,
             pay: bool = None,
             style: "enums.ButtonStyle" = None,
+            disabled: "objects.DisabledButton" = None,
             **kwargs
     ):
         super().__init__(**kwargs)
@@ -30,6 +31,7 @@ class InlineKeyboardButton(Object):
         self.switch_inline_query_current_chat: str = switch_inline_query_current_chat
         self.pay: bool = pay
         self.style: "enums.ButtonStyle" = style
+        self.disabled: "objects.DisabledButton" = disabled
 
     def format(self, *args, **kwargs):
         button = deepcopy(self)
