@@ -28,7 +28,7 @@ from .payments import Payments
 from .stickers import Stickers
 from .auth import Auth
 from ..objects import Object, wrap, unwrap, Chat, User, Message, ChatId
-from ..errors import TooManyRequestsError, RPCError
+from ..errors import TooManyRequestsError, InvalidArgument, PermissionDenied
 from ..network import HTTPConnection, WSConnection, HTTP2Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
@@ -291,19 +291,17 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
             try:
                 phone_code = await run_asynchronously(phone_code_callback or self.phone_code_callback)
                 auth = await self.validate_code(sent_code.transaction_hash, phone_code)
-            except RPCError as error:
+            except InvalidArgument as error:
                 if error.description == "PHONE_NUMBER_UNOCCUPIED":
                     name = await run_asynchronously(name_callback or self.name_callback)
                     auth = await self.sign_up(sent_code.transaction_hash, name)
                     break
                 elif error.description == "PHONE_CODE_INVALID":
                     print("The phone code is invalid, try again")
-                elif error.code == 7:
-                    password = await run_asynchronously(password_callback or self.password_callback)
-                    auth = await self.validate_password(sent_code.transaction_hash, password)
-                    break
-                else:
-                    raise error
+            except PermissionDenied:
+                password = await run_asynchronously(password_callback or self.password_callback)
+                auth = await self.validate_password(sent_code.transaction_hash, password)
+                break
             else:
                 break
         self.save_session(auth.jwt.value)
