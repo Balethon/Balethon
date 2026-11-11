@@ -14,5 +14,5 @@ class GetChatAdministrators:
             result = await self.get_chat_members(chat_id)
             return [member for member in result.members if member.is_admin.value]
 
-        chat_id = await self.resolve_peer_id(chat_id)
+        chat_id = await self.resolve_chat_id(chat_id)
         return await self.auto_execute("getChatAdministrators", locals())

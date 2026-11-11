@@ -11,17 +11,14 @@ class SendChatAction:
             chat_id: Union[int, str],
             action: "enums.ChatAction" = enums.ChatAction.TYPING
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+
         if self.is_userbot():
             from ...proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.execute(requests.Typing(
-                peer=structs.OutPeer(
-                    type=peer_type,
-                    id=peer_id,
-                ),
-                typing_type=action,
+                peer=structs.OutPeer(type=chat_id.peer_type, id=chat_id.peer_id),
+                typing_type=action.to_protobuf(),
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         chat_id = str(chat_id)  # The sendChatAction method only works with a string chat_id
         return await self.auto_execute("sendChatAction", locals())

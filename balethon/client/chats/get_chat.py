@@ -12,7 +12,7 @@ class GetChat:
     ) -> Chat:
         if self.is_userbot():
             from ...proto import requests, structs
-            peer_id, peer_type = chat_id.split("|")
+            peer_id, peer_type = chat_id.split(":")
 
             if not peer_id.isnumeric():
                 # "@username"
@@ -43,26 +43,17 @@ class GetChat:
                     result = response.group_peers[0]
                     peer_id = result.group_id
 
-                else:
-                    return
-
             peer_id, peer_type = map(int, (peer_id, peer_type))
 
             if peer_type in (1, 4):
                 users = await self.execute(requests.LoadUsers(
-                    user_peers=[structs.UserOutPeer(
-                        uid=peer_id,
-                        access_hash=1
-                    )]
+                    user_peers=[structs.UserOutPeer(uid=peer_id, access_hash=1)]
                 ))
                 return users.users[0]
 
-            if peer_type in (2, 3, 5):
+            else:
                 return await self.execute(requests.GetFullGroup(
-                    peer=structs.GroupOutPeer(
-                        group_id=peer_id,
-                        access_hash=1
-                    )
+                    peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1)
                 ))
 
         else:

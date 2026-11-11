@@ -22,7 +22,7 @@ class UploadFile:
             name: str = None,
             mime_type: str = None,
     ) -> File:
-        peer_id, peer_type = map(int, chat_id.split("|"))
+        chat_id = await self.resolve_chat_id(chat_id)
 
         is_file_like = isinstance(file, (BufferedIOBase, BytesIO, RawIOBase))
 
@@ -66,12 +66,12 @@ class UploadFile:
         result = await self.execute(requests.GetNasimFileUploadUrl(
             expected_size=expected_size,
             crc=0,
-            uid=peer_id,
+            uid=chat_id.peer_id,
             name=name,
             mime_type=mime_type,
             ex_peer=structs.ExPeer(
-                type=peer_type,
-                id=peer_id,
+                type=chat_id.peer_type,
+                id=chat_id.peer_id,
                 access_hash=0
             ),
             send_type=structs.SendTypeValue(

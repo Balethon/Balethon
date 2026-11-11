@@ -16,9 +16,9 @@ class GetChatMembers:
             contacts: bool = False,
             query: str = None
     ) -> "responses.LoadMembers":
-        peer_id, peer_type = map(int, chat_id.split("|"))
+        chat_id = await self.resolve_chat_id(chat_id)
         return await self.execute(requests.LoadMembers(
-            group=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+            group=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
             limit=limit,
             next=next,
             condition=structs.LoadMembersCondition(

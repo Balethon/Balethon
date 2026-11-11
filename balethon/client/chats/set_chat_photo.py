@@ -11,22 +11,21 @@ class SetChatPhoto:
             chat_id: Union[int, str],
             photo: Union[str, bytes, BinaryIO, InputMedia]
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
         photo = resolve_media(photo)
 
         if self.is_userbot():
             from ...proto import requests, structs, enums
-            peer_id, peer_type = map(int, chat_id.split("|"))
-            file = await self.upload_file(f"{self.user.id}|1", photo, enums.SEND_TYPE_PHOTO)
+            file = await self.upload_file(f"{self.user.id}:1", photo, enums.SEND_TYPE_PHOTO)
             file_location = structs.FileLocation(file_id=file.id, access_hash=self.user.id)
 
-            if peer_id == self.user.id and peer_type == enums.ExPeerType.EX_PEER_TYPE_PRIVATE:
+            if chat_id.peer_id == self.user.id:
                 return await self.execute(requests.EditAvatar(file_location=file_location))
 
             return await self.execute(requests.EditGroupAvatar(
-                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                group_peer=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
                 file_location=file_location,
                 rid=self.ws_connection.create_rid()
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("setChatPhoto", locals())

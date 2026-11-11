@@ -11,6 +11,6 @@ class UploadStickerFile:
             user_id: Union[int, str],
             sticker: Union[str, bytes, BinaryIO, InputMedia]
     ) -> str:
-        user_id = await self.resolve_peer_id(user_id)
+        user_id = await self.resolve_chat_id(user_id)
         sticker = resolve_media(sticker)
         return await self.auto_execute("uploadStickerFile", locals())

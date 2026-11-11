@@ -10,5 +10,5 @@ class CreateChatInviteLink:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> InviteLink:
-        chat_id = await self.resolve_peer_id(chat_id)
+        chat_id = await self.resolve_chat_id(chat_id)
         return await self.auto_execute("createChatInviteLink", locals())

@@ -16,9 +16,10 @@ class SendMediaGroup:
             reply_markup: ReplyMarkup = None,
             reply_to_message_id: int = None
     ) -> List[Message]:
+        chat_id = await self.resolve_chat_id(chat_id)
+
         if self.is_userbot():
             from ...proto import requests, structs, enums
-            peer_id, peer_type = map(int, chat_id.split("|"))
             files = []
             for content in media:
                 if isinstance(content, InputMediaPhoto):
@@ -27,7 +28,7 @@ class SendMediaGroup:
                     send_type = enums.SEND_TYPE_VIDEO
                 else:
                     send_type = enums.SEND_TYPE_DOCUMENT
-                file = await self.upload_file(f"{peer_id}|{peer_type}", content.media, send_type)
+                file = await self.upload_file(chat_id, content.media, send_type)
 
                 if send_type == enums.SEND_TYPE_PHOTO:
                     ext = structs.DocumentEx(
@@ -49,7 +50,7 @@ class SendMediaGroup:
                     random_id=self.ws_connection.create_rid(),
                     media=structs.DocumentMessage(
                         file_id=file.id,
-                        access_hash=peer_id,
+                        access_hash=chat_id.peer_id,
                         file_size=file.size,
                         name=file.name,
                         mime_type=file.mime_type,
@@ -61,14 +62,13 @@ class SendMediaGroup:
 
             return await self.execute(requests.SendMultiMediaMessage(
                 peer=structs.ExPeer(
-                    type=peer_type,
-                    id=peer_id,
+                    type=chat_id.peer_type,
+                    id=chat_id.peer_id,
                 ),
                 multi_media=files,
                 grouped_id=self.ws_connection.create_rid(),
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         data = locals()
         del data["self"]
         if any(not m.is_json_serializable for m in data["media"]):

@@ -2,6 +2,7 @@ from typing import BinaryIO, List, Union
 
 from balethon import objects
 from . import Object
+from .chat_id import ChatId
 from .audio import Audio
 from .animation import Animation
 from .chat import Chat
@@ -71,7 +72,7 @@ class Message(Object):
                 if is_forward_message else None
             ),
             forward_from_chat=(
-                Chat(id=f"{protobuf_data.quoted_message.public_group_id.value}|2")
+                Chat(id=str(ChatId(peer_id=protobuf_data.quoted_message.public_group_id.value, peer_type=2)))
                 if is_forward_message
                    and protobuf_data.quoted_message.HasField("public_group_id")
                 else None

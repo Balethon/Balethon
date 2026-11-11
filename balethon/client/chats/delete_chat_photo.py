@@ -9,29 +9,29 @@ class DeleteChatPhoto:
             self: "balethon.Client",
             chat_id: Union[int, str]
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+
         if self.is_userbot():
             from balethon.proto import requests, structs, enums
-            peer_id, peer_type = map(int, chat_id.split("|"))
 
-            if peer_id == self.user.id and peer_type == 1:
+            if chat_id.peer_id == self.user.id:
                 response = await self.execute(requests.LoadAvatars(
-                    peer=structs.UserOutPeer(uid=peer_id, access_hash=1))
+                    peer=structs.UserOutPeer(uid=chat_id.peer_id, access_hash=1))
                 )
             else:
                 response = await self.execute(requests.LoadGroupAvatars(
-                    peer=structs.GroupOutPeer(group_id=peer_id)
+                    peer=structs.GroupOutPeer(group_id=chat_id.peer_id)
                 ))
 
             last_avatar = response.avatars.avatars[0]
 
-            if peer_id == self.user.id and peer_type == enums.ExPeerType.EX_PEER_TYPE_PRIVATE:
+            if chat_id.peer_id == self.user.id:
                 return await self.execute(requests.RemoveAvatar(avatar_id=last_avatar.id))
 
             return await self.execute(requests.RemoveGroupAvatar(
-                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                group_peer=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
                 rid=self.ws_connection.create_rid(),
                 avatar_id=last_avatar.id
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("deleteChatPhoto", locals())

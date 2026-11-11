@@ -10,15 +10,15 @@ class BanChatMember:
             chat_id: Union[int, str],
             user_id: Union[int, str]
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+        user_id = await self.resolve_chat_id(user_id)
+
         if self.is_userbot():
             from balethon.proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.execute(requests.KickUser(
-                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                group_peer=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
                 user=structs.UserOutPeer(uid=user_id, access_hash=1),
                 rid=self.ws_connection.create_rid()
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
-        user_id = await self.resolve_peer_id(user_id)
         return await self.auto_execute("banChatMember", locals())

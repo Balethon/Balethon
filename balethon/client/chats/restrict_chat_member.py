@@ -12,14 +12,14 @@ class RestrictChatMember:
             user_id: Union[int, str],
             permissions: "objects.ChatPermissions"
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+        user_id = await self.resolve_chat_id(user_id)
+
         if self.is_userbot():
             from ...proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.execute(requests.RemoveUserAdmin(
-                group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
-                user_peer=structs.UserOutPeer(uid=user_id, access_hash=1),
+                group_peer=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
+                user_peer=structs.UserOutPeer(uid=user_id.peer_id, access_hash=1),
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
-        user_id = await self.resolve_peer_id(user_id)
         return await self.auto_execute("restrictChatMember", locals())

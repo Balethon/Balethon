@@ -15,11 +15,12 @@ class EditMessageCaption:
             caption: str,
             reply_markup: "objects.ReplyMarkup" = None
     ) -> Message:
+        chat_id = await self.resolve_chat_id(chat_id)
+
         if self.is_userbot():
             from balethon.proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             message_id = resolve_message_id(message_id)
-            peer = structs.Peer(type=peer_type, id=peer_id)
+            peer = structs.Peer(type=chat_id.peer_type, id=chat_id.peer_id)
             response = await self.execute(requests.LoadHistory(
                 peer=peer,
                 date=message_id.date,
@@ -29,12 +30,11 @@ class EditMessageCaption:
             result = response.history[0].message
             return await self.execute(requests.UpdateMessage(
                 peer=structs.Peer(
-                    type=peer_type,
-                    id=peer_id
+                    type=chat_id.peer_type,
+                    id=chat_id.peer_id
                 ),
                 rid=message_id.rid,
                 updated_message=result
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("editMessageCaption", locals())

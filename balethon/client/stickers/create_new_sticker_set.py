@@ -12,5 +12,5 @@ class CreateNewStickerSet:
             title: str,
             sticker=None
     ) -> bool:
-        user_id = await self.resolve_peer_id(user_id)
+        user_id = await self.resolve_chat_id(user_id)
         return await self.auto_execute("createNewStickerSet", locals())

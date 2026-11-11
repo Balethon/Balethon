@@ -11,21 +11,21 @@ class PinChatMessage:
             chat_id: Union[int, str],
             message_id: Union[int, str]
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+
         if self.is_userbot():
             from balethon.proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             message_id = resolve_message_id(message_id)
-            if peer_type in (1, 4):
+            if chat_id.peer_type in (1, 4):
                 return await self.execute(requests.PinMessages(
-                    peer=structs.Peer(type=peer_type, id=peer_id),
+                    peer=structs.Peer(type=chat_id.peer_type, id=chat_id.peer_id),
                     message_id=structs.MessageId(date=message_id.date, rid=message_id.rid)
                 ))
-            elif peer_type in (2 ,3 ,5):
+            else:
                 return await self.execute(requests.PinMessage(
-                    group_peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
+                    group_peer=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
                     date=message_id.date,
                     msg_rid=message_id.rid
                 ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
         return await self.auto_execute("pinChatMessage", locals())

@@ -11,6 +11,6 @@ class GetMe:
             jwt = self.load_session()
             data = self.decode_jwt(jwt)
             my_id = data["payload"]["payload"]["user_id"]
-            return await self.get_chat(f"{my_id}|1")
+            return await self.get_chat(f"{my_id}:1")
 
         return await self.auto_execute("getMe", locals())

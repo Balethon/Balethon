@@ -12,15 +12,12 @@ class JoinChat:
             self: "balethon.Client",
             chat_id: str
     ) -> Union["responses.JoinGroup", "responses.JoinPublicGroup"]:
-        peer_id, peer_type = chat_id.split("|")
+        chat_id = await self.resolve_chat_id(chat_id)
 
         # 1234567890 | "1234567890"
-        if isinstance(peer_id, int) or (isinstance(peer_id, str) and peer_id.isnumeric()):
+        if isinstance(chat_id.peer_id, int) or (isinstance(chat_id.peer_id, str) and chat_id.peer_id.isnumeric()):
             return await self.execute(requests.JoinPublicGroup(
-                peer=structs.Peer(
-                    type=int(peer_type),
-                    id=int(peer_id)
-                )
+                peer=structs.Peer(type=int(chat_id.peer_type), id=int(chat_id.peer_id))
             ))
 
         # "https://ble.ir/join/ABCDEEFGHI" | "ble.ir/join/ABCDEEFGHI" 

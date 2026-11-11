@@ -10,5 +10,5 @@ class DeleteForumTopic:
             chat_id: Union[int, str],
             message_thread_id: int
     ) -> bool:
-        chat_id = await self.resolve_peer_id(chat_id)
+        chat_id = await self.resolve_chat_id(chat_id)
         return await self.auto_execute("deleteForumTopic", locals())

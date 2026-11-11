@@ -17,10 +17,10 @@ class GetChatHistory:
             date: Union[datetime, int] = -1,
             limit: int = 40
     ) -> List[Message]:
-        peer_id, peer_type = map(int, chat_id.split("|"))
+        chat_id = await self.resolve_chat_id(chat_id)
         if isinstance(date, datetime):
             date = date.timestamp() * 1000
-        peer = structs.Peer(type=peer_type, id=peer_id)
+        peer = structs.Peer(type=chat_id.peer_type, id=chat_id.peer_id)
         response = await self.execute(requests.LoadHistory(
             peer=peer,
             date=date,

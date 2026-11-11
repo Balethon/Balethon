@@ -31,12 +31,14 @@ class PromoteChatMember:
             can_see_members: bool = None,
             can_add_story: bool = None
     ) -> bool:
+        chat_id = await self.resolve_chat_id(chat_id)
+        user_id = await self.resolve_chat_id(user_id)
+
         if self.is_userbot():
             from balethon.proto import requests, structs
-            peer_id, peer_type = map(int, chat_id.split("|"))
             return await self.execute(requests.SetMemberPermissions(
-                group=structs.GroupOutPeer(group_id=peer_id, access_hash=1),
-                user=structs.UserOutPeer(uid=user_id, access_hash=1),
+                group=structs.GroupOutPeer(group_id=chat_id.peer_id, access_hash=1),
+                user=structs.UserOutPeer(uid=user_id.peer_id, access_hash=1),
                 permissions=structs.Permissions(
                     edit_message=can_edit_messages,
                     delete_message=can_delete_messages,
@@ -59,6 +61,4 @@ class PromoteChatMember:
                 )
             ))
 
-        chat_id = await self.resolve_peer_id(chat_id)
-        user_id = await self.resolve_peer_id(user_id)
         return await self.auto_execute("promoteChatMember", locals())
