@@ -10,7 +10,8 @@ readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
   {name = "Sajjad", email = "sajjadalipour2006@gmail.com"},
-  {name = "Abolfazl Amiri", email = "soltshen@gmail.com"}
+  {name = "Abolfazl Amiri", email = "soltshen@gmail.com"},
+  {name = "Mohammad Vatankhah", email = "vatankhahmohammad12@gmail.com"}
 ]
 keywords = ["bale", "messenger", "bot", "api", "client"]
 classifiers = [
