@@ -1,7 +1,7 @@
 from typing import Union
 
 import balethon
-from ...objects import Chat
+from ...objects import Chat, ChatId
 
 
 class GetChat:
@@ -12,49 +12,63 @@ class GetChat:
     ) -> Chat:
         if self.is_userbot():
             from ...proto import requests, structs
-            peer_id, peer_type = chat_id.split(":")
 
-            if not peer_id.isnumeric():
-                # "@username"
-                if peer_id.startswith("@"):
-                    peer_id = peer_id[1:]
+            query = None
 
-                # "+9*********" | "+09*********" | "+989*********"
-                elif peer_id.startswith("+"):
-                    peer_id =  peer_id[1:]
+            if isinstance(chat_id, str):
+                # "@username" | "+9*********" | "+09*********" | "+989*********"
+                if chat_id.startswith(("@", "+")):
+                    query = chat_id[1:]
 
-                # "https://ble.ir/join/ABCDEEFGHI" | "https://ble.ir/username"
-                elif peer_id.startswith("https://ble.ir/"):
-                    peer_id = peer_id[15:]
+                # "https://ble.ir/username" | "ble.ir/username"
+                elif chat_id.startswith(("https://ble.ir/", "ble.ir/")):
+                    query = chat_id.removeprefix("https://").removeprefix("ble.ir/")
 
-                # "ble.ir/join/ABCDEEFGHI" | "ble.ir/username"
-                elif peer_id.startswith("ble.ir/"):
-                    peer_id = peer_id[7:]
-
-                response = await self.execute(requests.SearchContacts(
-                    request=peer_id
-                ))
+            if query:
+                response = await self.execute(requests.SearchContacts(request=query))
 
                 if response.user_peers:
-                    result = response.user_peers[0]
-                    peer_id = result.uid
+                    peer_id = int(response.user_peers[0].uid)
+                    peer_type = 1
+                else:
+                    peer_id = int(response.group_peers[0].group_id)
+                    peer_type = 2
 
-                elif response.group_peers:
-                    result = response.group_peers[0]
-                    peer_id = result.group_id
+            # ChatId(peer_id=1234567890, peer_type=1)
+            elif isinstance(chat_id, ChatId):
+                peer_id = chat_id.peer_id
+                peer_type = chat_id.peer_type
 
-            peer_id, peer_type = map(int, (peer_id, peer_type))
+            # (1234567890, 1)
+            elif isinstance(chat_id, tuple):
+                peer_id, peer_type = chat_id
+
+            # 1234567890
+            elif isinstance(chat_id, int):
+                peer_id = chat_id
+                peer_type = None
+
+            # "1234567890:1" | "1234567890"
+            else:
+                peer_id, _, peer_type = str(chat_id).partition(":")
+                peer_id = int(peer_id)
+                peer_type = int(peer_type) if peer_type else None
+
+            user_request = requests.LoadUsers(user_peers=[structs.UserOutPeer(uid=peer_id, access_hash=1)])
+            group_request = requests.GetFullGroup(peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1))
 
             if peer_type in (1, 4):
-                users = await self.execute(requests.LoadUsers(
-                    user_peers=[structs.UserOutPeer(uid=peer_id, access_hash=1)]
-                ))
+                users = await self.execute(user_request)
                 return users.users[0]
 
-            else:
-                return await self.execute(requests.GetFullGroup(
-                    peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1)
-                ))
+            if peer_type in (2, 3):
+                return await self.execute(group_request)
+
+            try:
+                return await self.execute(group_request)
+            except:
+                users = await self.execute(user_request)
+                return users.users[0]
 
         else:
             return await self.auto_execute("getChat", locals())
