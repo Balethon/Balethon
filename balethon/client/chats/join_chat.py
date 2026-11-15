@@ -21,8 +21,6 @@ class JoinChat:
             ))
 
         # "https://ble.ir/join/ABCDEEFGHI" | "ble.ir/join/ABCDEEFGHI" 
-        token = peer_id.replace("https://", "").replace("ble.ir/join/", "")
+        token = chat_id.peer_id.replace("https://", "").replace("ble.ir/join/", "")
 
-        return await self.execute(requests.JoinGroup(
-            token=token
-        ))
+        return await self.execute(requests.JoinGroup(token=token))
