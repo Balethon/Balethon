@@ -12,6 +12,9 @@ authors = [
   {name = "Sajjad", email = "sajjadalipour2006@gmail.com"},
   {name = "Abolfazl Amiri", email = "soltshen@gmail.com"}
 ]
+maintainers = [
+  {name = "Mohammad Vatankhah", email = "vatankhahmohammad12@gmail.com"}
+]
 keywords = ["bale", "messenger", "bot", "api", "client"]
 classifiers = [
     "License :: OSI Approved :: MIT License"
