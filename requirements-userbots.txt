@@ -1,3 +1,0 @@
-protobuf==6.33.6
-httpx[http2]==0.28.1
-websockets==16.0
