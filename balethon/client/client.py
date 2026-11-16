@@ -367,7 +367,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
                 chat_id = ChatId(chat_id)
             if chat_id.peer_type is None:
                 chat = await self.get_chat(chat_id)
-                chat_id = ChatId(peer_id=chat.id, peer_type=chat.type) if self.is_userbot() else chat.id
+                chat_id = ChatId(chat.id)
 
         return chat_id
 

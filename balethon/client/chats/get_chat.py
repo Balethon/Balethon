@@ -54,7 +54,10 @@ class GetChat:
                 peer_id = int(peer_id)
                 peer_type = int(peer_type) if peer_type else None
 
-            user_request = requests.LoadUsers(user_peers=[structs.UserOutPeer(uid=peer_id, access_hash=1)])
+            try:
+                user_request = requests.LoadUsers(user_peers=[structs.UserOutPeer(uid=peer_id, access_hash=1)])
+            except ValueError:
+                pass
             group_request = requests.GetFullGroup(peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1))
 
             if peer_type in (1, 4):
