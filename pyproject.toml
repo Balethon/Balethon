@@ -24,7 +24,7 @@ dependencies = ["httpx==0.28.1"]
 [project.optional-dependencies]
 userbots = ["protobuf==6.33.6", "httpx[http2]==0.28.1", "websockets==16.0"]
 dev = ["grpcio-tools==1.80.0"]
-all = ["balethon[userbots]"]
+all = ["Balethon[userbots]"]
 
 [tool.setuptools.dynamic]
 version = {attr = "balethon.__version__"}
