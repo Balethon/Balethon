@@ -1,6 +1,7 @@
 from typing import Union, BinaryIO
 
 from balethon import enums, objects
+from .. import proto
 from . import Object
 from .chat_id import ChatId
 from ..sync_support import add_sync_support_to_object
@@ -11,9 +12,23 @@ class Chat(Object):
 
     @classmethod
     def from_protobuf(cls, protobuf_data):
-        return cls(
-            id=str(ChatId(peer_id=protobuf_data.id, peer_type=protobuf_data.type))
-        )
+        if isinstance(protobuf_data, proto.structs.User):
+            return cls(
+                id=str(ChatId(peer_id=protobuf_data.id, peer_type=4 if protobuf_data.is_bot.value else 1)),
+                type=enums.ChatType.BOT if protobuf_data.is_bot.value else enums.ChatType.PRIVATE,
+                username=protobuf_data.nick.value,
+                first_name=protobuf_data.name
+
+            )
+        elif isinstance(protobuf_data, proto.structs.FullGroup):
+            is_channel = protobuf_data.group_type is proto.enums.GroupType.GROUP_TYPE_CHANNEL
+            return cls(
+                id=str(ChatId(peer_id=protobuf_data.id, peer_type=3 if is_channel else 2)),
+                type=enums.ChatType.CHANNEL if is_channel else enums.ChatType.GROUP,
+                description=protobuf_data.about.value
+            )
+        else:
+            return cls(id=str(ChatId(peer_id=protobuf_data.id, peer_type=protobuf_data.type)))
 
     def __init__(
             self,

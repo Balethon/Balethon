@@ -356,7 +356,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
         return await self.http_connection.download_file(file_id)
 
     async def resolve_chat_id(self, chat_id):
-        if isinstance(chat_id, str) and not chat_id.isnumeric():
+        if isinstance(chat_id, str) and chat_id.startswith(("@", "+", "https://ble.ir/", "ble.ir/")):
             chat = await self.get_chat(chat_id)
             chat_id = chat.id
         if isinstance(chat_id, (Chat, User)):
@@ -365,7 +365,10 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
         if self.is_userbot():
             if not isinstance(chat_id, ChatId):
                 chat_id = ChatId(chat_id)
-            return chat_id
+            if chat_id.peer_type is None:
+                chat = await self.get_chat(chat_id)
+                chat_id = ChatId(peer_id=chat.id, peer_type=chat.type) if self.is_userbot() else chat.id
+
         return chat_id
 
     def create_referral_link(self, name, value) -> str:

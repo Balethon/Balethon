@@ -58,17 +58,19 @@ class GetChat:
             group_request = requests.GetFullGroup(peer=structs.GroupOutPeer(group_id=peer_id, access_hash=1))
 
             if peer_type in (1, 4):
-                users = await self.execute(user_request)
-                return users.users[0]
+                response = await self.execute(user_request)
+                return Chat.from_protobuf(response.users[0])
 
             if peer_type in (2, 3):
-                return await self.execute(group_request)
+                response = await self.execute(group_request)
+                return Chat.from_protobuf(response.full_group)
 
             try:
-                return await self.execute(group_request)
+                response = await self.execute(group_request)
+                return Chat.from_protobuf(response.full_group)
             except:
-                users = await self.execute(user_request)
-                return users.users[0]
+                response = await self.execute(user_request)
+                return Chat.from_protobuf(response.users[0])
 
         else:
             return await self.auto_execute("getChat", locals())
