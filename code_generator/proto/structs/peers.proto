@@ -34,3 +34,9 @@ message UserOutPeer {
   int32 uid = 1;
   int64 access_hash = 2;
 }
+
+message OutExPeer {
+  int32 type = 1;
+  int32 id = 2;
+  int64 access_hash = 3;
+}

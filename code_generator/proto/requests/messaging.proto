@@ -11,7 +11,9 @@ message SendMessage {
   structs.Peer peer = 1;
   int64 rid = 2;
   structs.Message message = 3;
+  structs.MessageOutReference quoted_message_reference = 5;
   structs.Peer ex_peer = 6;
+  structs.MessageId thread_id = 8;
 }
 
 message UpdateMessage {

@@ -314,3 +314,25 @@ class Dialog(_message.Message):
     marked_as_unread: bool
     is_mute: bool
     def __init__(self, peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ..., unread_count: _Optional[int] = ..., sort_date: _Optional[int] = ..., sender_uid: _Optional[int] = ..., rid: _Optional[int] = ..., date: _Optional[int] = ..., message: _Optional[_Union[Message, _Mapping]] = ..., state: _Optional[int] = ..., first_unread_date: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., is_message_forwarded: bool = ..., marked_as_unread: bool = ..., is_mute: bool = ...) -> None: ...
+
+class StoryReference(_message.Message):
+    __slots__ = ("story_id", "owner")
+    STORY_ID_FIELD_NUMBER: _ClassVar[int]
+    OWNER_FIELD_NUMBER: _ClassVar[int]
+    story_id: str
+    owner: _peers_pb2.OutExPeer
+    def __init__(self, story_id: _Optional[str] = ..., owner: _Optional[_Union[_peers_pb2.OutExPeer, _Mapping]] = ...) -> None: ...
+
+class MessageOutReference(_message.Message):
+    __slots__ = ("peer", "rid", "date", "seq", "story")
+    PEER_FIELD_NUMBER: _ClassVar[int]
+    RID_FIELD_NUMBER: _ClassVar[int]
+    DATE_FIELD_NUMBER: _ClassVar[int]
+    SEQ_FIELD_NUMBER: _ClassVar[int]
+    STORY_FIELD_NUMBER: _ClassVar[int]
+    peer: _peers_pb2.OutPeer
+    rid: int
+    date: _collections_pb2.Int64Value
+    seq: _collections_pb2.Int64Value
+    story: StoryReference
+    def __init__(self, peer: _Optional[_Union[_peers_pb2.OutPeer, _Mapping]] = ..., rid: _Optional[int] = ..., date: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., seq: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., story: _Optional[_Union[StoryReference, _Mapping]] = ...) -> None: ...

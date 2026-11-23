@@ -54,3 +54,13 @@ class UserOutPeer(_message.Message):
     uid: int
     access_hash: int
     def __init__(self, uid: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...
+
+class OutExPeer(_message.Message):
+    __slots__ = ("type", "id", "access_hash")
+    TYPE_FIELD_NUMBER: _ClassVar[int]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    ACCESS_HASH_FIELD_NUMBER: _ClassVar[int]
+    type: int
+    id: int
+    access_hash: int
+    def __init__(self, type: _Optional[int] = ..., id: _Optional[int] = ..., access_hash: _Optional[int] = ...) -> None: ...

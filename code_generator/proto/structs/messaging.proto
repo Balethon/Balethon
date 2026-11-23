@@ -182,3 +182,16 @@ message Dialog {
   bool marked_as_unread = 17;
   bool is_mute = 18;
 }
+
+message StoryReference {
+  string story_id = 1;
+  OutExPeer owner = 2;
+}
+
+message MessageOutReference {
+  OutPeer peer = 1;
+  int64 rid = 2;
+  Int64Value date = 3;
+  Int64Value seq = 4;
+  StoryReference story = 5;
+}

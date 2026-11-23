@@ -26,31 +26,31 @@ from ..structs import peers_pb2 as structs_dot_peers__pb2
 from ..structs import messaging_pb2 as structs_dot_messaging__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18requests/messaging.proto\x12\x08requests\x1a\x13structs/peers.proto\x1a\x17structs/messaging.proto\"z\n\x0bSendMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12!\n\x07message\x18\x03 \x01(\x0b\x32\x10.structs.Message\x12\x1e\n\x07\x65x_peer\x18\x06 \x01(\x0b\x32\r.structs.Peer\"d\n\rUpdateMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12)\n\x0fupdated_message\x18\x03 \x01(\x0b\x32\x10.structs.Message\"r\n\rDeleteMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0c\n\x04rids\x18\x02 \x03(\x03\x12#\n\x05\x64\x61tes\x18\x03 \x01(\x0b\x32\x14.structs.DeleteDates\x12\x11\n\tjust_mine\x18\x04 \x01(\x08\"z\n\x0f\x46orwardMessages\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x03(\x03\x12=\n\x12\x66orwarded_messages\x18\x03 \x03(\x0b\x32!.structs.HistoryMessageIdentifier\"q\n\x0bLoadHistory\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\x03\x12\x11\n\tload_mode\x18\x04 \x01(\x05\x12\r\n\x05limit\x18\x05 \x01(\x05\x12\x15\n\roptimizations\x18\x06 \x03(\x05\"e\n\x0bPinMessages\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12&\n\nmessage_id\x18\x02 \x01(\x0b\x32\x12.structs.MessageId\x12\x11\n\tjust_mine\x18\x03 \x01(\x08\"d\n\rUnPinMessages\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\x12\'\n\x0bmessage_ids\x18\x02 \x03(\x0b\x32\x12.structs.MessageId\x12\x0b\n\x03\x61ll\x18\x03 \x01(\x08\"3\n\x12LoadPinnedMessages\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\"u\n\x15SendMultiMediaMessage\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\x12)\n\x0bmulti_media\x18\x02 \x03(\x0b\x32\x14.structs.SingleMedia\x12\x12\n\ngrouped_id\x18\x04 \x01(\x04\"\x92\x01\n\x0bLoadDialogs\x12\x10\n\x08min_date\x18\x01 \x01(\x03\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x15\n\roptimizations\x18\x03 \x03(\x05\x12\x13\n\x0b\x64ialog_type\x18\x04 \x01(\x05\x12\x1e\n\x16\x65xclude_pinned_dialogs\x18\x05 \x01(\x08\x12\x16\n\x0e\x61rchive_filter\x18\x06 \x01(\x05\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18requests/messaging.proto\x12\x08requests\x1a\x13structs/peers.proto\x1a\x17structs/messaging.proto\"\xe1\x01\n\x0bSendMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12!\n\x07message\x18\x03 \x01(\x0b\x32\x10.structs.Message\x12>\n\x18quoted_message_reference\x18\x05 \x01(\x0b\x32\x1c.structs.MessageOutReference\x12\x1e\n\x07\x65x_peer\x18\x06 \x01(\x0b\x32\r.structs.Peer\x12%\n\tthread_id\x18\x08 \x01(\x0b\x32\x12.structs.MessageId\"d\n\rUpdateMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x01(\x03\x12)\n\x0fupdated_message\x18\x03 \x01(\x0b\x32\x10.structs.Message\"r\n\rDeleteMessage\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0c\n\x04rids\x18\x02 \x03(\x03\x12#\n\x05\x64\x61tes\x18\x03 \x01(\x0b\x32\x14.structs.DeleteDates\x12\x11\n\tjust_mine\x18\x04 \x01(\x08\"z\n\x0f\x46orwardMessages\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0b\n\x03rid\x18\x02 \x03(\x03\x12=\n\x12\x66orwarded_messages\x18\x03 \x03(\x0b\x32!.structs.HistoryMessageIdentifier\"q\n\x0bLoadHistory\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\x03\x12\x11\n\tload_mode\x18\x04 \x01(\x05\x12\r\n\x05limit\x18\x05 \x01(\x05\x12\x15\n\roptimizations\x18\x06 \x03(\x05\"e\n\x0bPinMessages\x12\x1b\n\x04peer\x18\x01 \x01(\x0b\x32\r.structs.Peer\x12&\n\nmessage_id\x18\x02 \x01(\x0b\x32\x12.structs.MessageId\x12\x11\n\tjust_mine\x18\x03 \x01(\x08\"d\n\rUnPinMessages\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\x12\'\n\x0bmessage_ids\x18\x02 \x03(\x0b\x32\x12.structs.MessageId\x12\x0b\n\x03\x61ll\x18\x03 \x01(\x08\"3\n\x12LoadPinnedMessages\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\"u\n\x15SendMultiMediaMessage\x12\x1d\n\x04peer\x18\x01 \x01(\x0b\x32\x0f.structs.ExPeer\x12)\n\x0bmulti_media\x18\x02 \x03(\x0b\x32\x14.structs.SingleMedia\x12\x12\n\ngrouped_id\x18\x04 \x01(\x04\"\x92\x01\n\x0bLoadDialogs\x12\x10\n\x08min_date\x18\x01 \x01(\x03\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x15\n\roptimizations\x18\x03 \x03(\x05\x12\x13\n\x0b\x64ialog_type\x18\x04 \x01(\x05\x12\x1e\n\x16\x65xclude_pinned_dialogs\x18\x05 \x01(\x08\x12\x16\n\x0e\x61rchive_filter\x18\x06 \x01(\x05\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'requests.messaging_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_SENDMESSAGE']._serialized_start=84
-  _globals['_SENDMESSAGE']._serialized_end=206
-  _globals['_UPDATEMESSAGE']._serialized_start=208
-  _globals['_UPDATEMESSAGE']._serialized_end=308
-  _globals['_DELETEMESSAGE']._serialized_start=310
-  _globals['_DELETEMESSAGE']._serialized_end=424
-  _globals['_FORWARDMESSAGES']._serialized_start=426
-  _globals['_FORWARDMESSAGES']._serialized_end=548
-  _globals['_LOADHISTORY']._serialized_start=550
-  _globals['_LOADHISTORY']._serialized_end=663
-  _globals['_PINMESSAGES']._serialized_start=665
-  _globals['_PINMESSAGES']._serialized_end=766
-  _globals['_UNPINMESSAGES']._serialized_start=768
-  _globals['_UNPINMESSAGES']._serialized_end=868
-  _globals['_LOADPINNEDMESSAGES']._serialized_start=870
-  _globals['_LOADPINNEDMESSAGES']._serialized_end=921
-  _globals['_SENDMULTIMEDIAMESSAGE']._serialized_start=923
-  _globals['_SENDMULTIMEDIAMESSAGE']._serialized_end=1040
-  _globals['_LOADDIALOGS']._serialized_start=1043
-  _globals['_LOADDIALOGS']._serialized_end=1189
+  _globals['_SENDMESSAGE']._serialized_start=85
+  _globals['_SENDMESSAGE']._serialized_end=310
+  _globals['_UPDATEMESSAGE']._serialized_start=312
+  _globals['_UPDATEMESSAGE']._serialized_end=412
+  _globals['_DELETEMESSAGE']._serialized_start=414
+  _globals['_DELETEMESSAGE']._serialized_end=528
+  _globals['_FORWARDMESSAGES']._serialized_start=530
+  _globals['_FORWARDMESSAGES']._serialized_end=652
+  _globals['_LOADHISTORY']._serialized_start=654
+  _globals['_LOADHISTORY']._serialized_end=767
+  _globals['_PINMESSAGES']._serialized_start=769
+  _globals['_PINMESSAGES']._serialized_end=870
+  _globals['_UNPINMESSAGES']._serialized_start=872
+  _globals['_UNPINMESSAGES']._serialized_end=972
+  _globals['_LOADPINNEDMESSAGES']._serialized_start=974
+  _globals['_LOADPINNEDMESSAGES']._serialized_end=1025
+  _globals['_SENDMULTIMEDIAMESSAGE']._serialized_start=1027
+  _globals['_SENDMULTIMEDIAMESSAGE']._serialized_end=1144
+  _globals['_LOADDIALOGS']._serialized_start=1147
+  _globals['_LOADDIALOGS']._serialized_end=1293
 # @@protoc_insertion_point(module_scope)

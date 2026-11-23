@@ -9,16 +9,20 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class SendMessage(_message.Message):
-    __slots__ = ("peer", "rid", "message", "ex_peer")
+    __slots__ = ("peer", "rid", "message", "quoted_message_reference", "ex_peer", "thread_id")
     PEER_FIELD_NUMBER: _ClassVar[int]
     RID_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    QUOTED_MESSAGE_REFERENCE_FIELD_NUMBER: _ClassVar[int]
     EX_PEER_FIELD_NUMBER: _ClassVar[int]
+    THREAD_ID_FIELD_NUMBER: _ClassVar[int]
     peer: _peers_pb2.Peer
     rid: int
     message: _messaging_pb2.Message
+    quoted_message_reference: _messaging_pb2.MessageOutReference
     ex_peer: _peers_pb2.Peer
-    def __init__(self, peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ..., rid: _Optional[int] = ..., message: _Optional[_Union[_messaging_pb2.Message, _Mapping]] = ..., ex_peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ...) -> None: ...
+    thread_id: _messaging_pb2.MessageId
+    def __init__(self, peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ..., rid: _Optional[int] = ..., message: _Optional[_Union[_messaging_pb2.Message, _Mapping]] = ..., quoted_message_reference: _Optional[_Union[_messaging_pb2.MessageOutReference, _Mapping]] = ..., ex_peer: _Optional[_Union[_peers_pb2.Peer, _Mapping]] = ..., thread_id: _Optional[_Union[_messaging_pb2.MessageId, _Mapping]] = ...) -> None: ...
 
 class UpdateMessage(_message.Message):
     __slots__ = ("peer", "rid", "updated_message")
