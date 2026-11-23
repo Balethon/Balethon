@@ -29,7 +29,7 @@ from .payments import Payments
 from .stickers import Stickers
 from .auth import Auth
 from ..objects import Object, wrap, unwrap, Chat, User, Message, ChatId
-from ..errors import TooManyRequestsError, InvalidArgument, PermissionDenied
+from ..errors import TooManyRequestsError, InvalidArgument, PermissionDenied, ResourceExhausted
 from ..network import HTTPConnection, WSConnection, HTTP2Connection
 from ..dispatcher import Dispatcher, Chain, PrintingChain
 from ..event_handlers import ConnectHandler, DisconnectHandler, InitializeHandler, ShutdownHandler
@@ -169,24 +169,29 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
                     del data[key]
                 elif isinstance(value, dict):
                     data[key] = dumps(value)
+        if json:
+            return await self.http_connection.request(service, json=data)
+        return await self.http_connection.request(service, data=data, files=files)
+
+    async def execute(self, service: Union[str, "ProtobufMessage"], json: bool = None, **data):
         while True:
             try:
-                if json:
-                    return await self.http_connection.request(service, json=data)
-                return await self.http_connection.request(service, data=data, files=files)
-            except TooManyRequestsError as error:
-                if error.seconds <= self.sleep_threshold:
+                if not self.is_userbot():
+                    return await self.execute_http(service, json=json, **data)
+                elif service.http2:
+                    return await self.execute_http2(service)
+                else:
+                    return await self.execute_ws(service)
+            except (TooManyRequestsError, ResourceExhausted) as error:
+                if self.is_userbot():
+                    payload_class_name = type(service).__name__
+                    print(f"[Too many requests] retry after: {self.sleep_threshold} (caused by {payload_class_name})")
+                    await sleep(self.sleep_threshold)
+                elif error.seconds <= self.sleep_threshold:
                     print(f"[Too many requests] retry after: {error.seconds} (caused by {service})")
                     await sleep(error.seconds)
                 else:
                     raise error
-
-    async def execute(self, service: Union[str, "ProtobufMessage"], json: bool = None, **data):
-        if not self.is_userbot():
-            return await self.execute_http(service, json=json, **data)
-        if service.http2:
-            return await self.execute_http2(service)
-        return await self.execute_ws(service)
 
     async def auto_execute(self, service: str, data: dict, json: bool = None):
         bound_method_name = stack()[1].function
