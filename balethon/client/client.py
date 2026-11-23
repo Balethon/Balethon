@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 from typing import Union
 import base64
+from datetime import datetime, timezone, timedelta
 
 from httpx import ConnectError
 try:
@@ -43,6 +44,7 @@ except ImportError:
 @add_sync_support_to_object
 class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, InviteLinks, Payments, Stickers, Auth):
     WORKDIR = Path(sys.argv[0]).parent
+    TOKEN_REFRESH_THRESHOLD = timedelta(days=30)
 
     def __init__(
             self,
@@ -94,6 +96,7 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
         self.phone_code_callback = phone_code_callback or (lambda: input("Enter phone code: "))
         self.name_callback = name_callback or (lambda: input("Enter a name for your account: "))
         self.password_callback = password_callback or (lambda: input("Enter your password: "))
+        self.token_refresh_threshold = self.TOKEN_REFRESH_THRESHOLD
 
     def is_userbot(self):
         return self.http_connection is None
@@ -113,6 +116,8 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
                 await self.auth()
             if self.ws_connection is not None:
                 await self.ws_connection.start()
+            if self.token_refresh_threshold and self.should_refresh_token():
+                await self.refresh_token()
         else:
             await self.http_connection.start()
         if get_me:
@@ -234,6 +239,13 @@ class Client(Chain, Messages, Updates, Users, Attachments, Chats, BotCommands, I
                 return f.read()
         except FileNotFoundError:
             return None
+
+    def should_refresh_token(self):
+        jwt = self.load_session()
+        data = self.decode_jwt(jwt)
+        expiration = datetime.fromtimestamp(data["payload"]["exp"], tz=timezone.utc)
+        remaining = expiration - datetime.now(timezone.utc)
+        return remaining <= self.token_refresh_threshold
 
     @staticmethod
     def decode_jwt(jwt: str) -> dict:
