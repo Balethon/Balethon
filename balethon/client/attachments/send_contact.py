@@ -2,7 +2,7 @@ from typing import Union
 from json import dumps
 
 import balethon
-from ...objects import Message, ReplyMarkup
+from ...objects import Message, ReplyMarkup, resolve_message_id
 
 
 class SendContact:
@@ -20,11 +20,10 @@ class SendContact:
 
         if self.is_userbot():
             from balethon.proto import requests, structs
+            reply_to_message_id = resolve_message_id(reply_to_message_id)
             raw_json = {
                 "dataType": "contact",
-                "data": {
-                    "contact": {"name": first_name, "emails": [""], "phones": [phone_number]},
-                }
+                "data": {"contact": {"name": first_name, "emails": [""], "phones": [phone_number]}}
             }
             return await self.execute(requests.SendMessage(
                 peer=structs.Peer(
@@ -40,6 +39,13 @@ class SendContact:
                 ex_peer=structs.Peer(
                     type=chat_id.peer_type,
                     id=chat_id.peer_id
+                ),
+                **dict(
+                    quoted_message_reference=structs.MessageOutReference(
+                        peer=structs.OutPeer(type=chat_id.peer_type, id=chat_id.peer_id),
+                        rid=reply_to_message_id.rid,
+                        date=structs.Int64Value(value=reply_to_message_id.date)
+                    ) if reply_to_message_id else None
                 )
             ))
 

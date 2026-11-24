@@ -25,6 +25,9 @@ class MessageId(Object):
 
 
 def resolve_message_id(message_id: Union[str, tuple, MessageId]) -> MessageId:
+    if message_id is None:
+        return None
+
     if not isinstance(message_id, MessageId):
         message_id = MessageId(message_id)
 

@@ -1,7 +1,7 @@
 from typing import Union, BinaryIO
 
 import balethon
-from ...objects import InputMedia, resolve_media, Message, ReplyMarkup
+from ...objects import InputMedia, resolve_media, Message, ReplyMarkup, resolve_message_id
 
 
 class SendAnimation:
@@ -22,6 +22,7 @@ class SendAnimation:
 
         if self.is_userbot():
             from ...proto import requests, structs, enums
+            reply_to_message_id = resolve_message_id(reply_to_message_id)
             file = await self.upload_file(chat_id, animation, enums.SEND_TYPE_GIF)
             return await self.execute(requests.SendMessage(
                 peer=structs.Peer(
@@ -49,6 +50,13 @@ class SendAnimation:
                 ex_peer=structs.Peer(
                     type=chat_id.peer_type,
                     id=chat_id.peer_id
+                ),
+                **dict(
+                    quoted_message_reference=structs.MessageOutReference(
+                        peer=structs.OutPeer(type=chat_id.peer_type, id=chat_id.peer_id),
+                        rid=reply_to_message_id.rid,
+                        date=structs.Int64Value(value=reply_to_message_id.date)
+                    ) if reply_to_message_id else None
                 )
             ))
 

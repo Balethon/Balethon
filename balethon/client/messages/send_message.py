@@ -1,7 +1,7 @@
 from typing import Union
 
 import balethon
-from ...objects import Message
+from ...objects import Message, resolve_message_id
 from balethon import objects
 
 
@@ -19,6 +19,7 @@ class SendMessage:
 
         if self.is_userbot():
             from balethon.proto import requests, structs
+            reply_to_message_id = resolve_message_id(reply_to_message_id)
             return await self.execute(requests.SendMessage(
                 peer=structs.Peer(
                     type=chat_id.peer_type,
@@ -33,6 +34,13 @@ class SendMessage:
                 ex_peer=structs.Peer(
                     type=chat_id.peer_type,
                     id=chat_id.peer_id
+                ),
+                **dict(
+                    quoted_message_reference=structs.MessageOutReference(
+                        peer=structs.OutPeer(type=chat_id.peer_type, id=chat_id.peer_id),
+                        rid=reply_to_message_id.rid,
+                        date=structs.Int64Value(value=reply_to_message_id.date)
+                    ) if reply_to_message_id else None
                 )
             ))
 
