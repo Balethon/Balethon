@@ -1,7 +1,6 @@
 from enum import auto
 
 from .name_enum import NameEnum
-from balethon.proto import enums
 
 
 class ChatAction(NameEnum):
@@ -14,6 +13,7 @@ class ChatAction(NameEnum):
     RECORD_VOICE = auto()
 
     def to_protobuf(self):
+        from balethon.proto import enums
         if self is ChatAction.TYPING:
             return enums.TYPING_TYPE_TEXT
         if self is ChatAction.UPLOAD_PHOTO:

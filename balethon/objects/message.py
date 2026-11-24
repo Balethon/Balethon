@@ -17,7 +17,6 @@ from .poll import Poll
 from .message_id import MessageId
 from ..enums import MessageMediaType
 from ..sync_support import add_sync_support_to_object
-from ..proto import structs
 
 
 @add_sync_support_to_object
@@ -43,6 +42,7 @@ class Message(Object):
 
     @classmethod
     def from_protobuf(cls, protobuf_data):
+        from ..proto import structs
         is_forward_message = (
             not isinstance(protobuf_data, structs.QuotedMessage) and
             not protobuf_data.message.ListFields() and

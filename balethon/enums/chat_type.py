@@ -1,7 +1,6 @@
 from enum import auto
 
 from .name_enum import NameEnum
-from balethon.proto import enums
 
 
 class ChatType(NameEnum):
@@ -11,6 +10,7 @@ class ChatType(NameEnum):
     BOT = auto()
 
     def to_protobuf(self):
+        from balethon.proto import enums
         if self is ChatType.PRIVATE:
             return enums.EX_PEER_TYPE_PRIVATE
         if self is ChatType.GROUP:
