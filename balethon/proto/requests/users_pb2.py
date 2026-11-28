@@ -25,29 +25,33 @@ _sym_db = _symbol_database.Default()
 from ..structs import peers_pb2 as structs_dot_peers__pb2
 from ..structs import collections_pb2 as structs_dot_collections__pb2
 from ..structs import files_pb2 as structs_dot_files__pb2
+from ..structs import users_pb2 as structs_dot_users__pb2
+from .. import enums_pb2 as enums__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14requests/users.proto\x12\x08requests\x1a\x13structs/peers.proto\x1a\x19structs/collections.proto\x1a\x13structs/files.proto\"\x18\n\x08\x45\x64itName\x12\x0c\n\x04name\x18\x01 \x01(\t\"0\n\tEditAbout\x12#\n\x05\x61\x62out\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\"1\n\x0bLoadAvatars\x12\"\n\x04peer\x18\x01 \x01(\x0b\x32\x14.structs.UserOutPeer\":\n\nEditAvatar\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\"6\n\x0cRemoveAvatar\x12&\n\tavatar_id\x18\x01 \x01(\x0b\x32\x13.structs.Int64Value\"5\n\tLoadUsers\x12(\n\nuser_peers\x18\x01 \x03(\x0b\x32\x14.structs.UserOutPeer\"9\n\rLoadFullUsers\x12(\n\nuser_peers\x18\x01 \x03(\x0b\x32\x14.structs.UserOutPeer\"8\n\x0eSearchContacts\x12\x0f\n\x07request\x18\x01 \x01(\t\x12\x15\n\roptimizations\x18\x02 \x03(\x05\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14requests/users.proto\x12\x08requests\x1a\x13structs/peers.proto\x1a\x19structs/collections.proto\x1a\x13structs/files.proto\x1a\x13structs/users.proto\x1a\x0b\x65nums.proto\"\x18\n\x08\x45\x64itName\x12\x0c\n\x04name\x18\x01 \x01(\t\"0\n\tEditAbout\x12#\n\x05\x61\x62out\x18\x01 \x01(\x0b\x32\x14.structs.StringValue\"1\n\x0bLoadAvatars\x12\"\n\x04peer\x18\x01 \x01(\x0b\x32\x14.structs.UserOutPeer\":\n\nEditAvatar\x12,\n\rfile_location\x18\x01 \x01(\x0b\x32\x15.structs.FileLocation\"6\n\x0cRemoveAvatar\x12&\n\tavatar_id\x18\x01 \x01(\x0b\x32\x13.structs.Int64Value\"5\n\tLoadUsers\x12(\n\nuser_peers\x18\x01 \x03(\x0b\x32\x14.structs.UserOutPeer\"9\n\rLoadFullUsers\x12(\n\nuser_peers\x18\x01 \x03(\x0b\x32\x14.structs.UserOutPeer\"8\n\x0eSearchContacts\x12\x0f\n\x07request\x18\x01 \x01(\t\x12\x15\n\roptimizations\x18\x02 \x03(\x05\"j\n\x0eImportContacts\x12&\n\x06phones\x18\x01 \x03(\x0b\x32\x16.structs.PhoneToImport\x12\x30\n\roptimizations\x18\x03 \x03(\x0e\x32\x19.enums.UpdateOptimizationb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'requests.users_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_EDITNAME']._serialized_start=103
-  _globals['_EDITNAME']._serialized_end=127
-  _globals['_EDITABOUT']._serialized_start=129
-  _globals['_EDITABOUT']._serialized_end=177
-  _globals['_LOADAVATARS']._serialized_start=179
-  _globals['_LOADAVATARS']._serialized_end=228
-  _globals['_EDITAVATAR']._serialized_start=230
-  _globals['_EDITAVATAR']._serialized_end=288
-  _globals['_REMOVEAVATAR']._serialized_start=290
-  _globals['_REMOVEAVATAR']._serialized_end=344
-  _globals['_LOADUSERS']._serialized_start=346
-  _globals['_LOADUSERS']._serialized_end=399
-  _globals['_LOADFULLUSERS']._serialized_start=401
-  _globals['_LOADFULLUSERS']._serialized_end=458
-  _globals['_SEARCHCONTACTS']._serialized_start=460
-  _globals['_SEARCHCONTACTS']._serialized_end=516
+  _globals['_EDITNAME']._serialized_start=137
+  _globals['_EDITNAME']._serialized_end=161
+  _globals['_EDITABOUT']._serialized_start=163
+  _globals['_EDITABOUT']._serialized_end=211
+  _globals['_LOADAVATARS']._serialized_start=213
+  _globals['_LOADAVATARS']._serialized_end=262
+  _globals['_EDITAVATAR']._serialized_start=264
+  _globals['_EDITAVATAR']._serialized_end=322
+  _globals['_REMOVEAVATAR']._serialized_start=324
+  _globals['_REMOVEAVATAR']._serialized_end=378
+  _globals['_LOADUSERS']._serialized_start=380
+  _globals['_LOADUSERS']._serialized_end=433
+  _globals['_LOADFULLUSERS']._serialized_start=435
+  _globals['_LOADFULLUSERS']._serialized_end=492
+  _globals['_SEARCHCONTACTS']._serialized_start=494
+  _globals['_SEARCHCONTACTS']._serialized_end=550
+  _globals['_IMPORTCONTACTS']._serialized_start=552
+  _globals['_IMPORTCONTACTS']._serialized_end=658
 # @@protoc_insertion_point(module_scope)

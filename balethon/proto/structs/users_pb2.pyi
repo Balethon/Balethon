@@ -120,3 +120,11 @@ class User(_message.Message):
     ex_info: _peers_pb2.ExInfo
     bot_ex_info: BotExInfo
     def __init__(self, id: _Optional[int] = ..., access_hash: _Optional[int] = ..., name: _Optional[str] = ..., local_name: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., sex: _Optional[_Union[_enums_pb2.Sex, str]] = ..., avatar: _Optional[_Union[_files_pb2.Avatar, _Mapping]] = ..., is_bot: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., nick: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ..., is_deleted: _Optional[_Union[_collections_pb2.BoolValue, _Mapping]] = ..., created_at: _Optional[_Union[_collections_pb2.Int64Value, _Mapping]] = ..., ex_info: _Optional[_Union[_peers_pb2.ExInfo, _Mapping]] = ..., bot_ex_info: _Optional[_Union[BotExInfo, _Mapping]] = ...) -> None: ...
+
+class PhoneToImport(_message.Message):
+    __slots__ = ("phone_number", "name")
+    PHONE_NUMBER_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    phone_number: int
+    name: _collections_pb2.StringValue
+    def __init__(self, phone_number: _Optional[int] = ..., name: _Optional[_Union[_collections_pb2.StringValue, _Mapping]] = ...) -> None: ...

@@ -2,6 +2,9 @@ from .abacus_pb2 import *
 from .auth_pb2 import *
 from .files_pb2 import *
 from .groups_pb2 import *
+from .ketf_pb2 import *
 from .messaging_pb2 import *
 from .poll_pb2 import *
+from .search_pb2 import *
+from .story_pb2 import *
 from .users_pb2 import *

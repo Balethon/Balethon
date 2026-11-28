@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package responses;
+
 import "structs/ketf.proto";
 
 message SendInlineCallback {

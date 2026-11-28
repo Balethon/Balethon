@@ -33,3 +33,15 @@ class SearchContacts(_message.Message):
     groups: _containers.RepeatedCompositeFieldContainer[_groups_pb2.Group]
     group_peers: _containers.RepeatedCompositeFieldContainer[_peers_pb2.GroupOutPeer]
     def __init__(self, users: _Optional[_Iterable[_Union[_users_pb2.User, _Mapping]]] = ..., user_peers: _Optional[_Iterable[_Union[_peers_pb2.UserOutPeer, _Mapping]]] = ..., groups: _Optional[_Iterable[_Union[_groups_pb2.Group, _Mapping]]] = ..., group_peers: _Optional[_Iterable[_Union[_peers_pb2.GroupOutPeer, _Mapping]]] = ...) -> None: ...
+
+class ImportContacts(_message.Message):
+    __slots__ = ("users", "seq", "state", "user_peers")
+    USERS_FIELD_NUMBER: _ClassVar[int]
+    SEQ_FIELD_NUMBER: _ClassVar[int]
+    STATE_FIELD_NUMBER: _ClassVar[int]
+    USER_PEERS_FIELD_NUMBER: _ClassVar[int]
+    users: _containers.RepeatedCompositeFieldContainer[_users_pb2.User]
+    seq: int
+    state: bytes
+    user_peers: _containers.RepeatedCompositeFieldContainer[_peers_pb2.UserOutPeer]
+    def __init__(self, users: _Optional[_Iterable[_Union[_users_pb2.User, _Mapping]]] = ..., seq: _Optional[int] = ..., state: _Optional[bytes] = ..., user_peers: _Optional[_Iterable[_Union[_peers_pb2.UserOutPeer, _Mapping]]] = ...) -> None: ...

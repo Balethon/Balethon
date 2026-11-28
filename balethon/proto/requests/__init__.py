@@ -3,10 +3,13 @@ from .auth_pb2 import *
 from .configs_pb2 import *
 from .files_pb2 import *
 from .groups_pb2 import *
+from .ketf_pb2 import *
 from .messaging_pb2 import *
 from .poll_pb2 import *
 from .presence_pb2 import *
 from .request_pb2 import *
+from .search_pb2 import *
+from .story_pb2 import *
 from .users_pb2 import *
 
 GetMessageViews.service_name = "bale.abacus.v1.Abacus"
@@ -145,6 +148,10 @@ GetGroupPreview.service_name = "bale.groups.v1.Groups"
 GetGroupPreview.method = "GetGroupPreview"
 GetGroupPreview.http2 = False
 
+SendInlineCallback.service_name = "bale.ketf.v1.Ketf"
+SendInlineCallback.method = "SendInlineCallback"
+SendInlineCallback.http2 = False
+
 SendMessage.service_name = "bale.messaging.v2.Messaging"
 SendMessage.method = "SendMessage"
 SendMessage.http2 = False
@@ -197,6 +204,82 @@ Typing.service_name = "bale.presence.v1.Presence"
 Typing.method = "Typing"
 Typing.http2 = False
 
+SearchPeer.service_name = "bale.search.v1.Search"
+SearchPeer.method = "SearchPeer"
+SearchPeer.http2 = False
+
+GetAllStories.service_name = "bale.story.v1.Story"
+GetAllStories.method = "GetAllStories"
+GetAllStories.http2 = False
+
+GetStoryById.service_name = "bale.story.v1.Story"
+GetStoryById.method = "GetStoryById"
+GetStoryById.http2 = False
+
+GetStoriesByList.service_name = "bale.story.v1.Story"
+GetStoriesByList.method = "GetStoriesByList"
+GetStoriesByList.http2 = False
+
+GetStories.service_name = "bale.story.v1.Story"
+GetStories.method = "GetStories"
+GetStories.http2 = False
+
+GetChannelStories.service_name = "bale.story.v1.Story"
+GetChannelStories.method = "GetChannelStories"
+GetChannelStories.http2 = False
+
+GetStoryReactionEmojis.service_name = "bale.story.v1.Story"
+GetStoryReactionEmojis.method = "GetStoryReactionEmojis"
+GetStoryReactionEmojis.http2 = False
+
+GetDefaultStoryBackgrounds.service_name = "bale.story.v1.Story"
+GetDefaultStoryBackgrounds.method = "GetDefaultStoryBackgrounds"
+GetDefaultStoryBackgrounds.http2 = False
+
+GetStoryTags.service_name = "bale.story.v1.Story"
+GetStoryTags.method = "GetStoryTags"
+GetStoryTags.http2 = False
+
+GetMostPopularStories.service_name = "bale.story.v1.Story"
+GetMostPopularStories.method = "GetMostPopularStories"
+GetMostPopularStories.http2 = False
+
+GetViewers.service_name = "bale.story.v1.Story"
+GetViewers.method = "GetViewers"
+GetViewers.http2 = False
+
+GetViewersCount.service_name = "bale.story.v1.Story"
+GetViewersCount.method = "GetViewersCount"
+GetViewersCount.http2 = False
+
+GetStoryWidgets.service_name = "bale.story.v1.Story"
+GetStoryWidgets.method = "GetStoryWidgets"
+GetStoryWidgets.http2 = False
+
+AddStory.service_name = "bale.story.v1.Story"
+AddStory.method = "AddStory"
+AddStory.http2 = False
+
+AddBotStory.service_name = "bale.story.v1.Story"
+AddBotStory.method = "AddBotStory"
+AddBotStory.http2 = False
+
+AddChannelStory.service_name = "bale.story.v1.Story"
+AddChannelStory.method = "AddChannelStory"
+AddChannelStory.http2 = False
+
+ReactToStory.service_name = "bale.story.v1.Story"
+ReactToStory.method = "ReactToStory"
+ReactToStory.http2 = False
+
+CheckLinkValidity.service_name = "bale.story.v1.Story"
+CheckLinkValidity.method = "CheckLinkValidity"
+CheckLinkValidity.http2 = False
+
+RemoveStory.service_name = "bale.story.v1.Story"
+RemoveStory.method = "RemoveStory"
+RemoveStory.http2 = False
+
 EditName.service_name = "bale.users.v1.Users"
 EditName.method = "EditName"
 EditName.http2 = False
@@ -228,3 +311,7 @@ LoadFullUsers.http2 = False
 SearchContacts.service_name = "bale.users.v1.Users"
 SearchContacts.method = "SearchContacts"
 SearchContacts.http2 = False
+
+ImportContacts.service_name = "bale.users.v1.Users"
+ImportContacts.method = "ImportContacts"
+ImportContacts.http2 = False

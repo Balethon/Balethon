@@ -1,6 +1,8 @@
 from ..structs import peers_pb2 as _peers_pb2
 from ..structs import collections_pb2 as _collections_pb2
 from ..structs import files_pb2 as _files_pb2
+from ..structs import users_pb2 as _users_pb2
+from .. import enums_pb2 as _enums_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -58,3 +60,11 @@ class SearchContacts(_message.Message):
     request: str
     optimizations: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, request: _Optional[str] = ..., optimizations: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class ImportContacts(_message.Message):
+    __slots__ = ("phones", "optimizations")
+    PHONES_FIELD_NUMBER: _ClassVar[int]
+    OPTIMIZATIONS_FIELD_NUMBER: _ClassVar[int]
+    phones: _containers.RepeatedCompositeFieldContainer[_users_pb2.PhoneToImport]
+    optimizations: _containers.RepeatedScalarFieldContainer[_enums_pb2.UpdateOptimization]
+    def __init__(self, phones: _Optional[_Iterable[_Union[_users_pb2.PhoneToImport, _Mapping]]] = ..., optimizations: _Optional[_Iterable[_Union[_enums_pb2.UpdateOptimization, str]]] = ...) -> None: ...
