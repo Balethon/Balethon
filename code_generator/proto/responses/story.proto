@@ -3,7 +3,6 @@ syntax = "proto3";
 package responses;
 import "structs/story.proto";
 
-
 message GetAllStories {
   repeated structs.Story user_stories = 1;
   repeated structs.ChannelStory channel_stories = 2;
@@ -75,14 +74,6 @@ message GetStoryWidgets {
 message AddStory {
   string story_id = 1;
 }
-//
-//message AddBotStory {
-//  string story_id = 1;
-//}
-//
-//message AddChannelStory {
-//  string story_id = 1;
-//}
 
 message CanAddBotStory {
   bool can_add_bot_story = 1;

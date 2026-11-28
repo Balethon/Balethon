@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package responses;
+import "structs/users.proto";
+import "structs/peers.proto";
+import "structs/groups.proto";
+import "structs/search.proto";
+
+message ResponseSearchPeer {
+  repeated structs.PeerSearchResult search_results = 1;
+  repeated structs.User users = 2;
+  repeated structs.Group groups = 3;
+  repeated structs.UserOutPeer user_peers = 4;
+  repeated structs.GroupOutPeer group_peers = 5;
+}

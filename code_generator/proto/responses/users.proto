@@ -21,3 +21,10 @@ message SearchContacts {
   repeated structs.Group groups = 4;
   repeated structs.GroupOutPeer group_peers = 5;
 }
+
+message ImportContacts {
+  repeated structs.User users = 1;
+  int32 seq = 2;
+  bytes state = 3;
+  repeated structs.UserOutPeer user_peers = 4;
+}

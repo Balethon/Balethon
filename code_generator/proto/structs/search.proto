@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package structs;
+import "structs/peers.proto";
+import "enums.proto";
+import "structs/collections.proto";
+
+
+message SearchAndCondition {
+  repeated SearchCondition and_query = 1;
+}
+
+message SearchOrCondition {
+  repeated SearchCondition or_query = 2;
+}
+
+message SearchPeerCondition {
+  structs.OutPeer peer = 1;
+}
+
+message SearchPeerContentType {
+  enums.SearchContentType content_type = 1;
+}
+
+message SearchPeerTypeCondition {
+  enums.SearchPeerType peer_type = 1;
+}
+
+message SearchPieceText {
+  string query = 1;
+}
+
+message SearchDateCondition {
+  int64 date = 1;
+}
+
+message SearchSenderCondition {
+  int32 user_id = 1;
+}
+
+message SearchHasLinkCondition {
+  bool has_link = 1;
+}
+
+message SearchDocumentName {
+  string document_name = 1;
+}
+
+message SearchScopeCondition {
+  enums.SearchMessageScope scope = 1;
+}
+
+message SearchCategoryCondition {
+  bytes category_search_params = 1;
+}
+
+message SearchCondition {
+    SearchAndCondition search_and_condition = 1;
+    SearchOrCondition search_or_condition = 2;
+    SearchPeerCondition search_peer_condition = 3;
+    SearchPeerContentType search_peer_content_type = 4;
+    SearchPeerTypeCondition search_peer_type_condition = 5;
+    SearchPieceText search_piece_text = 6;
+    SearchDateCondition search_date = 7;
+    SearchSenderCondition search_sender = 8;
+    SearchHasLinkCondition search_has_link = 9;
+    SearchDocumentName search_document_name = 10;
+    SearchScopeCondition search_scope_condition = 11;
+    SearchCategoryCondition search_category_condition = 12;
+}
+
+message PeerSearchResult {
+  Peer peer = 1;
+  string title = 2;
+  structs.StringValue description = 3;
+  structs.Int32Value members_count = 4;
+  structs.Int64Value date_created = 5;
+  structs.Int32Value creator = 6;
+  structs.BoolValue is_public = 7;
+  structs.BoolValue is_joined = 8;
+}

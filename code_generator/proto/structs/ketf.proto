@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package structs;
+import "enums.proto";
+
+
+message InlineCallbackAnswer {
+  string text = 1;
+  enums.InlineCallbackAnswerType type = 2;
+}

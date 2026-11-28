@@ -47,7 +47,6 @@ message Widget {
   string id = 1;
   enums.WidgetType type = 2;
   Position position = 3;
-
   LinkWidget link_widget = 20;
   PollWidget poll_widget = 21;
   PostWidget post_widget = 22;

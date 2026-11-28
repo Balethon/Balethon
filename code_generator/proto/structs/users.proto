@@ -72,3 +72,8 @@ message User {
   ExInfo ex_info = 20;
   BotExInfo bot_ex_info = 21;
 }
+
+message PhoneToImport {
+  int64 phone_number = 1;
+  structs.StringValue name = 2;
+}
