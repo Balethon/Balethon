@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package requests;
+import "enums.proto";
+import "structs/peers.proto";
+import "structs/story.proto";
+import "structs/collections.proto";
+
+// Service name: bale.story.v1.Story
+
+message GetAllStories {
+  enums.StoryOptimization optimization = 1;
+}
+
+message GetStoryById {
+  string story_id = 1;
+}
+
+message GetStoriesByList {
+  repeated structs.ExPeer ex_peers = 1;
+}
+
+message GetStories {
+  structs.BoolValue get_unmutual = 1;
+}
+
+message GetChannelStories {}
+
+message GetStoryReactionEmojis {}
+
+message GetDefaultStoryBackgrounds {}
+
+message GetStoryTags {}
+
+message GetMostPopularStories {
+  structs.BoolValue get_special_stories = 1;
+  enums.StoryOptimization optimization = 2;
+}
+
+message GetViewers {
+  string story_id = 1;
+  structs.ViewersPagination pagination = 2;
+}
+
+message GetViewersCount {
+  string story_id = 1;
+}
+
+message GetStoryWidgets {
+  string story_id = 1;
+}
+
+message AddStory {
+  structs.MediaStory media_story = 1;
+  structs.TextStory text_story = 2;
+  repeated int32 tag_ids = 10;
+  enums.StoryExpirationType expiration_type = 11;
+  //structs.ExceptionType exception_type = 12;
+}
+
+message AddBotStory {
+  structs.ExPeer ex_peer = 1;
+  structs.MediaStory media_story = 2;
+  structs.TextStory text_story = 3;
+  repeated int32 tag_ids = 4;
+  enums.StoryExpirationType expiration_type = 5;
+}
+
+message AddChannelStory {
+  structs.ExPeer ex_peer = 1;
+  bool has_reply = 3;
+  repeated int32 tag_ids = 4;
+  enums.StoryExpirationType expiration_type = 5;
+  structs.MediaStory media_story = 2;
+  structs.TextStory text_story = 6;
+}
+
+message ReactToStory {
+  string story_id = 1;
+  string reaction = 2;
+  enums.StoryType type = 3;
+  enums.StoryReactionType reaction_type = 4;
+  structs.StringValue reaction_text = 5;
+}
+
+message CheckLinkValidity {
+  structs.ExPeer ex_peer = 1;
+  string link = 2;
+}
+
+message RemoveStory {
+  string story_id = 1;
+}

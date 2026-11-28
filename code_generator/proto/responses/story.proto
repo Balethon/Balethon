@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package responses;
+import "structs/story.proto";
+
+
+message GetAllStories {
+  repeated structs.Story user_stories = 1;
+  repeated structs.ChannelStory channel_stories = 2;
+  repeated structs.BotStory bot_stories = 3;
+  repeated structs.ExPeerPopularity popularity_list = 4;
+  repeated structs.ChannelStory most_popular_stories = 5;
+}
+
+message GetStoryById {
+  structs.Story result = 1;
+  structs.ChannelStory channel_story_result = 2;
+  structs.BotStory bot_story_result = 3;
+}
+
+message GetStoriesByList {
+  repeated structs.Story user_stories = 1;
+  repeated structs.ChannelStory channel_stories = 2;
+  repeated structs.BotStory bot_stories = 3;
+}
+
+message GetStories {
+  repeated structs.Story result = 1;
+  repeated structs.ExPeerPopularity popularity_list = 2;
+}
+
+message GetChannelStories {
+  repeated structs.ChannelStory result = 1;
+  repeated structs.ExPeerPopularity popularity_list = 2;
+}
+
+message GetStoryReactionEmojis {
+  repeated structs.Emoji emojis = 1;
+}
+
+message GetDefaultStoryBackgrounds {
+  repeated structs.MediaStory default_story_backgrounds = 1;
+}
+
+message GetStoryTags {
+  repeated structs.Tag tags = 1;
+}
+
+message GetMostPopularStories {
+  repeated structs.ChannelStory result = 1;
+  repeated structs.ExPeerPopularity popularity_list = 2;
+}
+
+message GetViewers {
+  repeated structs.Viewer viewers = 1;
+  int32 view_count = 2;
+  int32 like_count = 3;
+  int32 link_click_count = 4;
+  int32 emoji_count = 5;
+  int32 restory_count = 6;
+}
+
+message GetViewersCount {
+  int32 view_count = 1;
+  int32 like_count = 2;
+  int32 link_click_count = 3;
+  int32 emoji_count = 4;
+  int32 restory_count = 5;
+}
+
+message GetStoryWidgets {
+  repeated structs.Widget widgets = 1;
+}
+
+message AddStory {
+  string story_id = 1;
+}
+//
+//message AddBotStory {
+//  string story_id = 1;
+//}
+//
+//message AddChannelStory {
+//  string story_id = 1;
+//}
+
+message CanAddBotStory {
+  bool can_add_bot_story = 1;
+}

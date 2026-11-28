@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package structs;
+
+import "structs/collections.proto";
+import "structs/files.proto";
+import "structs/peers.proto";
+import "enums.proto";
+
+
+message Coordinate {
+  float x = 1;
+  float y = 2;
+}
+
+message LinkWidget {
+  string link = 1;
+  string title = 2;
+}
+
+message PostWidget {
+  string link = 1;
+}
+
+message ReStoryWidget {
+  string story_id = 1;
+  structs.ExPeer ex_peer = 2;
+}
+
+message PollWidget {
+  string question = 1;
+}
+
+message Position {
+  repeated Coordinate coordinates = 1;
+}
+
+message VideoStory {
+  structs.FileLocation file_location = 1;
+  structs.FastThumb fast_thumb = 2;
+  int64 file_size = 3;
+  float duration = 4;
+  string format = 5;
+}
+
+message Widget {
+  string id = 1;
+  enums.WidgetType type = 2;
+  Position position = 3;
+
+  LinkWidget link_widget = 20;
+  PollWidget poll_widget = 21;
+  PostWidget post_widget = 22;
+  ReStoryWidget restory_widget = 23;
+}
+
+message StoryReaction {
+  enums.StoryReactionType reaction_type = 1;
+  structs.StringValue reaction_text = 2;
+}
+
+message TextConfig {
+  string text_font = 1;
+  string background_color = 2;
+  string text_color = 3;
+}
+
+message MediaStory {
+  structs.FileLocation file_location = 1;
+  structs.FastThumb fast_thumb = 2;
+  int64 file_size = 3;
+  VideoStory video = 4;
+  repeated Widget widget = 5;
+}
+
+message TextStory {
+  string text = 1;
+  TextConfig config = 2;
+}
+
+message Tag {
+  int32 id = 1;
+  string title = 2;
+  string color = 3;
+}
+
+message StoryContent {
+  oneof trait {
+    MediaStory media = 1;
+    TextStory text = 2;
+  }
+}
+
+message ChannelStory {
+  string id = 1;
+  int32 owner_user_id = 2;
+  structs.StringValue reaction = 3;
+  int64 created_at = 4;
+  MediaStory story_content = 5;
+  bool has_reply = 6;
+  structs.ExPeer ex_peer = 7;
+  bool has_widget = 8;
+  repeated int32 tag_ids = 9;
+  enums.StoryContentType story_content_type = 10;
+  repeated StoryReaction reactions = 11;
+  bool is_hidden = 12;
+  Tag story_tags = 13;
+}
+
+message Story {
+  string id = 1;
+  int32 owner_user_id = 2;
+  structs.StringValue reaction = 3;
+  int64 created_at = 4;
+  StoryContent story_content = 5;
+  bool has_widget = 6;
+  bool has_reply = 7;
+  bool is_hidden = 8;
+  bool is_mutual = 9;
+  repeated int32 tag_ids = 10;
+  enums.StoryContentType story_content_type = 11;
+  repeated StoryReaction reactions = 12;
+  enums.ExceptionType exception_type = 13;
+  Tag story_tags = 14;
+}
+
+message BotStory {
+  string id = 1;
+  int32 owner_user_id = 2;
+  structs.StringValue reaction = 3;
+  int64 created_at = 4;
+  MediaStory story_content = 5;
+  bool has_reply = 6;
+  structs.ExPeer ex_peer = 7;
+  bool has_widget = 8;
+  repeated int32 tag_ids = 9;
+  enums.StoryContentType story_content_type = 10;
+  repeated StoryReaction reactions = 11;
+  bool is_hidden = 12;
+  Tag story_tags = 13;
+}
+
+message ExPeerPopularity {
+  structs.ExPeer ex_peer = 1;
+  float popularity = 2;
+}
+
+message ViewersPagination {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message Emoji {
+  string emoji = 1;
+}
+
+message Viewer {
+  string reaction = 1;
+  int32 user_id = 2;
+  int64 reacted_at = 3;
+  repeated StoryReaction reaction_data = 4;
+}
