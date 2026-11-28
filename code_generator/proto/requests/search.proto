@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package requests;
+import "structs/search.proto";
+import "enums.proto";
+
+// Service name: bale.search.v1.Search
+
+message SearchPeer {
+  repeated structs.SearchCondition query = 1;
+  repeated enums.UpdateOptimization optimizations = 2;
+}

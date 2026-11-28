@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package requests;
+import "structs/peers.proto";
+import "structs/messaging.proto";
+import "structs/collections.proto";
+
+// Service name: bale.ketf.v1.Ketf
+
+message SendInlineCallback {
+  structs.ExPeer peer = 1;
+  structs.MessageId message_id = 2;
+  structs.StringValue data = 3;
+}
